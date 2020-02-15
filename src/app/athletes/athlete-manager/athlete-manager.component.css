@@ -1,0 +1,46 @@
+table {
+  background: #345763;
+  width: 100%;
+}
+
+th,
+td {
+  color: rgba(255, 255, 255, 0.67);
+  font-family: 'Lato'
+}
+
+.table-icon-active {
+  color: rgba(255, 255, 255, 0.87);
+  cursor: default;
+}
+
+.table-icon-active-status {
+  color: #88C540;
+  cursor: default;
+}
+
+.table-icon-inactive {
+  color: rgba(255, 255, 255, 0.27);
+  cursor: default;
+}
+
+.padding {
+  display: grid;
+  grid-template-columns: 10px 1fr 10px;
+  margin-bottom: 24px;
+  margin-top: 16px;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.tp {
+    padding-left: 36px;
+}

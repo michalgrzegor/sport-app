@@ -1,0 +1,11 @@
+<div class="flexbox-pie-chart">
+    <div class="margin-flex"></div>
+    <div class="pie" [ngClass]="{'pie-web': isWeb, 'pie-tablet': isTablet, 'pie-handset': isHandset, 'border_day_web': !isHandset && isToday, 'border_day_handset': isHandset && isToday}">
+        <div *ngFor="let slice of pieSlices; let i = index">
+            <div class="pie__segment" [ngStyle]="{'transform': 'translate(0, -50%) rotate(90deg) rotate(' + slice.offset + 'deg)'}">
+                    <div class="pie__segment__before" [ngStyle]="{'transform': 'translate(0, 100%) rotate(' + slice.value + 'deg)', 'background': slice.bg}"></div>
+            </div>
+        </div>
+    </div>
+    <div class="margin-flex"></div>
+</div>

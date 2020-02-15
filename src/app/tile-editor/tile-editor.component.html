@@ -1,0 +1,558 @@
+<form [formGroup]="tile_editor_form" (ngSubmit)="onSubmit()" id="tile-editor-form">
+    <h4 *ngIf="!isTutorial" >CHOOSE TYPE</h4>
+    <mat-chip-list *ngIf="!isTutorial" >
+        <mat-chip 
+            class="chips-type" 
+            *ngFor="let type of trainingTypes, let i = index"
+            (click)="onSelectType(i)"  
+            [ngStyle]="{'background': type.selected ? 'rgba(96, 132, 144, 1)' : 'rgba(96, 132, 144, 0.2)'}"
+            >
+            <mat-icon *ngIf="!type.type">add_circle_outline</mat-icon>
+            <div 
+                class="training-type-icon"
+                *ngIf="type.type" 
+                [ngStyle]="{'background': !type.selected ? 'none' : type.color,
+                            'border-style': !type.selected ? 'solid' : 'none',
+                            'border-width': !type.selected ? '3px' : 'none',
+                            'border-color': !type.selected ? type.color : 'none'
+                        }"
+            ></div>
+        {{type.name | uppercase}}</mat-chip>
+    </mat-chip-list>
+
+
+    <div [ngClass]="{
+        'training': actualTrainingPlan === 'training',
+        'diet': actualTrainingPlan === 'diet',
+        'motivation': actualTrainingPlan === 'motivation',
+        'question': actualTrainingPlan === 'question'
+    }" >
+        <div *ngIf="actualTrainingPlan" >
+            <div  *ngIf="!isTutorial" class="divider-line"></div>
+            <h4>TILE NAME</h4>
+            <mat-form-field appearance="fill">
+                <mat-label>name</mat-label>
+                <input 
+                    matInput 
+                    formControlName="tile_title">
+            </mat-form-field>
+            <h6 *ngIf="tile_editor_form.get('tile_title').hasError('required') && isSubmitted" >{{errorReq}}</h6>
+        
+        <!-- Tile activity,  training -->
+
+        <h4  *ngIf="actualTrainingPlan === 'training'">BUILD A SET</h4>
+        
+            <div *ngIf="actualTrainingPlan === 'training'" >
+                <div formArrayName="tile_activities" *ngFor="let activityCtrl of tile_editor_form.get('tile_activities')['controls']; let i = index;" class="activity-container">
+                        <div [formGroupName]="i">
+                            <!-- <div class="divider-line"></div> -->
+                            <mat-form-field style="display: none" appearance="fill">
+                                <input 
+                                    matInput 
+                                    formControlName="id">
+                            </mat-form-field>
+                            <div class="header-delete">
+                                <h4 matTooltip="" matTooltipClass="comment-tooltip" *ngIf="tile_editor_form.get('tile_activities')['controls'][i].get('tile_activity_name').value.length === 0" >ACTIVITY {{i+1}}</h4>
+                                <h4 matTooltip="" matTooltipClass="comment-tooltip" *ngIf="tile_editor_form.get('tile_activities')['controls'][i].get('tile_activity_name').value.length > 0" >{{tile_editor_form.get('tile_activities')['controls'][i].get('tile_activity_name').value}}</h4>
+                                <button mat-button color="primary" (click)="openActivityCard(i)" matTooltip="open options" matTooltipClass="comment-tooltip" type="button" class="delete-button" [ngClass]="{'rotate':activityArray[i].animate === 'averse', 'rotateReverse':activityArray[i].animate === 'reverse'}"><mat-icon>keyboard_arrow_down</mat-icon></button>
+                                <button mat-button color="primary" (click)="deleteActivity(i)" matTooltip="delete activity number {{i+1}}" matTooltipClass="comment-tooltip" type="button" class="delete-button"><mat-icon>delete</mat-icon></button>
+                            </div>
+                            <mat-form-field appearance="fill">
+                                <mat-label>push-ups, interval run...</mat-label>
+                                <input 
+                                    matInput 
+                                    formControlName="tile_activity_name">
+                            </mat-form-field>
+                            <h6 *ngIf="tile_editor_form.get('tile_activities')['controls'][i].get('tile_activity_name').hasError('maxlength')" >{{errorMaxLengthShort}}</h6>
+                    
+                            <div class="activity-open-container" [ngClass]="{'open':activityArray[i].open, 'close':!activityArray[i].open}">
+                                <h5>how many reps?</h5>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>amount</mat-label>
+                                    <input 
+                                        matInput 
+                                        formControlName="tile_activity_reps">
+                                </mat-form-field>
+                                <h6 *ngIf="tile_editor_form.get('tile_activities')['controls'][i].get('tile_activity_reps').hasError('maxlength')" >{{errorMaxLengthShort}}</h6>
+    
+                                <div class="data-container">
+                            
+                                    <h5>choose activity unit</h5>
+                                    <div class="short-inputs">
+                                        <mat-form-field class="short-input-left formFieldWidth100" appearance="fill">
+                                            <mat-label>unit</mat-label>
+                                            <mat-select 
+                                                formControlName="tile_activity_unit">
+                                                <mat-option *ngFor="let unit of unitsArray"  [value]="unit">{{unit}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        <mat-form-field class="short-input-right formFieldWidth100" appearance="fill">
+                                            <mat-label>amount</mat-label>
+                                            <input 
+                                                matInput 
+                                                formControlName="tile_activity_amount">
+                                        </mat-form-field>
+                                        
+                                    </div>
+                                    <h6 *ngIf="tile_editor_form.get('tile_activities')['controls'][i].get('tile_activity_amount').hasError('maxlength')" >{{errorMaxLengthShort}}</h6>
+                            
+                                    <h5>choose intensity</h5>
+                                    <div class="short-inputs">
+                                        <mat-form-field class="short-input-left formFieldWidth100" appearance="fill">
+                                            <mat-label>intensity</mat-label>
+                                            <mat-select
+                                                formControlName="tile_activity_intensity">
+                                                <mat-option *ngFor="let intensity of intensityArray"  [value]="intensity" >{{intensity}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        <mat-form-field class="short-input-right formFieldWidth100" appearance="fill">
+                                            <mat-label>amount</mat-label>
+                                            <input 
+                                                matInput 
+                                                formControlName="tile_activity_intensity_amount">
+                                        </mat-form-field>
+                                    </div>
+                                    <h6 *ngIf="tile_editor_form.get('tile_activities')['controls'][i].get('tile_activity_intensity_amount').hasError('maxlength')" >{{errorMaxLengthShort}}</h6>
+                            
+                                    <h5>add rest</h5>
+                                    <div class="short-inputs">
+                                        <mat-form-field class="short-input-left formFieldWidth100" appearance="fill">
+                                            <mat-label>unit</mat-label>
+                                            <mat-select 
+                                                formControlName="tile_activity_rest_unit">
+                                                <mat-option *ngFor="let unit of unitsArray"  [value]="unit">{{unit}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        <mat-form-field class="short-input-right formFieldWidth100" appearance="fill">
+                                            <mat-label>amount</mat-label>
+                                            <input 
+                                                matInput 
+                                                formControlName="tile_activity_rest_amount">
+                                        </mat-form-field>
+                                    </div>
+                                    <h6 *ngIf="tile_editor_form.get('tile_activities')['controls'][i].get('tile_activity_rest_amount').hasError('maxlength')" >{{errorMaxLengthShort}}</h6>
+            
+                                    <h5>add rest intensity</h5>
+                                    <div class="short-inputs">
+                                        <mat-form-field class="short-input-left formFieldWidth100" appearance="fill">
+                                            <mat-label>unit</mat-label>
+                                            <mat-select 
+                                                formControlName="tile_activity_rest_intensity">
+                                                <mat-option *ngFor="let unit of intensityArray"  [value]="unit">{{unit}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        <mat-form-field class="short-input-right formFieldWidth100" appearance="fill">
+                                            <mat-label>amount</mat-label>
+                                            <input 
+                                                matInput 
+                                                formControlName="tile_activity_rest_intensity_amount">
+                                        </mat-form-field>
+                                    </div>
+                                    <h6 *ngIf="tile_editor_form.get('tile_activities')['controls'][i].get('tile_activity_rest_intensity_amount').hasError('maxlength')" >{{errorMaxLengthShort}}</h6>
+                                </div>
+                        
+                                <h5>notes</h5>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>notes</mat-label>
+                                    <textarea 
+                                        matInput 
+                                        formControlName="tile_activity_note"></textarea>
+                                </mat-form-field>
+                                <h6 *ngIf="tile_editor_form.get('tile_activities')['controls'][i].get('tile_activity_note').hasError('maxlength')" >{{errorMaxLengthLong}}</h6>
+
+                                <div class="data-container">
+                                                        
+                                    <h5>add rest after activity</h5>
+                                    <div class="short-inputs">
+                                        <mat-form-field class="short-input-left formFieldWidth100" appearance="fill">
+                                            <mat-label>unit</mat-label>
+                                            <mat-select 
+                                                formControlName="tile_activity_rest_after_activity_unit">
+                                                <mat-option *ngFor="let unit of unitsArray"  [value]="unit">{{unit}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        <mat-form-field class="short-input-right formFieldWidth100" appearance="fill">
+                                            <mat-label>amount</mat-label>
+                                            <input 
+                                                matInput 
+                                                formControlName="tile_activity_rest_after_activity_amount">
+                                        </mat-form-field>
+                                    </div>
+                                    <h6 *ngIf="tile_editor_form.get('tile_activities')['controls'][i].get('tile_activity_rest_after_activity_amount').hasError('maxlength')" >{{errorMaxLengthShort}}</h6>
+            
+                                    <h5>add rest intensity</h5>
+                                    <div class="short-inputs">
+                                        <mat-form-field class="short-input-left formFieldWidth100" appearance="fill">
+                                            <mat-label>unit</mat-label>
+                                            <mat-select 
+                                                formControlName="tile_activity_rest_after_activity_intensity">
+                                                <mat-option *ngFor="let unit of intensityArray"  [value]="unit">{{unit}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        <mat-form-field class="short-input-right formFieldWidth100" appearance="fill">
+                                            <mat-label>amount</mat-label>
+                                            <input 
+                                                matInput 
+                                                formControlName="tile_activity_rest_after_activity_intensity_amount">
+                                        </mat-form-field>
+                                    </div>
+                                    <h6 *ngIf="tile_editor_form.get('tile_activities')['controls'][i].get('tile_activity_rest_after_activity_intensity_amount').hasError('maxlength')" >{{errorMaxLengthShort}}</h6>
+                                </div>
+                                <!-- <button mat-button color="primary" (click)="deleteActivity(i)" type="button" class="medium-button">DELETE {{i+1}} ACTIVITY</button> -->
+                            </div>
+                        </div>
+                </div>
+            
+            
+                <!-- <div class="divider-line after-delete-activity"></div> -->
+                <div class="add-btn-container">
+                    <button mat-button color="primary" (click)="addNewActivity()" type="button" class="add-button"><mat-icon>add_circle_outline</mat-icon>ADD ACTIVITY</button>
+                </div>
+            
+                <h5>how many sets?</h5>
+                <mat-form-field appearance="fill">
+                    <mat-label>amount</mat-label>
+                    <input 
+                        matInput 
+                        formControlName="tile_activities_sets">
+                </mat-form-field>
+                <h6 *ngIf="tile_editor_form.get('tile_activities_sets').hasError('maxlength')" >{{errorMaxLengthShort}}</h6>
+
+                <h5>add rest between sets</h5>
+                <div class="short-inputs">
+                    <mat-form-field class="short-input-left formFieldWidth100" appearance="fill">
+                        <mat-label>unit</mat-label>
+                        <mat-select 
+                            formControlName="tile_activities_sets_rest_unit">
+                            <mat-option *ngFor="let unit of unitsArray"  [value]="unit">{{unit}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="short-input-right formFieldWidth100" appearance="fill">
+                        <mat-label>amount</mat-label>
+                        <input 
+                            matInput 
+                            formControlName="tile_activities_sets_rest_ammount">
+                    </mat-form-field>
+                </div>
+                <h6 *ngIf="tile_editor_form.get('tile_activities_sets_rest_ammount').hasError('maxlength')" >{{errorMaxLengthShort}}</h6>
+
+                <h5>set rest intensity</h5>
+                <div class="short-inputs">
+                    <mat-form-field class="short-input-left formFieldWidth100" appearance="fill">
+                        <mat-label>unit</mat-label>
+                        <mat-select 
+                            formControlName="tile_activities_sets_rest_intensity_unit">
+                            <mat-option *ngFor="let unit of intensityArray"  [value]="unit">{{unit}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="short-input-right formFieldWidth100" appearance="fill">
+                        <mat-label>amount</mat-label>
+                        <input 
+                            matInput 
+                            formControlName="tile_activities_sets_rest_intensity_ammount">
+                    </mat-form-field>
+                </div>
+                <h6 *ngIf="tile_editor_form.get('tile_activities_sets_rest_intensity_ammount').hasError('maxlength')" >{{errorMaxLengthShort}}</h6>
+
+            </div>
+        
+        <!-- tile diet -->
+            
+            <div *ngIf="actualTrainingPlan === 'diet'" >
+                <div formArrayName="tile_diets" *ngFor="let dietCtrl of tile_editor_form.get('tile_diets')['controls']; let i = index;">
+                    <div [formGroupName]="i">
+                        <!-- <div class="divider-line"></div> -->
+                        <div class="activity-container">
+                            <mat-form-field style="display: none" appearance="fill">
+                                <input 
+                                    matInput 
+                                    formControlName="id">
+                            </mat-form-field>
+                            <div class="header-delete">
+                                <h4 *ngIf="tile_editor_form.get('tile_diets')['controls'][i].get('tile_diet_meal').value.length === 0" >MEAL {{i+1}}</h4>
+                                <h4 *ngIf="tile_editor_form.get('tile_diets')['controls'][i].get('tile_diet_meal').value.length > 0" >{{tile_editor_form.get('tile_diets')['controls'][i].get('tile_diet_meal').value}}</h4>
+                                <button mat-button color="primary" (click)="openDietCard(i)" matTooltip="open options" matTooltipClass="comment-tooltip" type="button" class="delete-button" [ngClass]="{'rotate':dietArray[i].animate === 'averse', 'rotateReverse':dietArray[i].animate === 'reverse'}"><mat-icon>keyboard_arrow_down</mat-icon></button>
+                                <button mat-button color="primary" (click)="deleteDiet(i)" matTooltip="delete meal number {{i+1}}" matTooltipClass="comment-tooltip" type="button" class="delete-button"><mat-icon>delete</mat-icon></button>
+                            </div>
+                            <mat-form-field appearance="fill">
+                                <mat-label>breakfast, porridge...</mat-label>
+                                <input 
+                                    matInput 
+                                    formControlName="tile_diet_meal">
+                            </mat-form-field>
+                            <h6 *ngIf="tile_editor_form.get('tile_diets')['controls'][i].get('tile_diet_meal').hasError('maxlength')" >{{errorMaxLengthShort}}</h6>
+            
+
+                            <div class="diet-open-container"  [ngClass]="{'open':dietArray[i].open, 'close':!dietArray[i].open}">
+
+                                <h5>energy value</h5>
+                                <div class="short-inputs">
+                                    <mat-form-field class="short-input-left formFieldWidth100" appearance="fill">
+                                        <mat-label>unit</mat-label>
+                                        <mat-select 
+                                            formControlName="tile_diet_energy_unit">
+                                            <mat-option *ngFor="let unit of energyUnitsArray"  [value]="unit">{{unit}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <mat-form-field class="short-input-right formFieldWidth100" appearance="fill">
+                                        <mat-label>amount</mat-label>
+                                        <input 
+                                            matInput 
+                                            formControlName="tile_diet_energy_amount">
+                                    </mat-form-field>
+                                </div>
+                                <h6 *ngIf="tile_editor_form.get('tile_diets')['controls'][i].get('tile_diet_energy_amount').hasError('maxlength')" >{{errorMaxLengthShort}}</h6>
+                
+                                <h5>carbohydrates</h5>
+                                <div class="short-inputs">
+                                    <mat-form-field class="short-input-left formFieldWidth100" appearance="fill">
+                                        <mat-label>unit</mat-label>
+                                        <mat-select 
+                                            formControlName="tile_diet_carbohydrates_unit">
+                                            <mat-option *ngFor="let unit of energyUnitsArray"  [value]="unit">{{unit}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <mat-form-field class="short-input-right formFieldWidth100" appearance="fill">
+                                        <mat-label>amount</mat-label>
+                                        <input 
+                                            matInput 
+                                            formControlName="tile_diet_carbohydrates_amount">
+                                    </mat-form-field>
+                                </div>
+                                <h6 *ngIf="tile_editor_form.get('tile_diets')['controls'][i].get('tile_diet_carbohydrates_amount').hasError('maxlength')" >{{errorMaxLengthShort}}</h6>
+                
+                                <h5>protein</h5>
+                                <div class="short-inputs">
+                                    <mat-form-field class="short-input-left formFieldWidth100" appearance="fill">
+                                        <mat-label>unit</mat-label>
+                                        <mat-select 
+                                            formControlName="tile_diet_protein_unit">
+                                            <mat-option *ngFor="let unit of energyUnitsArray"  [value]="unit">{{unit}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <mat-form-field class="short-input-right formFieldWidth100" appearance="fill">
+                                        <mat-label>amount</mat-label>
+                                        <input 
+                                            matInput 
+                                            formControlName="tile_diet_protein_amount">
+                                    </mat-form-field>
+                                </div>
+                                <h6 *ngIf="tile_editor_form.get('tile_diets')['controls'][i].get('tile_diet_protein_amount').hasError('maxlength')" >{{errorMaxLengthShort}}</h6>
+                
+                                <h5>fat</h5>
+                                <div class="short-inputs">
+                                    <mat-form-field class="short-input-left formFieldWidth100" appearance="fill">
+                                        <mat-label>unit</mat-label>
+                                        <mat-select 
+                                            formControlName="tile_diet_fat_unit">
+                                            <mat-option *ngFor="let unit of energyUnitsArray"  [value]="unit">{{unit}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <mat-form-field class="short-input-right formFieldWidth100" appearance="fill">
+                                        <mat-label>amount</mat-label>
+                                        <input 
+                                            matInput 
+                                            formControlName="tile_diet_fat_amount">
+                                    </mat-form-field>
+                                </div>
+                                <h6 *ngIf="tile_editor_form.get('tile_diets')['controls'][i].get('tile_diet_fat_amount').hasError('maxlength')" >{{errorMaxLengthShort}}</h6>
+                
+                                <div class="nutrient-background-color" formArrayName="tile_diet_nutrients" *ngFor="let nutrientCtrl of tile_editor_form.get['tile_diets'].controls[i].controls['tile_diet_nutrients'].controls; let j = index;" >
+                                    <div [formGroupName]="j">
+                                        <div class="header-delete-nutrient">
+                                            <div></div>
+                                            <h5 *ngIf="!tile_editor_form.get('tile_diets')['controls'][i].get('tile_diet_nutrients')['controls'][j].get('tile_diet_nutrient_name').value" >nutrient name</h5>
+                                            <h5 *ngIf="tile_editor_form.get('tile_diets')['controls'][i].get('tile_diet_nutrients')['controls'][j].get('tile_diet_nutrient_name').value" >{{tile_editor_form.get('tile_diets')['controls'][i].get('tile_diet_nutrients')['controls'][j].get('tile_diet_nutrient_name').value}}</h5>
+                                            <button mat-button color="primary" (click)="deleteNutrient(i,j)" matTooltip="delete {{i+1}} nutrient" matTooltipClass="comment-tooltip" type="button" class="delete-button"><mat-icon>delete</mat-icon></button>
+                                        </div>
+                                        <mat-form-field style="display: none" appearance="fill">
+                                            <input 
+                                                matInput 
+                                                formControlName="id">
+                                        </mat-form-field>
+                                        <mat-form-field appearance="fill">
+        
+                                            <mat-label>vitamine b, magnesium...</mat-label>
+                                            <input 
+                                                matInput 
+                                                formControlName="tile_diet_nutrient_name">
+                                        </mat-form-field>
+                                        <h6 *ngIf="tile_editor_form.get('tile_diets')['controls'][i].get('tile_diet_nutrients')['controls'][j].get('tile_diet_nutrient_name').hasError('maxlength')" >{{errorMaxLengthShort}}</h6>
+                                        <div class="short-inputs">
+                                            <mat-form-field class="short-input-left formFieldWidth100" appearance="fill">
+                                                <mat-label>unit</mat-label>
+                                                <mat-select 
+                                                    formControlName="tile_diet_nutrient_unit">
+                                                    <mat-option *ngFor="let unit of energyUnitsArrayNutrient"  [value]="unit">{{unit}}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                            <mat-form-field class="short-input-right formFieldWidth100" appearance="fill">
+                                                <mat-label>amount</mat-label>
+                                                <input 
+                                                    matInput 
+                                                    formControlName="tile_diet_nutrient_amount">
+                                            </mat-form-field>
+                                        </div>
+                                        <h6 *ngIf="tile_editor_form.get('tile_diets')['controls'][i].get('tile_diet_nutrients')['controls'][j].get('tile_diet_nutrient_amount').hasError('maxlength')" >{{errorMaxLengthShort}}</h6>
+                                        <!-- <button mat-button color="primary" (click)="deleteNutrient(i,j)" type="button" class="medium-button">DELETE {{j+1}} NUTRIENT</button> -->
+                                    </div>
+                                </div>
+                                <div class="add-btn-container">
+                                    <button mat-button color="primary" (click)="addNutrient(i)" type="button" class="add-button-nutrient"><mat-icon>add_circle_outline</mat-icon>ADD NUTRIENT</button>
+                                </div>
+                
+                                <h5>notes</h5>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>you can add a recipe here</mat-label>
+                                    <textarea 
+                                        matInput 
+                                        formControlName="tile_diet_note"></textarea>
+                                </mat-form-field>
+                                <h6 *ngIf="tile_editor_form.get('tile_diets')['controls'][i].get('tile_diet_note').hasError('maxlength')" >{{errorMaxLengthLong}}</h6>
+                            </div>
+                        </div>
+                        <!-- <button mat-button color="primary" (click)="deleteDiet(i)" type="button" class="medium-button">DELETE {{i+1}} MEAL/TARGET</button> -->
+        
+                    </div>
+                </div>
+                <!-- <div class="divider-line after-delete-activity"></div> -->
+                <div class="add-btn-container">
+                    <button mat-button color="primary" (click)="addNewDiet()" type="button" class="add-button"><mat-icon>add_circle_outline</mat-icon>ADD MEAL</button>
+                </div>
+        
+            </div>
+        
+        <!-- tile question -->
+            <div *ngIf="actualTrainingPlan === 'question'">
+                <div formGroupName="tile_question">
+                    <!-- <div class="divider-line"></div> -->
+                    <div class="activity-container">
+                        <h4 *ngIf="!tile_editor_form.get('tile_question').get('tile_ask_question').value" >ASK QUESTION</h4>
+                        <h4 *ngIf="tile_editor_form.get('tile_question').get('tile_ask_question').value && tile_editor_form.get('tile_question').get('tile_ask_question').value.length > 0" >{{tile_editor_form.get('tile_question').get('tile_ask_question').value}}</h4>
+                        <h5>...to your client to answer</h5>
+                        <mat-form-field appearance="fill">
+                            <mat-label>how do you feel after training?</mat-label>
+                            <textarea 
+                                matInput 
+                                rows="6"
+                                formControlName="tile_ask_question"></textarea>
+                        </mat-form-field>
+                        <h6 *ngIf="tile_editor_form.get('tile_question').get('tile_ask_question').hasError('maxlength')">{{errorMaxLengthShort}}</h6>
+    
+                        <div class="divider-line"></div>
+                        <h4>ANSWER TYPE</h4>
+                        <mat-radio-group formControlName="tile_answear_numeric">
+                            <mat-radio-button [value]=true type="button">Numeric</mat-radio-button><br>
+                            <mat-radio-button [value]=false type="button">Descriptive</mat-radio-button>
+                        </mat-radio-group>
+                        <div *ngIf="this.tile_editor_form.get('tile_question').get('tile_answear_numeric').value">
+                            <h5 >range</h5>
+                            <div class="short-inputs">
+                                <mat-form-field class="short-input-left formFieldWidth100" appearance="fill">
+                                    <mat-label>from</mat-label>
+                                    <input 
+                                        matInput 
+                                        formControlName="tile_answear_numeric_from">
+                                </mat-form-field>
+                                <mat-form-field class="short-input-right formFieldWidth100" appearance="fill">
+                                    <mat-label>to</mat-label>
+                                    <input 
+                                        matInput 
+                                        formControlName="tile_answear_numeric_to">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div *ngIf="!this.tile_editor_form.get('tile_question').get('tile_answear_numeric').value && this.tile_editor_form.get('tile_question').get('tile_answear_numeric').touched || isDescriptive">
+                            <h5>add answers after commas</h5>
+                            <mat-form-field appearance="fill">
+                                <mat-label>very good, good, so-so...</mat-label>
+                                <textarea 
+                                    matInput 
+                                    *ngIf="!isTutorial"
+                                    formControlName="tile_answears_descriptives"></textarea>
+                                <textarea 
+                                    matInput 
+                                    *ngIf="isTutorial"
+                                    rows="10"
+                                    formControlName="tile_answears_descriptives"></textarea>
+                            </mat-form-field>
+                            <h6 *ngIf="tile_editor_form.get('tile_question').get('tile_answears_descriptives').hasError('maxlength')">{{errorMaxLengthShort}}</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- tile motivation -->
+        
+            <div *ngIf="actualTrainingPlan === 'motivation'" formGroupName="tile_motivation" >
+                <!-- <div class="divider-line"></div> -->
+                <div class="activity-container">
+                    <h4>Note</h4>
+                    <mat-form-field appearance="fill">
+                        <mat-label>note</mat-label>
+                        <textarea 
+                            matInput 
+                            rows="10"
+                            formControlName="tile_motivation_sentence"></textarea>
+                    </mat-form-field>
+                    <h6 *ngIf="tile_editor_form.get('tile_motivation').get('tile_motivation_sentence').hasError('maxlength')">{{errorMaxLengthLong}}</h6>
+    
+                    <div class="divider-line"></div>
+                    <h4>Add video link</h4>
+                    <mat-form-field appearance="fill">
+                            <mat-label>link</mat-label>
+                        <input 
+                            matInput 
+                            formControlName="tile_motivation_link">
+                    </mat-form-field>
+                    <h6 *ngIf="tile_editor_form.get('tile_motivation').get('tile_motivation_link').hasError('maxlength')">{{errorMaxLengthShort}}</h6>
+                </div>
+            </div>
+            
+        <!-- Description - thoughts, comments about training -->
+            
+            <div  *ngIf="!isTutorial" class="divider-line"></div>    
+            <h4  *ngIf="!isTutorial">DESCRIPTION</h4>
+            <mat-form-field  *ngIf="!isTutorial" appearance="fill">
+                    <mat-label>you can add comments about the entire tile</mat-label>
+                <textarea 
+                    matInput 
+                    formControlName="tile_description"></textarea>
+            </mat-form-field>
+            <h6 *ngIf="tile_editor_form.get('tile_description').hasError('maxlength')">{{errorMaxLengthLong}}</h6>
+        
+        <!-- Tags -->
+            <div  *ngIf="!isTutorial" class="divider-line"></div>
+            <h4  *ngIf="!isTutorial">SELECT TAGS</h4>
+            <div  *ngIf="!isTutorial" class="mat-chip-list">
+                <mat-chip-list>
+                    <mat-chip 
+                    *ngFor="let tag of tags; let i = index;" 
+                    (click)="onTagSelect(i)" 
+                    [ngStyle]="{'background': tag.selected ? 'rgba(96, 132, 144, 1)' : 'rgba(96, 132, 144, 0.2)'}"
+                    ><p>#</p>
+                    {{ tag.tag_name | uppercase }}<mat-icon (click)="removeTag(tag)" matChipRemove>cancel</mat-icon></mat-chip>
+                </mat-chip-list>
+            </div>
+            <mat-form-field  *ngIf="!isTutorial" appearance="fill">
+                <mat-label>create new tag</mat-label>
+                <input 
+                    matInput
+                    formControlName="tile_tag">
+                <mat-icon matSuffix style="cursor: pointer" (click)="onAddTag()" >add</mat-icon>
+            </mat-form-field>
+            <h6 *ngIf="tile_editor_form.get('tile_tag').hasError('maxlength')">{{errorMaxLengthShort}}</h6>
+        
+        
+            <h4  *ngIf="!isTutorial">FINISH</h4>
+            <div class="buttons-finish" *ngIf="!isEdited">
+                <button mat-button color="primary" type="submit" class="medium-button add" [disabled]="!tile_editor_form.valid" >ADD TILE</button>
+            </div>
+            <div class="buttons-finish" *ngIf="isEdited">
+                <button mat-button color="primary" type="button" (click)="updateTile()"  class="medium-button add">UPDATE TILE</button>
+                <button mat-button color="primary" type="submit"  class="medium-button new" [disabled]="!tile_editor_form.valid">CREATE NEW TILE</button>
+            </div>
+    
+        </div>
+
+    </div>
+</form>

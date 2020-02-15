@@ -1,0 +1,311 @@
+<div *ngIf="athlete">
+  <form [formGroup]="athleteCard" (ngSubmit)="onSubmit()">
+
+    <div class="athlete-static-data" [ngClass]="{'shadow' : !isHandset}" [ngStyle]="{gridTemplateColumns: isHandset ? '1fr' : 'minmax(595px, 1fr) minmax(124px, 240px)'}">
+
+      
+      <div class="athlete-data"  [ngClass]="{'no-shadow' : !isHandset}">
+        <div class="athlete-data-header" [ngClass]="{'no-border-radius' : !isHandset, 'is-handset-no-edit-mode' : isHandset && !isEditMode, 'is-handset-edit-mode' : isHandset && isEditMode, 'no-handset-edit-mode' : !isHandset && isEditMode, 'no-handset-no-edit-mode' : !isHandset && !isEditMode}">
+          <div>
+            <button mat-button (click)="editMode()" type="button" *ngIf="!isEditMode">
+              <mat-icon class="btn">edit</mat-icon>
+            </button>
+            <button mat-button (click)="closePersonal()" type="button" *ngIf="isEditMode">
+              <mat-icon class="btn">cancel</mat-icon>
+            </button>
+            <button class="btn-to-dis" mat-button *ngIf="isEditMode" type="submit" [disabled]="athleteCard.invalid">
+              <mat-icon class="btn">done</mat-icon>
+            </button>
+          </div>
+          <h5>Personal Data</h5>
+          <div *ngIf="isHandset && !isEditMode"></div>
+          <div *ngIf="!isHandset"></div>
+
+        </div>
+        <div class="athlete-data-card" [ngStyle]="{height: isHandset ? '544px' : '272px'}" [ngClass]="{'no-right' : !isHandset}">
+          <div class="form-container" [ngStyle]="{gridTemplateColumns: isHandset ? '1fr' : '1fr 1fr'}">
+            <div class="left-group">
+              <div class="form-element">
+                <p>Name 
+                  <span class="error-msg" *ngIf="athleteCard.get('athlete_name').hasError('maxlength')">{{errorMaxLengthShort}}</span>
+                  <span class="error-msg" *ngIf="athleteCard.invalid">{{errorReq}}</span>
+                </p>
+                <input type="text" formControlName="athlete_name" *ngIf="isEditMode">
+                <div *ngIf="!isEditMode && athleteCard.get('athlete_name').value.length < 25">{{athleteCard.get('athlete_name').value}}</div>
+                <div 
+                  *ngIf="!isEditMode && athleteCard.get('athlete_name').value.length > 25" 
+                  matTooltip="{{athleteCard.get('athlete_name').value}}" 
+                  matTooltipClass="comment-tooltip">{{athleteCard.get('athlete_name').value  | shorten:25}}</div>
+              </div>
+              <div class="form-element">
+                <p>Phone number <span class="error-msg" *ngIf="athleteCard.get('athlete_phone_number').hasError('maxlength')">{{errorMaxLengthShort}}</span></p>
+                <input type="text" formControlName="athlete_phone_number" *ngIf="isEditMode">
+                <div *ngIf="!isEditMode && athleteCard.get('athlete_phone_number').value.length < 25">{{athleteCard.get('athlete_phone_number').value}}</div>
+                <div 
+                  matTooltip="{{athleteCard.get('athlete_phone_number').value}}"
+                  matTooltipClass="comment-tooltip"
+                  *ngIf="!isEditMode && athleteCard.get('athlete_phone_number').value.length > 25">{{athleteCard.get('athlete_phone_number').value  | shorten:25}}</div>
+              </div>
+              <div class="form-element">
+                <p>Email <span class="error-msg" *ngIf="athleteCard.get('athlete_email').hasError('maxlength')">{{errorMaxLengthShort}}</span></p>
+                <input type="text" formControlName="athlete_email" *ngIf="isEditMode">
+                <div *ngIf="!isEditMode && athleteCard.get('athlete_email').value.length < 25">{{athleteCard.get('athlete_email').value}}</div>
+                <div 
+                  matTooltip="{{athleteCard.get('athlete_email').value}}"
+                  matTooltipClass="comment-tooltip"
+                  *ngIf="!isEditMode && athleteCard.get('athlete_email').value.length > 25">{{athleteCard.get('athlete_email').value  | shorten:25}}</div>
+              </div>
+              <div class="form-element">
+                <p>Sport discipline <span class="error-msg" *ngIf="athleteCard.get('athlete_sport_discipline').hasError('maxlength')">{{errorMaxLengthShort}}</span></p>
+                <input type="text" formControlName="athlete_sport_discipline" *ngIf="isEditMode">
+                <div *ngIf="!isEditMode && athleteCard.get('athlete_sport_discipline').value.length < 25">{{athleteCard.get('athlete_sport_discipline').value}}</div>
+                <div 
+                  matTooltip="{{athleteCard.get('athlete_sport_discipline').value}}"
+                  matTooltipClass="comment-tooltip"
+                  *ngIf="!isEditMode && athleteCard.get('athlete_sport_discipline').value.length > 25">{{athleteCard.get('athlete_sport_discipline').value  | shorten:25}}</div>
+              </div>
+              <div class="form-element">
+                <p>Age <span class="error-msg" *ngIf="athleteCard.get('athlete_age').hasError('maxlength')">{{errorMaxLengthShort}}</span></p>
+                <input type="text" formControlName="athlete_age" *ngIf="isEditMode">
+                <div *ngIf="!isEditMode && athleteCard.get('athlete_age').value.length < 25">{{athleteCard.get('athlete_age').value}}</div>
+                <div 
+                  matTooltip="{{athleteCard.get('athlete_age').value}}"
+                  matTooltipClass="comment-tooltip"
+                  *ngIf="!isEditMode && athleteCard.get('athlete_age').value.length > 25">{{athleteCard.get('athlete_age').value  | shorten:25}}</div>
+              </div>
+              <div class="form-element">
+                <p>Height <span class="error-msg" *ngIf="athleteCard.get('athlete_height').hasError('maxlength')">{{errorMaxLengthShort}}</span></p>
+                <input type="text" formControlName="athlete_height" *ngIf="isEditMode">
+                <div *ngIf="!isEditMode && athleteCard.get('athlete_height').value.length < 25">{{athleteCard.get('athlete_height').value}}</div>
+                <div 
+                  matTooltip="{{athleteCard.get('athlete_height').value}}"
+                  matTooltipClass="comment-tooltip"
+                  *ngIf="!isEditMode && athleteCard.get('athlete_height').value.length > 25">{{athleteCard.get('athlete_height').value  | shorten:25}}</div>
+              </div>
+            </div>
+            <div class="right-group">
+              <div class="form-element">
+                <p>Weight <span class="error-msg" *ngIf="athleteCard.get('athlete_weight').hasError('maxlength')">{{errorMaxLengthShort}}</span></p>
+                <input type="text" formControlName="athlete_weight" *ngIf="isEditMode">
+                <div *ngIf="!isEditMode && athleteCard.get('athlete_weight').value.length < 25">{{athleteCard.get('athlete_weight').value}}</div>
+                <div 
+                  matTooltip="{{athleteCard.get('athlete_weight').value}}"
+                  matTooltipClass="comment-tooltip"
+                  *ngIf="!isEditMode && athleteCard.get('athlete_weight').value.length > 25">{{athleteCard.get('athlete_weight').value  | shorten:25}}</div>
+              </div>
+              <div class="form-element">
+                <p>Arm <span class="error-msg" *ngIf="athleteCard.get('athlete_arm').hasError('maxlength')">{{errorMaxLengthShort}}</span></p>
+                <input type="text" formControlName="athlete_arm" *ngIf="isEditMode">
+                <div *ngIf="!isEditMode && athleteCard.get('athlete_arm').value.length < 25">{{athleteCard.get('athlete_arm').value}}</div>
+                <div 
+                  matTooltip="{{athleteCard.get('athlete_arm').value}}"
+                  matTooltipClass="comment-tooltip"
+                  *ngIf="!isEditMode && athleteCard.get('athlete_arm').value.length > 25">{{athleteCard.get('athlete_arm').value  | shorten:25}}</div>
+              </div>
+              <div class="form-element">
+                <p>Chest <span class="error-msg" *ngIf="athleteCard.get('athlete_chest').hasError('maxlength')">{{errorMaxLengthShort}}</span></p>
+                <input type="text" formControlName="athlete_chest" *ngIf="isEditMode">
+                <div *ngIf="!isEditMode && athleteCard.get('athlete_chest').value.length < 25">{{athleteCard.get('athlete_chest').value}}</div>
+                <div 
+                  matTooltip="{{athleteCard.get('athlete_chest').value}}"
+                  matTooltipClass="comment-tooltip"
+                  *ngIf="!isEditMode && athleteCard.get('athlete_chest').value.length > 25">{{athleteCard.get('athlete_chest').value  | shorten:25}}</div>
+              </div>
+              <div class="form-element">
+                <p>Waist <span class="error-msg" *ngIf="athleteCard.get('athlete_waist').hasError('maxlength')">{{errorMaxLengthShort}}</span></p>
+                <input type="text" formControlName="athlete_waist" *ngIf="isEditMode">
+                <div *ngIf="!isEditMode && athleteCard.get('athlete_waist').value.length < 25">{{athleteCard.get('athlete_waist').value}}</div>
+                <div 
+                  matTooltip="{{athleteCard.get('athlete_waist').value}}"
+                  matTooltipClass="comment-tooltip"
+                  *ngIf="!isEditMode && athleteCard.get('athlete_waist').value.length > 25">{{athleteCard.get('athlete_waist').value  | shorten:25}}</div>
+              </div>
+              <div class="form-element">
+                <p>Hips <span class="error-msg" *ngIf="athleteCard.get('athlete_hips').hasError('maxlength')">{{errorMaxLengthShort}}</span></p>
+                <input type="text" formControlName="athlete_hips" *ngIf="isEditMode">
+                <div *ngIf="!isEditMode && athleteCard.get('athlete_hips').value.length < 25">{{athleteCard.get('athlete_hips').value}}</div>
+                <div 
+                  matTooltip="{{athleteCard.get('athlete_hips').value}}"
+                  matTooltipClass="comment-tooltip"
+                  *ngIf="!isEditMode && athleteCard.get('athlete_hips').value.length > 25">{{athleteCard.get('athlete_hips').value | shorten:25}}</div>
+              </div>
+              <div class="form-element">
+                <p>Tigh <span class="error-msg" *ngIf="athleteCard.get('athlete_tigh').hasError('maxlength')">{{errorMaxLengthShort}}</span></p>
+                <input type="text" formControlName="athlete_tigh" *ngIf="isEditMode">
+                <div *ngIf="!isEditMode && athleteCard.get('athlete_tigh').value.length < 25">{{athleteCard.get('athlete_tigh').value}}</div>
+                <div 
+                  matTooltip="{{athleteCard.get('athlete_tigh').value}}"
+                  matTooltipClass="comment-tooltip"
+                  *ngIf="!isEditMode && athleteCard.get('athlete_tigh').value.length > 25">{{athleteCard.get('athlete_tigh').value  | shorten:25}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="athlete-fitness-level" [ngStyle]="{marginTop: isHandset ? '8px' : '0px'}" [ngClass]="{'no-shadow' : !isHandset}">
+          <div class="header-fitmess-lvl">
+            <h5 *ngIf="!isHandset"  [ngClass]="{'no-left-border-radius' : !isHandset}">Fitness lvl</h5>
+          </div>
+          <div class="athlete-data-header" [ngClass]="{'is-handset-no-edit-mode' : isHandset && !isEditMode, 'is-handset-edit-mode' : isHandset && isEditMode, 'no-handset-edit-mode' : !isHandset && isEditMode, 'no-handset-no-edit-mode' : !isHandset && !isEditMode}" *ngIf="isHandset" >
+            <div>
+              <button mat-button (click)="editMode()"  *ngIf="!isEditMode">
+                <mat-icon class="btn">edit</mat-icon>
+              </button>
+              <button mat-button (click)="closePersonal()" type="button" *ngIf="isEditMode">
+                <mat-icon class="btn">cancel</mat-icon>
+              </button>
+              <button mat-button *ngIf="isEditMode" type="submit">
+                <mat-icon class="btn">done</mat-icon>
+              </button>
+            </div>
+            <h5>Fitness lvl</h5>
+            <div *ngIf="isHandset && !isEditMode"></div>
+            <div *ngIf="!isHandset"></div>
+  
+          </div>
+          <div class="athlete-fitness-level-chart"  [ngClass]="{'no-left' : !isHandset}">
+            <div></div>
+            <div class="fitness-level-chart"  [ngClass]="{'glow': isEditMode}" *ngIf="isEditMode">
+              <div class="no-level" (click)="setLevel(10)" *ngIf="!(athlete.fitness_level > 9)" matTooltip="level 10"
+                matTooltipClass="comment-tooltip" matTooltipPosition="before"></div>
+              <div class="level-10" (click)="setLevel(10)" *ngIf="athlete.fitness_level > 9" matTooltip="level 10"
+                matTooltipClass="comment-tooltip" matTooltipPosition="before"></div>
+              <div class="no-level" (click)="setLevel(9)" *ngIf="!(athlete.fitness_level > 8)" matTooltip="level 9"
+                matTooltipClass="comment-tooltip" matTooltipPosition="before"></div>
+              <div class="level-9" (click)="setLevel(9)" *ngIf="athlete.fitness_level > 8" matTooltip="level 9"
+                matTooltipClass="comment-tooltip" matTooltipPosition="before"></div>
+              <div class="no-level" (click)="setLevel(8)" *ngIf="!(athlete.fitness_level > 7)" matTooltip="level 8"
+                matTooltipClass="comment-tooltip" matTooltipPosition="before"></div>
+              <div class="level-8" (click)="setLevel(8)" *ngIf="athlete.fitness_level > 7" matTooltip="level 8"
+                matTooltipClass="comment-tooltip" matTooltipPosition="before"></div>
+              <div class="no-level" (click)="setLevel(7)" *ngIf="!(athlete.fitness_level > 6)" matTooltip="level 7"
+                matTooltipClass="comment-tooltip" matTooltipPosition="before"></div>
+              <div class="level-7" (click)="setLevel(7)" *ngIf="athlete.fitness_level > 6" matTooltip="level 7"
+                matTooltipClass="comment-tooltip" matTooltipPosition="before"></div>
+              <div class="no-level" (click)="setLevel(6)" *ngIf="!(athlete.fitness_level > 5)" matTooltip="level 6"
+                matTooltipClass="comment-tooltip" matTooltipPosition="before"></div>
+              <div class="level-6" (click)="setLevel(6)" *ngIf="athlete.fitness_level > 5" matTooltip="level 6"
+                matTooltipClass="comment-tooltip" matTooltipPosition="before"></div>
+              <div class="no-level" (click)="setLevel(5)" *ngIf="!(athlete.fitness_level > 4)" matTooltip="level 5"
+                matTooltipClass="comment-tooltip" matTooltipPosition="before"></div>
+              <div class="level-5" (click)="setLevel(5)" *ngIf="athlete.fitness_level > 4" matTooltip="level 5"
+                matTooltipClass="comment-tooltip" matTooltipPosition="before"></div>
+              <div class="no-level" (click)="setLevel(4)" *ngIf="!(athlete.fitness_level > 3)" matTooltip="level 4"
+                matTooltipClass="comment-tooltip" matTooltipPosition="before"></div>
+              <div class="level-4" (click)="setLevel(4)" *ngIf="athlete.fitness_level > 3" matTooltip="level 4"
+                matTooltipClass="comment-tooltip" matTooltipPosition="before"></div>
+              <div class="no-level" (click)="setLevel(3)" *ngIf="!(athlete.fitness_level > 2)" matTooltip="level 3"
+                matTooltipClass="comment-tooltip" matTooltipPosition="before"></div>
+              <div class="level-3" (click)="setLevel(3)" *ngIf="athlete.fitness_level > 2" matTooltip="level 3"
+                matTooltipClass="comment-tooltip" matTooltipPosition="before"></div>
+              <div class="no-level" (click)="setLevel(2)" *ngIf="!(athlete.fitness_level > 1)" matTooltip="level 2"
+                matTooltipClass="comment-tooltip" matTooltipPosition="before"></div>
+              <div class="level-2" (click)="setLevel(2)" *ngIf="athlete.fitness_level > 1" matTooltip="level 2"
+                matTooltipClass="comment-tooltip" matTooltipPosition="before"></div>
+              <div class="level-1" (click)="setLevel(1)" matTooltip="level 1" matTooltipClass="comment-tooltip"
+                matTooltipPosition="before"></div>
+            </div>
+  
+            <div class="fitness-level-chart" *ngIf="!isEditMode">
+              <div class="no-level no-edit" *ngIf="!(athlete.fitness_level > 9)" matTooltip="level 10"
+                matTooltipClass="comment-tooltip" matTooltipPosition="before"></div>
+              <div class="level-10 no-edit" *ngIf="athlete.fitness_level > 9" matTooltip="level 10"
+                matTooltipClass="comment-tooltip" matTooltipPosition="before"></div>
+              <div class="no-level no-edit" *ngIf="!(athlete.fitness_level > 8)" matTooltip="level 9"
+                matTooltipClass="comment-tooltip" matTooltipPosition="before"></div>
+              <div class="level-9 no-edit" *ngIf="athlete.fitness_level > 8" matTooltip="level 9" matTooltipClass="comment-tooltip"
+                matTooltipPosition="before"></div>
+              <div class="no-level no-edit" *ngIf="!(athlete.fitness_level > 7)" matTooltip="level 8"
+                matTooltipClass="comment-tooltip" matTooltipPosition="before"></div>
+              <div class="level-8 no-edit" *ngIf="athlete.fitness_level > 7" matTooltip="level 8" matTooltipClass="comment-tooltip"
+                matTooltipPosition="before"></div>
+              <div class="no-level no-edit" *ngIf="!(athlete.fitness_level > 6)" matTooltip="level 7"
+                matTooltipClass="comment-tooltip" matTooltipPosition="before"></div>
+              <div class="level-7 no-edit" *ngIf="athlete.fitness_level > 6" matTooltip="level 7" matTooltipClass="comment-tooltip"
+                matTooltipPosition="before"></div>
+              <div class="no-level no-edit" *ngIf="!(athlete.fitness_level > 5)" matTooltip="level 6"
+                matTooltipClass="comment-tooltip" matTooltipPosition="before"></div>
+              <div class="level-6 no-edit" *ngIf="athlete.fitness_level > 5" matTooltip="level 6" matTooltipClass="comment-tooltip"
+                matTooltipPosition="before"></div>
+              <div class="no-level no-edit" *ngIf="!(athlete.fitness_level > 4)" matTooltip="level 5"
+                matTooltipClass="comment-tooltip" matTooltipPosition="before"></div>
+              <div class="level-5 no-edit" *ngIf="athlete.fitness_level > 4" matTooltip="level 5" matTooltipClass="comment-tooltip"
+                matTooltipPosition="before"></div>
+              <div class="no-level no-edit" *ngIf="!(athlete.fitness_level > 3)" matTooltip="level 4"
+                matTooltipClass="comment-tooltip" matTooltipPosition="before"></div>
+              <div class="level-4 no-edit" *ngIf="athlete.fitness_level > 3" matTooltip="level 4" matTooltipClass="comment-tooltip"
+                matTooltipPosition="before"></div>
+              <div class="no-level no-edit" *ngIf="!(athlete.fitness_level > 2)" matTooltip="level 3"
+                matTooltipClass="comment-tooltip" matTooltipPosition="before"></div>
+              <div class="level-3 no-edit" *ngIf="athlete.fitness_level > 2" matTooltip="level 3" matTooltipClass="comment-tooltip"
+                matTooltipPosition="before"></div>
+              <div class="no-level no-edit" *ngIf="!(athlete.fitness_level > 1)" matTooltip="level 2"
+                matTooltipClass="comment-tooltip" matTooltipPosition="before"></div>
+              <div class="level-2 no-edit" *ngIf="athlete.fitness_level > 1" matTooltip="level 2" matTooltipClass="comment-tooltip"
+                matTooltipPosition="before"></div>
+              <div class="level-1 no-edit" matTooltip="level 1" matTooltipClass="comment-tooltip" matTooltipPosition="before"></div>
+            </div>
+            <div></div>
+          </div>
+        </div>
+
+    </div>
+  </form>
+</div>
+
+<div class="div-for-shadow add-margin-10px">
+  <div class="athlete-card-status">
+    <div class="athlete-card-status-header">
+      <h5>Card status</h5>
+    </div>
+    <div class="athlete-card-status-tp" *ngIf="athlete.attendant_membership && !isActivatedPlan">
+      <div class="grid-tp" [ngClass]="{'mobile-grid': isHandset}" >
+        <div></div>
+        <h5>Choose plan</h5>
+        <select [ngModel]="chosenPlan" class="select-tp" [ngClass]="{'mobile-width': isHandset}" (ngModelChange)="setPlan($event)" name="tpman">
+          <option *ngFor="let tp of unactiveTpManager" [ngValue]="tp">{{tp.training_plan_name}}</option>
+        </select>
+        <button class="athlete-card-status-tp-btn" mat-button type="button" (click)="activatePlan()">Activate</button>
+        <div></div>
+      </div>
+    </div>
+    <div class="athlete-card-status-tp" *ngIf="athlete.attendant_membership && isActivatedPlan">
+        <div class="grid-tp-activated" [ngClass]="{'mobile-grid': isHandset}" >
+          <div></div>
+          <h5 class="activated-plan-header">Activated plan: <span>{{activatedPlan}}</span></h5>
+          <button class="athlete-card-status-tp-btn-deactivate" mat-button type="button" (click)="deactivatePlan()">Deactivate</button>
+        </div>
+    </div>
+    <div class="athlete-card-status-body">
+      <div class="athlete-card-status-element" *ngIf="!athlete.attendant_membership && !athlete.invitation && !athlete.pending_user_invitation" >
+        <h5><button class="athlete-card-status-tp-btn-deactivate orange" mat-button type="button" (click)="inviteAthlete()">Invite athlete</button></h5>
+      </div>
+      <div class="athlete-card-status-element-grid" *ngIf="athlete.invitation && !athlete.attendant_membership && !athlete.pending_user_invitation" >
+        <div class="grid-left-filler"></div>
+        <h5 class="activated-plan-header">Pending Invitation: <span class="pending">{{athlete.invitation.athlete_email}}</span></h5>
+        <div class="filler-color">
+          <button class="athlete-card-status-tp-btn-deactivate" mat-button type="button" (click)="removeInvitation()" matTooltip="cancel invitation"
+          matTooltipClass="comment-tooltip">Cancel</button>
+        </div>
+      </div>
+      <div class="athlete-card-status-element-grid" *ngIf="athlete.pending_user_invitation && !athlete.attendant_membership && !athlete.invitation" >
+        <div class="grid-left-filler"></div>
+        <h5 class="activated-plan-header">Pending Invitation: <span class="pending">{{athlete.pending_user_invitation.athlete_email}}</span></h5>
+        <div class="filler-color">
+          <button class="athlete-card-status-tp-btn-deactivate" mat-button type="button" (click)="remowePending()" matTooltip="cancel invitation"
+          matTooltipClass="comment-tooltip">Cancel</button>
+        </div>
+      </div>
+      <div class="athlete-card-status-element-grid" *ngIf="athlete.attendant_membership" >
+        <div class="grid-left-filler"></div>
+        <h5 class="activated-plan-header" *ngIf="isHandset" >Athlete : <span class="email">{{athlete.attendant_membership.athlete_email | shorten:10}}</span></h5>
+        <h5 class="activated-plan-header" *ngIf="!isHandset" >Athlete : <span class="email">{{athlete.attendant_membership.athlete_email}}</span></h5>
+        <div class="filler-color">
+          <button class="athlete-card-status-tp-btn-deactivate" mat-button type="button" (click)="removeAthlete()" matTooltip="cancel invitation"
+          matTooltipClass="comment-tooltip">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

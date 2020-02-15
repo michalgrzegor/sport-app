@@ -1,0 +1,19 @@
+<div mat-dialog-title>
+  <div *ngIf="boardNote.board_note_link">
+    <iframe mat-card-image [src]="boardNote.board_note_safe_link" frameborder="0" [ngStyle]="{height: isHandset ? '140px' : '360px'}" allowfullscreen></iframe>
+  </div>
+  <div class="title">{{boardNote.board_note_name}}</div>
+</div>
+<div mat-dialog-content *ngIf="boardNote.board_note_description" class="text">{{boardNote.board_note_description}}</div>
+<div class="buttons" mat-dialog-actions>
+  <button *ngIf="isPaidAccount"  class='round-btn' mat-button (click)="deleteNote()">
+    <mat-icon class="menu-right-icon">delete</mat-icon>
+  </button>
+  <div *ngIf="!isPaidAccount" ></div>
+  <button *ngIf="isPaidAccount"  class='round-btn' mat-button click-stop-propagation (click)="editNote()">
+    <mat-icon class="menu-right-icon">edit</mat-icon>
+  </button>
+  <div *ngIf="!isPaidAccount" ></div>
+  <div></div>
+  <button class='sqr-btn' mat-button color="primary" (click)="onNoClick()">Close</button>
+</div>

@@ -1,0 +1,93 @@
+<form (submit)="handleForm($event)" id="card-payment">
+  <div class="form-row">
+    
+    <label for="card-element">
+      <h4>Credit or debit card</h4>
+      <p *ngIf="cardFail" class="p_error" >This card was declined. Try another payment method.</p>
+    </label>
+    <div #cardElement id="card-element">
+      <!-- A Stripe Element will be inserted here. -->
+    </div>
+    
+    <!-- Used to display Element errors. -->
+    <div id="card-errors" role="alert"></div>
+
+    <div class="grid">
+      <h4>provide the data you want to appear on the invoice.</h4>
+      <button mat-button type="button" class="round" (click)="openInvoiceData()" >
+        <mat-icon [@rotate]="stateName">expand_less</mat-icon>
+      </button>
+    </div>
+    
+    <div *ngIf="invoice_data" >
+
+      <mat-form-field  appearance="fill">
+        <mat-label>first name and last name</mat-label>
+        <input 
+          matInput 
+          maxlength="255"
+          name="name"
+          [(ngModel)]="first_last_name">
+      </mat-form-field>
+  
+      <mat-form-field  appearance="fill">
+        <mat-label>phone number</mat-label>
+        <input 
+          matInput 
+          maxlength="255"
+          name="phone"
+          [(ngModel)]="phone_number">
+      </mat-form-field>
+  
+      <mat-form-field  appearance="fill">
+        <mat-label>address</mat-label>
+        <input 
+          matInput 
+          maxlength="255"
+          name="address"
+          [(ngModel)]="line1">
+      </mat-form-field>
+  
+      <mat-form-field  appearance="fill">
+        <mat-label>city</mat-label>
+        <input 
+          matInput 
+          maxlength="255"
+          name="city"
+          [(ngModel)]="city">
+      </mat-form-field>
+  
+      <mat-form-field  appearance="fill">
+        <mat-label>country</mat-label>
+        <input 
+          matInput 
+          maxlength="255"
+          name="country"
+          [(ngModel)]="country">
+      </mat-form-field>
+  
+      <mat-form-field  appearance="fill">
+        <mat-label>postal code</mat-label>
+        <input 
+          matInput 
+          maxlength="255"
+          name="postal_code"
+          [(ngModel)]="postal_code">
+      </mat-form-field>
+  
+      <mat-form-field  appearance="fill">
+        <mat-label>state</mat-label>
+        <input 
+          matInput 
+          maxlength="255"
+          name="state"
+          [(ngModel)]="state">
+      </mat-form-field>
+    </div>
+
+  </div>
+
+  <div class="btn-container">
+    <button mat-button>Submit Payment</button>
+  </div>
+</form>

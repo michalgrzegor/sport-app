@@ -1,0 +1,52 @@
+button {
+  color: rgba(255, 255, 255, 0.67);
+  font-family: 'Raleway';
+  font-size: 16px;
+  font-weight: 800;
+  margin: 24px auto 0 auto;
+  background: rgba(255, 255, 255, 0.17);
+}
+
+.btn-container {
+  text-align: center;
+}
+
+#card-element {
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.17);
+  height: 48px;
+  border-radius: 4px;
+  padding: 14px;
+}
+
+p {
+  color: rgba(255, 255, 255, 0.67);
+}
+
+.yellow{
+  color: #E8A022;
+  cursor: pointer;
+}
+
+.grid{
+  display: grid;
+  grid-template-columns: 1fr 48px;
+}
+
+.round {
+  margin: 0;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  min-width: 0px;
+  margin-top: 20px;
+}
+
+#card-payment label .p_error{
+  width: 100%;
+  background: #FF5D51;
+  color: rgba(255, 255, 255, 0.87);
+  padding: 8px;
+  box-sizing: border-box;
+  border-radius: 2px;
+}

@@ -1,0 +1,54 @@
+<div class="tp-name" *ngIf="!isWeb" >
+  <h4>Tiles</h4>
+  <div class="center-container">
+    <button mat-button (click)="toTileEditor()">
+      <mat-icon class="menu-right-icon">add_circle_outline</mat-icon>
+    </button>
+    <button mat-button (click)="enterSearchMode()">
+      <mat-icon class="menu-right-icon">search</mat-icon>
+    </button>
+    <button mat-button (click)="enterCategoryMode()">
+      <mat-icon class="menu-right-icon">category</mat-icon>
+    </button>
+  </div>
+</div>
+
+<div class="divider-line" *ngIf="!isWeb"></div>
+
+
+<app-tiles-category *ngIf="isCategoryMode" ></app-tiles-category>
+<app-tiles-search *ngIf="isSearchMode" ></app-tiles-search>
+
+<div *ngIf="tiles && tiles.length === 0 && !isCategoryMode && !isSearchMode" >
+  <h4 class="message">You don't have any tiles yet. Create the first by clicking this <span class="link-to-plan" (click)="toTileEditor()">link</span>, in the plus at the top or choosing from the menu "tile editor" link.</h4>
+</div>
+
+<div 
+  class="flex-cont" 
+  [ngClass]="{'flex-cont-tablet': isTablet}"
+  id="tiles-collection" 
+  [cdkDropListConnectedTo]="idArrayCDK" 
+  cdkDropList 
+  #tilesCollection="cdkDropList"
+  [cdkDropListConnectedTo]="[sessionOne, sessionTwo, sessionThree]"
+  [cdkDropListData]="tiles"
+  (cdkDropListDropped)="drop($event)">
+  <!-- for web -->
+  <div *ngIf="isWeb" >
+    <div *ngFor="let tile of tiles; let i = index" cdkDrag>
+      <app-tile [tileRef]="tiles[i]" [index]="i" [isInCollection]="true"></app-tile>
+      <div *cdkDragPreview class="preview">
+        <div class="collor-preview" [ngStyle]="{'background': tile.tile_type_color}"></div>
+        <p>{{tiles[i].tile_title}}</p>
+      </div>
+      <div class="custom-placeholder" *cdkDragPlaceholder></div>
+    </div>
+  </div>
+  <!-- not for web -->
+  <div *ngIf="!isWeb" 
+  [ngClass]="{'flex-cont-tablet': isTablet, 'flex-cont-tablet-land': isTabletLand}">
+    <div *ngFor="let tile of tiles; let i = index">
+      <app-tile [tileRef]="tiles[i]" [index]="i" [isInCollection]="true"></app-tile>
+    </div>
+  </div>
+</div>

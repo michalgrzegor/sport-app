@@ -1,0 +1,109 @@
+<div class="close-btn-container">
+    <button id="close-btn" mat-button color="primary" (click)="closeDialog()"><mat-icon>close</mat-icon></button>
+</div>
+
+<!-- when no payment -->
+<div *ngIf="(planShow && !isManage && !isPaidAccount) || (isTrial && !cardPayment)" mat-dialog-content>
+  <h4 class="title">trainer account</h4>
+  <p class="slogan">Tools to help coach your athletes.</p>
+  <div class="slider-quote">
+    <div></div>
+    <mat-icon class="menu-right-icon">people_outline</mat-icon>
+    <div>Choose your athlete list size</div>
+    <div></div>
+  </div>
+  <mat-slider min="6" max="50" step="4" value="6" thumbLabel tickInterval="4" tickInterval="4"
+    (input)="onInputChange($event)"></mat-slider>
+  <h5 class="sub-name">{{planSubscrition.sub_name}}</h5>
+  <h4 class="price"><sup class="dolar">$</sup>{{planSubscrition.price}}<span class="month">/mo</span></h4>
+
+  <div class="pay-buttons">
+    <div></div>
+    <button mat-button (click)="openHandler()">
+      Choose plan
+    </button>
+    <div></div>
+  </div>
+  <div class="divider"></div>
+  <div>
+    <p class="plan-description "><span class="plan-description-title">Includes:</span>  <br> {{planSubscrition.user_amount}} active athletes <br> {{planSubscrition.user_amount}} inactive athletes <br>{{planSubscrition.user_amount*10}} training plans <br>unlimited tiles <br>note board for every training plan <br>data charts</p>
+  </div>
+</div>
+
+<!-- redirect to card payment -->
+<div *ngIf="cardPayment" >
+  <button mat-button (click)="back()" ><mat-icon class="back">keyboard_backspace</mat-icon></button>
+  <app-card [planSubscrition]="planSubscrition"></app-card>
+</div>
+
+<!-- pending payment -->
+<app-spinner *ngIf="spinner && !isManage" ></app-spinner>
+
+<!-- after sucsessfull payment -->
+<div class="success-div" *ngIf="isPaid" mat-dialog-content>
+  <mat-icon class="success-icon">check_circle</mat-icon>
+  <h4 class="title success-title">Payment successful</h4>
+</div>
+
+<!-- manage subscription -->
+<div class="success-div" *ngIf="isManage" mat-dialog-content>
+  <h4 class="title success-title">Manage subscriptions</h4>
+</div>
+
+<!-- when paid account -->
+<div class="success-div" *ngIf="manager" mat-dialog-content>
+  <h4>Your account:</h4>
+  <h5>Trainer account level {{accountLevel}}</h5>
+  <h5>{{(accountLevel - 1)*4 + 6}} active athletes</h5>
+  <h5>{{(accountLevel - 1)*4 + 6}} inactive athletes</h5>
+  <h5>{{((accountLevel - 1)*4 + 6)*10}} training plans</h5>
+  <h4>Actions:</h4>
+  <button mat-button class="btn-upgrade" (click)="upgradeDowngradeSubscription()" >Upgrade/downgrade subscription</button>
+  <button mat-button class="btn-cancel" (click)="cancelSubscription()" >Cancel subscription</button>
+</div>
+
+<!-- Upgrade downgrade -->
+<div class="upgrade-downgrade" *ngIf="upgradeDowngrade" mat-dialog-content>
+  <button mat-button (click)="backUpgrade()" ><mat-icon class="back">keyboard_backspace</mat-icon></button>
+  <h4 class="title">change plan</h4>
+  <p class="slogan-change">Your account:</p>
+  <p class="slogan-change">Trainer account level {{accountLevel}}</p>
+  <div class="slider-quote">
+    <div></div>
+    <mat-icon class="menu-right-icon">people_outline</mat-icon>
+    <div>Choose your athlete list size</div>
+    <div></div>
+  </div>
+  <mat-slider min="6" max="50" step="4" value="6" thumbLabel tickInterval="4" tickInterval="4"
+    (input)="onInputChange($event)"></mat-slider>
+  <h5 *ngIf="!sameLevel"  class="sub-name">{{planSubscrition.sub_name}}</h5>
+  <h5  *ngIf="sameLevel" class="sub-name">you have now the same plan</h5>
+  <h4 class="price"><sup class="dolar">$</sup>{{planSubscrition.price}}<span class="month">/mo</span></h4>
+
+  <div  *ngIf="!sameLevel" class="pay-buttons">
+    <div></div>
+    <button class="changePlan" mat-button (click)="changePlan()">
+      Change plan
+    </button>
+    <div></div>
+  </div>
+  <div class="divider"></div>
+  <div>
+    <p class="plan-description "><span class="plan-description-title">Includes:</span>  <br> {{planSubscrition.user_amount}} active athletes <br> {{planSubscrition.user_amount}} inactive athletes <br>{{planSubscrition.user_amount*10}} training plans <br>unlimited tiles <br>note board for every training plan <br>data charts</p>
+  </div>
+</div>
+
+<!-- confirmation change plan -->
+
+<div class="confirmation_change_plan" *ngIf="confirmation" >
+  <button mat-button (click)="backConf()" ><mat-icon class="back">keyboard_backspace</mat-icon></button>
+  <h4>confirm the plan change from account level <span class="yellow-conf">{{accountLevel}}</span> to account level <span class="yellow-conf">{{level}}</span></h4>
+  <p *ngIf="accountLevel > level">You'll pay ${{price / 100}} during your next payment.</p>
+  <p *ngIf="accountLevel < level" >You'll pay ${{price / 100}} more during your next payment.</p>
+  <p>this amount is charged for the period until the next payment</p>
+  <p>If the number of invitations is greater than the new account limit, the excess will be removed. If you have more training plans or athletes than the new limit, we will not remove the excess. The excess will not be visible. You must remove the athlete or training plan to make it visible.</p>
+  <div class="btn-grid">
+    <div></div>
+    <button class="confirm-btn" mat-button (click)="confirm()" >Confirm</button>
+  </div>
+</div>

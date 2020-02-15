@@ -1,0 +1,33 @@
+<div id="searchby">
+  <h4>TILES TYPE<button mat-button (click)="openType()"><mat-icon [@rotate]="typeOptions">expand_less</mat-icon></button></h4>
+  <div *ngIf="typeClose"  class="mat-chip-list">
+    <mat-chip-list>
+      <mat-chip 
+          class="chips-type" 
+          *ngFor="let type of trainingTypes, let i = index"
+          (click)="onSelectType(i)"  
+          [ngStyle]="{'background': type.selected ? 'rgba(96, 132, 144, 1)' : 'rgba(96, 132, 144, 0.2)'}"
+          >
+          <div 
+              class="training-type-icon"
+              [ngStyle]="{'background': !type.selected ? 'none' : type.color,
+                          'border-style': !type.selected ? 'solid' : 'none',
+                          'border-width': !type.selected ? '3px' : 'none',
+                          'border-color': !type.selected ? type.color : 'none'
+                      }"
+          ></div>
+      {{type.name | uppercase}}</mat-chip>
+  </mat-chip-list>
+  </div>
+  <h4>TAGS<button mat-button (click)="openTags()"><mat-icon [@rotate]="tagsOptions">expand_less</mat-icon></button></h4>
+  <div class="mat-chip-list" *ngIf="tagsClose" >
+    <mat-chip-list>
+        <mat-chip 
+        *ngFor="let tag of tags; let i = index;" 
+        (click)="onTagSelect(i)" 
+        [ngStyle]="{'background': tag.selected ? 'rgba(96, 132, 144, 1)' : 'rgba(96, 132, 144, 0.2)'}"
+        ><p>#</p>
+        {{ tag.tag_name | uppercase }}</mat-chip>
+    </mat-chip-list>
+  </div>
+</div>

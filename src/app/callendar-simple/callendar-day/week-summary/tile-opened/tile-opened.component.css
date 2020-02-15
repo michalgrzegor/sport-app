@@ -1,0 +1,165 @@
+.tile {
+  position: relative;
+  width: 340px;
+}
+
+.card-body {
+  box-sizing: border-box;
+  min-height: 72px;
+  background: #8FB4C0;
+  padding: 0 16px 12px 28px;
+  border-radius: 4px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.12), 0px 0px 4px rgba(0, 0, 0, 0.24);
+  margin-bottom: 4px;
+  margin-top: 4px;
+}
+
+.card-body-web {
+  min-width: 304px;
+  max-width: 344px;
+}
+
+.card-body-tablet {
+  min-width: 304px;
+  max-width: 344px;
+}
+
+.card-body-handset {
+  min-width: 90vw;
+  max-width: 90vw;
+}
+
+.card-header {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+
+.card-header p {
+  grid-column: 1 / 3;
+  margin-top: 7px;
+  margin-left: 16px;
+  font-size: 12px;
+}
+
+.filler {
+  flex: 1;
+}
+
+h5 {
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  margin-top: 16px;
+  margin-left: 16px;
+  color: rgba(0, 0, 0, 0.87);
+  text-align: start;
+  text-transform: capitalize;
+}
+
+.card-content {
+  padding-left: 16px;
+}
+
+.card-content h5 {
+  margin: 16px 0 0 0;
+}
+
+.left-side-color {
+  margin-bottom: 4px;
+  width: 28px;
+  height: 100%;
+  position: absolute;
+  z-index: 1;
+  border-bottom-left-radius: 4px;
+  border-top-left-radius: 4px;
+}
+
+.tile-activities {
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5)
+}
+
+.activity-name {
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 14px !important;
+  margin-top: 16px;
+}
+
+.activity-content {
+  font-family: 'Lato', sans-serif;
+  font-size: 14px !important;
+}
+
+.activity-note {
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: 14px !important;
+}
+
+.tile-description {
+  margin-bottom: 0px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5)
+}
+
+.tile-tags {
+  margin-top: 14px;
+}
+
+button {
+  padding: 0;
+  margin-top: 12px;
+  min-width: 0;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  margin-left: 8px;
+}
+
+mat-icon {
+  min-width: 0;
+  width: 24px;
+  height: 24px;
+}
+
+.button-container {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+}
+
+.button-container-handset {
+  display: grid;
+  grid-template-columns: auto auto auto auto 1fr;
+}
+
+
+mat-chip {
+  color: rgba(0, 0, 0, 0.63) !important;
+}
+
+mat-chip p {
+  margin: 0;
+  line-height: 32px;
+}
+
+p {
+  margin-bottom: 0px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.hidden-container {
+  overflow: hidden;
+}
+
+iframe {
+  width: 100%;
+}
+
+.training-strength {
+  margin: 0;
+}

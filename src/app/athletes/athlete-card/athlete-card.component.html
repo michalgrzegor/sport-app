@@ -1,0 +1,67 @@
+<div class="tp-name" >
+  <div class="center-container"></div>
+  <div *ngIf="!athlete" ></div>
+  <div  *ngIf="athlete && athlete.athlete_name.length > 16" matTooltip="{{athlete.athlete_name}}"
+    matTooltipClass="comment-tooltip"><h4>{{athlete.athlete_name | shorten:16}} - Athlete Card</h4></div>
+  <div  *ngIf="athlete && athlete.athlete_name.length <= 16"><h4>{{athlete.athlete_name}} - Athlete Card</h4></div>
+  <div class="center-container">
+
+    <button mat-button [matMenuTriggerFor]="menu">
+      <mat-icon class="menu-right-icon">more_vert</mat-icon>
+    </button>
+
+    <mat-menu #menu="matMenu" xPosition="before">
+      <!-- <button mat-menu-item *ngIf="athlete"  (click)="inviteAthlete()">Invite athlete</button> -->
+      <button mat-menu-item (click)="openAthleteEditor()" >Create athlete</button>
+      <button mat-menu-item *ngIf="athlete"  (click)="deleteAthlete()" >Delete athlete</button>
+      <button mat-menu-item *ngIf="isHandset" (click)="managerMode()" >Athletes manager</button>
+      <button mat-menu-item *ngIf="athlete"  [matMenuTriggerFor]="subMenu">Athletes</button>
+    </mat-menu>
+
+    <mat-menu #subMenu="matMenu" xPosition="before">
+      <button *ngFor="let athlete of athletes" (click)="setAthlete(athlete)"  mat-menu-item>{{athlete.athlete_name}}</button>
+    </mat-menu>
+
+  </div>
+</div>
+
+<div class="divider-line"></div>
+
+<div class="card-bookmarks">
+  <div class="card-bookmark" (click)="changeBookmark('card')"  [ngClass]="{'card-bookmark-selected': openedBookmark==='card'}">CARD</div>
+  <div class="card-bookmark" (click)="changeBookmark('data')"  [ngClass]="{'card-bookmark-selected': openedBookmark==='data'}">DATA & PROGRESS</div>
+  <div class="card-bookmark" (click)="changeBookmark('notes')"  [ngClass]="{'card-bookmark-selected': openedBookmark==='notes'}">NOTES</div>
+</div>
+
+<app-athlete-manager *ngIf="isHandset && athleteManagerMode" ></app-athlete-manager>
+
+<app-spinner *ngIf="spinner"></app-spinner>
+
+<div *ngIf="!spinner && openedBookmark==='card'">
+  <div *ngIf="noData" >
+    <h4>You have no athlete card yet. Create one using this <span class="link-to-plan" (click)="openAthleteEditor()" >link</span> or menu.</h4>
+  </div>
+  <div *ngIf="!noData">
+    <app-athlete-info [isActivatedPlan]="isActivatedPlan" [activatedPlan]="activatedPlan" [unactiveTpManager]="unactiveTpManager"></app-athlete-info>
+  </div>
+    
+</div>
+
+
+<div *ngIf="!spinner && openedBookmark==='data'">
+  <div *ngIf="noData" >
+    <h4>You have no athlete card yet. Create one using this <span class="link-to-plan" (click)="openAthleteEditor()" >link</span> or menu.</h4>
+  </div>
+  <div *ngIf="!noData">
+    <app-athlete-data-and-progress></app-athlete-data-and-progress>
+  </div>
+</div>
+<div *ngIf="!spinner && openedBookmark==='notes'">
+  <div *ngIf="noData" >
+    <h4>You have no athlete card yet. Create one using this <span class="link-to-plan" (click)="openAthleteEditor()" >link</span> or menu.</h4>
+  </div>
+  <div *ngIf="!noData">
+    <div class="separator"></div>
+    <app-board></app-board>
+  </div>
+</div>

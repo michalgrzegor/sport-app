@@ -1,0 +1,26 @@
+<div mat-dialog-title>
+  <h5>Select tile to add</h5>
+  <button mat-button (click)="enterSearchMode()">
+    <mat-icon class="menu-right-icon">search</mat-icon>
+  </button>
+  <button mat-button (click)="enterCategoryMode()">
+    <mat-icon class="menu-right-icon">category</mat-icon>
+  </button>
+</div>
+<div mat-dialog-content>
+</div>
+<div mat-dialog-content>
+  <app-tiles-category *ngIf="isCategoryMode"></app-tiles-category>
+  <app-tiles-search *ngIf="isSearchMode"></app-tiles-search>
+  <div *ngFor="let tile of tiles; let i = index">
+    <div (click)="add(i)" >
+      <div [ngClass]="{'trans' : !tile.opacity}">
+        <app-tile [tileRef]="tiles[i]" [index]="i" [isInCollection]="true"></app-tile>
+      </div>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="data">Add</button>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+</div>

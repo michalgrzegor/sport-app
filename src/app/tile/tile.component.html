@@ -1,0 +1,148 @@
+<div class='tile' [ngClass]="{'card-body-web' : isWeb, 'card-body-tablet' : isTablet, 'card-body-handset' : isHandset}">
+  <div class="left-side-color" [ngStyle]="{'background':tile.tile_type_color}"></div>
+  <div class="card-body" [ngClass]="{'card-body-web' : isWeb, 'card-body-tablet' : isTablet, 'card-body-handset' : isHandset}" >
+    <div class="card-header">
+      <div *ngIf="tile.tile_is_open && isHandset"></div>
+      <h5 *ngIf="!tile.tile_is_open">{{tile.tile_title  | shorten:19}}</h5>
+      <h5 *ngIf="tile.tile_is_open && !isHandset" matTooltip="{{tile.tile_title}}" matTooltipClass="comment-tooltip">{{tile.tile_title  | shorten:14}}</h5>
+      <div class="button-container-handset" *ngIf="isHandset">
+        <div *ngIf="!tile.tile_is_open" ></div>
+        <div *ngIf="!tile.tile_is_open" ></div>
+        <div *ngIf="!tile.tile_is_open" ></div>
+        <div *ngIf="!tile.tile_is_open" ></div>
+        <button mat-button *ngIf="tile.tile_is_open && !isInCollection" [disabled]="disabledDown" (click)="goDown()" [@fade]><mat-icon>vertical_align_bottom</mat-icon></button>
+        <button mat-button *ngIf="tile.tile_is_open && !isInCollection" [disabled]="disabledUp" (click)="goUp()" [@fade]><mat-icon>vertical_align_top</mat-icon></button>
+        <button mat-button *ngIf="tile.tile_is_open" (click)="edit()" [@fade]><mat-icon>edit</mat-icon></button>
+        <button mat-button *ngIf="tile.tile_is_open && !dayToedit()" (click)="delete()" [@fade]><mat-icon>delete_outline</mat-icon></button>
+        <button mat-button (click)="tile.tile_is_open = !tile.tile_is_open" (click)="togleSummary()" ><mat-icon [@rotate]="stateName">keyboard_arrow_down</mat-icon></button>
+      </div>
+      <div class="button-container" *ngIf="!isHandset" >
+        <div *ngIf="!tile.tile_is_open" ></div>
+        <div *ngIf="!tile.tile_is_open" ></div>
+        <button mat-button *ngIf="tile.tile_is_open" (click)="edit()" [@fade]><mat-icon>edit</mat-icon></button>
+        <button mat-button *ngIf="tile.tile_is_open && !dayToedit()" (click)="delete()" [@fade]><mat-icon>delete_outline</mat-icon></button>
+        <button mat-button (click)="tile.tile_is_open = !tile.tile_is_open" (click)="togleSummary()" ><mat-icon [@rotate]="stateName">keyboard_arrow_down</mat-icon></button>
+      </div>
+      <p *ngIf="!tile.tile_is_open && tile.tile_description">{{tile.tile_description  | shorten:38}}</p>
+      <p *ngIf="!tile.tile_is_open && !tile.tile_description && tileType === 'training' && tile.tile_activities.length > 0">{{tile.tile_activities[0].tile_activity_name | shorten:38}} </p>
+      <p *ngIf="!tile.tile_is_open && !tile.tile_description && tileType === 'diet' && tile.tile_diets.length > 0" >{{tile.tile_diets[0].tile_diet_meal | shorten:38}}</p>
+      <p *ngIf="!tile.tile_is_open && !tile.tile_description && tileType === 'question' && tile.tile_question.tile_ask_question">{{tile.tile_question.tile_ask_question | shorten:38}}</p>
+      <p *ngIf="!tile.tile_is_open && !tile.tile_description && tileType === 'motivation' && tile.tile_motivation.tile_motivation_sentence">{{tile.tile_motivation.tile_motivation_sentence + ' ' + tile.tile_description  | shorten:38}}</p>
+    </div>
+
+    <div [@hideShow]="stateName" class="hidden-container">
+      <div class="card-content" *ngIf="tile.tile_is_open" >
+
+        <h5 *ngIf="tile.tile_is_open && isHandset" matTooltip="{{tile.tile_title}}" matTooltipClass="comment-tooltip">{{tile.tile_title  | shorten:30}}</h5>
+  
+        <!-- Content for training tiles -->
+  
+        <div class="tile-type-training" *ngIf="tileType === 'training'" >
+          <div class="tile-activities" *ngFor="let activity of tile.tile_activities" >
+            <p class="activity-name">{{activity.tile_activity_name}}</p>
+            <p class="training-strength" *ngIf="activity.tile_activity_reps && !activity.tile_activity_amount && !activity.tile_activity_unit" >{{activity.tile_activity_reps}} reps</p>
+            <p class="activity-content">
+              <span *ngIf="activity.tile_activity_reps && activity.tile_activity_amount && activity.tile_activity_unit" >
+                {{activity.tile_activity_reps}} x
+              </span>
+              <!-- <span *ngIf="activity.tile_activity_reps && !activity.tile_activity_amount && !activity.tile_activity_unit" >
+                {{activity.tile_activity_reps}} reps
+              </span> -->
+              <span *ngIf="activity.tile_activity_amount && activity.tile_activity_unit" >
+                {{activity.tile_activity_amount}} {{activity.tile_activity_unit}} 
+              </span>
+              <span *ngIf="activity.tile_activity_intensity_amount && activity.tile_activity_intensity_amount" >
+                at {{activity.tile_activity_intensity_amount}} {{activity.tile_activity_intensity}} 
+              </span>
+              <span *ngIf="activity.tile_activity_rest_amount && activity.tile_activity_rest_unit" >
+                rest between: {{activity.tile_activity_rest_amount}} {{activity.tile_activity_rest_unit}}
+              </span>
+              <span *ngIf="activity.tile_activity_rest_intensity && activity.tile_activity_rest_intensity_amount" >
+                at {{activity.tile_activity_rest_intensity_amount}} {{activity.tile_activity_rest_intensity}} 
+              </span>
+            </p>
+            <p class="activity-note" *ngIf="activity.tile_activity_note">{{activity.tile_activity_note}}</p>
+            <p class="activity-name">
+              <span *ngIf="activity.tile_activity_rest_after_activity_amount && activity.tile_activity_rest_after_activity_unit" >
+                rest after activity: {{activity.tile_activity_rest_after_activity_amount}} {{activity.tile_activity_rest_after_activity_unit}}
+              </span>
+              <span *ngIf="activity.tile_activity_rest_after_activity_intensity && activity.tile_activity_rest_after_activity_intensity_amount" >
+                at {{activity.tile_activity_rest_after_activity_intensity_amount}} {{activity.tile_activity_rest_after_activity_intensity}} 
+              </span>
+            </p>
+          </div>
+          <p  class="activity-name" *ngIf="tile.tile_activities_sets" >make {{tile.tile_activities_sets}} sets,
+            <span *ngIf="tile.tile_activities_sets_rest_ammount && tile.tile_activities_sets_rest_unit" >
+              rest between: {{tile.tile_activities_sets_rest_ammount}} {{tile.tile_activities_sets_rest_unit}}
+            </span>
+            <span *ngIf="tile.tile_activities_sets_rest_intensity_unit && tile.tile_activities_sets_rest_intensity_ammount" >
+              at {{tile.tile_activities_sets_rest_intensity_ammount}} {{tile.tile_activities_sets_rest_intensity_unit}} 
+            </span>
+          </p>
+        </div>
+  
+        <!-- Content for diet -->
+        
+        <div class="tile-type-training" *ngIf="tileType === 'diet'">
+          <div class="tile-activities" *ngFor="let diet of tile.tile_diets" >
+            <p class="activity-name">{{diet.tile_diet_meal}}</p>
+            <p class="activity-content">
+              <span *ngIf="diet.tile_diet_energy_amount && diet.tile_diet_energy_unit" >
+                Energy: {{diet.tile_diet_energy_amount}} {{diet.tile_diet_energy_unit}} <br>
+              </span>
+              <span *ngIf="diet.tile_diet_carbohydrates_amount && diet.tile_diet_carbohydrates_unit" >
+                Carbohydrates: {{diet.tile_diet_carbohydrates_amount}} {{diet.tile_diet_carbohydrates_unit}} <br>
+              </span>
+              <span *ngIf="diet.tile_diet_protein_amount && diet.tile_diet_protein_unit" >
+                protein: {{diet.tile_diet_protein_amount}} {{diet.tile_diet_protein_unit}} <br>
+              </span>
+              <span *ngIf="diet.tile_diet_fat_amount && diet.tile_diet_fat_unit" >
+                Fats: {{diet.tile_diet_fat_amount}} {{diet.tile_diet_fat_unit}} <br>
+              </span>
+              <span *ngFor="let nutrient of diet.tile_diet_nutrients">
+                  <span *ngIf="nutrient.tile_diet_nutrient_name">{{nutrient.tile_diet_nutrient_name}}: </span><span *ngIf="nutrient.tile_diet_nutrient_amount && nutrient.tile_diet_nutrient_unit">{{nutrient.tile_diet_nutrient_amount}} {{nutrient.tile_diet_nutrient_unit}} </span><br>
+              </span>
+            </p>
+            <p class="activity-note" *ngIf="diet.tile_diet_note">{{diet.tile_diet_note}}</p>
+          </div>
+        </div>
+  
+        <!-- Content for question -->
+  
+        <div class="tile-type-training" *ngIf="tileType === 'question'">
+          <div class="tile-activities">
+              <p class="activity-name">{{tile.tile_question.tile_ask_question}}</p>
+              <p class="activity-content" *ngIf="tile.tile_question.tile_answear_numeric" >
+                Numeric answer from {{tile.tile_question.tile_answear_numeric_from}} to {{tile.tile_question.tile_answear_numeric_to}}
+              </p>
+              <p class="activity-content" *ngIf="!tile.tile_question.tile_answear_numeric" >
+                Answers: {{tile.tile_question.tile_answears_descriptives}}
+              </p>
+          </div>
+        </div>
+  
+        <!-- Content for motivation -->
+  
+        <div class="tile-type-training" *ngIf="tileType === 'motivation'">
+          <div class="tile-activities">
+              <p class="activity-name">{{tile.tile_motivation.tile_motivation_sentence}}</p>
+              <iframe mat-card-image *ngIf="safeLink"  [src]="safeLink" frameborder="0" allowfullscreen></iframe>
+          </div>
+        </div>
+        
+        <p class="tile-description" *ngIf="tile.tile_description" >{{tile.tile_description}}</p>
+        <div class="tile-tags">
+          <mat-chip-list>
+              <mat-chip 
+              *ngFor="let tag of tile.tile_tags; let i = index;" 
+              [ngStyle]="{'background': 'rgba(192, 230, 243, 1)'}"
+              ><p>#</p>
+              {{ tag.tag_name | uppercase }}</mat-chip>
+          </mat-chip-list>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

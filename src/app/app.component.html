@@ -1,0 +1,333 @@
+<div class="main-html-container" [class.main-html-is-mobile]="mobileQuery.matches">
+  <mat-toolbar color="primary" class="mat-elevation-z4 main-html-toolbar">
+    <mat-toolbar-row>
+      <button *ngIf="isHandset || isTablet"  mat-fab color="primary" (click)="toggle()" (click)="snav.toggle()" class="no-shadow">
+        <mat-icon class="example-icon">menu</mat-icon>
+      </button>
+      <button *ngIf="isWeb"  mat-fab color="primary" (click)="toggle()" class="no-shadow">
+        <mat-icon class="example-icon">menu</mat-icon>
+      </button>
+        <img src="assets/pictures/logo_main.png" alt="profile picture" class="img-logo">
+        <span class="example-spacer"></span>
+
+
+      <button *ngIf="(!isPaidAccount && !athleteAccountonPaidAccount && !isHandset) || (isTrial  && !athleteAccountonPaidAccount && !isHandset)"  class="upgrade-btn" (click)="openUpgradeDialog()" mat-button>Upgrade</button>
+
+      <button class="notification-btn" (click)="openFeedback()"  mat-button>
+        <mat-icon>mail</mat-icon>
+      </button>
+
+      <button class="setting-btn" (click)="openChat()" *ngIf="!isHandset"  mat-button>
+        <mat-icon>chat</mat-icon>
+      </button>
+
+      <button class="setting-btn" mat-button>
+        <mat-icon *ngIf="notifications.length === 0 && invitations.length === 0" class="zero-not">notification_important</mat-icon>
+        <mat-icon *ngIf="notifications.length > 0 || invitations.length > 0" matBadge="{{notifications.length + invitations.length}}" matBadgeColor="warn" [matMenuTriggerFor]="notification">notification_important</mat-icon>
+        <!-- <mat-icon matBadge="{{notifications.length + invitations.length}}" matBadgeColor="warn" [matMenuTriggerFor]="notification">notification_important</mat-icon> -->
+
+        <mat-menu #notification="matMenu" xPosition="before">
+          <ng-template matMenuContent>
+            <!-- <button mat-menu-item>
+              <span>Check for invitations</span>
+              <button (click)="checkForIvitations()" class="button-invitations" mat-button click-stop-propagation><mat-icon>cached</mat-icon></button>
+            </button> -->
+            <button *ngFor="let inv of invitations, let i = index" mat-menu-item>
+              <mat-icon>email</mat-icon>
+              <span class="span-invitation" *ngIf="!inv.trainer_nick && !isHandset" >{{inv.trainer_email}} invites you</span>
+              <span class="span-invitation" *ngIf="inv.trainer_nick && !isHandset" >{{inv.trainer_nick}}({{inv.trainer_email}}) invites you</span>
+
+              <span class="span-invitation" *ngIf="!inv.trainer_nick && isHandset" >{{inv.trainer_email | shorten:8}} invites you</span>
+              <span class="span-invitation" *ngIf="inv.trainer_nick && isHandset" >{{inv.trainer_nick | shorten:8}} invites you</span>
+              <button (click)="cancelInvitation(inv, i)" class="button-invitations" mat-button click-stop-propagation><mat-icon>cancel</mat-icon></button>
+              <button (click)="acceptInvitation(inv, i)" class="button-invitations" mat-button click-stop-propagation><mat-icon>done</mat-icon></button>
+            </button>
+            <div *ngIf="!isPaidAccount || (paidAccountForDisplays && athleteAccountonPaidAccount)">
+              <button *ngFor="let not of notifications, let index = index" (click)="openAnswers(not, index)"  mat-menu-item>
+                <mat-icon>question_answer</mat-icon>
+                <span>{{not.date}} after {{not.sessionNumber}} training session you have {{not.questions.length}} questions</span>
+              </button>
+            </div>
+          </ng-template>
+        </mat-menu>
+
+      </button>
+
+      <button class="setting-btn" mat-button>
+        <mat-icon [matMenuTriggerFor]="options">settings</mat-icon>
+
+        <mat-menu #options="matMenu" xPosition="before">
+          <div matMenuContent>
+            <button mat-menu-item (click)="onManageSubscription()"><mat-icon>account_balance_wallet</mat-icon>Manage subscription</button>
+            <button mat-menu-item (click)="openTutorial()"><mat-icon>help</mat-icon>Open tutorial</button>
+            <button mat-menu-item *ngIf="isInPlatform"  (click)="exitPlatform()"><mat-icon>cancel</mat-icon>Exit the platform</button>
+            <button mat-menu-item (click)="_authService.login()" *ngIf="!_authService.isAuthenticated() && isWeb"><mat-icon>arrow_forward</mat-icon>Login</button>
+            <button mat-menu-item (click)="_authService.logout()" *ngIf="_authService.isAuthenticated() && isWeb"><mat-icon>arrow_back</mat-icon>Logout</button>
+          </div>
+        </mat-menu>
+
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  
+  
+  
+  
+  <mat-sidenav-container class="main-html-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 64">
+    <mat-sidenav #snav [autoFocus]="false" [mode]="mobileQuery.matches ? 'over' : 'over'" [fixedInViewport]="mobileQuery.matches"
+      fixedTopGap="56" [style.width]="isTablet ? '40%' : '80%'">
+      <div class="main-html-grid-container">
+          <div class="top-btns">
+  
+              <div class="main-html-sidenav-container-profile" *ngIf="_authService.isAuthenticated()" >
+                  <img [src]="profile?.picture || ''" alt="profile picture" class="profile-picture">
+                  <span>{{ profile?.nickname || profile?.name }}</span>
+              </div>
+      
+              <button *ngIf="isPaidAccount"  class="main-html-sidenav-container-item" mat-button (click)="snav.close(); onAthletes()">
+                  <mat-icon class="menu-right-icon">supervised_user_circle</mat-icon>
+                  <span>Athlete cards</span>
+              </button>
+      
+              <button *ngIf="!isPaidAccount"  class="main-html-sidenav-container-item" mat-button (click)="snav.close(); onCallendar()">
+                  <mat-icon class="menu-right-icon">assignment</mat-icon>
+                  <span>Program</span>
+              </button>
+              <button *ngIf="isPaidAccount"  class="main-html-sidenav-container-item" mat-button (click)="snav.close(); onCallendar()">
+                  <mat-icon class="menu-right-icon">assignment</mat-icon>
+                  <span>Programs</span>
+              </button>
+      
+              <button *ngIf="isPaidAccount" class="main-html-sidenav-container-item" mat-button (click)="snav.close(); onTileCollection()">
+                  <mat-icon class="menu-right-icon">collections_bookmark</mat-icon>
+                  <span>Tile collection</span>
+              </button>
+      
+              <button *ngIf="isPaidAccount" class="main-html-sidenav-container-item" mat-button (click)="snav.close(); onTileEditor()">
+                  <mat-icon class="menu-right-icon">edit</mat-icon>
+                  <span>Tile editor</span>
+              </button>
+      
+              <button *ngIf="!isPaidAccount"  class="main-html-sidenav-container-item" mat-button (click)="snav.close(); onBoard()">
+                  <mat-icon class="menu-right-icon">dashboard</mat-icon>
+                  <span>Board</span>
+              </button>
+              <button *ngIf="isPaidAccount"  class="main-html-sidenav-container-item" mat-button (click)="snav.close(); onBoard()">
+                  <mat-icon class="menu-right-icon">dashboard</mat-icon>
+                  <span>Boards</span>
+              </button>
+              
+              <button class="main-html-sidenav-container-item" mat-button (click)="snav.close(); onChat()">
+                  <mat-icon class="menu-right-icon">chat</mat-icon>
+                  <span>Chat</span>
+              </button>
+      
+              <button *ngIf="!isPaidAccount || (paidAccountForDisplays && athleteAccountonPaidAccount)"  class="main-html-sidenav-container-item" mat-button (click)="snav.close(); onLoops()">
+                  <mat-icon class="menu-right-icon">loop</mat-icon>
+                  <span>Loops</span>
+              </button>
+      
+              <button *ngIf="paidAccountForDisplays && !athleteAccountonPaidAccount" class="main-html-sidenav-container-item yellow-childs" mat-button (click)="snav.close(); onAthleteAccount()">
+                  <mat-icon class="menu-right-icon">swap_horiz</mat-icon>
+                  <span>Athlete account</span>
+              </button>
+      
+              <button *ngIf="paidAccountForDisplays && athleteAccountonPaidAccount" class="main-html-sidenav-container-item yellow-childs" mat-button (click)="snav.close(); onTrainerAccount()">
+                  <mat-icon class="menu-right-icon">swap_horiz</mat-icon>
+                  <span>Trainer account</span>
+              </button>
+  
+          </div>
+  
+          <div class="fillers"></div>
+          
+          <div class="bottom-btns">
+              
+              <button class="main-html-sidenav-container-item" *ngIf="(!isPaidAccount && !athleteAccountonPaidAccount && isHandset) || (isTrial  && !athleteAccountonPaidAccount && isHandset)"  (click)="openUpgradeDialog()" mat-button>
+                  <mat-icon class="menu-right-icon">call_made</mat-icon>
+                  <span>Upgrade</span>
+              </button>
+  
+              <button class="main-html-sidenav-container-item" mat-button (click)="_authService.login()" *ngIf="!_authService.isAuthenticated()">
+                  <span>Login</span>
+              </button>
+  
+              <button class="main-html-sidenav-container-item" mat-button (click)="_authService.logout()" *ngIf="_authService.isAuthenticated()">
+                  <span>Logout</span>
+              </button>
+  
+          </div>
+      </div>
+
+    </mat-sidenav>
+  
+    <mat-sidenav-content>
+      <div class="desktop menu-container">
+        <div *ngIf="isWeb" class="menu-left" [ngStyle]="{width: menuLeftWidth ? '232px' : '69px'}"
+          id="menu-left-container">
+          <div class="menu-left-item profile-container">
+            <img [src]="profile?.picture || ''" alt="profile picture" class="profile-picture">
+            <span *ngIf="menuLeftWidth" [@list1]>{{ profile?.nickname || profile?.name }}</span>
+          </div>
+
+          <div class="panel-navigations">
+              <mat-icon class="rotate-icon" >chrome_reader_mode</mat-icon>
+              <span *ngIf="menuLeftWidth" [@list1]>Main panel actions:</span>
+          </div>
+
+          <div *ngIf="isPaidAccount" class="menu-left-item">
+            <button mat-button (click)="onAthletes()">
+              <div *ngIf="menuLeftWidth" class="left-fake-margin"></div>
+              <mat-icon class="menu-right-icon" [ngStyle]="{'padding-left':menuLeftWidth ? '4px' : '12px' }">
+                supervised_user_circle</mat-icon>
+              <span *ngIf="menuLeftWidth" [@list1]>Athlete cards</span>
+            </button>
+          </div>
+
+          <div *ngIf="!isPaidAccount"  class="menu-left-item">
+            <button mat-button (click)="onCallendar()">
+              <div *ngIf="menuLeftWidth" class="left-fake-margin"></div>
+              <mat-icon class="menu-right-icon" [ngStyle]="{'padding-left':menuLeftWidth ? '4px' : '12px' }">assignment
+              </mat-icon>
+              <span *ngIf="menuLeftWidth" [@list1]>Program</span>
+            </button>
+          </div>
+          
+          <div *ngIf="isPaidAccount"  class="menu-left-item">
+            <button mat-button (click)="onCallendar()">
+              <div *ngIf="menuLeftWidth" class="left-fake-margin"></div>
+              <mat-icon class="menu-right-icon" [ngStyle]="{'padding-left':menuLeftWidth ? '4px' : '12px' }">assignment
+              </mat-icon>
+              <span *ngIf="menuLeftWidth" [@list1]>Programs</span>
+            </button>
+          </div>
+          
+          <div *ngIf="!isPaidAccount"  class="menu-left-item">
+            <button mat-button (click)="onBoard()">
+              <div *ngIf="menuLeftWidth" class="left-fake-margin"></div>
+              <mat-icon class="menu-right-icon" [ngStyle]="{'padding-left':menuLeftWidth ? '4px' : '12px' }">dashboard
+              </mat-icon>
+              <span *ngIf="menuLeftWidth" [@list1]>Board</span>
+            </button>
+          </div>
+          <div *ngIf="isPaidAccount"  class="menu-left-item">
+            <button mat-button (click)="onBoard()">
+              <div *ngIf="menuLeftWidth" class="left-fake-margin"></div>
+              <mat-icon class="menu-right-icon" [ngStyle]="{'padding-left':menuLeftWidth ? '4px' : '12px' }">dashboard
+              </mat-icon>
+              <span *ngIf="menuLeftWidth" [@list1]>Boards</span>
+            </button>
+          </div>
+          <div  *ngIf="!isPaidAccount || (paidAccountForDisplays && athleteAccountonPaidAccount)" class="menu-left-item">
+            <button mat-button (click)="onLoops()" >
+              <div *ngIf="menuLeftWidth" class="left-fake-margin"></div>
+              <mat-icon class="menu-right-icon" [ngStyle]="{'padding-left':menuLeftWidth ? '4px' : '12px' }">loop
+              </mat-icon>
+              <span *ngIf="menuLeftWidth" [@list1]>Loops</span>
+            </button>
+          </div>
+          <div *ngIf="isPaidAccount" class="menu-left-item">
+            <button mat-button (click)="onChart()">
+              <div *ngIf="menuLeftWidth" class="left-fake-margin"></div>
+              <mat-icon class="menu-right-icon" [ngStyle]="{'padding-left':menuLeftWidth ? '4px' : '12px' }">trending_up
+              </mat-icon>
+              <span *ngIf="menuLeftWidth" [@list1]>Graphs</span>
+            </button>
+          </div>
+
+          <div *ngIf="isPaidAccount"  class="panel-navigations">
+            <mat-icon >chrome_reader_mode</mat-icon>
+            <span *ngIf="menuLeftWidth" [@list1]>Right panel actions:</span>
+          </div>
+
+          <div *ngIf="isPaidAccount" class="menu-left-item">
+            <button mat-button (click)="onTileCollection()">
+              <div *ngIf="menuLeftWidth" class="left-fake-margin"></div>
+              <mat-icon class="menu-right-icon" [ngStyle]="{'padding-left':menuLeftWidth ? '4px' : '12px' }">
+                collections_bookmark</mat-icon>
+              <span *ngIf="menuLeftWidth" [@list1]>Tile collection</span>
+            </button>
+          </div>
+          <div *ngIf="isPaidAccount" class="menu-left-item">
+            <button mat-button (click)="onTileEditor()">
+              <div *ngIf="menuLeftWidth" class="left-fake-margin"></div>
+              <mat-icon class="menu-right-icon" [ngStyle]="{'padding-left':menuLeftWidth ? '4px' : '12px' }">edit
+              </mat-icon>
+              <span *ngIf="menuLeftWidth" [@list1]>Tile editor</span>
+            </button>
+          </div>
+
+          <div class="panel-navigations">
+            <mat-icon class="rotate-icon" >cached</mat-icon>
+            <span *ngIf="menuLeftWidth" [@list1]>Switch account:</span>
+          </div>
+          
+          <div *ngIf="paidAccountForDisplays && !athleteAccountonPaidAccount" class="menu-left-item yellow-childs">
+            <button mat-button (click)="onAthleteAccount()">
+              <div *ngIf="menuLeftWidth" class="left-fake-margin"></div>
+              <mat-icon class="menu-right-icon" [ngStyle]="{'padding-left':menuLeftWidth ? '4px' : '12px' }">swap_horiz
+              </mat-icon>
+              <span *ngIf="menuLeftWidth" class="yellow-child" [@list1]>Athlete account</span>
+            </button>
+          </div>
+          <div *ngIf="paidAccountForDisplays && athleteAccountonPaidAccount" class="menu-left-item yellow-childs">
+            <button mat-button (click)="onTrainerAccount()">
+              <div *ngIf="menuLeftWidth" class="left-fake-margin"></div>
+              <mat-icon class="menu-right-icon" [ngStyle]="{'padding-left':menuLeftWidth ? '4px' : '12px' }">swap_horiz
+              </mat-icon>
+              <span *ngIf="menuLeftWidth" class="yellow-child" [@list1]>Trainer account</span>
+            </button>
+          </div>
+        </div>
+        
+        
+
+        <div class="main-content" color="primary">
+          <div  class="main-content-outlet">
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+
+        
+
+
+        <div *ngIf="isWeb" class="menu-right" [ngStyle]="{'width': menuRight}">
+          <div *ngIf="isPaidAccount"  class="menu-right-control">
+            <div class="buttons-left">
+              <button mat-button (click)="toNormal()" *ngIf="menuRight === '69px' && isPaidAccount">
+                <mat-icon class="menu-right-icon">keyboard_arrow_left</mat-icon>
+              </button>
+              <button mat-button (click)="toSmall()" *ngIf="menuRight === '365px' && isPaidAccount">
+                <mat-icon class="menu-right-icon">keyboard_arrow_right</mat-icon>
+              </button>
+            </div>
+            <div class="buttons-right" *ngIf="isTilesCollectionMode">
+              <button mat-button (click)="onTileEditor()" *ngIf="menuRight !== '69px'">
+                <mat-icon class="menu-right-icon">add_circle_outline</mat-icon>
+              </button>
+              <button mat-button (click)="enterCategoryMode()" *ngIf="menuRight !== '69px'">
+                <mat-icon class="menu-right-icon">category</mat-icon>
+              </button>
+              <button mat-button (click)="enterSearchMode()" *ngIf="menuRight !== '69px'">
+                <mat-icon class="menu-right-icon">search</mat-icon>
+              </button>
+            </div>
+            <div class="buttons-right" *ngIf="isTpCollectionMode">
+              <button mat-button (click)="toggleFilter()" *ngIf="menuRight !== '69px'">
+                <mat-icon class="menu-right-icon">search</mat-icon>
+              </button>
+            </div>
+          </div>
+          <div class="menu-right-container" *ngIf="menuRightHide && isWeb" [@list1]>
+            <app-tiles-collection *ngIf="queryParam === 'tilecollection'" ></app-tiles-collection>
+            <app-athlete-manager *ngIf="queryParam === 'athletemanager'"></app-athlete-manager>
+            <app-tile-editor *ngIf="queryParam === 'tileeditor'"></app-tile-editor>
+            <app-tp-menu *ngIf="queryParam === 'tp'"></app-tp-menu>
+          </div>
+        </div>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
+
+<app-chat *ngIf="!isHandset && isChatOn"  id="chat"></app-chat>

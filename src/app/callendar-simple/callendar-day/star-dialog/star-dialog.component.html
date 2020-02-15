@@ -1,0 +1,37 @@
+<form #starCreator="ngForm">
+  <div mat-dialog-content>
+    
+    <h4>Select star</h4>
+    <mat-radio-group aria-label="Select an option" name="star_color" ngModel #star_color='ngModel' required [(ngModel)]="data.star_color">
+      <mat-radio-button value="#D6AF36">Gold</mat-radio-button>
+      <mat-radio-button value="#A7A7AD">Silver</mat-radio-button>
+      <mat-radio-button value="#A77044">Bronze</mat-radio-button>
+    </mat-radio-group>
+    
+    <h4>Add description</h4>
+    <mat-form-field  appearance="fill">
+      <mat-label>description</mat-label>
+      <textarea 
+      matInput 
+      required 
+      maxlength="30000"
+      rows="6"
+      #note='ngModel'
+      name="star_description"
+      [(ngModel)]="data.star_description"></textarea>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <div></div>
+    <div *ngIf="!data.id"></div>
+    <button mat-button *ngIf="data.id"  (click)="delete()">Delete Star</button>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button 
+      mat-button 
+      color="primary" 
+      [ngClass]="{enabled: note.valid || star_color.valid}" 
+      [disabled]="!note.valid || !star_color.valid"  
+      [mat-dialog-close]="data"
+    >Ok</button>
+  </div>
+</form>

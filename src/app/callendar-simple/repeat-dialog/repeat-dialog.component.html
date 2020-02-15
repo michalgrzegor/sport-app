@@ -1,0 +1,20 @@
+<div mat-dialog-content>
+  <h4>Choose the way you want to repeat this action</h4>
+  <mat-radio-button (click)="input = 1">Weekly</mat-radio-button>
+  <br>
+  <mat-form-field *ngIf="input == 1" appearance="fill">
+    <mat-label>How many weeks?</mat-label>
+    <input matInput maxlength="255" [(ngModel)]="data.weekly" placeholder="How many weeks?">
+  </mat-form-field>
+  <mat-radio-button (click)="input = 2">Daily</mat-radio-button>
+  <br>
+  <mat-form-field *ngIf="input == 2" appearance="fill">
+    <mat-label>How many days?</mat-label>
+    <input matInput maxlength="255" [(ngModel)]="data.daily" placeholder="How many days?">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <div></div>
+  <button mat-button color="primary" (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>confirm</button>
+</div>

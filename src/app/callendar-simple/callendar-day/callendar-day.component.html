@@ -1,0 +1,407 @@
+<app-week-summary [dayDateString]="dayDateString"></app-week-summary>
+<div class="border-line-top"></div>
+
+<div class="global_container" [ngStyle]="{'grid-template-columns':isWeb || isTablet ? '1fr 92px' : '1fr' }">
+  <div class="tiles-container">
+    <div class="header">
+      <div></div>
+      <h4 class="calendar-day-title"> {{dayDate | date: 'MMMM dd yyyy'}} </h4>
+      <mat-icon class="star" *ngIf="tPStar && isWeb" [ngStyle]="{'color': tPStar.star_color}" matTooltip="{{tPStar.star_description}}" matTooltipClass="comment-tooltip">star</mat-icon>
+      <div *ngIf="!tPStar && isWeb"></div>
+      <div *ngIf="!isWeb" ></div>
+      <!-- <div *ngIf="!isHandset"></div> -->
+      <!-- <div *ngIf="isHandset && !tPStar" ></div> -->
+      <div class="close-button-handset" *ngIf="isHandset" >
+        <button mat-button (click)="close()"><mat-icon>close</mat-icon></button>
+      </div>
+    </div>
+    <div class="star-handset" *ngIf="tPStar && !isWeb">
+      <div></div>
+      <mat-icon class="star" [ngStyle]="{'color': tPStar.star_color}">star</mat-icon>
+      <h4>{{tPStar.star_description}}</h4>
+      <div></div>
+    </div>
+    <div class="grid-container" *ngIf="idArray" [ngStyle]="{'grid-template-columns':isHandset ? '1fr' : '1fr 1fr' }">
+      <div class="training-sesion" *ngFor="let session of sessions" >
+        
+        <!-- paid account -->
+        <div 
+          *ngIf="session == 1 && isPaidAccount && !isHandset && !dayToedit(dayDate)" 
+          class="drop-list"
+          id="{{ idArray[0] }}" 
+          cdkDropList 
+          #sessionOne="cdkDropList"
+          [cdkDropListConnectedTo]="allMomentDateArray"
+          [cdkDropListData]="gridArrayS1"
+          (cdkDropListDropped)="drop($event)">
+          <h6 [ngStyle]="{'width' : isHandset ? '95vw' : '100%'}" >First training session</h6>
+          <div *ngFor="let tile of gridArrayS1; trackBy: trackByName; let i = index" cdkDrag>
+            <div class="grid-to-center">
+              <app-tile [dateTile]="dayDate" [tileRef]="tile" [index]="i" [isInCollection]="false" [tr_id]="trainingPlan.id" [asso_id]="tile.asso_id"></app-tile>
+            </div>
+            <div class="custom-placeholder" *cdkDragPlaceholder></div>
+            <div *cdkDragPreview class="preview">
+              <div class="collor-preview" [ngStyle]="{'background': tile.tile_type_color}"></div>
+              <p>{{tile.tile_title}}</p>
+            </div>
+          </div>
+        </div>
+        <div 
+          *ngIf="session == 1 && isPaidAccount && !isHandset && dayToedit(dayDate)" 
+          class="drop-list"
+          id="{{ idArray[0] }}" >
+          <h6 [ngStyle]="{'width' : isHandset ? '95vw' : '100%'}" >First training session</h6>
+          <div *ngFor="let tile of gridArrayS1; trackBy: trackByName; let i = index" >
+            <div class="grid-to-center">
+              <app-tile [dateTile]="dayDate" [tileRef]="tile" [index]="i" [isInCollection]="false" [tr_id]="trainingPlan.id" [asso_id]="tile.asso_id"></app-tile>
+            </div>
+          </div>
+        </div>
+
+        <div 
+          *ngIf="session == 2 && isPaidAccount && !isHandset && !dayToedit(dayDate)" 
+          class="drop-list"
+          id="{{ idArray[1] }}"
+          cdkDropList 
+          #sessionTwo="cdkDropList"
+          [cdkDropListConnectedTo]="allMomentDateArray"
+          [cdkDropListData]="gridArrayS2"
+          (cdkDropListDropped)="drop($event)">
+          <div class="only-for-space" *ngIf="isHandset" ></div>
+          <h6>Second training session</h6>
+          <div *ngFor="let tile2 of gridArrayS2; trackBy: trackByName; let in = index" cdkDrag>
+            <div class="grid-to-center">
+              <app-tile [dateTile]="dayDate" [tileRef]="tile2" [index]="in" [isInCollection]="false" [tr_id]="trainingPlan.id" [asso_id]="tile2.asso_id"></app-tile>
+            </div>
+            <div class="custom-placeholder" *cdkDragPlaceholder></div>
+            <div *cdkDragPreview class="preview">
+              <div class="collor-preview" [ngStyle]="{'background': tile2.tile_type_color}"></div>
+              <p>{{tile2.tile_title}}</p>
+            </div>
+          </div>
+        </div>
+        <div 
+          *ngIf="session == 2 && isPaidAccount && !isHandset && dayToedit(dayDate)" 
+          class="drop-list"
+          id="{{ idArray[1] }}">
+          <div class="only-for-space" *ngIf="isHandset" ></div>
+          <h6>Second training session</h6>
+          <div *ngFor="let tile2 of gridArrayS2; trackBy: trackByName; let in = index" >
+            <div class="grid-to-center">
+              <app-tile [dateTile]="dayDate" [tileRef]="tile2" [index]="in" [isInCollection]="false" [tr_id]="trainingPlan.id" [asso_id]="tile2.asso_id"></app-tile>
+            </div>
+          </div>
+        </div>
+
+        <div 
+          *ngIf="session == 3 && isPaidAccount && !isHandset && !dayToedit(dayDate)" 
+          class="drop-list"
+          id="{{ idArray[2] }}"
+          cdkDropList 
+          #sessionThree="cdkDropList"
+          [cdkDropListConnectedTo]="allMomentDateArray"
+          [cdkDropListData]="gridArrayS3"
+          (cdkDropListDropped)="drop($event)">
+          <div class="only-for-space" *ngIf="isHandset" ></div>
+          <h6>Third training session</h6>
+          <div *ngFor="let tile3 of gridArrayS3; trackBy: trackByName; let ind = index" cdkDrag>
+            <div class="grid-to-center">
+              <app-tile [dateTile]="dayDate" [tileRef]="tile3" [index]="ind" [isInCollection]="false"  [tr_id]="trainingPlan.id" [asso_id]="tile3.asso_id"></app-tile>
+            </div>
+            <div class="custom-placeholder" *cdkDragPlaceholder></div>
+            <div *cdkDragPreview class="preview">
+              <div class="collor-preview" [ngStyle]="{'background': tile3.tile_type_color}"></div>
+              <p>{{tile3.tile_title}}</p>
+            </div>
+          </div>
+        </div>
+        <div 
+          *ngIf="session == 3 && isPaidAccount && !isHandset && dayToedit(dayDate)" 
+          class="drop-list"
+          id="{{ idArray[2] }}">
+          <div class="only-for-space" *ngIf="isHandset" ></div>
+          <h6>Third training session</h6>
+          <div *ngFor="let tile3 of gridArrayS3; trackBy: trackByName; let ind = index" >
+            <div class="grid-to-center">
+              <app-tile [dateTile]="dayDate" [tileRef]="tile3" [index]="ind" [isInCollection]="false"  [tr_id]="trainingPlan.id" [asso_id]="tile3.asso_id"></app-tile>
+            </div>
+          </div>
+        </div>
+        
+        <!-- paid account and handset -->
+        <div 
+          *ngIf="session == 1 && isPaidAccount && isHandset" 
+          class="drop-list"
+          id="{{ idArray[0] }}" >
+          <h6 [ngStyle]="{'width' : isHandset ? '95vw' : '100%'}" >First training session</h6>
+          <div *ngFor="let tile of gridArrayS1; trackBy: trackByName; let i = index">
+            <div class="grid-to-center">
+              <app-tile [dateTile]="dayDate" [tileRef]="tile" [index]="i" [isInCollection]="false" [tr_id]="trainingPlan.id" [asso_id]="tile.asso_id"></app-tile>
+            </div>
+          </div>
+        </div>
+
+        <div 
+          *ngIf="session == 2 && isPaidAccount && isHandset" 
+          class="drop-list"
+          id="{{ idArray[1] }}">
+          <div class="only-for-space" *ngIf="isHandset" ></div>
+          <h6>Second training session</h6>
+          <div *ngFor="let tile2 of gridArrayS2; trackBy: trackByName; let in = index">
+            <div class="grid-to-center">
+              <app-tile [dateTile]="dayDate" [tileRef]="tile2" [index]="in" [isInCollection]="false" [tr_id]="trainingPlan.id" [asso_id]="tile2.asso_id"></app-tile>
+            </div>
+          </div>
+        </div>
+
+        <div 
+          *ngIf="session == 3 && isPaidAccount && isHandset" 
+          class="drop-list"
+          id="{{ idArray[2] }}">
+          <div class="only-for-space" *ngIf="isHandset" ></div>
+          <h6>Third training session</h6>
+          <div *ngFor="let tile3 of gridArrayS3; trackBy: trackByName; let ind = index">
+            <div class="grid-to-center">
+              <app-tile [dateTile]="dayDate" [tileRef]="tile3" [index]="ind" [isInCollection]="false"  [tr_id]="trainingPlan.id" [asso_id]="tile3.asso_id"></app-tile>
+            </div>
+          </div>
+        </div>
+
+        <!-- athlete account -->
+        <div 
+          *ngIf="session == 1 && !isPaidAccount" 
+          class="drop-list"
+          id="{{ idArray[0] }}" >
+          <h6 [ngStyle]="{'width' : isHandset ? '95vw' : '100%'}" >First training session</h6>
+          <div *ngFor="let tile of gridArrayS1; trackBy: trackByName; let i = index" >
+            <div class="grid-to-center">
+              <app-tile [dateTile]="dayDate" [tileRef]="tile" [index]="i" [isInCollection]="false" [tr_id]="trainingPlan.id" [asso_id]="tile.asso_id"></app-tile>
+            </div>
+          </div>
+        </div>
+
+        <div 
+          *ngIf="session == 2 && !isPaidAccount" 
+          class="drop-list"
+          id="{{ idArray[1] }}">
+          <div class="only-for-space" *ngIf="isHandset" ></div>
+          <h6>Second training session</h6>
+          <div *ngFor="let tile2 of gridArrayS2; trackBy: trackByName; let in = index" >
+            <div class="grid-to-center">
+              <app-tile [dateTile]="dayDate" [tileRef]="tile2" [index]="in" [isInCollection]="false" [tr_id]="trainingPlan.id" [asso_id]="tile2.asso_id"></app-tile>
+            </div>
+          </div>
+        </div>
+
+        <div 
+          *ngIf="session == 3 && !isPaidAccount" 
+          class="drop-list"
+          id="{{ idArray[2] }}">
+          <div class="only-for-space" *ngIf="isHandset" ></div>
+          <h6>Third training session</h6>
+          <div *ngFor="let tile3 of gridArrayS3; trackBy: trackByName; let ind = index" >
+            <div class="grid-to-center">
+              <app-tile [dateTile]="dayDate" [tileRef]="tile3" [index]="ind" [isInCollection]="false"  [tr_id]="trainingPlan.id" [asso_id]="tile3.asso_id"></app-tile>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="actions-container" *ngIf="isWeb || isTablet" >
+    <div class="close-button">
+      <button mat-button (click)="close()"><mat-icon>close</mat-icon></button>
+    </div>
+    <h6 *ngIf="isPaidAccount">Actions</h6>
+    <h6 *ngIf="!isPaidAccount"></h6>
+    <div class="action-button" *ngIf="isTablet && isPaidAccount && !dayToedit(dayDate)" >
+      <button mat-button (click)="add()"  matTooltip="add" matTooltipClass="comment-tooltip"><mat-icon>add</mat-icon></button>
+    </div>
+    <div class="action-button" *ngIf="isPaidAccount" >
+      <button mat-button (click)="repeat()"  matTooltip="repeat" matTooltipClass="comment-tooltip"><mat-icon>repeat</mat-icon></button>
+    </div>
+    <div class="action-button" *ngIf="isPaidAccount" >
+      <button mat-button (click)="copy()" matTooltip="copy" matTooltipClass="comment-tooltip"><mat-icon>file_copy</mat-icon></button>
+    </div>
+    <div class="action-button" *ngIf="isPaidAccount" >
+      <button mat-button (click)="paste()" matTooltip="paste" matTooltipClass="comment-tooltip"><mat-icon>assignment_turned_in</mat-icon></button>
+    </div>
+    <div class="action-button" *ngIf="isPaidAccount && !dayToedit(dayDate)" >
+      <button mat-button (click)="delete()" matTooltip="delete" matTooltipClass="comment-tooltip"><mat-icon>delete</mat-icon></button>
+    </div>
+    <div class="action-button" *ngIf="isPaidAccount && !dayToedit(dayDate)" >
+      <button mat-button *ngIf="tPStar" (click)="editStar()"  ><mat-icon [ngStyle]="{'color': tPStar.star_color}" matTooltip="{{tPStar.star_description}}" matTooltipClass="comment-tooltip">star</mat-icon></button>
+      <button mat-button *ngIf="!tPStar" (click)="addStar()"  matTooltip="mark day" matTooltipClass="comment-tooltip" ><mat-icon>star</mat-icon></button>
+    </div>
+    <div class="action-button" *ngIf="isPaidAccount" >
+      <button mat-button (click)="addComment()" matTooltip="Leave a comment" matTooltipClass="comment-tooltip"><mat-icon>comment</mat-icon></button>
+    </div>
+  </div>
+</div>
+
+<div class="border-line-bottom"></div>
+
+<div class="summary-container-handset" *ngIf="isHandset" >
+  <div *ngIf="summary" class="summary-cont-handset">
+    <div></div>
+    <h6>Week summary</h6>
+    <div class="expand-button">
+      <button mat-button (click)="toggleAction()" ><mat-icon [@rotate]="stateName">expand_less</mat-icon></button>
+    </div>
+  </div>
+  <div class="divider-handset"></div>
+  <div  *ngIf="summaryClose" [@fade]>
+    <div  [@hideShow]="stateName"  *ngIf="summary" class="summary-cont">
+      <div>
+        <h3>Training:</h3>
+        <p class="summary">Training sessions: {{summary.trainingSessions}}</p>
+        <p class="summary">Total distance (km): {{summary.totalKilometers}}</p>
+        <p class="summary">Total distance (miles): {{summary.totalMiles}}</p>
+        <p class="summary">Total time: {{summary.totalTime}}</p>
+        <h3 class="diet-summary">Diet:</h3>
+        <p class="summary">Total meals: {{summary.totalMeals}}</p>
+        <p class="summary">Total calories: {{summary.totalCaloriesKj}}(kJ) | {{summary.totalCaloriesKcal}}(kcal)</p>
+        <p class="summary">Carbohydrates: {{summary.totalCarbCaloriesKj}}(kJ) | {{summary.totalCarbCaloriesKcal}}(kcal) | {{summary.totalCarbGrams}}(g)</p>
+        <p class="summary">Fats: {{summary.totalFatCaloriesKj}}(kJ) | {{summary.totalFatCaloriesKcal}}(kcal) | {{summary.totalFatGrams}}(g)</p>
+        <p class="summary">Proteins: {{summary.totalProteinCaloriesKj}}(kJ) | {{summary.totalProteinCaloriesKcal}}(kcal) | {{summary.totalProteinGrams}}(g)</p>
+      </div>
+    </div>
+  </div>
+  <div class="divider-handset" *ngIf="summaryClose" [@fade]></div>
+  <div *ngIf="summaryDay"  class="summary-cont-handset">
+    <div></div>
+    <h6>Day summary</h6>
+    <div class="expand-button">
+      <button mat-button (click)="toggleAction()" ><mat-icon [@rotate]="stateName">expand_less</mat-icon></button>
+    </div>
+  </div>
+  <div class="divider-handset"></div>
+  <div  *ngIf="summaryClose" [@fade]>
+    <div  [@hideShow]="stateName"  *ngIf="summaryDay" class="summary-cont">
+      <div>
+        <h3>Training:</h3>
+        <p class="summary">Training sessions: {{summaryDay.trainingSessions}}</p>
+        <p class="summary">Total distance (km): {{summaryDay.totalKilometers}}</p>
+        <p class="summary">Total distance (miles): {{summaryDay.totalMiles}}</p>
+        <p class="summary">Total time: {{summaryDay.totalTime}}</p>
+        <h3 class="diet-summary">Diet:</h3>
+        <p class="summary">Total meals: {{summaryDay.totalMeals}}</p>
+        <p class="summary">Total calories: {{summaryDay.totalCaloriesKj}}(kJ) | {{summaryDay.totalCaloriesKcal}}(kcal)</p>
+        <p class="summary">Carbohydrates: {{summaryDay.totalCarbCaloriesKj}}(kJ) | {{summaryDay.totalCarbCaloriesKcal}}(kcal) | {{summaryDay.totalCarbGrams}}(g)</p>
+        <p class="summary">Fats: {{summaryDay.totalFatCaloriesKj}}(kJ) | {{summaryDay.totalFatCaloriesKcal}}(kcal) | {{summaryDay.totalFatGrams}}(g)</p>
+        <p class="summary">Proteins: {{summaryDay.totalProteinCaloriesKj}}(kJ) | {{summaryDay.totalProteinCaloriesKcal}}(kcal) | {{summaryDay.totalProteinGrams}}(g)</p>
+      </div>
+    </div>
+  </div>
+  <div class="divider-handset plus-margin" *ngIf="summaryClose" [@fade]></div>
+
+</div>
+
+<div class="summary-container" *ngIf="!isHandset" >
+  <div *ngIf="summary" class="summary-cont">
+    <h6>Week summary</h6>
+  </div>
+  <div *ngIf="summaryDay" class="summary-cont">
+    <h6>Day summary</h6>
+  </div>
+  <div class="expand-button">
+    <button mat-button (click)="toggleAction()" ><mat-icon [@rotate]="stateName">expand_less</mat-icon></button>
+  </div>
+</div>
+
+<div [@hideShow]="stateName" class="hidden-container" *ngIf="!isHandset">
+  <div *ngIf="summaryClose" [@fade]>
+    <div class="summary-container" >
+      <div *ngIf="summary" class="summary-cont">
+          <div>
+            <h3>Training:</h3>
+            <p class="summary">Training sessions: {{summary.trainingSessions}}</p>
+            <p class="summary">Total distance (km): {{summary.totalKilometers}}</p>
+            <p class="summary">Total distance (miles): {{summary.totalMiles}}</p>
+            <p class="summary">Total time: {{summary.totalTime}}</p>
+            <h3 class="diet-summary">Diet:</h3>
+            <p class="summary">Total meals: {{summary.totalMeals}}</p>
+            <p class="summary">Total calories: {{summary.totalCaloriesKj}}(kJ) | {{summary.totalCaloriesKcal}}(kcal)</p>
+            <p class="summary">Carbohydrates: {{summary.totalCarbCaloriesKj}}(kJ) | {{summary.totalCarbCaloriesKcal}}(kcal) | {{summary.totalCarbGrams}}(g)</p>
+            <p class="summary">Fats: {{summary.totalFatCaloriesKj}}(kJ) | {{summary.totalFatCaloriesKcal}}(kcal) | {{summary.totalFatGrams}}(g)</p>
+            <p class="summary">Proteins: {{summary.totalProteinCaloriesKj}}(kJ) | {{summary.totalProteinCaloriesKcal}}(kcal) | {{summary.totalProteinGrams}}(g)</p>
+          </div>
+      </div>
+      <div *ngIf="summaryDay" class="summary-cont">
+          <div>
+            <h3>Training:</h3>
+            <p class="summary">Training sessions: {{summaryDay.trainingSessions}}</p>
+            <p class="summary">Total distance (km): {{summaryDay.totalKilometers}}</p>
+            <p class="summary">Total distance (miles): {{summaryDay.totalMiles}}</p>
+            <p class="summary">Total time: {{summaryDay.totalTime}}</p>
+            <h3 class="diet-summary">Diet:</h3>
+            <p class="summary">Total meals: {{summaryDay.totalMeals}}</p>
+            <p class="summary">Total calories: {{summaryDay.totalCaloriesKj}}(kJ) | {{summaryDay.totalCaloriesKcal}}(kcal)</p>
+            <p class="summary">Carbohydrates: {{summaryDay.totalCarbCaloriesKj}}(kJ) | {{summaryDay.totalCarbCaloriesKcal}}(kcal) | {{summaryDay.totalCarbGrams}}(g)</p>
+            <p class="summary">Fats: {{summaryDay.totalFatCaloriesKj}}(kJ) | {{summaryDay.totalFatCaloriesKcal}}(kcal) | {{summaryDay.totalFatGrams}}(g)</p>
+            <p class="summary">Proteins: {{summaryDay.totalProteinCaloriesKj}}(kJ) | {{summaryDay.totalProteinCaloriesKcal}}(kcal) | {{summaryDay.totalProteinGrams}}(g)</p>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+<div class="border-line-bottom"></div>
+</div>
+
+<div class="comments-container">
+  <div *ngFor="let comment of comments"  class="comment-container" [ngClass]="{'your': !isMyComment(comment)}">
+    <div *ngIf="!isHandset"  class="comment-header">
+      <h5>{{comment.comment_user}}</h5>
+      <p *ngIf="comment.comment_is_edited" >edited: </p>
+      <div *ngIf="!comment.comment_is_edited" ></div>
+      <p>{{comment.comment_data}}</p>
+      <div class="btn-comments-container">
+          <button mat-button *ngIf="isMyComment(comment)"  (click)="editComment(comment)" matTooltip="edit comment" matTooltipClass="comment-tooltip"><mat-icon>edit</mat-icon></button>
+          <button mat-button *ngIf="isMyComment(comment)"  (click)="deleteComment(comment)" matTooltip="delete comment" matTooltipClass="comment-tooltip"><mat-icon>delete</mat-icon></button>
+          <!-- <button mat-button (click)="addComment()" matTooltip="paste" matTooltipClass="comment-tooltip"><mat-icon>comment</mat-icon></button> -->
+      </div>
+    </div>
+    <div *ngIf="isHandset"  class="handset-comment-header">
+      <div class="handset-comment-header-data">
+        <h5>{{comment.comment_user}}</h5>
+        <p *ngIf="comment.comment_is_edited" >edited: </p>
+        <div *ngIf="!comment.comment_is_edited" ></div>
+        <p>{{comment.comment_data}}</p>
+      </div>
+      <div class="btn-comments-container">
+          <button mat-button *ngIf="isMyComment(comment)"  (click)="editComment(comment)" matTooltip="edit comment" matTooltipClass="comment-tooltip"><mat-icon>edit</mat-icon></button>
+          <button mat-button *ngIf="isMyComment(comment)"  (click)="deleteComment(comment)" matTooltip="delete comment" matTooltipClass="comment-tooltip"><mat-icon>delete</mat-icon></button>
+          <!-- <button mat-button (click)="addComment()" matTooltip="paste" matTooltipClass="comment-tooltip"><mat-icon>comment</mat-icon></button> -->
+      </div>
+    </div>
+    <div class="comment-body">{{comment.comment_body}}</div>
+  </div>
+  
+  <button (click)="addComment()"  matTooltip="Leave a comment" matTooltipClass="comment-tooltip" class="btn-sending-comment" mat-button type="button">add comment</button>
+</div>
+
+<!-- Floating action btn -->
+
+<div *ngIf="isHandset && isPaidAccount" >
+  <div id="fab-dismiss" 
+  *ngIf="fabTogglerState === 'active'" 
+  (click)="onToggleFab()">
+  </div><div class="fab-container">
+    <button mat-fab class="fab-toggler"
+            (click)="onToggleFab(dayDate)">
+      <mat-icon class="material-icons" [@fabToggler]="{value: fabTogglerState}">add</mat-icon>
+    </button>
+    <div [@speedDialStagger]="buttons.length" class="flexdiv">
+      <button *ngFor="let btn of buttons"
+              mat-mini-fab
+              class="fab-secondary"
+              (click)="fabbtnclick(btn.icon)" 
+              color="secondary">
+        <mat-icon class="material-icons">{{btn.icon}}</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
+

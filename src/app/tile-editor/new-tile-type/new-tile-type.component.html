@@ -1,0 +1,39 @@
+<form #newTile="ngForm" id="new-tile-type">
+  <div mat-dialog-content class="material-dialog-content">
+  
+    <h4>New tile name</h4>
+    <mat-form-field  appearance="fill">
+      <mat-label>name</mat-label>
+      <input 
+        matInput 
+        required 
+        #name='ngModel'
+        name="tilename"
+        [(ngModel)]="data.name">
+    </mat-form-field>
+    <p [hidden]="name.valid || name.untouched">Name is required</p>
+  
+    <h4>Choose template</h4>
+    <mat-form-field appearance="fill">
+      <mat-label>template</mat-label>
+      <mat-select 
+          [(ngModel)]="data.type"
+          required
+          #template='ngModel'
+          name="template"
+          placeholder="template">
+          <mat-option value="training">training</mat-option>
+          <mat-option value="diet">diet</mat-option>
+          <mat-option value="question">question</mat-option>
+          <mat-option value="motivation">motivation</mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <h4>Pick a color</h4>
+    <app-color-picker></app-color-picker>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button color="primary" (click)="onNoClick()">Cancel</button>
+    <button mat-button color="primary" [ngClass]="{disabled: !name.valid || !template.valid}"  [disabled]="!name.valid || !template.valid" [mat-dialog-close]="data">Ok</button>
+  </div>
+</form>

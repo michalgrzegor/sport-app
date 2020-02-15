@@ -1,0 +1,61 @@
+<div class="close-btn-container">
+    <button id="close-btn" mat-button color="primary" (click)="closeDialog()"><mat-icon>close</mat-icon></button>
+</div>
+<div id="new-tp-editor">
+
+  <div *ngIf="!invitationSucces" >
+    <form #newAthlete="ngForm">
+      <div mat-dialog-content>
+  
+        <h4>Enter email of your athlete</h4>
+        <div class="grid">
+          <mat-form-field  appearance="fill">
+            <mat-label>email</mat-label>
+            <input 
+              matInput 
+              required 
+              type="email"
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+              maxlength="255"
+              #name='ngModel'
+              name="tilename"
+              [(ngModel)]="data.email">
+          </mat-form-field>
+          <button [disabled]="!name.valid" (click)="search(name.value)"  mat-button>
+              <mat-icon [ngClass]="{enabled_search: name.valid}" class="menu-right-icon">search</mat-icon>
+          </button>
+        </div>
+        <p [hidden]="name.valid || name.untouched || !name.errors?.pattern">enter a correct email</p>
+        <p class="message_email" *ngIf="responsEmail === 3" >User with <span class="yellow">{{this.data.email}}</span> email doesn't exist. We send an email with an invitation</p>
+        <p class="message_email" *ngIf="responsEmail === 2" >User with <span class="yellow">{{this.data.email}}</span> email has an account. You can send an invitation</p>
+        <p class="message_email" *ngIf="responsEmail === 4" >User with <span class="yellow">{{this.data.email}}</span> email has more than one account. Choose one account:</p>
+        <div *ngIf="responsEmail === 4" >
+          <div *ngFor="let user of usersByEmail; let i = index" class="pseudo-btn" (click)="chooseUser(user, i)" [ngClass]="{'highlite':index === i}" >
+              <img [src]="user?.picture || ''" alt="profile picture" class="profile-picture">
+              <span>{{ user?.nickname }}</span>
+          </div>
+        </div>
+        <app-spinner *ngIf="spinnerInvite"></app-spinner>
+  
+      </div>
+      <div class="grid-to-right" mat-dialog-actions>
+        <div></div>
+        <button mat-button color="primary" (click)="onNoClick()">Cancel</button>
+        <button 
+          mat-button 
+          color="primary" 
+          (click)="submitInvitation()" 
+          [ngClass]="{enabled: isValid}" 
+          [disabled]="!isValid"  
+          [mat-dialog-close]="data"
+        >Ok</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="succes-to-center" *ngIf="invitationSucces">
+    <mat-icon class="succes">email</mat-icon>
+    <h4>Invitation has been sent!</h4>
+    
+  </div>
+</div>

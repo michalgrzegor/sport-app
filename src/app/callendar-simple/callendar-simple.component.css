@@ -1,0 +1,204 @@
+.master-container {
+  box-sizing: border-box;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.grid-container-nav {
+  height: 72px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.calendar-item-chart {
+  position: relative;
+  height: 72px;
+  display: grid;
+  align-items: center;
+}
+
+.calendar-item-chart-date {
+  text-align: center;
+  z-index: 10;
+  position: absolute;
+  width: 100%;
+  line-height: 72px;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+
+.calendar-item-chart-date span {
+  background: rgb(52, 87, 99);
+  text-align: center;
+  font-family: 'Lato', sans-serif;
+  color: rgba(255, 255, 255, 0.5);
+
+  position: relative;
+}
+
+.calendar-item-chart-date .transparent {
+  background: rgba(52, 87, 99, 0.7);
+  width: 100%;
+  height: 72px;
+  position: absolute;
+}
+
+.calendar-item-chart-date .transparent-handset {
+  background: rgba(52, 87, 99, 0.7);
+  width: 100%;
+  height: 48px;
+  position: absolute;
+}
+
+.span-web {
+  display: inline-block;
+  line-height: 42px;
+  width: 42px;
+  height: 42px;
+  border-radius: 21px;
+  font-size: 16px;
+}
+
+.span-tablet {
+  display: inline-block;
+  line-height: 42px;
+  width: 42px;
+  height: 42px;
+  border-radius: 21px;
+  font-size: 16px;
+}
+
+.span-handset {
+  display: inline-block;
+  line-height: 28px;
+  width: 28px;
+  height: 28px;
+  border-radius: 14px;
+  font-size: 14px;
+}
+
+.star-front {
+  position: absolute;
+  z-index: 100;
+  -webkit-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.55);
+  -moz-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.55);
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.55);
+  background-color: rgb(52, 87, 99);
+}
+
+.star-web {
+  top: -3px;
+  left: 30px;
+  border-radius: 12px;
+  width: 24px;
+  height: 24px;
+  font-size: 24px;
+}
+
+.star-tablet {
+  top: -3px;
+  left: 30px;
+  border-radius: 12px;
+  width: 24px;
+  height: 24px;
+  font-size: 24px;
+}
+
+.star-handset {
+  top: -10px;
+  left: 16px;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+.dropp-container {
+  justify-self: center;
+  cursor: pointer;
+  width: 72px;
+  height: 100%;
+  position: absolute;
+  z-index: 20;
+  border-radius: 36px;
+}
+
+.calendar-container {
+  grid-column: 1 / span 7;
+}
+
+.month-name {
+  font-family: 'Lato', sans-serif;
+  /* line-height: 72px; */
+  text-align: center;
+  color: rgba(255, 255, 255, 0.87);
+  font-size: 16px;
+  text-transform: uppercase;
+  justify-self: center;
+  align-self: center;
+}
+
+.day-of-the-week {
+  height: 72px;
+  line-height: 72px;
+  text-align: center;
+  font-family: 'Lato', sans-serif;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 16px;
+}
+
+.menu-right-icon {
+  padding: 12px;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.menu-left-icon {
+  padding: 12px;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.animation-container {
+  overflow: hidden;
+}
+
+.tp-name {
+  display: grid;
+  grid-template-columns: 48px 1fr 48px;
+}
+
+.center-container {
+  width: 48px;
+  height: 48px;
+}
+
+.tp-name h4 {
+  margin: 0px;
+  height: 48px;
+  line-height: 48px;
+}
+
+.tp-name button {
+  min-width: 0px;
+  padding: 0px;
+}
+
+.mat-menu-content button {
+  font-family: 'Raleway';
+  font-weight: 800;
+  line-height: 14px;
+  font-size: 14px;
+}
+.divider-line {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  margin-left: 10px;
+}
+
+.link-to-plan {
+  color: #E8A022;
+  cursor: pointer;
+}

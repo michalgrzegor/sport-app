@@ -1,0 +1,5 @@
+<div mat-dialog-content *ngIf="data.creator === array[1]">
+  <app-tile-editor></app-tile-editor>
+</div>
+<app-athlete-creator *ngIf="data.creator === array[2]" ></app-athlete-creator>
+<app-training-plan-editor *ngIf="data.creator === array[0]" ></app-training-plan-editor>

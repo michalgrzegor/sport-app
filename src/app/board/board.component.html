@@ -1,0 +1,103 @@
+<div class="tp-name" *ngIf="!athleteCardMode" >
+  <div class="center-container"></div>
+  <h4>{{name}} - Board</h4>
+  <div class="center-container">
+
+    <button mat-button [matMenuTriggerFor]="menu"  *ngIf="isPaidAccount">
+      <mat-icon class="menu-right-icon">more_vert</mat-icon>
+    </button>
+
+    <mat-menu #menu="matMenu" xPosition="before">
+      <button mat-menu-item  *ngIf="isPaidAccount" (click)="loadMainBoard()">Main board</button>
+      <button mat-menu-item *ngIf="isPaidAccount" [matMenuTriggerFor]="subMenu">Training plan boards</button>
+    </mat-menu>
+
+    <mat-menu #subMenu="matMenu" xPosition="before">
+      <button *ngFor="let tPName of tpManager" (click)="loadBoard(tPName.id, tPName.training_plan_name)" mat-menu-item>{{tPName.training_plan_name}}</button>
+    </mat-menu>
+
+  </div>
+</div>
+
+<div class="divider-line" *ngIf="!athleteCardMode"></div>
+
+<div *ngIf="isPaidAccount"  class="big-btn-container">
+  <button class="big-btn" mat-button (click)="newNote()">
+    <mat-icon class="menu-right-icon">add_circle</mat-icon>Create Note
+  </button>
+</div>
+
+<div *ngIf="!isPaidAccount" class="fille-after-create-btn" ></div>
+
+<div class="pseudo-card-container-grid" [ngStyle]="{gridTemplateColumns: isHandset ? '16px 1fr 16px' : '1fr 1fr 1fr'}">
+  <div></div>
+  <div class="pseudo-card-container" *ngIf="!isHandset"  [ngStyle]="{gridTemplateColumns: isMaxWidth ? '344px 344px 344px' : '344px 344px'}">
+
+    <div class="card" *ngFor="let note of boardNotes; let i = index">
+
+      <div>
+
+        <div class="pseudo-card-body" (click)="openNote(i)">
+
+          <div class="pseudo-card-header">
+            <h4 class="pseudo-card-header-title">{{note.board_note_name | shorten:12}}</h4>
+            <div class="pseudo-card-options">
+              <!-- tutaj ikony -->
+              <button *ngIf="isPaidAccount"  mat-button click-stop-propagation (click)="deleteNote(i)">
+                <mat-icon class="menu-right-icon">delete</mat-icon>
+              </button>
+            </div>
+            <div class="pseudo-card-options">
+              <button *ngIf="isPaidAccount"  mat-button click-stop-propagation (click)="editNote(i)">
+                <mat-icon class="menu-right-icon">edit</mat-icon>
+              </button>
+            </div>
+          </div>
+
+          <div class="pseudo-card-inner-body">
+            <p class="pseudo-card-text">{{note.board_note_description | shorten:120}}</p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+  <div class="pseudo-card-container" *ngIf="isHandset"  [ngStyle]="{gridTemplateColumns: '1fr'}">
+
+    <div class="card" *ngFor="let note of boardNotes; let i = index">
+
+      <div>
+
+        <div class="pseudo-card-body" (click)="openNote(i)" [ngStyle]="{maxWidth: '600px'}">
+
+          <div class="pseudo-card-header">
+            <h4 class="pseudo-card-header-title">{{note.board_note_name | shorten:12}}</h4>
+            <div class="pseudo-card-options">
+              <!-- tutaj ikony -->
+              <button  *ngIf="isPaidAccount" mat-button (click)="deleteNote(i)">
+                <mat-icon class="menu-right-icon">delete</mat-icon>
+              </button>
+            </div>
+            <div class="pseudo-card-options">
+              <button  *ngIf="isPaidAccount" mat-button click-stop-propagation (click)="editNote(i)">
+                <mat-icon class="menu-right-icon">edit</mat-icon>
+              </button>
+            </div>
+          </div>
+
+          <div class="pseudo-card-inner-body">
+            <p class="pseudo-card-text">{{note.board_note_description | shorten:120}}</p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+  <div></div>
+</div>

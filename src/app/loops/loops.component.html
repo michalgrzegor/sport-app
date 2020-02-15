@@ -1,0 +1,83 @@
+
+<div class="form" >
+    <h4>Set the time you will receive notifications</h4>
+    <div *ngIf="session_number > 0">
+        <form #TSTime="ngForm">
+            <div *ngIf="session_number === 1 || session_number === 2 || session_number === 3" [ngClass]="{'input-not-web' : !isWeb, 'input-web' : isWeb}">
+                <div></div>
+                <div>
+                    <h5>First Training Session</h5>
+                    <mat-form-field appearance="fill">
+                    <mat-label>First Training Session</mat-label>
+                    <mat-select 
+                        required
+                        #first='ngModel'
+                        name="first"
+                        [(ngModel)]="firstTS"
+                        (ngModelChange)="change()"
+                        placeholder="First Training Session">
+                        <mat-option *ngFor="let tm of time"  [value]="tm">{{tm}}</mat-option>
+                    </mat-select>
+                    </mat-form-field>
+                    <p [hidden]="first.valid || first.untouched">select time</p>
+                </div>
+                <div></div>
+            </div>
+    
+            <div *ngIf="session_number === 2 || session_number === 3" [ngClass]="{'input-not-web' : !isWeb, 'input-web' : isWeb}">
+                <div></div>
+                <div>
+                    <h5>Second Training Session</h5>
+                    <mat-form-field appearance="fill">
+                    <mat-label>Second Training Session</mat-label>
+                    <mat-select 
+                        required
+                        #second='ngModel'
+                        name="second"
+                        [(ngModel)]="secondTS"
+                        (ngModelChange)="change()"
+                        placeholder="Second Training Session">
+                        <mat-option *ngFor="let tm of time"  [value]="tm">{{tm}}</mat-option>
+                    </mat-select>
+                    </mat-form-field>
+                    <p [hidden]="second.valid || second.untouched">select time</p>
+                </div>
+                <div></div>
+            </div>
+    
+            <div *ngIf="session_number === 3" [ngClass]="{'input-not-web' : !isWeb, 'input-web' : isWeb}">
+                <div></div>
+                <div>
+                    <h5>Third Training Session</h5>
+                    <mat-form-field appearance="fill">
+                    <mat-label>Third Training Session</mat-label>
+                    <mat-select 
+                        required
+                        #third='ngModel'
+                        name="third"
+                        [(ngModel)]="thirdTS"
+                        (ngModelChange)="change()"
+                        placeholder="Third Training Session">
+                        <mat-option *ngFor="let tm of time"  [value]="tm">{{tm}}</mat-option>
+                    </mat-select>
+                    </mat-form-field>
+                    <p [hidden]="third.valid || third.untouched">select time</p>
+                </div>
+                <div></div>
+            </div>
+            <div class="buttons">
+                <button 
+                    mat-button type="submit" 
+                    (click)="sendTag()" 
+                    [ngClass]="{disabled: !valid}" 
+                    [disabled]="!valid"  
+                >Set time</button>
+            </div>
+    
+        </form>
+    </div>
+    <div *ngIf="session_number === 0">
+        <h5>You have no active training plan</h5>
+    </div>
+</div>
+

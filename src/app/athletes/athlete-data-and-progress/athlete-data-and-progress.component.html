@@ -1,0 +1,169 @@
+<div class="div-for-shadow">
+  <div class="custom-data-creator">
+    <form [formGroup]="customData" (ngSubmit)="onSubmitCustom()">
+      <div class="custom-data-creator-header"
+        [ngStyle]="{gridTemplateColumns: isHandset ? '1fr 150px' : '150px 1fr 150px'}">
+        <div *ngIf="!isHandset"></div>
+        <h5 *ngIf="!isHandset">Custom Athlete Data</h5>
+        <h5 *ngIf="isHandset">Custom Data</h5>
+        <div class="div-to-allign">
+          <button mat-button (click)="searchMode()" type="button">
+            <mat-icon class="btn">search</mat-icon>
+          </button>
+          <button mat-button (click)="creatorMode()" *ngIf="!isCreatorMode" type="button">
+            <mat-icon class="btn">add_circle_outline</mat-icon>
+          </button>
+          <button class="btn-to-dis" mat-button type="button" (click)="closeCustom()" *ngIf="isCreatorMode">
+            <mat-icon class="btn">cancel</mat-icon>
+          </button>
+          <button class="btn-to-dis" mat-button *ngIf="isCreatorMode" type="submit" [disabled]="customData.invalid">
+            <mat-icon class="btn">check_circle_outline</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div [ngClass]="isHandset ? 'custom-data-creator-input-container-handset' : 'custom-data-creator-input-container'"
+        *ngIf="isCreatorMode">
+        <div *ngIf="seriesArray.length>0" class="custom-data-select">
+          <p>Select your param</p>
+          <select class="select-tp" (change)="setParam(paramname.value)" [ngClass]="isHandset ? 'select-handset' : ''"
+            #paramname name="paramname">
+            <option *ngFor="let param of seriesArray" [value]="param.name">{{param.name}}</option>
+          </select>
+        </div>
+        <div *ngIf="seriesArray.length===0"></div>
+        <div class="custom-data-creator-name">
+          <p>Parameter name <span class="error-msg"
+              *ngIf="customData.get('parameter_name').invalid && customData.get('parameter_name').touched">{{errorReq}}</span>
+          </p>
+          <input type="text" formControlName="parameter_name">
+        </div>
+        <div class="custom-data-creator-description"
+          [ngClass]="isHandset ? 'custom-data-creator-description-handset' : ''">
+          <p>Parameter value <span class="error-msg"
+              *ngIf="customData.get('parameter_description').invalid && customData.get('parameter_description').touched">{{errorReq}}</span>
+          </p>
+          <input type="number" formControlName="parameter_description">
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="custom-data" *ngIf="athlete">
+    <div class="mat-elevation-z8">
+      <mat-form-field *ngIf="filterMode">
+        <input matInput (keyup)="applyFilter($event.target.value)" autocomplete="off" placeholder="Filter">
+      </mat-form-field>
+      <table *ngIf="dataSource" mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="parameter_name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+          <td mat-cell *matCellDef="let element"> {{element.parameter_name}} </td>
+        </ng-container>
+        <ng-container matColumnDef="parameter_date">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+          <td mat-cell *matCellDef="let element"> {{element.parameter_date}} </td>
+        </ng-container>
+        <ng-container matColumnDef="parameter_description">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Description/value</th>
+          <td mat-cell *matCellDef="let element"> {{element.parameter_description}} </td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
+          <td mat-cell *matCellDef="let element">
+            <div class="btns">
+              <button mat-menu-item (click)="editCustomData(element)">
+                <mat-icon class="btn_table">edit</mat-icon>
+              </button>
+              <button mat-menu-item (click)="deleteCustomData(element)">
+                <mat-icon class="btn_table">delete</mat-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!isHandset" class="chart">
+  <h5>Progress graph</h5>
+  <div class="chart-parameters">
+    <div class="chart-parameter" *ngFor="let par of seriesArray; let index = index" (click)="selectParam(index)"  [ngClass]="{'chart-parameter-selected' : par.selected}" >{{par.name}}</div>
+  </div>
+  <div class="chart-nav">
+    <button mat-button class="chart-nav-btn" (click)="nextTimeStamp(-1)" >
+      <svg width="9" height="13" viewBox="0 0 9 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M6.96695 12.9988L8.37695 11.5888L3.79695 6.99878L8.37695 2.40878L6.96695 0.998779L0.966953 6.99878L6.96695 12.9988Z"
+          fill="white" fill-opacity="0.67" />
+      </svg>
+    </button>
+    <button mat-button class="chart-nav-btn" (click)="nextTimeStamp(-7)">
+      <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M6.26188 12.9988L7.67188 11.5888L3.09188 6.99878L7.67188 2.40878L6.26188 0.998779L0.261875 6.99878L6.26188 12.9988Z"
+          fill="white" fill-opacity="0.67" />
+        <path
+          d="M13.672 12.9988L15.082 11.5888L10.502 6.99878L15.082 2.40878L13.672 0.998779L7.67203 6.99878L13.672 12.9988Z"
+          fill="white" fill-opacity="0.67" />
+      </svg>
+    </button>
+    <button mat-button class="chart-nav-btn" (click)="nextTimeStamp(-30)">
+      <svg width="23" height="13" viewBox="0 0 23 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M6.5568 12.9988L7.9668 11.5888L3.3868 6.99878L7.9668 2.40878L6.5568 0.998779L0.556797 6.99878L6.5568 12.9988Z"
+          fill="white" fill-opacity="0.67" />
+        <path
+          d="M13.967 12.9988L15.377 11.5888L10.797 6.99878L15.377 2.40878L13.967 0.998779L7.96695 6.99878L13.967 12.9988Z"
+          fill="white" fill-opacity="0.67" />
+        <path
+          d="M21.3771 12.9988L22.7871 11.5888L18.2071 6.99878L22.7871 2.40878L21.3771 0.998779L15.3771 6.99878L21.3771 12.9988Z"
+          fill="white" fill-opacity="0.67" />
+      </svg>
+    </button>
+    <div class="chart-divider"></div>
+    <button mat-button class="chart-text" [ngClass]="{'chart-text-selected': zoom==='week'}" (click)="setZoom(0,6)" *ngIf="seriesArray && seriesArray.length>7">Week</button>
+    <div  matTooltip="you can zoom in if you add over 7 records" matTooltipClass="comment-tooltip"><button mat-button class="chart-text chart-disabled" *ngIf="!seriesArray || seriesArray.length<=7"  disabled>Week</button></div>
+    <button mat-button class="chart-text" [ngClass]="{'chart-text-selected': zoom==='month'}" (click)="setZoom(0,30)" *ngIf="seriesArray && seriesArray.length>30">Month</button>
+    <div  matTooltip="you can zoom in if you add over 30 records" matTooltipClass="comment-tooltip"><button mat-button class="chart-text chart-disabled" *ngIf="!seriesArray || seriesArray.length<=30" disabled>Month</button></div>
+    <button mat-button class="chart-text" (click)="resetZoom()" *ngIf="zoom" >Reset</button>
+    <button mat-button class="chart-text chart-disabled" *ngIf="!zoom" disabled>Reset</button>
+    <div class="chart-divider"></div>
+    <button mat-button class="chart-nav-btn" (click)="nextTimeStamp(30)">
+      <svg width="23" height="13" viewBox="0 0 23 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M16.7904 0.998779L15.3804 2.40878L19.9604 6.99878L15.3804 11.5888L16.7904 12.9988L22.7904 6.99878L16.7904 0.998779Z"
+          fill="white" fill-opacity="0.67" />
+        <path
+          d="M9.38021 0.998779L7.97021 2.40878L12.5502 6.99878L7.97021 11.5888L9.38021 12.9988L15.3802 6.99878L9.38021 0.998779Z"
+          fill="white" fill-opacity="0.67" />
+        <path
+          d="M1.97006 0.998779L0.560059 2.40878L5.14006 6.99878L0.560059 11.5888L1.97006 12.9988L7.97006 6.99878L1.97006 0.998779Z"
+          fill="white" fill-opacity="0.67" />
+      </svg>
+    </button>
+    <button mat-button class="chart-nav-btn" (click)="nextTimeStamp(7)">
+      <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M9.08529 0.998779L7.67529 2.40878L12.2553 6.99878L7.67529 11.5888L9.08529 12.9988L15.0853 6.99878L9.08529 0.998779Z"
+          fill="white" fill-opacity="0.67" />
+        <path
+          d="M1.67514 0.998779L0.265137 2.40878L4.84514 6.99878L0.265137 11.5888L1.67514 12.9988L7.67514 6.99878L1.67514 0.998779Z"
+          fill="white" fill-opacity="0.67" />
+      </svg>
+
+    </button>
+    <button mat-button class="chart-nav-btn" (click)="nextTimeStamp(1)">
+      <svg width="9" height="13" viewBox="0 0 9 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M2.38021 0.998779L0.970215 2.40878L5.55021 6.99878L0.970215 11.5888L2.38021 12.9988L8.38021 6.99878L2.38021 0.998779Z"
+          fill="white" fill-opacity="0.67" />
+      </svg>
+    </button>
+  </div>
+  <div class="chart-container">
+    <div id="container"></div>
+  </div>
+</div>

@@ -1,0 +1,188 @@
+form {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 10px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.short-inputs {
+  display: flex;
+}
+
+.short-inputs mat-form-field {
+  flex: 1;
+}
+
+.short-input-left {
+  margin-right: 16px;
+}
+
+.short-input-right {
+  margin-left: 16px;
+}
+
+/* styling training type chips */
+.chips-type {
+  padding-left: 4px;
+  background: rgba(96, 132, 144, 0.3);
+}
+
+.chips-type mat-icon {
+  margin-right: 8px;
+  color: rgba(255, 255, 255, 0.57);
+}
+
+.training-type-icon {
+  box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  margin-right: 8px;
+}
+
+/* Main styling */
+.divider-border {
+  margin-top: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#tile-editor-form h4 {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+#tile-editor-form h5 {
+  text-transform: lowercase;
+  margin-top: 10.5px;
+  margin-bottom: 16px;
+}
+
+.mat-chip-list {
+  margin-bottom: 16px;
+}
+
+.divider-line {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+h6 {
+  margin: 0 0 8px;
+  font-family: 'Lato';
+  font-size: 12px;
+  color: #B0AA54;
+}
+
+.buttons-finish .add:disabled {
+  opacity: 0.2;
+}
+
+.after-delete-activity {
+  margin-bottom: 16px;
+}
+
+.nutrient-background-color {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 8px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+.header-delete {
+  display: grid;
+  grid-template-columns: 1fr 48px 48px;
+  margin: 4px 0;
+}
+
+.header-delete-nutrient {
+  display: grid;
+  grid-template-columns:48px 1fr 48px;
+  margin: 4px 0;
+}
+
+.delete-button {
+  min-width: 0px;
+  padding: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+}
+
+.delete-button:hover {
+  background-color: rgba(255, 255, 255, 0.03)
+}
+
+.activity-container {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 16px;
+  border-radius: 4px;
+  margin-bottom: 24px;
+  -webkit-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.45);
+  -moz-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.45);
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.45);
+}
+
+.add-btn-container {
+  text-align: center;
+}
+
+
+
+.add-button mat-icon {
+  margin: 0 6px;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.rotate {
+  animation-name: rotateBtn;
+  animation-duration: 0.5s;
+  transform: rotate(180deg);
+}
+
+.rotateReverse {
+  animation-name: rotateReverseBtn;
+  animation-duration: 0.5s;
+  transform: rotate(0deg);
+}
+
+@keyframes rotateBtn {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes rotateReverseBtn {
+  0% {
+    transform: rotate(180deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.activity-open-container {
+  overflow: hidden;
+  transition: all 0.6s ease-in-out;
+  max-height: 0px;
+}
+
+.diet-open-container {
+  overflow: hidden;
+  transition: all 0.6s ease-in-out;
+  max-height: 0px;
+}
+
+.open {
+  max-height: 1800px;
+}
+
+.close {
+  max-height: 0px;
+}

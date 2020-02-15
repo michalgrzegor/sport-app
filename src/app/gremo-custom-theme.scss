@@ -1,0 +1,42 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+$mat-gremo-bluegreen: (
+    50 : #ecf0f2,
+    100 : #cfdade,
+    200 : #b0c2c8,
+    300 : #90a9b1,
+    400 : #7896a1,
+    500 : #608490,
+    600 : #587c88,
+    700 : #4e717d,
+    800 : #446773,
+    900 : #335461,
+    A100 : #b0e8ff,
+    A200 : #7dd9ff,
+    A400 : #4acbff,
+    A700 : #30c3ff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$gremo-app-primary: mat-palette($mat-gremo-bluegreen);
+$gremo-app-accent:  mat-palette($mat-gremo-bluegreen, A200, A100, A400);
+$gremo-app-warn:    mat-palette($mat-red);
+
+$gremo-app-theme: mat-light-theme($gremo-app-primary, $gremo-app-accent, $gremo-app-warn);
+@include angular-material-theme($gremo-app-theme);

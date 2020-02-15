@@ -1,0 +1,50 @@
+[
+    {
+        "training_plan_name": "Brajan trening",
+        "training_plan_active": true,
+        "training_plan_athlete": "Tomasz",
+        "training_plan_id": "tp00001"
+    },
+    {
+        "training_plan_name": "Chudy Wawrzyniec",
+        "training_plan_active": true,
+        "training_plan_athlete": "Mariusz",
+        "training_plan_id": "tp00002"
+    },
+    {
+        "training_plan_name": "Jesica trening",
+        "training_plan_active": true,
+        "training_plan_athlete": "Jesica",
+        "training_plan_id": "tp00003"
+    },
+    {
+        "training_plan_name": "Mariusz fajny chopak",
+        "training_plan_active": false,
+        "training_plan_athlete": "Mariusz",
+        "training_plan_id": "tp00004"
+    },
+    {
+        "training_plan_name": "Baza zimowa",
+        "training_plan_active": true,
+        "training_plan_athlete": "Marek",
+        "training_plan_id": "tp00005"
+    },
+    {
+        "training_plan_name": "Tomasz bieganie",
+        "training_plan_active": true,
+        "training_plan_athlete": "Piotruś",
+        "training_plan_id": "tp00006"
+    },
+    {
+        "training_plan_name": "Mój trening",
+        "training_plan_active": false,
+        "training_plan_athlete": "Tomaszek",
+        "training_plan_id": "tp00007"
+    },
+    {
+        "training_plan_name": "hwdp",
+        "training_plan_active": true,
+        "training_plan_athlete": "Mati",
+        "training_plan_id": "tp00008"
+    }
+]

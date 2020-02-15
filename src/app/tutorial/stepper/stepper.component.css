@@ -1,0 +1,280 @@
+.fixheight {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.filler {
+  flex-grow: 1;
+}
+
+.navigation {
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20% 20%;
+}
+
+.navigation-client {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.step-control {
+  text-align: center;
+  font-family: 'Lato';
+  color: rgba(255, 255, 255, 0.37);
+  font-size: 16px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.37);
+  padding-bottom: 8px;
+  cursor: pointer;
+}
+
+.active {
+  color: rgba(255, 255, 255, 0.67);
+  border-bottom: 2px solid #88C540;
+}
+
+.mat-content {
+  overflow: auto;
+}
+
+.welcome-panel {
+  text-align: center;
+}
+
+.faces {
+  margin-top: 24px;
+}
+
+.buttons-welcome {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  margin: 48px 0 0 0;
+}
+
+.buttons-welcome button {
+  min-width: 180px;
+  background-color: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.67);
+  font-family: 'Raleway', sans-serif;
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.tutorial-container {
+  display: block;
+  overflow: hidden;
+  box-sizing: border-box;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+
+}
+
+.parrent {
+  height: 100%;
+  width: 500%;
+  display: flex;
+}
+
+.parrent-client {
+  height: 100%;
+  width: 300%;
+  display: flex;
+}
+
+.step-container {
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  text-align: center;
+}
+
+h5 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-top: 48px;
+  margin-bottom: 48px;
+}
+
+p {
+  color: rgba(255, 255, 255, 0.67);
+  font-size: 16px;
+  font-family: 'Raleway', sans-serif;
+  padding: 0 10%;
+}
+
+.img-handset {
+  margin-top: 24px;
+}
+
+.visible {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}
+
+.dots-progres {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: 1fr 16px 16px 16px 16px 16px 1fr;
+  justify-items: center;
+  align-items: center;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 3px;
+  background-color: rgba(255, 255, 255, 0.27);
+}
+
+.resize {
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.67);
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: end;
+  margin: 0;
+  padding: 0;
+  height: 48px;
+}
+
+.buttons .btns button {
+  color: rgba(255, 255, 255, 0.45);
+  font-family: 'Raleway', sans-serif;
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 14px;
+}
+
+@media (max-width: 899px) {
+  p {
+    font-size: 14px;
+    padding: 0;
+  }
+
+  h5 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .buttons-welcome {
+    margin: 16px 0 0 0;
+  }
+}
+
+@media (max-width: 329px) {
+  p {
+    font-size: 12px;
+    padding: 0;
+    margin: 6px 0;
+  }
+
+  h5 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .buttons-welcome {
+    margin: 16px 0 0 0;
+  }
+
+  .buttons .btns button {
+    font-size: 14px;
+    padding: 0 8px;
+  }
+
+  .faces {
+    height: 60px;
+  }
+
+  .resize-vert {
+    height: 100px;
+  }
+}
+
+@media (max-height: 660px) {
+  .client-card-img {
+    height: 124px;
+  }
+  .tiles-img {
+    height: 124px;
+  }
+}
+
+@media (max-height: 640px) {
+  .faces {
+    height: 72px;
+    margin-top: 12px;
+  }
+  .tiles-img {
+    height: 96px;
+  }
+  .client-card-img {
+    height: 112px;
+  }
+}
+
+@media (max-height: 600px) {
+  h5 {
+    font-size: 16px;
+  }
+
+  p {
+    font-size: 12px;
+    padding: 0;
+    margin: 6px 0;
+  }
+
+  .tiles-img {
+    height: 70px;
+  }
+
+  .faces {
+    height: 72px;
+  }
+}
+
+@media (max-height: 520px) {
+  h5 {
+    font-size: 16px;
+  }
+  p {
+    font-size: 12px;
+    padding: 0;
+    margin: 6px 0;
+  }
+  .tiles-img {
+    height: 70px;
+  }
+  .faces {
+    height: 48px;
+    margin-top: 6px;
+  }
+  .client-card-img {
+    height: 84px;
+    margin-top: 12px;
+  }
+  .buttons-welcome {
+    margin-top: 6px;
+  }
+  .buttons-welcome button {
+    margin-bottom: 12px;
+  }
+  .congratulation-img {
+    height: 64px;
+    margin-top: 6px;
+  }
+}

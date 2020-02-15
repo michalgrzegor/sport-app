@@ -1,0 +1,59 @@
+<div class="close-btn-container">
+    <button id="close-btn" mat-button color="primary" (click)="closeDialog()"><mat-icon>close</mat-icon></button>
+</div>
+
+<div id="note-creator">
+  <form #noteCreator="ngForm">
+    <div mat-dialog-content>
+
+      <h4>Title</h4>
+      <mat-form-field  appearance="fill">
+        <mat-label>Title</mat-label>
+        <input 
+          matInput 
+          required 
+          maxlength="255"
+          #name='ngModel'
+          name="board_note_name"
+          [(ngModel)]="data.board_note_name">
+      </mat-form-field>
+      <p [hidden]="name.valid || !name.touched">{{errorReq}}</p>
+
+      <h4>Video link</h4>
+      <mat-form-field  appearance="fill">
+        <mat-label>link</mat-label>
+        <input 
+          matInput 
+          maxlength="255"
+          #link='ngModel'
+          name="board_note_link"
+          [(ngModel)]="data.board_note_link">
+      </mat-form-field>
+
+      <h4>Create note</h4>
+      <mat-form-field  appearance="fill">
+        <mat-label>create note</mat-label>
+        <textarea 
+          matInput 
+          required 
+          maxlength="30000"
+          rows="6"
+          #note='ngModel'
+          name="board_note_description"
+          [(ngModel)]="data.board_note_description"></textarea>
+      </mat-form-field>
+
+    </div>
+    <div mat-dialog-actions>
+      <div></div>
+      <button mat-button color="primary" (click)="onNoClick()">Cancel</button>
+      <button 
+        mat-button 
+        color="primary" 
+        [ngClass]="{enabled: name.valid}" 
+        [disabled]="!name.valid"  
+        [mat-dialog-close]="data"
+      >Ok</button>
+    </div>
+  </form>
+</div>

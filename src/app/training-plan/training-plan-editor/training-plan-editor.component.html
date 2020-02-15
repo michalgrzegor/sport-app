@@ -1,0 +1,69 @@
+<div class="close-btn-container" *ngIf="!isTutorial" >
+    <button id="close-btn" mat-button color="primary" (click)="closeDialog()"><mat-icon>close</mat-icon></button>
+</div>
+
+<div id="new-tp-editor">
+  <form #newTP="ngForm">
+    <div mat-dialog-content>
+
+      <h4>program name</h4>
+      <mat-form-field  appearance="fill">
+        <mat-label>name</mat-label>
+        <input 
+          matInput 
+          required 
+          maxlength="255"
+          #name='ngModel'
+          name="tilename"
+          [(ngModel)]="data.training_plan_name">
+      </mat-form-field>
+      <p [hidden]="name.valid || name.untouched">name is required</p>
+
+      <h4>Date from</h4>
+      <mat-form-field appearance="fill">
+        <mat-label>Date from</mat-label>
+        <input (dateInput)="setMinDateTo($event)" disabled matInput [min]="minDate" required [matDatepicker]="picker1" name="picker1" [(ngModel)]="data.date_from" #picker1='ngModel' (ngModelChange)="checkDateValid()" #1>
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1 disabled="false"></mat-datepicker>
+      </mat-form-field>
+      
+      <h4>Date to</h4>
+      <mat-form-field appearance="fill">
+        <mat-label>Date to</mat-label>
+        <input matInput [min]="minDateTo" required disabled  [matDatepicker]="picker2" name="picker2" [(ngModel)]="data.date_to" #picker2='ngModel' (ngModelChange)="checkDateValid()" #2>
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2 disabled="false"></mat-datepicker>
+      </mat-form-field>
+      <p [hidden]="validDate || !noDate">incorrect date or only one date</p>
+
+      <h4>training sessions per day</h4>
+      <mat-form-field appearance="fill">
+        <mat-label>training sessions per day</mat-label>
+        <mat-select 
+            required
+            #sessions='ngModel'
+            name="sessions"
+            [(ngModel)]="data.training_sesion_number"
+            placeholder="training sessions per day">
+            <mat-option value="1">1 session</mat-option>
+            <mat-option value="2">2 sessions</mat-option>
+            <mat-option value="3">3 sessions</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <p [hidden]="sessions.valid || sessions.untouched">number of sessions is required</p>
+
+    </div>
+    <div class="grid-to-right" mat-dialog-actions>
+      <div></div>
+      <button mat-button color="primary" (click)="onNoClick()">Cancel</button>
+      <button 
+        mat-button 
+        color="primary" 
+        (click)="createFirstPlan()" 
+        [ngClass]="{enabled: name.valid && sessions.valid && validDate}" 
+        [disabled]="!name.valid  || !sessions.valid || !validDate"  
+        [mat-dialog-close]="data"
+      >Create</button>
+    </div>
+  </form>
+</div>

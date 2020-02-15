@@ -1,0 +1,156 @@
+<div class="fixheight">
+  <div *ngIf="!isHandset && !isWelcome && isClient"  class="navigation-client">
+    <div class="step-control" [ngClass]="{'active': activePaneClient === panes[0]}" (click)="activateStepClient('one')" ></div>
+    <div class="step-control" [ngClass]="{'active': activePaneClient === panes[1]}" (click)="activateStepClient('two')" ></div>
+    <div class="step-control" [ngClass]="{'active': activePaneClient === panes[2]}" (click)="activateStepClient('three')" ></div>
+  </div>
+
+  <div *ngIf="!isHandset && !isWelcome && !isClient"  class="navigation">
+    <div class="step-control" [ngClass]="{'active': activePane === panes[0]}" (click)="activateStep('one')" ></div>
+    <div class="step-control" [ngClass]="{'active': activePane === panes[1]}" (click)="activateStep('two')" ></div>
+    <div class="step-control" [ngClass]="{'active': activePane === panes[2]}" (click)="activateStep('three')" ></div>
+    <div class="step-control" [ngClass]="{'active': activePane === panes[3]}" (click)="activateStep('four')" ></div>
+    <div class="step-control" [ngClass]="{'active': activePane === panes[4]}" (click)="activateStep('five')" ></div>
+  </div>
+  
+  
+  
+  <div mat-dialog-content class="mat-content">
+    <div class="tutorial-container">
+      <div *ngIf="isWelcome" class="welcome-panel">
+        <h5>Welcome to Gremmo</h5>
+        <p>This tutorial will guide you through the basic functions of our tool.</p>
+        <!-- <p>This tutorial will guide you through the basic functions of our tool. If you have any feedback, you want to give us, please contact us. In the upper right corner is the email icon.</p> -->
+        <p>If you want to skip tutorials, all of them are repeatable, so you can go through them later. You can find them by clicking the cog icon.</p>
+        <p>Mateusz and Michal</p>
+        <img src="assets/pictures/tutorial/faces.png" alt="authors faces" class="faces">
+        <div class="buttons-welcome">
+          <button mat-button (click)="welcomeOff()">I'm a trainer</button>
+          <button mat-button (click)="toClient()" >I'm an athlete</button>
+        </div>
+      </div>
+
+      <div *ngIf="!isWelcome && isClient"  class="parrent-client" [@slideClient]="activePaneClient">
+
+          <div (swipeleft)="activateNextStepClient(1)" (swiperight)="activateNextStepClient(0)" class="first step-container">
+            <h5>Program</h5>
+            <img *ngIf="!isHandset"  src="assets/pictures/tutorial/tprogram.png" alt="display with training program" class="img-web">
+            <img *ngIf="isHandset"  src="assets/pictures/tutorial/tprogramhandset.png" alt="display with training program" class="img-handset resize-vert">
+            <p>When you accept the invitation from your trainer, your program will appear on the screen.</p>
+            <p>Click on a day, and see what your trainer prepared for you.</p>
+          </div>
+
+          <div (swipeleft)="activateNextStepClient(1)" (swiperight)="activateNextStepClient(-1)" class="first step-container">
+            <h5>Questions</h5>
+            <img *ngIf="!isHandset"  src="assets/pictures/tutorial/questions.png" alt="display with training program" class="img-web">
+            <img *ngIf="isHandset"  src="assets/pictures/tutorial/questionshandset.png" alt="display with training program" class="img-handset">
+            <p>Sometimes your trainer will want you to answer some questions.</p>
+            <p>Click and send him your answers.</p>
+          </div>
+
+          <div (swipeleft)="activateNextStepClient(0)" (swiperight)="activateNextStepClient(-1)" class="first step-container">
+            <h5>Boards</h5>
+            <img *ngIf="!isHandset"  src="assets/pictures/tutorial/board.png" alt="display with training program" class="img-web">
+            <img *ngIf="isHandset"  src="assets/pictures/tutorial/boardhandset.png" alt="display with training program" class="img-handset resize-vert">
+            <p>In this tab, your trainer will send you notes.</p>
+            <p>Notes can relate to your program or be general tips.</p>
+          </div>
+
+      </div>
+    
+      <div *ngIf="!isWelcome && !isClient"  class="parrent" [@slide]="activePane">
+  
+        <div (swipeleft)="activateNextStep(1)" (swiperight)="activateNextStep(0)" class="first step-container">
+          <h5>Programs</h5>
+          <img *ngIf="!isHandset"  src="assets/pictures/tutorial/program.png" alt="display with training program" class="img-web">
+          <img *ngIf="isHandset"  src="assets/pictures/tutorial/programhandset.png" alt="display with training program" class="img-handset resize-vert">
+          <p>Create your first program. Click the button below and play around with options.</p>
+          <div class="buttons-welcome">
+              <button mat-button (click)="openCreator('program')" >Create first program</button>
+          </div>
+        </div>
+  
+        <div (swipeleft)="activateNextStep(1)" (swiperight)="activateNextStep(-1)" class="second step-container">
+          <h5>Tiles</h5>
+          <img *ngIf="!isHandset"  src="assets/pictures/tutorial/tiles.png" alt="display with training program" class="img-web">
+          <img *ngIf="isHandset"  src="assets/pictures/tutorial/tileshandset.png" alt="display with training program" class="img-handset resize-vert tiles-img">
+          <!-- <p *ngIf="isWeb" >In Gremmo, to fill a program with activities, first you create tiles that represent trainings, meals, questions and notes and then you drag and drop these tiles to a program. One tile can be used in many programs.</p>
+          <p *ngIf="!isWeb" >In Gremmo, to fill a program with activities, first you create tiles that represent trainings, meals, questions and notes and then you add these tiles to a program. One tile can be used in many programs. </p> -->
+          <p>In Gremmo, to fill a program with activities, first you create tiles.<br> Tiles represent workouts, meals, questions and notes. </p>
+          <p>One tile can be used in many programs.</p>
+          <div class="buttons-welcome">
+              <button mat-button (click)="openCreator('tile')">Create first tile</button>
+          </div>
+        </div>
+        
+        <div (swipeleft)="activateNextStep(1)" (swiperight)="activateNextStep(-1)" class="third step-container">
+          <h5>Filling a program</h5>
+          <img *ngIf="!isHandset"  src="assets/pictures/tutorial/fill.png" alt="display with training program" class="img-web">
+          <img *ngIf="isHandset"  src="assets/pictures/tutorial/fillhandset.png" alt="display with training program" class="img-handset resize-vert">
+          <p *ngIf="isWeb" >Open tiles collection from left menu, and just drag and drop a tile to your program.</p>
+          <p *ngIf="!isWeb" >When you open a day in your program, click the floating button and choose plus icon to add a tile.</p>
+          <!-- tutaj rysunek -->
+        </div>
+  
+        <div (swipeleft)="activateNextStep(1)" (swiperight)="activateNextStep(-1)" class="fourth step-container">
+          <h5>Client card</h5>
+          <img *ngIf="!isHandset"  src="assets/pictures/tutorial/client.png" alt="display with training program" class="img-web">
+          <img *ngIf="isHandset"  src="assets/pictures/tutorial/clienthandset.png" alt="display with training program" class="img-handset resize-vert client-card-img">
+          <p>In the last step, create your client card.</p>
+          <!-- <p>You will fill it with your client's information.</p> -->
+          <p>Use it to connect with your client and share the program you prepared.<br>Now, he or she will answer your 'question tiles' and see workouts.</p>
+          <!-- <p>Now, he or she will answer your 'question tiles' and see workouts.</p> -->
+          <div class="buttons-welcome">
+              <button mat-button (click)="openCreator('card')">Create client card</button>
+          </div>
+        </div>
+  
+        <div (swipeleft)="activateNextStep(0)" (swiperight)="activateNextStep(-1)" class="five step-container">
+          <h5>Congratulations</h5>
+          <p>Tutorial complete!</p>
+          <p>If you are missing a feature or have any comments you want to give us, please contact us. In the upper right corner is the email icon.</p>
+          <img *ngIf="!isHandset"  src="assets/pictures/tutorial/mail.png" alt="display with training program" class="img-web">
+          <img *ngIf="isHandset"  src="assets/pictures/tutorial/mailhandset.png" alt="display with training program" class="img-handset congratulation-img">
+          <p>See how your clients use Gremmo.</p>
+          <div class="buttons-welcome">
+              <button  (click)="toClient()" mat-button>Your client tutorial</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    
+      
+  </div>
+
+  <div class="filler"></div>
+  
+  <div *ngIf="isHandset && !isWelcome && !isClient"  class="dots-progres">
+    <div class="filler"></div>
+    <div class="dot" [ngClass]="{'resize': activePane === panes[0]}"></div>
+    <div class="dot" [ngClass]="{'resize': activePane === panes[1]}"></div>
+    <div class="dot" [ngClass]="{'resize': activePane === panes[2]}"></div>
+    <div class="dot" [ngClass]="{'resize': activePane === panes[3]}"></div>
+    <div class="dot" [ngClass]="{'resize': activePane === panes[4]}"></div>
+    <div class="filler"></div>
+  </div>
+  
+  <div *ngIf="isHandset && !isWelcome && isClient"  class="dots-progres">
+    <div class="filler"></div>
+    <div class="dot" [ngClass]="{'resize': activePaneClient === panes[0]}"></div>
+    <div class="dot" [ngClass]="{'resize': activePaneClient === panes[1]}"></div>
+    <div class="dot" [ngClass]="{'resize': activePaneClient === panes[2]}"></div>
+    <div class="filler"></div>
+  </div>
+
+  
+  <div mat-dialog-actions class="buttons">
+    <div class="btns">
+      <button mat-button mat-dialog-close>SKIP</button>
+      <button mat-button *ngIf="!isClient && activePane !== panes[0] && !isWelcome" (click)="activateNextStep(-1)" >BACK</button>
+      <button mat-button *ngIf="!isClient && activePane !== panes[4] && !isWelcome" (click)="activateNextStep(1)" >NEXT</button>
+      <button mat-button *ngIf="isClient && activePaneClient !== panes[0] && !isWelcome" (click)="activateNextStepClient(-1)" >BACK</button>
+      <button mat-button *ngIf="isClient && activePaneClient !== panes[2] && !isWelcome" (click)="activateNextStepClient(1)" >NEXT</button>
+    </div>
+  </div>
+</div>

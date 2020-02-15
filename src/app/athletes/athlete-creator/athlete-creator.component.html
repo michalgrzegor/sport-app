@@ -1,0 +1,35 @@
+<div class="close-btn-container">
+    <button id="close-btn" mat-button color="primary" (click)="closeDialog()"><mat-icon>close</mat-icon></button>
+</div>
+<div id="new-tp-editor">
+  <form #newAthlete="ngForm">
+    <div mat-dialog-content>
+
+      <h4>Athlete name</h4>
+      <mat-form-field  appearance="fill">
+        <mat-label>name</mat-label>
+        <input 
+          matInput 
+          required 
+          maxlength="255"
+          #name='ngModel'
+          name="tilename"
+          [(ngModel)]="data.athlete_name">
+      </mat-form-field>
+      <p [hidden]="name.valid || name.untouched">name is required</p>
+
+    </div>
+    <div class="grid-to-right" mat-dialog-actions>
+      <div></div>
+      <button mat-button color="primary" (click)="onNoClick()">Cancel</button>
+      <button 
+        mat-button 
+        color="primary" 
+        [ngClass]="{enabled: name.valid}" 
+        [disabled]="!name.valid"  
+        [mat-dialog-close]="data"
+        (click)="createAthleteTutorial()" 
+      >Create</button>
+    </div>
+  </form>
+</div>

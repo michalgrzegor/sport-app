@@ -1,0 +1,46 @@
+<div id="new-tp-editor">
+  <form #newTP="ngForm">
+    <div mat-dialog-content>
+      <h4>{{data.date}}</h4>
+      <div *ngFor="let q of data.tiles; let index = index" class="card-answer">
+        <h4>{{q.tile_title}}</h4>
+        <h4 class="to-lower-case">{{q.tile_question.tile_ask_question}}</h4>
+        <p *ngIf="q.tile_description" >{{q.tile_description}}</p>
+        <div *ngIf="q.array">
+          <mat-form-field  appearance="fill">
+            <mat-select
+              matInput 
+              required 
+              name="answer{{index}}"
+              [(ngModel)]="data.formAnswer[index].question_answer" 
+              #answer="ngModel"
+            >
+              <mat-option *ngFor="let ans of q.array" [value]="ans" (click)="checkForValid()">
+                {{ans}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <p style="color: #FF5D51" *ngIf="!data.formAnswer[index].question_answer && answer.touched" >*select an answer</p>
+        </div>
+        <mat-form-field appearance="fill">
+          <mat-label>comment</mat-label>
+            <textarea matInput [(ngModel)]="data.formAnswer[index].answer_comment" rows='10' name="comment{{index}}" (ngModelChange)="changeTextarea($event)"></textarea>
+        </mat-form-field>
+      </div>
+      
+    </div>
+    <div class="grid-to-right" mat-dialog-actions>
+      <div></div>
+      <button mat-button color="primary" type="button" (click)="onNoClick()">Cancel</button>
+      <button 
+        mat-button 
+        color="primary" 
+        type="submit"
+        [mat-dialog-close]="data"
+        [ngClass]="{enabled: valid}"
+        [disabled]="!valid"
+        (click)="onSubmit(newTP)" 
+      >Ok</button>
+    </div>
+  </form>
+</div>

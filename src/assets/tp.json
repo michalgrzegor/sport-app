@@ -1,0 +1,277 @@
+{
+    "training_plan_name": "Chudy Wawrzyniec",
+    "date_from": "2018-12-01",
+    "date_to": "2019-09-02",
+    "training_sesion_number": 2,
+    "associations": [
+      {
+        "tile_id": "a00001",
+        "date": "2018-12-10",
+        "training_plan": "Chudy Wawrzyniec",
+        "color": "#FF5D51",
+        "training_sesion": 1,
+        "tile_type": "training",
+        "asso_index_in_array": 1
+      },
+      {
+        "tile_id": "a00006",
+        "date": "2018-12-10",
+        "training_plan": "Chudy Wawrzyniec",
+        "color": "#31C2E1",
+        "training_sesion": 2,
+        "tile_type": "motivation",
+        "asso_index_in_array": 1
+      },
+      {
+        "tile_id": "a00008",
+        "date": "2018-12-10",
+        "training_plan": "Chudy Wawrzyniec",
+        "color": "#E8A022",
+        "training_sesion": 1,
+        "tile_type": "question",
+        "asso_index_in_array": 2
+      },
+      {
+        "tile_id": "a00001",
+        "date": "2018-12-11",
+        "training_plan": "Chudy Wawrzyniec",
+        "color": "#FF5D51",
+        "training_sesion": 1,
+        "tile_type": "training",
+        "asso_index_in_array": 1
+      },
+      {
+        "tile_id": "a00004",
+        "date": "2018-12-11",
+        "training_plan": "Chudy Wawrzyniec",
+        "color": "#88C540",
+        "training_sesion": 2,
+        "tile_type": "diet",
+        "asso_index_in_array": 1
+      },
+      {
+        "tile_id": "a00002",
+        "date": "2018-12-11",
+        "training_plan": "Chudy Wawrzyniec",
+        "color": "#FF5D51",
+        "training_sesion": 2,
+        "tile_type": "training",
+        "asso_index_in_array": 2
+      },
+      {
+        "tile_id": "a00008",
+        "date": "2018-12-12",
+        "training_plan": "Chudy Wawrzyniec",
+        "color": "#E8A022",
+        "training_sesion": 1,
+        "tile_type": "question",
+        "asso_index_in_array": 1
+      },
+      {
+        "tile_id": "a00006",
+        "date": "2018-12-12",
+        "training_plan": "Chudy Wawrzyniec",
+        "color": "#31C2E1",
+        "training_sesion": 2,
+        "tile_type": "motivation",
+        "asso_index_in_array": 1
+      },
+      {
+        "tile_id": "a00010",
+        "date": "2018-12-13",
+        "training_plan": "Chudy Wawrzyniec",
+        "color": "#614EA1",
+        "training_sesion": 2,
+        "tile_type": "question",
+        "asso_index_in_array": 1
+      },
+      {
+        "tile_id": "a00001",
+        "date": "2018-12-13",
+        "training_plan": "Chudy Wawrzyniec",
+        "color": "#FF5D51",
+        "training_sesion": 1,
+        "tile_type": "training",
+        "asso_index_in_array": 1
+      },
+      {
+        "tile_id": "a00010",
+        "date": "2018-12-17",
+        "training_plan": "Chudy Wawrzyniec",
+        "color": "#614EA1",
+        "training_sesion": 2,
+        "tile_type": "question",
+        "asso_index_in_array": 1
+      },
+      {
+        "tile_id": "a00002",
+        "date": "2018-12-17",
+        "training_plan": "Chudy Wawrzyniec",
+        "color": "#FF5D51",
+        "training_sesion": 1,
+        "tile_type": "training",
+        "asso_index_in_array": 1
+      },
+      {
+        "tile_id": "a00006",
+        "date": "2018-12-17",
+        "training_plan": "Chudy Wawrzyniec",
+        "color": "#31C2E1",
+        "training_sesion": 2,
+        "tile_type": "motivation",
+        "asso_index_in_array": 2
+      },
+      {
+        "tile_id": "a00004",
+        "date": "2018-12-18",
+        "training_plan": "Chudy Wawrzyniec",
+        "color": "#88C540",
+        "training_sesion": 1,
+        "tile_type": "diet",
+        "asso_index_in_array": 1
+      },
+      {
+        "tile_id": "a00008",
+        "date": "2018-12-19",
+        "training_plan": "Chudy Wawrzyniec",
+        "color": "#E8A022",
+        "training_sesion": 2,
+        "tile_type": "question",
+        "asso_index_in_array": 1
+      },
+      {
+        "tile_id": "a00001",
+        "date": "2018-12-19",
+        "training_plan": "Chudy Wawrzyniec",
+        "color": "#FF5D51",
+        "training_sesion": 1,
+        "tile_type": "training",
+        "asso_index_in_array": 1
+      },
+      {
+        "tile_id": "a00006",
+        "date": "2018-12-19",
+        "training_plan": "Chudy Wawrzyniec",
+        "color": "#31C2E1",
+        "training_sesion": 2,
+        "tile_type": "motivation",
+        "asso_index_in_array": 2
+      },
+      {
+        "tile_id": "a00002",
+        "date": "2018-12-19",
+        "training_plan": "Chudy Wawrzyniec",
+        "color": "#FF5D51",
+        "training_sesion": 1,
+        "tile_type": "training",
+        "asso_index_in_array": 2
+      },
+      {
+        "tile_id": "a00009",
+        "date": "2018-12-19",
+        "training_plan": "Chudy Wawrzyniec",
+        "color": "#E8A022",
+        "training_sesion": 2,
+        "tile_type": "question",
+        "asso_index_in_array": 3
+      },
+      {
+        "tile_id": "a00004",
+        "date": "2018-12-19",
+        "training_plan": "Chudy Wawrzyniec",
+        "color": "#88C540",
+        "training_sesion": 2,
+        "tile_type": "diet",
+        "asso_index_in_array": 4
+      },
+      {
+        "tile_id": "a00006",
+        "date": "2018-12-22",
+        "training_plan": "Chudy Wawrzyniec",
+        "color": "#31C2E1",
+        "training_sesion": 1,
+        "tile_type": "motivation",
+        "asso_index_in_array": 1
+      },
+      {
+        "tile_id": "a00003",
+        "date": "2018-12-22",
+        "training_plan": "Chudy Wawrzyniec",
+        "color": "#FF5D51",
+        "training_sesion": 1,
+        "tile_type": "training",
+        "asso_index_in_array": 1
+      },
+      {
+        "tile_id": "a00010",
+        "date": "2018-12-23",
+        "training_plan": "Chudy Wawrzyniec",
+        "color": "#614EA1",
+        "training_sesion": 2,
+        "tile_type": "question",
+        "asso_index_in_array": 1
+      },
+      {
+        "tile_id": "a00007",
+        "date": "2018-12-23",
+        "training_plan": "Chudy Wawrzyniec",
+        "color": "#31C2E1",
+        "training_sesion": 1,
+        "tile_type": "motivation",
+        "asso_index_in_array": 1
+      },
+      {
+        "tile_id": "a00008",
+        "date": "2019-06-17",
+        "training_plan": "Chudy Wawrzyniec",
+        "color": "#31C2E1",
+        "training_sesion": 1,
+        "tile_type": "motivation",
+        "asso_index_in_array": 1
+      },
+      {
+        "tile_id": "a00009",
+        "date": "2019-06-17",
+        "training_plan": "Chudy Wawrzyniec",
+        "color": "#31C2E1",
+        "training_sesion": 1,
+        "tile_type": "motivation",
+        "asso_index_in_array": 2
+      },
+      {
+        "tile_id": "a00008",
+        "date": "2019-06-17",
+        "training_plan": "Chudy Wawrzyniec",
+        "color": "#31C2E1",
+        "training_sesion": 2,
+        "tile_type": "motivation",
+        "asso_index_in_array": 3
+      },
+      {
+        "tile_id": "a00009",
+        "date": "2019-06-17",
+        "training_plan": "Chudy Wawrzyniec",
+        "color": "#31C2E1",
+        "training_sesion": 2,
+        "tile_type": "motivation",
+        "asso_index_in_array": 4
+      }
+    ],
+    "training_stars": [
+      {
+        "star_date": "2018-12-10",
+        "star_color": "#D6AF36",
+        "star_description": "Złoty kolor - najważniejszy"
+      },
+      {
+        "star_date": "2018-12-11",
+        "star_color": "#A7A7AD",
+        "star_description": "Srebro - ważne ale nie priorytet"
+      },
+      {
+        "star_date": "2018-12-12",
+        "star_color": "#A77044",
+        "star_description": "Brązowy najmniej wązne wydarzenia"
+      }
+    ]
+  }

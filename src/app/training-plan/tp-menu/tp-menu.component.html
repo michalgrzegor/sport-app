@@ -1,0 +1,55 @@
+<div class="tp-name" *ngIf="!isWeb" >
+    <div class="center-container"></div>
+    <h4>Program board</h4>
+    <div class="center-container">
+      <button mat-button>
+        <mat-icon (click)="closeTpBoard()"  class="menu-right-icon">close</mat-icon>
+      </button>
+    </div>
+</div>
+
+<div class="padding">
+  <div></div>
+  <div class="mat-elevation-z8">
+    <mat-form-field *ngIf="filterMode" >
+      <input matInput (keyup)="applyFilter($event.target.value)" autocomplete="off" placeholder="Filter">
+    </mat-form-field>
+    <table #table *ngIf="dataSource" mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="selected">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Selected</th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (click)="loadTp(row)"
+                        (change)="$event ? selection.toggle(row) : null"
+                        [checked]="selection.isSelected(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="training_plan_name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+        <td mat-cell *matCellDef="let element"><span *ngIf="element.training_plan_name.length > 10" matTooltip="{{element.training_plan_name}}"
+          matTooltipClass="comment-tooltip"> {{element.training_plan_name | shorten:10}} </span><span *ngIf="element.training_plan_name.length <= 10"> {{element.training_plan_name}} </span></td>
+      </ng-container>
+      <ng-container matColumnDef="training_plan_athlete">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Athlete</th>
+        <td mat-cell *matCellDef="let element">
+          <mat-icon class="table-icon-active" *ngIf="element.training_plan_athlete" matTooltip="{{element.training_plan_athlete}}"
+            matTooltipClass="comment-tooltip">face</mat-icon>
+          <mat-icon class="table-icon-inactive" *ngIf="!element.training_plan_athlete">face</mat-icon>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="training_plan_active">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+        <td mat-cell *matCellDef="let element">
+          <mat-icon class="table-icon-active-status" *ngIf="element.training_plan_active" matTooltip="current athlete's program"
+            matTooltipClass="comment-tooltip">panorama_fish_eye</mat-icon>
+          <mat-icon class="table-icon-inactive" *ngIf="!element.training_plan_active" matTooltip="inactive program"
+            matTooltipClass="comment-tooltip">panorama_fish_eye</mat-icon>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+  <div></div>
+</div>

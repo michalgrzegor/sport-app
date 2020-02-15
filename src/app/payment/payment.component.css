@@ -1,0 +1,172 @@
+mat-slider {
+  width: 100%;
+  margin-top: 36px;
+}
+
+.title {
+  margin: 0;
+  margin-top: 24px;
+  font-size: 24px;
+}
+
+.slogan {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.67);
+  font-size: 12px;
+  font-family: 'Lato', sans-serif;
+}
+
+.slogan-change {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.67);
+  font-size: 16px;
+  line-height: auto;
+  font-family: 'Lato', sans-serif;
+}
+
+.slider-quote {
+  height: 36px;
+  line-height: 36px;
+  font-size: 16px;
+  font-weight: 400;
+  text-transform: lowercase;
+  display: grid;
+  grid-template-columns: 1fr 48px auto 1fr;
+  color: rgba(255, 255, 255, 0.67);
+}
+
+.slider-quote mat-icon {
+  margin: 6px 12px;
+}
+
+.slider-quote div {
+  line-height: 24px;
+  height: 24px;
+  margin: 6px 0px;
+  width: 100%;
+}
+
+.sub-name {
+  text-transform: none;
+  margin-bottom: 24px;
+}
+
+.price {
+  margin: 0;
+  font-size: 44px;
+}
+
+.dolar {
+  font-size: 26px;
+}
+
+.month {
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: lowercase;
+}
+
+.divider {
+  border-bottom: 1px rgba(255, 255, 255, 0.37) solid;
+  margin-top: 24px;
+}
+
+.plan-description {
+  color: rgba(255, 255, 255, 0.67);
+  font-size: 16px;
+  font-weight: 400;
+  font-family: 'Lato', sans-serif;
+  line-height: 24px;
+}
+
+.plan-description-title {
+  font-weight: 800;
+}
+
+.pay-buttons {
+  display: grid;
+  grid-template-columns: 1fr 200px 1fr;
+  margin-bottom: 24px;
+  margin-top: 24px;
+}
+
+.pay-buttons button {
+  padding: 16px;
+  font-family: 'Raleway';
+  font-weight: 800;
+  line-height: 16px;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.67);
+  background-color: #E8A022;
+  border-radius: 24px;
+  /* border: #E8A022 3px solid; */
+}
+
+.success-div{
+  text-align: center;
+}
+
+.success-icon {
+  width: 96px;
+  height: 96px;
+  font-size: 96px;
+  color: #E8A022;
+}
+
+.success-title{
+  margin-bottom: 24px;
+}
+
+app-spinner{
+  margin: 36px;
+}
+
+.back {
+  color: rgba(255, 255, 255, 0.67);
+}
+
+.btn-upgrade,
+.btn-cancel {
+  padding: 16px;
+  font-family: 'Raleway';
+  font-weight: 800;
+  line-height: 16px;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.67);
+  border-radius: 24px;
+  margin-bottom: 24px;
+}
+
+.btn-upgrade {
+  background-color: #88C540;
+}
+
+.btn-cancel {
+  background-color: #FF5D51;
+}
+
+.pay-buttons .changePlan {
+  background-color: #88C540;
+}
+
+.confirmation_change_plan p {
+  color: rgba(255, 255, 255, 0.67);
+}
+
+.confirm-btn {
+  color: rgba(255, 255, 255, 0.67);
+  font-family: 'Raleway';
+  text-transform: uppercase;
+  font-weight: 700;
+  background-color: rgba(255, 255, 255, 0.17)
+}
+
+.btn-grid{
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+
+.yellow-conf {
+  color: #E8A022;
+}

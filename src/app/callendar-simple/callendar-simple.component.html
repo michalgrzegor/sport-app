@@ -1,0 +1,146 @@
+
+
+<div class="tp-name">
+  <div class="center-container"></div>
+  <div *ngIf="!planName" ></div>
+  <h4 *ngIf="planName && planName.length > 16" matTooltip="{{planName}}" matTooltipClass="comment-tooltip">{{planName | shorten:16}}</h4>
+  <h4 *ngIf="planName && planName.length <= 16">{{planName}}</h4>
+  <div class="center-container">
+    
+    <button mat-button  *ngIf="isPaidAccount" [matMenuTriggerFor]="menu">
+      <mat-icon class="menu-right-icon">more_vert</mat-icon>
+    </button>
+    
+    <mat-menu #menu="matMenu" xPosition="before">
+      <button mat-menu-item *ngIf="isPaidAccount && tpManager && tpManager.length>0"  (click)="tPEdit()">Edit program</button>
+      <button mat-menu-item *ngIf="isPaidAccount" [matMenuTriggerFor]="subMenu">Change program</button>
+      <button mat-menu-item (click)="leavePlatform()"  *ngIf="(athleteAccountonPaidAccount && noTP && athleteAccount && onPlatformWithoutPlan) || (!isPaidAccount && noTP && athleteAccount && onPlatformWithoutPlan) || (!noTP && !isPaidAccount)" >Leave platform</button>
+      <button mat-menu-item *ngIf="isPaidAccount" (click)="openTPEditor()">Create new program</button>
+      <button mat-menu-item (click)="deletePlan()" *ngIf="!noTP && isPaidAccount" >Delete program</button>
+      <button mat-menu-item (click)="openTpBoard()"  *ngIf="!isWeb" >Training board</button>
+    </mat-menu>
+    
+    <mat-menu #subMenu="matMenu" xPosition="before">
+      <button *ngFor="let tPName of tpManager" (click)="loadTp(tPName.id)"   mat-menu-item>{{tPName.training_plan_name}}</button>
+    </mat-menu>
+    
+  </div>
+</div>
+
+<div class="divider-line"></div>
+
+<app-tp-menu *ngIf="!isWeb && isOpenBoard" ></app-tp-menu>
+
+<app-spinner *ngIf="loading"></app-spinner>
+
+<div *ngIf="!loading" >
+  <div *ngIf="noTP && !athleteAccount && !onPlatformWithoutPlan" >
+    <h4>You have no program yet. Create one using this <span class="link-to-plan" (click)="openTPEditor()">link</span> or menu.</h4>
+  </div>
+  <div *ngIf="noTP && athleteAccount && !onPlatformWithoutPlan" >
+    <h4>You are not yet on any platform</h4>
+  </div>
+  <div *ngIf="noTP && athleteAccount && onPlatformWithoutPlan" >
+    <h4>Your trainer have not activated any plan yet</h4>
+  </div>
+  
+  <div *ngIf="!noTP && isPaidAccount" >
+    <div *ngIf="callendarArray" class="master-container">
+      <div class="grid-container-nav">
+        <button mat-button (click)="sub()">
+          <mat-icon class="menu-right-icon">keyboard_arrow_left</mat-icon>
+        </button>
+        <div class="month-name">{{ callendarArray.calendar[i].monthName.monthDate | date: 'MMMM yyyy' }}</div>
+        <button mat-button (click)="add()">
+          <mat-icon class="menu-right-icon">keyboard_arrow_right</mat-icon>
+        </button>
+      </div>
+      <div class="grid-container">
+        <div *ngFor="let dayOfTheWeek of callendarArray.calendar[i].weekDays" class="day-of-the-week">{{
+          dayOfTheWeek.dayOfTheWeek }}</div>
+      </div>
+      <div *ngFor="let week of callendarArray.calendar[i].weeks; let in = index" class="grid-container">
+        <div *ngFor="let day of week.weekDates; let ind = index" class="calendar-item-chart" [ngStyle]="{height: isHandset ? '48px' : '72px'}">
+          <div 
+            *ngIf="day.available && !dayToedit(day.momentDate)"
+            id="{{day.momentDate}}" 
+            class="dropp-container" 
+            [ngStyle]="{width: isHandset ? '44px' : '72px'}"
+            (click)="expand(i, in, ind)" 
+            cdkDropList 
+            [cdkDropListData]="fakeData"
+            [cdkDropListConnectedTo]="allMomentDateArray"
+            (cdkDropListDropped)="drop($event, day, i, in, ind)" 
+            #dayInMonth="cdkDropList"
+          ></div>
+          <div 
+            *ngIf="day.available && dayToedit(day.momentDate)"
+            id="{{day.momentDate}}" 
+            class="dropp-container" 
+            [ngStyle]="{width: isHandset ? '44px' : '72px'}"
+            (click)="expand(i, in, ind)" 
+          ></div>
+          <div class="calendar-item-chart-date">
+            <div class="transparent-handset" *ngIf="(isHandset && openedDay && openedDay.callendarIndex === i && openedDay.weeksIndex === in && openedDay.weekDatesIndex !== ind) || (isHandset && openedDay && openedDay.callendarIndex === i && openedDay.weeksIndex !== in && openedDay.weekDatesIndex !== ind) || (isHandset && openedDay && openedDay.callendarIndex === i && openedDay.weeksIndex !== in && openedDay.weekDatesIndex === ind)" ></div>
+            <div class="transparent" *ngIf="(!isHandset && openedDay && openedDay.callendarIndex === i && openedDay.weeksIndex === in && openedDay.weekDatesIndex !== ind) || (!isHandset && openedDay && openedDay.callendarIndex === i && openedDay.weeksIndex !== in && openedDay.weekDatesIndex !== ind) || (!isHandset && openedDay && openedDay.callendarIndex === i && openedDay.weeksIndex !== in && openedDay.weekDatesIndex === ind)" ></div>
+            <span [ngClass]="{'span-handset' : isHandset, 'span-tablet' : isTablet, 'span-web' : isWeb}" >{{day.value}}
+              <mat-icon *ngIf="day.star && day.available"  class="star-front" [ngClass]="{'star-web' : isWeb, 'star-tablet' : isTablet, 'star-handset' : isHandset}"  [ngStyle]="{'color': day.star}">stars</mat-icon>
+            </span>
+          </div>
+          <app-callendar-chart
+            *ngIf="day.available" [callendarIndex]="i" [weeksIndex]="in" [weekDatesIndex]="ind"></app-callendar-chart>
+        </div>
+        <div *ngFor="let cont of week.container" class="calendar-container">
+          <div class="animation-container" *ngIf="callendarNoDisplayArray.calendar[i].weeks[in].container[0].container && callendarNoDisplayArray.calendar[i].weeks[in].container[0].expanded" [@hideShow]>
+            <app-callendar-day></app-callendar-day>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!noTP && !isPaidAccount" >
+    <div *ngIf="callendarArray" class="master-container">
+      <div class="grid-container-nav">
+        <button mat-button (click)="sub()">
+          <mat-icon class="menu-right-icon">keyboard_arrow_left</mat-icon>
+        </button>
+        <div class="month-name">{{ callendarArray.calendar[i].monthName.monthDate | date: 'MMMM yyyy' }}</div>
+        <button mat-button (click)="add()">
+          <mat-icon class="menu-right-icon">keyboard_arrow_right</mat-icon>
+        </button>
+      </div>
+      <div class="grid-container">
+        <div *ngFor="let dayOfTheWeek of callendarArray.calendar[i].weekDays" class="day-of-the-week">{{
+          dayOfTheWeek.dayOfTheWeek }}</div>
+      </div>
+      <div *ngFor="let week of callendarArray.calendar[i].weeks; let in = index" class="grid-container">
+        <div *ngFor="let day of week.weekDates; let ind = index" class="calendar-item-chart" [ngStyle]="{height: isHandset ? '48px' : '72px'}">
+          <div 
+            *ngIf="day.available"
+            id="{{day.momentDate}}" 
+            class="dropp-container" 
+            [ngStyle]="{width: isHandset ? '44px' : '72px'}"
+            (click)="expand(i, in, ind)" 
+          ></div>
+          <div class="calendar-item-chart-date">
+            <div class="transparent-handset" *ngIf="(isHandset && openedDay && openedDay.callendarIndex === i && openedDay.weeksIndex === in && openedDay.weekDatesIndex !== ind) || (isHandset && openedDay && openedDay.callendarIndex === i && openedDay.weeksIndex !== in && openedDay.weekDatesIndex !== ind) || (isHandset && openedDay && openedDay.callendarIndex === i && openedDay.weeksIndex !== in && openedDay.weekDatesIndex === ind)" ></div>
+            <div class="transparent" *ngIf="(!isHandset && openedDay && openedDay.callendarIndex === i && openedDay.weeksIndex === in && openedDay.weekDatesIndex !== ind) || (!isHandset && openedDay && openedDay.callendarIndex === i && openedDay.weeksIndex !== in && openedDay.weekDatesIndex !== ind) || (!isHandset && openedDay && openedDay.callendarIndex === i && openedDay.weeksIndex !== in && openedDay.weekDatesIndex === ind)" ></div>
+            <span [ngClass]="{'span-handset' : isHandset, 'span-tablet' : isTablet, 'span-web' : isWeb}" >{{day.value}}
+              <mat-icon *ngIf="day.star && day.available"  class="star-front" [ngClass]="{'star-web' : isWeb, 'star-tablet' : isTablet, 'star-handset' : isHandset}"  [ngStyle]="{'color': day.star}">stars</mat-icon>
+            </span>
+          </div>
+          <app-callendar-chart
+            *ngIf="day.available" [callendarIndex]="i" [weeksIndex]="in" [weekDatesIndex]="ind"></app-callendar-chart>
+        </div>
+        <div *ngFor="let cont of week.container" class="calendar-container">
+          <div class="animation-container" *ngIf="callendarNoDisplayArray.calendar[i].weeks[in].container[0].container && callendarNoDisplayArray.calendar[i].weeks[in].container[0].expanded" [@hideShow]>
+            <app-callendar-day></app-callendar-day>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+

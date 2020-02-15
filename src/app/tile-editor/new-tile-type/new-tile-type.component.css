@@ -1,0 +1,19 @@
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.material-dialog-content {
+  display: flex;
+  flex-direction: column;
+}
+
+h4 {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+#new-tile-type p {
+  font-family: 'Lato';
+  color: rgba(255, 255, 255, 0.67);
+}

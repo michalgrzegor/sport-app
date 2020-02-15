@@ -1,0 +1,20 @@
+<div id="new-tp-editor">
+    <form #newTP="ngForm">
+      <div mat-dialog-content>
+  
+        <h4>Leave a comment</h4>
+        <mat-form-field appearance="fill">
+          <mat-label>Leave a comment</mat-label>
+          <textarea matInput required #body='ngModel' name="comment" [(ngModel)]="data.comment_body" rows="8"></textarea>
+        </mat-form-field>
+        <p [hidden]="body.valid || body.untouched">you wrote nothing</p>
+  
+      </div>
+      <div class="grid-to-right" mat-dialog-actions>
+        <div></div>
+        <button mat-button color="primary" (click)="onNoClick()">Cancel</button>
+        <button mat-button color="primary" (click)="createComment()" [mat-dialog-close]="data">Post</button>
+      </div>
+    </form>
+  </div>
+  
