@@ -12,7 +12,6 @@ import * as fromApp from './app.reducers';
 
 @Injectable()
 export class TilesDataEffects {
-    // url: string = 'https://gremo-one-test.herokuapp.com/api/v1/';
     url: string = 'https://gremmo-one.herokuapp.com/api/v1/';
 
     constructor(
@@ -35,17 +34,15 @@ export class TilesDataEffects {
     }
 
     getTPID(){
-        const id = JSON.parse(this._cookieService.get('profile'))['https://gremo.sport.comuser_metadata'].training_plan_last_id;
+        const id = JSON.parse(this._cookieService.get('profile'))['https://sport.app.comuser_metadata'].training_plan_last_id;
         return id;        
     }
 
     setTPtoTiles(tp){
-        console.log(tp)
         return this._store.dispatch(new TilesActions.SetTrainingPlan(tp))
     }
 
     setTPtoChart(tp){
-        console.log(tp)
         return this._store.dispatch(new ChartDataActions.SetTP(tp))
     }
 
@@ -54,7 +51,6 @@ export class TilesDataEffects {
         .pipe(
             ofType(TilesActions.FETCH_TILES),
             switchMap(() => {
-                console.log(`efekt `, this.getHttpOptions())
                 return this._httpClient.get(`${this.url}tiles`, this.getHttpOptions());
             }),
             map((tiles) => {
@@ -86,7 +82,6 @@ export class TilesDataEffects {
         .pipe(
             ofType(TilesActions.FETCH_TRAINING_PLAN),
             switchMap(() => {
-                console.log(`FETCH_TRAINING_PLAN `)
                 return this._httpClient.get(`${this.url}training_plans/${this.getTPID()}`, this.getHttpOptions());
             }),
             switchMap((tp)=>[

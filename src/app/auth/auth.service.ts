@@ -49,17 +49,14 @@ export class AuthService {
   }
 
   handleLoginCallback(){
-    console.log(`handleLoginCallback`)
     this.auth0.parseHash((err, authResult) => {
       if(authResult && authResult.accessToken) {
         window.location.hash = '';
         this.getUserInfo(authResult);
-        console.log(`parsehash`);
         
       }else if(err) {
         console.log(`Error: ${err.error}`)
       }else{
-        console.log(`nic`);
         this.makeCheckAppMetadata()
       }
       this._router.navigate(['/']);
@@ -73,9 +70,7 @@ export class AuthService {
 
   refreshTokens(){
     this.auth0.checkSession({}, (err, authResult) => {
-      console.log(`git`, authResult, err)
       if(authResult && authResult.accessToken){
-        console.log(`refreshTokens`)
         this.getUserInfo(authResult);
       }
     })
@@ -84,7 +79,6 @@ export class AuthService {
   getAccesToken(){
     this.auth0.checkSession({}, (err, authResult) => {
       if(authResult && authResult.accessToken){
-        console.log(`getAccesToken`)
         this.getUserInfo(authResult);
       }
     })
@@ -93,10 +87,8 @@ export class AuthService {
   getAccesTokenRenew(){
     this.auth0.checkSession({}, (err, authResult) => {
       if(authResult && authResult.accessToken){
-        console.log(`getAccesTokenRenew`)
         this.getUserInfo(authResult);
       }else if(err){
-        console.log(`getAccesTokenRenew error`)
         console.log(err.error);
         this.login();
       }
@@ -104,7 +96,6 @@ export class AuthService {
   }
   
   getUserInfo(authResult){
-    console.log(`getUserInfo`)
     this.auth0.client.userInfo(authResult.accessToken, (err, profile) => {
       if(profile){
         this._setSession(authResult, profile);
@@ -118,7 +109,7 @@ export class AuthService {
   getAccountLevel(){
     let app_metadata = null;
     if(this.getUserProfile()){
-      app_metadata = JSON.parse(this.getUserProfile())['https://gremo.sport.comapp_metadata']
+      app_metadata = JSON.parse(this.getUserProfile())['https://sport.app.comapp_metadata']
     }
     return app_metadata.account_level_data.account_level
   }
@@ -127,13 +118,12 @@ export class AuthService {
     
 
     let app_metadata = null;
-    if(this.getUserProfile() && JSON.parse(this.getUserProfile())['https://gremo.sport.comapp_metadata']){
-      app_metadata = JSON.parse(this.getUserProfile())['https://gremo.sport.comapp_metadata']
+    if(this.getUserProfile() && JSON.parse(this.getUserProfile())['https://sport.app.comapp_metadata']){
+      app_metadata = JSON.parse(this.getUserProfile())['https://sport.app.comapp_metadata']
     }
 
     //check for invitations
     if(this.getUserProfile() && app_metadata && app_metadata.invitations && app_metadata.invitations.length > 0){
-      console.log(`invit`)
       const invArray = []
       app_metadata.invitations.forEach(
         invitation => {
@@ -146,14 +136,12 @@ export class AuthService {
 
     //check for first time account
     if(this.getUserProfile() && !app_metadata){
-      console.log(`first time bez metadata`)
       this._store.dispatch(new TilesActions.IsPaidAccountSet(false));
       this._httpPaymentService.startTrial();
 
     }
     else if(this.getUserProfile() && app_metadata && app_metadata.account_level_data  && app_metadata.account_level_data.account_level === 0){
       //there is athlete acount
-      console.log(`there is athlete acount`)
       this._store.dispatch(new TilesActions.SetNoTrial(false));
       this._store.dispatch(new TilesActions.IsPaidAccountSet(false));
       this._store.dispatch(new TilesActions.AccountLevelSet(0));
@@ -162,14 +150,12 @@ export class AuthService {
       this._store.dispatch(new TilesActions.SetAthleteAccount(true));
     }else if(this.getUserProfile() && app_metadata && app_metadata.account_level_data  && app_metadata.account_level_data.account_level === 1 && !app_metadata.account_level_data.current_paid_access_end_date){
       //there is trial account
-      console.log(`there is trial account`)
       this._store.dispatch(new TilesActions.SetNoTrial(false));
       this._store.dispatch(new TilesActions.IsPaidAccountSet(true));
       this._store.dispatch(new TilesActions.AccountLevelSet(1));
       this._store.dispatch(new TilesActions.AccountTrialSet(true));
       this._store.dispatch(new TilesActions.SetPaidAccountForDisplays(true))
       if(app_metadata.account_level_data.trial_end_date*1000 < Date.now()){
-        console.log(`koniec triala`);
         this._store.dispatch(new TilesActions.SetNoTrial(false));
         this._store.dispatch(new TilesActions.IsPaidAccountSet(false));
         this._store.dispatch(new TilesActions.AccountLevelSet(0));
@@ -179,7 +165,6 @@ export class AuthService {
       }
     }else if(this.getUserProfile() && app_metadata && app_metadata.account_level_data  && app_metadata.account_level_data.account_level > 0 && app_metadata.account_level_data.current_paid_access_end_date){
       //there is paid account
-      console.log(`there is paid account`)
       if(app_metadata.account_level_data.current_paid_access_end_date*1000 > Date.now()){
         //tutaj idzie logika gdy jest dostęp
         this._store.dispatch(new TilesActions.SetNoTrial(false));
@@ -194,7 +179,6 @@ export class AuthService {
     if (typeof window !== 'undefined') {
       const expiresAt = +this._cookieService.get('expires_at')
       const delay = expiresAt - Date.now() - 20000;
-      console.log(`delay=======================>`,delay);
       if (delay > 0) {
         this.tokenRenewalTimeout = setTimeout(() => {
           this.getAccesTokenRenew();
@@ -204,7 +188,6 @@ export class AuthService {
     }
 
   private _setSession(authResult, profile) {
-    console.log(`_setSession`, authResult, profile)
     const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
     this._cookieService.set('token', authResult.accessToken);
     this._cookieService.set('id_token', authResult.idToken);
@@ -226,7 +209,7 @@ export class AuthService {
     clearTimeout(this.tokenRenewalTimeout);
     this._store.dispatch(new TilesActions.OffAuth());
     this.auth0.logout({
-      returnTo: 'https://www.gremmosport.com',
+      returnTo: 'https://serene-kare-990ab9.netlify.com',
       clientID: environment.auth0.clientID
     })
   };

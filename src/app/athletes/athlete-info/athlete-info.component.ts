@@ -141,7 +141,6 @@ export class AthleteInfoComponent implements OnInit, OnDestroy {
               this.emailForPolling = data.invitation.athlete_email;
               this.accepInvitationPolling = this._pollingService.getAcceptInvitation(data.id).subscribe(
                 (dataSub: any) => {
-                  console.log(dataSub)
                   if(dataSub.athlete_in_platform){
                     // this._store.dispatch(new AthleteDataActions.UpdateAthlete({id: data.attendant_membership_id , email: this.email, status: 3}));
                     const a = {

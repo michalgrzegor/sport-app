@@ -33,7 +33,6 @@ export class AthleteCreatorComponent implements OnInit {
     this.isTutorialSub = this.isTutorialState.subscribe(
       data => {
         this.isTutorial = data;
-        console.log(data)
       }
     );
   }
@@ -62,7 +61,6 @@ export class AthleteCreatorComponent implements OnInit {
       platform_notes: [],
     }
 
-    console.log(newAthlete)
     this._httpService.postAthlete(newAthlete);
     }
   }

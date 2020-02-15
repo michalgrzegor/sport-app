@@ -135,11 +135,9 @@ export class AthleteCardComponent implements OnInit, OnDestroy {
 
     if(!this.athlete){
       if(JSON.parse(this.getUserProfile())['https://gremo.sport.comuser_metadata'] && JSON.parse(this.getUserProfile())['https://gremo.sport.comuser_metadata'].athlete_platform_last_id){
-        console.log(`1 odpala`)
         this._httpService.getAthleteCardById(JSON.parse(this.getUserProfile())['https://gremo.sport.comuser_metadata'].athlete_platform_last_id)
         this._store.dispatch(new AthleteDataActions.OnACMode());
       }else{
-        console.log(`2 odpala`)
         this._store.dispatch(new AthleteDataActions.OnACMode());
         this._store.dispatch(new AthleteDataActions.SpinnerOnOffAthlete(false));
       }
@@ -179,7 +177,6 @@ export class AthleteCardComponent implements OnInit, OnDestroy {
       (data: TpInfo[]) => {
         if(data){
           this.tpManager = data;
-          console.log(data)
           this.unactiveTpManager = [];
           data.forEach(tpInfo=>{if(!tpInfo.training_plan_active){this.unactiveTpManager.push(tpInfo)}});
         }
@@ -364,5 +361,3 @@ export class AthleteCardComponent implements OnInit, OnDestroy {
   }
 
 }
-
-DUUUUUUUUUUUUUUUUUUUPPPPPPPPPPPPPPPPPPPAAAAAAAAAAAAA

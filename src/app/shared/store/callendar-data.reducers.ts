@@ -202,12 +202,10 @@ export function callendarDataReducer(state = initialState, action: CalendarDataA
             dayCS.forEach(
                 day => {
                     if(day.asso_temporary_id === action.payload.tempId){
-                        console.log(`istnieje`)
                         day.training_sesion = action.payload.sessionNumber
                     }
                 }
-            )      
-            console.log(`istnieje`, dayCS)    
+            )         
             return {
                 ...state,
                 calendar: calendarCS,
@@ -432,34 +430,29 @@ export function callendarDataReducer(state = initialState, action: CalendarDataA
             }
         
         case CalendarDataActions.SET_TUTORIAL:
-            console.log(action.payload)
             return {
                 ...state,
                 isTutorial: action.payload
             }
         
         case CalendarDataActions.SET_CLOSE:
-            console.log(action.payload)
             return {
                 ...state,
                 tileClose: action.payload
             }
         
         case CalendarDataActions.SET_DAYS_TO_CHANGE:
-            console.log(action.payload)
             return {
                 ...state,
                 daysToChange: action.payload
             }
         
         case CalendarDataActions.CONSOLE_LOG:
-            console.log(action.payload)
             return {
                 ...state
             }
         
         case CalendarDataActions.UPDATE_CALENDAR:
-            console.log(action.payload);
             const arrayUC = [];
             if(state.tilesToChange.length > 0){state.tilesToChange.forEach(t=>arrayUC.push(Object.assign({},t)))};
             if(action.payload.length > 0){action.payload.forEach(t=>arrayUC.push(Object.assign({},t)))};
@@ -475,7 +468,6 @@ export function callendarDataReducer(state = initialState, action: CalendarDataA
             }
         
         case CalendarDataActions.SET_WEEK:
-            console.log(action.payload)
             const weekSW = [];
             action.payload.forEach(d=>weekSW.push(Object.assign({},d)));
             return {

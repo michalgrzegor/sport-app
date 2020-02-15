@@ -13,7 +13,6 @@ import { Store } from '@ngrx/store';
   providedIn: 'root'
 })
 export class PollingService {
-  // url: string = 'https://gremo-one-test.herokuapp.com/api/v1/';
   url: string = 'https://gremmo-one.herokuapp.com/api/v1/';
   getHttpOptions() {
     const token = this._cookieService.get('token');
@@ -37,7 +36,6 @@ export class PollingService {
   checkIfInGroup(){
     this._http.get(`${this.url}invitation_stream_status`, this.getHttpOptions()).subscribe(
       (response: any) => {
-        console.log(response);
         if(response.permitted){
           this._store.dispatch(new TilesDataActions.SetInGroup(true));
         }

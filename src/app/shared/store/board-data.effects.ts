@@ -8,7 +8,6 @@ import { CookieService } from 'ngx-cookie-service';
 
 @Injectable()
 export class BoardDataEffects {
-    // url: string = 'https://gremo-one-test.herokuapp.com/api/v1/';
     url: string = 'https://gremmo-one.herokuapp.com/api/v1/';
     
 
@@ -24,7 +23,7 @@ export class BoardDataEffects {
     };
 
     getTPID(){
-        const id = JSON.parse(this._cookieService.get('profile'))['https://gremo.sport.comuser_metadata'].training_plan_last_id;
+        const id = JSON.parse(this._cookieService.get('profile'))['https://sport.app.comuser_metadata'].training_plan_last_id;
         return id;        
     }
 

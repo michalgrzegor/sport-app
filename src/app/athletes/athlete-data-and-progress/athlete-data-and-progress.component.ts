@@ -242,19 +242,15 @@ export class AthleteDataAndProgressComponent implements OnInit, OnDestroy {
   //making data for charts
   setSize(){
     if(!this.isLeftOpen && !this.isOpen){
-      console.log(`isLeftOpen: 1`)
       this.options.chart.width = 1162;
       if(this.chart){this.chart.setSize(1162,280,false)}
     }else if(!this.isLeftOpen && this.isOpen){
-      console.log(`isLeftOpen: 2`)
       this.options.chart.width = 866;
       if(this.chart){this.chart.setSize(866,280,false)}
     }else if(this.isLeftOpen && this.isOpen){
-      console.log(`isLeftOpen: 3`)
       this.options.chart.width = 703;
       if(this.chart){this.chart.setSize(703,280,false)}
     }else if(this.isLeftOpen && !this.isOpen){
-      console.log(`isLeftOpen: 4`)
       this.options.chart.width = 999;
       if(this.chart){this.chart.setSize(999,280,false);}
     }
@@ -506,8 +502,6 @@ export class AthleteDataAndProgressComponent implements OnInit, OnDestroy {
   }
 
   setParam($event){
-    console.log(this.customData.get('parameter_name').value);
-    console.log($event)
     this.customData.get('parameter_name').setValue($event);
   }
 
@@ -539,7 +533,6 @@ export class AthleteDataAndProgressComponent implements OnInit, OnDestroy {
     this.isEditCustomParamMode = true;
     this.customParam = element;
     this.customData.patchValue(element);
-    console.log(element)
   }
 
   ngOnDestroy(): void {

@@ -119,8 +119,8 @@ export class CardComponent implements OnInit {
     this._store.dispatch(new TilesDataActions.CardFail(false));
 
     let app_metadata
-    if(this.getUserProfile() && JSON.parse(this.getUserProfile())['https://gremo.sport.comapp_metadata']){
-      app_metadata = JSON.parse(this.getUserProfile())['https://gremo.sport.comapp_metadata']
+    if(this.getUserProfile() && JSON.parse(this.getUserProfile())['https://sport.app.comapp_metadata']){
+      app_metadata = JSON.parse(this.getUserProfile())['https://sport.app.comapp_metadata']
     }
 
     const {token, error} = await this.stripe.createToken(this.card);

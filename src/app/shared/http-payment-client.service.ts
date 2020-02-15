@@ -19,7 +19,6 @@ import { StepperComponent } from '../tutorial/stepper/stepper.component';
   providedIn: 'root'
 })
 export class HttpPaymentClientService {
-  // url: string = 'https://gremo-one-test.herokuapp.com/api/v1/';
   url: string = 'https://gremmo-one.herokuapp.com/api/v1/';
   getHttpOptions() {
     const token = this._cookieService.get('token');
@@ -111,7 +110,6 @@ isWeb: boolean;
   leavePlatform(){
     this._http.delete(`${this.url}attendant_membership`, this.getHttpOptions()).subscribe(
       (response)=>{
-        console.log(response);
         this._httpClient.getTrainingPlanFromPlatform();
       }
     )
@@ -121,10 +119,8 @@ isWeb: boolean;
     this._http.get(`${this.url}attendant_membership`, this.getHttpOptions()).subscribe(
       (response: any) => {
         if(response.is_in_active_platform){
-          console.log(`true`);
           this._store.dispatch(new AthleteDataActions.SetIsInPlatform(true));
         }else if(!response.is_in_active_platform){
-          console.log(`false`);
           this._store.dispatch(new AthleteDataActions.SetIsInPlatform(false));
         }
       }
@@ -134,7 +130,6 @@ isWeb: boolean;
   activatePlan(platfom_id: number, tp_id: number, athlete_id: number){
     this._http.post(`${this.url}athlete_platforms/${platfom_id}/plan_appends`, {training_plan_id: tp_id}, this.getHttpOptions()).subscribe(
       response => {
-        console.log(response);
         this._store.dispatch(new AthleteDataActions.FetchAthletesData());
         this._httpClient.getAthleteCardById(athlete_id)
       }
@@ -144,7 +139,6 @@ isWeb: boolean;
   deactivatePlan(platfom_id: number, plan_append_id: number, athlete_id: number){
     this._http.delete(`${this.url}athlete_platforms/${platfom_id}/plan_appends/${plan_append_id}`, this.getHttpOptions()).subscribe(
       response => {
-        console.log(response);
         this._store.dispatch(new AthleteDataActions.FetchAthletesData());
         this._httpClient.getAthleteCardById(athlete_id)
       }
@@ -154,7 +148,6 @@ isWeb: boolean;
   firstTimeLogInvitation(){
     this._http.post(`${this.url}queue_invitations`, null, this.getHttpOptions()).subscribe(
       (response: any) => {
-        console.log(`firstTimeLogInvitation: `, response);
         if(response.message === "No queue invitation processes to perform."){
           return
         }else{
@@ -164,27 +157,17 @@ isWeb: boolean;
     )
   }
 
-  // checkForInvitations(){
-  //   this._http.get(`${this.url}athleted_invitations`, this.getHttpOptions()).subscribe(
-  //     (response: Invitation[]) => {
-  //       console.log(response);
-  //       this._store.dispatch(new TilesActions.SetInvitations(response));
-  //     }
-  //   )
-  // }
-
   invitationStream$ = this._http.get(`${this.url}athleted_invitations`, this.getHttpOptions());
 
   //ACOUNT LEVEL 
   startTrial(){
     this._http.post(`${this.url}create_trial`, {}, this.getHttpOptions()).subscribe(
       (response: any) => {
-        console.log(response);
         
         //changing cookies
         let profile = null;
         if(this.getUserProfile()){profile = JSON.parse(this.getUserProfile())}
-        profile['https://gremo.sport.comapp_metadata'] = {account_level_data: response.account_level_data};
+        profile['https://sport.app.comapp_metadata'] = {account_level_data: response.account_level_data};
         this._cookieService.set('profile', JSON.stringify(profile));
 
         
@@ -209,21 +192,19 @@ isWeb: boolean;
 
   firstTiles(){
     this._http.post(`${this.url}initial_tile_collections`, {}, this.getHttpOptions()).subscribe(
-      response => console.log(response)
     )
   }
   
   endTrial(){
     this._http.put(`${this.url}end_trial`, null, this.getHttpOptions()).subscribe(
       (response: any) => {
-        console.log(response)
 
         //changing cookies
         let profile = null;
         if(this.getUserProfile()){profile = JSON.parse(this.getUserProfile())}
-        profile['https://gremo.sport.comapp_metadata'].account_level_data.account_level = response.account_level_data.account_level;
-        profile['https://gremo.sport.comapp_metadata'].account_level_data.trial_end_date = response.account_level_data.trial_end_date;
-        profile['https://gremo.sport.comapp_metadata'].account_level_data.trial_start_date = response.account_level_data.trial_start_date;
+        profile['https://sport.app.comapp_metadata'].account_level_data.account_level = response.account_level_data.account_level;
+        profile['https://sport.app.comapp_metadata'].account_level_data.trial_end_date = response.account_level_data.trial_end_date;
+        profile['https://sport.app.comapp_metadata'].account_level_data.trial_start_date = response.account_level_data.trial_start_date;
         this._cookieService.set('profile', JSON.stringify(profile));
 
         //changing store
@@ -237,7 +218,6 @@ isWeb: boolean;
   startSubscription(data){
     this._http.post(`${this.url}create_first_stripe_subscription`, data, this.getHttpOptions()).subscribe(
       (response: any) => {
-        console.log(response);
 
         if(response.message === 'Payment failed'){
           this._store.dispatch(new TilesDataActions.SpinnerChange(false));
@@ -246,10 +226,10 @@ isWeb: boolean;
           //changing cookies
           let profile = null;
           if(this.getUserProfile()){profile = JSON.parse(this.getUserProfile())}
-          profile['https://gremo.sport.comapp_metadata'].account_level_data.account_level = response.account_level_data.account_level;
-          profile['https://gremo.sport.comapp_metadata'].account_level_data.current_paid_access_end_date = response.account_level_data.current_paid_access_end_date;
-          profile['https://gremo.sport.comapp_metadata'].account_level_data.current_paid_access_start_date = response.account_level_data.current_paid_access_start_date;
-          profile['https://gremo.sport.comapp_metadata'].account_level_data.stripe_customer_id = response.account_level_data.stripe_customer_id;
+          profile['https://sport.app.comapp_metadata'].account_level_data.account_level = response.account_level_data.account_level;
+          profile['https://sport.app.comapp_metadata'].account_level_data.current_paid_access_end_date = response.account_level_data.current_paid_access_end_date;
+          profile['https://sport.app.comapp_metadata'].account_level_data.current_paid_access_start_date = response.account_level_data.current_paid_access_start_date;
+          profile['https://sport.app.comapp_metadata'].account_level_data.stripe_customer_id = response.account_level_data.stripe_customer_id;
           this._cookieService.set('profile', JSON.stringify(profile));
   
           //changing store
@@ -273,7 +253,6 @@ isWeb: boolean;
   startSubscriptionWithID(plan_id){
     this._http.post(`${this.url}create_stripe_subscription`, plan_id, this.getHttpOptions()).subscribe(
       (response: any) => {
-        console.log(response);
 
         if(response.message === 'Payment failed'){
           this._store.dispatch(new TilesDataActions.SpinnerChange(false));
@@ -282,9 +261,9 @@ isWeb: boolean;
           //changing cookies
           let profile = null;
           if(this.getUserProfile()){profile = JSON.parse(this.getUserProfile())}
-          profile['https://gremo.sport.comapp_metadata'].account_level_data.account_level = response.account_level_data.account_level;
-          profile['https://gremo.sport.comapp_metadata'].account_level_data.current_paid_access_end_date = response.account_level_data.current_paid_access_end_date;
-          profile['https://gremo.sport.comapp_metadata'].account_level_data.current_paid_access_start_date = response.account_level_data.current_paid_access_start_date;
+          profile['https://sport.app.comapp_metadata'].account_level_data.account_level = response.account_level_data.account_level;
+          profile['https://sport.app.comapp_metadata'].account_level_data.current_paid_access_end_date = response.account_level_data.current_paid_access_end_date;
+          profile['https://sport.app.comapp_metadata'].account_level_data.current_paid_access_start_date = response.account_level_data.current_paid_access_start_date;
           this._cookieService.set('profile', JSON.stringify(profile));
   
           //changing store
@@ -307,7 +286,6 @@ isWeb: boolean;
   cardFailureUpdate(plan_id){
     this._http.post(`${this.url}create_stripe_subscription`, plan_id, this.getHttpOptions()).subscribe(
       (response: any) => {
-        console.log(response);
 
         if(response.message === 'Payment failed'){
           this._store.dispatch(new TilesDataActions.SpinnerChange(false));
@@ -316,9 +294,9 @@ isWeb: boolean;
           //changing cookies
           let profile = null;
           if(this.getUserProfile()){profile = JSON.parse(this.getUserProfile())}
-          profile['https://gremo.sport.comapp_metadata'].account_level_data.account_level = response.account_level_data.account_level;
-          profile['https://gremo.sport.comapp_metadata'].account_level_data.current_paid_access_end_date = response.account_level_data.current_paid_access_end_date;
-          profile['https://gremo.sport.comapp_metadata'].account_level_data.current_paid_access_start_date = response.account_level_data.current_paid_access_start_date;
+          profile['https://sport.app.comapp_metadata'].account_level_data.account_level = response.account_level_data.account_level;
+          profile['https://sport.app.comapp_metadata'].account_level_data.current_paid_access_end_date = response.account_level_data.current_paid_access_end_date;
+          profile['https://sport.app.comapp_metadata'].account_level_data.current_paid_access_start_date = response.account_level_data.current_paid_access_start_date;
           this._cookieService.set('profile', JSON.stringify(profile));
   
           //changing store
@@ -341,14 +319,13 @@ isWeb: boolean;
   cancelSubscription(){
     this._http.put(`${this.url}cancel_stripe_subscription`, null, this.getHttpOptions()).subscribe(
       (response: any) => {
-        console.log(response);
           
         //changing cookies
         let profile = null;
         if(this.getUserProfile()){profile = JSON.parse(this.getUserProfile())}
-        profile['https://gremo.sport.comapp_metadata'].account_level_data.account_level = response.account_level_data.account_level;
-        delete profile['https://gremo.sport.comapp_metadata'].account_level_data.current_paid_access_end_date;
-        delete profile['https://gremo.sport.comapp_metadata'].account_level_data.current_paid_access_start_date;
+        profile['https://sport.app.comapp_metadata'].account_level_data.account_level = response.account_level_data.account_level;
+        delete profile['https://sport.app.comapp_metadata'].account_level_data.current_paid_access_end_date;
+        delete profile['https://sport.app.comapp_metadata'].account_level_data.current_paid_access_start_date;
         this._cookieService.set('profile', JSON.stringify(profile));
 
         this._store.dispatch(new TilesDataActions.FetchTpManager());
@@ -373,7 +350,6 @@ isWeb: boolean;
   upgradeDowngradeSubscription(plan_id){
     this._http.post(`${this.url}preview_proration`, plan_id, this.getHttpOptions()).subscribe(
       (response: any) => {
-        console.log(response);
 
         this._store.dispatch(new TilesActions.SetPrice(response.proration));
         this._store.dispatch(new TilesActions.ConfirmationChangePlan(true));
@@ -388,12 +364,11 @@ isWeb: boolean;
   confirmUpgradeDowngradeSubscription(plan_id){
     this._http.put(`${this.url}update_stripe_subscription`, plan_id, this.getHttpOptions()).subscribe(
       (response: any) => {
-        console.log(response);
         this._store.dispatch(new TilesDataActions.SpinnerChange(false));
         this._store.dispatch(new TilesDataActions.AccountLevelSet(response.account_level_data.account_level));
         this._store.dispatch(new TilesActions.ConfirmationChangePlan(false));
         const user = JSON.parse(this.getUserProfile());
-        user['https://gremo.sport.comapp_metadata'].account_level_data.account_level = response.account_level_data.account_level;
+        user['https://sport.app.comapp_metadata'].account_level_data.account_level = response.account_level_data.account_level;
         this._cookieService.set(`profile`, JSON.stringify(user));
         this._store.dispatch(new TilesDataActions.IsPaidChange(true));
 

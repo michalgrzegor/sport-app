@@ -183,15 +183,13 @@ export class TileEditorComponent implements OnInit, OnDestroy {
             const array = [];
             data.forEach(t=>array.push(Object.assign({},t)));
             const arrayE = [];
-            data.forEach(t=>arrayE.push(Object.assign({},t)))
-            console.log(arrayE,array)
+            data.forEach(t=>arrayE.push(Object.assign({},t)));
             array.forEach(
               tag => {
                 tag.selected = false;
                 arrayE.forEach(
                   tagE => {
                     if(tagE.id === tag.id){
-                      console.log(tagE,tag)
                       if(tagE.selected){
                         tag.selected = true;
                       }else{
@@ -202,7 +200,6 @@ export class TileEditorComponent implements OnInit, OnDestroy {
                 )
               }
             );
-            console.log('tutaj z store:',array)
             this.tags = array;
           }else{
             this.tags = [];
@@ -220,7 +217,6 @@ export class TileEditorComponent implements OnInit, OnDestroy {
     this.isEditedSub = this.isEditedState.subscribe(
       data => {
         this.isEdited = data;
-        console.log(this.isEdited)
         if(data && this.mainRoute && this.tile && this.tags){
           this.edit();
         }
@@ -231,7 +227,6 @@ export class TileEditorComponent implements OnInit, OnDestroy {
     this.isTutorialSub = this.isTutorialState.subscribe(
       data => {
         this.isTutorial = data;
-        console.log(data)
         if(data){
           this.edit();
         }
@@ -432,7 +427,6 @@ export class TileEditorComponent implements OnInit, OnDestroy {
           });
         }
 
-        console.log(this.removedActivities);
       }
     })
   }
@@ -559,8 +553,6 @@ export class TileEditorComponent implements OnInit, OnDestroy {
             }
           }
         }
-
-        console.log(this.removedDiet);
       }
     })
     
@@ -585,7 +577,6 @@ export class TileEditorComponent implements OnInit, OnDestroy {
   onTagSelect(index: number){
     this.tags[index].selected = !this.tags[index].selected;
     this.tags[index] = Object.assign({}, this.tags[index])
-    console.log(this.tags);
     if(_.includes(this.tagsSelected, this.tags[index].id)){
       this.tagsSelected.splice(this.tagsSelected.indexOf(this.tags[index].id), 1)
     }else {
@@ -614,17 +605,14 @@ export class TileEditorComponent implements OnInit, OnDestroy {
   };
 
   removeTag(tag: Tag){
-    console.log(tag)
     this._store.dispatch(new TilesDataActions.DeleteTag(tag.id));
     this._httpService.deleteTag(tag.id);
   }
 
   onSubmit(){
-    console.log(this.trainingType)
     this.isSubmitted = true; 
 
     let obj: Tile = this.tile_editor_form.value;
-    console.log(obj)
     obj.tile_tags = this.tagsSelected;
     obj.tile_type = this.trainingType.type;
     obj.tile_type_name = this.trainingType.name;
@@ -687,7 +675,6 @@ export class TileEditorComponent implements OnInit, OnDestroy {
   }
 
   edit(){
-    console.log(`edit: `,this.tile)
     this.tile_editor_form.reset();
 
     let tile_to_edit = null;
@@ -746,7 +733,6 @@ export class TileEditorComponent implements OnInit, OnDestroy {
             control.push(this.onAddNewActivity());
           }
         )
-        console.log(Object.assign({}, control))
       }
       if(tile_to_edit.tile_diets){
         let control = <FormArray>this.tile_editor_form.get('tile_diets');
@@ -759,11 +745,6 @@ export class TileEditorComponent implements OnInit, OnDestroy {
             control.push(this.onAddNewDiet());
           }
         )
-        
-        // for(let i = 1; i < tile_to_edit.tile_diets.length; i++ ){
-        //   console.log(tile_to_edit.tile_diets, i, control)
-        //   control.push(this.onAddNewDiet())
-        // }
         tile_to_edit.tile_diets.forEach((diet, index)=>{
           if(diet.tile_diet_nutrients){
             const controlNut = <FormArray>this.tile_editor_form.get('tile_diets')['controls'][index].get('tile_diet_nutrients');
@@ -840,7 +821,6 @@ export class TileEditorComponent implements OnInit, OnDestroy {
           }
         }
       );
-      console.log(tile)
       this._httpService.updateDietTile(this.editedTile.id, tile);
     }else if(this.editedTile.tile_type === 'motivation'){
       this._httpService.updateMotivationTile(this.editedTile.id, tile);

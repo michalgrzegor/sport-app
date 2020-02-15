@@ -110,7 +110,6 @@ export class TrainingPlanEditorComponent implements OnInit, OnDestroy {
       newTP.date_from = moment(this.data.date_from).format('YYYY-MM-DD');
       newTP.date_to = moment(this.data.date_to).format('YYYY-MM-DD');
       newTP.training_sesion_number = this.data.training_sesion_number;
-      console.log(newTP)
       this._httpService.postTrainingPlan(newTP);
     }
   }

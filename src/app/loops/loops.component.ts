@@ -93,29 +93,25 @@ export class LoopsComponent implements OnInit  {
         this.athleteAccountonPaidAccountState = this._store.select(state => state.tiles.athleteAccountonPaidAccount);
         this.athleteAccountonPaidAccountSub = this.athleteAccountonPaidAccountState.subscribe(
             data => {
-                console.log(data)
                 this.athleteAccountonPaidAccount = data;
                 let app_metadata = null;
-                if(this.getUserProfile() && JSON.parse(this.getUserProfile())['https://gremo.sport.comapp_metadata']){
-                    app_metadata = JSON.parse(this.getUserProfile())['https://gremo.sport.comapp_metadata']
+                if(this.getUserProfile() && JSON.parse(this.getUserProfile())['https://sport.app.comapp_metadata']){
+                    app_metadata = JSON.parse(this.getUserProfile())['https://sport.app.comapp_metadata']
                 }
 
                 if(this.getUserProfile() && app_metadata && app_metadata.account_level_data  && app_metadata.account_level_data.account_level === 0 && !data){
                     //when athlete account
-                    console.log(`athlete account`);
                     this._store.dispatch(new TilesDataActions.SpinnerStartStopCalendar(false));
                     this._store.dispatch(new TilesDataActions.SetAthleteAccount(true));
                 }else if(
-                    (this.getUserProfile() && app_metadata && app_metadata.account_level_data  && !app_metadata.account_level_data && JSON.parse(this.getUserProfile())['https://gremo.sport.comuser_metadata'] && JSON.parse(this.getUserProfile())['https://gremo.sport.comuser_metadata'].training_plan_last_id) && !data||
-                    (this.getUserProfile() && app_metadata && app_metadata.account_level_data  && app_metadata.account_level_data.account_level === 1 && !app_metadata.account_level_data.current_paid_access_end_date && JSON.parse(this.getUserProfile())['https://gremo.sport.comuser_metadata'] && JSON.parse(this.getUserProfile())['https://gremo.sport.comuser_metadata'].training_plan_last_id) && !data || 
-                    (this.getUserProfile() && app_metadata && app_metadata.account_level_data  && app_metadata.account_level_data.account_level > 0 && app_metadata.account_level_data.current_paid_access_end_date && JSON.parse(this.getUserProfile())['https://gremo.sport.comuser_metadata'] && JSON.parse(this.getUserProfile())['https://gremo.sport.comuser_metadata'].training_plan_last_id) && !data){
+                    (this.getUserProfile() && app_metadata && app_metadata.account_level_data  && !app_metadata.account_level_data && JSON.parse(this.getUserProfile())['https://sport.app.comuser_metadata'] && JSON.parse(this.getUserProfile())['https://sport.app.comuser_metadata'].training_plan_last_id) && !data||
+                    (this.getUserProfile() && app_metadata && app_metadata.account_level_data  && app_metadata.account_level_data.account_level === 1 && !app_metadata.account_level_data.current_paid_access_end_date && JSON.parse(this.getUserProfile())['https://sport.app.comuser_metadata'] && JSON.parse(this.getUserProfile())['https://sport.app.comuser_metadata'].training_plan_last_id) && !data || 
+                    (this.getUserProfile() && app_metadata && app_metadata.account_level_data  && app_metadata.account_level_data.account_level > 0 && app_metadata.account_level_data.current_paid_access_end_date && JSON.parse(this.getUserProfile())['https://sport.app.comuser_metadata'] && JSON.parse(this.getUserProfile())['https://sport.app.comuser_metadata'].training_plan_last_id) && !data){
 
                     //when paid or trial account
-                    console.log(`paid or trial account`);
                     this._store.dispatch(new TilesDataActions.FetchTrainingPlan());
                     this._store.dispatch(new TilesDataActions.SetAthleteAccount(false));
                 }else if(!data){
-                    console.log(`else`);
                     this.session_number = 0;
                     this._store.dispatch(new TilesDataActions.SetAthleteAccount(false));
                 }
@@ -177,7 +173,6 @@ export class LoopsComponent implements OnInit  {
       }
 
     change(){
-        console.log(this.firstTS, this.secondTS)
         if(this.session_number === 1 && this.firstTS !== null){
             this.valid = true;
         }else if(this.session_number === 2 && this.firstTS !== null && this.secondTS !== null){

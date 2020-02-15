@@ -31,7 +31,6 @@ export class WebsocketService {
   public connect(url): Rx.Subject<MessageEvent> {
     if (!this.subject) {
       this.subject = this.create(url);
-      console.log("Successfully connected: " + url);
     }
     return this.subject;
   }
@@ -59,9 +58,7 @@ export class WebsocketService {
     if (!this.subject) {
       this._http.get(`${this.url}connection_verification_token`, this.getHttpOptions()).subscribe(
         (response: any) => {
-          console.log(`${url}/${response.verification_token}`);
           this.subject = this.create(`${url}/${response.verification_token}`);
-          console.log("Successfully connected: " + url);
         }
       )
     }

@@ -1,5 +1,4 @@
 import { Tag } from './../../tile-editor/tile-editor.component';
-import { TrainingPlan, CalendarComment } from './tiles-data.reducers';
 import { state } from '@angular/animations';
 import { Tile } from 'src/app/models/tile';
 import * as TilesDataActions from './tiles-data.actions';
@@ -135,7 +134,6 @@ const InitialState: State = {
 export function TilesDataReducer(state = InitialState, action: TilesDataActions.TilesDataActions) {
     switch(action.type){
         case TilesDataActions.SET_TILES:
-            console.log(action.payload)
             const tilesST: Tile[] = action.payload
             const newTileST = [];
             tilesST.forEach(
@@ -177,7 +175,6 @@ export function TilesDataReducer(state = InitialState, action: TilesDataActions.
             }
 
         case TilesDataActions.SET_TPMANAGER:
-            console.log(action.payload);
             let tPManagaerST = null;
             if(action.payload){
                 tPManagaerST = [...action.payload]
@@ -197,10 +194,8 @@ export function TilesDataReducer(state = InitialState, action: TilesDataActions.
             }
 
         case TilesDataActions.MAKE_DAY:
-            console.log(action.payload.day.association)
             let idArrayMD = action.payload.day.association; 
             let tileArrayMD: Tile[] = [];
-            console.log(`make day`, tileArrayMD)
             if(idArrayMD && idArrayMD.length !== 0){
                 tileArrayMD = []
                 idArrayMD.forEach(
@@ -412,14 +407,12 @@ export function TilesDataReducer(state = InitialState, action: TilesDataActions.
             }
 
         case TilesDataActions.SPINNER_START_STOP_CALENDAR:
-            console.log(`odpala stora !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ---------------------------------->`,action.payload)
             return {
                 ...state,
                 spinnerCalendar: action.payload,
             }
 
         case TilesDataActions.SET_INVITATIONS:
-            console.log(action.payload)
             let invitationsSI = []
             if(action.payload){
                 invitationsSI = [...action.payload]
@@ -466,7 +459,6 @@ export function TilesDataReducer(state = InitialState, action: TilesDataActions.
             }
 
         case TilesDataActions.ACCOUNT_LEVEL_SET:
-            console.log(`TilesDataActions.ACCOUNT_LEVEL_SET: `,action.payload);
             const levelALS = action.payload;
             const accountLimitALS = (levelALS-1)*4 + 6;
             return {
@@ -482,7 +474,6 @@ export function TilesDataReducer(state = InitialState, action: TilesDataActions.
             }
 
         case TilesDataActions.ONE_SIGNAL_INIT:
-            console.log(`ONE_SIGNAL_INIT: `, action.payload)
             return {
                 ...state,
                 oneSignalInit: action.payload
@@ -567,7 +558,6 @@ export function TilesDataReducer(state = InitialState, action: TilesDataActions.
             }
 
         case TilesDataActions.SET_TAGS:
-            console.log(action.payload)
             return {
                 ...state,
                 tags: action.payload

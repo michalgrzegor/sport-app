@@ -240,7 +240,6 @@ export class TileComponent implements OnInit, OnDestroy {
 
   openTile(){
     this.tileRef.tile_is_open = !this.tileRef.tile_is_open;
-    console.log(`otwarte`)
   }
 
   ngAfterViewInit(): void {
@@ -277,9 +276,7 @@ export class TileComponent implements OnInit, OnDestroy {
         this.isVerified = result;
         if(result){
           this._store.dispatch(new TilesDataActions.DeleteTile(this.index));
-          console.log(this.tileRef)
           if(this.tileRef.tile_type === 'training'){
-            console.log(this.tileRef.tile_id)
             this._httpService.deleteTrainingTile(this.tileRef.tile_id);
           }else if(this.tileRef.tile_type === 'diet'){
             this._httpService.deleteDietTile(this.tileRef.tile_id);

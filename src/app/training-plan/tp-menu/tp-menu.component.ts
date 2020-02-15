@@ -112,7 +112,6 @@ export class TpMenuComponent implements OnInit, OnDestroy {
     this.athleteAccountonPaidAccountState = this._store.select(state => state.tiles.athleteAccountonPaidAccount);
     this.athleteAccountonPaidAccountSub = this.athleteAccountonPaidAccountState.subscribe(
       data => {
-        console.log(data);
         this.athleteAccountonPaidAccount = data;
         if(data){
           this.doRequests(this.noTrial, data)
@@ -123,7 +122,6 @@ export class TpMenuComponent implements OnInit, OnDestroy {
     this.noTrialState = this._store.select(state => state.tiles.noTrial);
     this.noTrialSub = this.noTrialState.subscribe(
       data => {
-        console.log(data);
         this.noTrial = data;
         if(!data){
           this.doRequests(data, this.athleteAccountonPaidAccount)
@@ -148,10 +146,8 @@ export class TpMenuComponent implements OnInit, OnDestroy {
     this.tpManagerState = this._store.select(state => state.tiles.tPManagaer);
     this.tpManagerSub = this.tpManagerState.subscribe(
       (data: TpInfo[]) => {
-        console.log(`zmiana tpManager`, data)
         this.tpManager = data;
         if(data){
-          console.log(`zmiana`);
           this._store.dispatch(new TilesDataActions.FireChange(`fire!!`));
           const tpMan = [];
           this.tpManager.forEach(
@@ -180,27 +176,23 @@ export class TpMenuComponent implements OnInit, OnDestroy {
   doRequests(noTrial:boolean, athleteAccount:boolean){
     if(this.tpManager && this.tpManager !== null){
       let app_metadata = null;
-      if(this.getUserProfile() && JSON.parse(this.getUserProfile())['https://gremo.sport.comapp_metadata']){
-        app_metadata = JSON.parse(this.getUserProfile())['https://gremo.sport.comapp_metadata']
+      if(this.getUserProfile() && JSON.parse(this.getUserProfile())['https://sport.app.comapp_metadata']){
+        app_metadata = JSON.parse(this.getUserProfile())['https://sport.app.comapp_metadata']
       }
   
       if(this.getUserProfile() && app_metadata && app_metadata.account_level_data  && app_metadata.account_level_data.account_level === 0 && !athleteAccount && !noTrial){
         //when athlete account
-        console.log(`athlete account`);
         this._store.dispatch(new TilesDataActions.SpinnerStartStopCalendar(false));
         this._store.dispatch(new TilesDataActions.SetAthleteAccount(true));
       }else if(
-        (this.getUserProfile() && app_metadata && app_metadata.account_level_data  && !app_metadata.account_level_data && JSON.parse(this.getUserProfile())['https://gremo.sport.comuser_metadata'] && JSON.parse(this.getUserProfile())['https://gremo.sport.comuser_metadata'].training_plan_last_id) && !athleteAccount && !noTrial||
-        (this.getUserProfile() && app_metadata && app_metadata.account_level_data  && app_metadata.account_level_data.account_level === 1 && !app_metadata.account_level_data.current_paid_access_end_date && JSON.parse(this.getUserProfile())['https://gremo.sport.comuser_metadata'] && JSON.parse(this.getUserProfile())['https://gremo.sport.comuser_metadata'].training_plan_last_id) && !athleteAccount && !noTrial || 
-        (this.getUserProfile() && app_metadata && app_metadata.account_level_data  && app_metadata.account_level_data.account_level > 0 && app_metadata.account_level_data.current_paid_access_end_date && JSON.parse(this.getUserProfile())['https://gremo.sport.comuser_metadata'] && JSON.parse(this.getUserProfile())['https://gremo.sport.comuser_metadata'].training_plan_last_id) && !athleteAccount && !noTrial){
+        (this.getUserProfile() && app_metadata && app_metadata.account_level_data  && !app_metadata.account_level_data && JSON.parse(this.getUserProfile())['https://sport.app.comuser_metadata'] && JSON.parse(this.getUserProfile())['https://sport.app.comuser_metadata'].training_plan_last_id) && !athleteAccount && !noTrial||
+        (this.getUserProfile() && app_metadata && app_metadata.account_level_data  && app_metadata.account_level_data.account_level === 1 && !app_metadata.account_level_data.current_paid_access_end_date && JSON.parse(this.getUserProfile())['https://sport.app.comuser_metadata'] && JSON.parse(this.getUserProfile())['https://sport.app.comuser_metadata'].training_plan_last_id) && !athleteAccount && !noTrial || 
+        (this.getUserProfile() && app_metadata && app_metadata.account_level_data  && app_metadata.account_level_data.account_level > 0 && app_metadata.account_level_data.current_paid_access_end_date && JSON.parse(this.getUserProfile())['https://sport.app.comuser_metadata'] && JSON.parse(this.getUserProfile())['https://sport.app.comuser_metadata'].training_plan_last_id) && !athleteAccount && !noTrial){
   
         //when paid or trial account
-        console.log(`paid or trial account`);
-        this._store.dispatch(new tilesDataActions.FetchTpManager());
         this._store.dispatch(new tilesDataActions.TpMode(true));
         this._store.dispatch(new TilesDataActions.SetAthleteAccount(false));
       }else if(!athleteAccount && !noTrial){
-        console.log(`else from tp manager`);
         this._store.dispatch(new tilesDataActions.FetchTpManager());
         this._store.dispatch(new tilesDataActions.TpMode(true));
         this._store.dispatch(new TilesDataActions.SetAthleteAccount(false));

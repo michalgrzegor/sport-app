@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "gremo1": {
+    "sportapp": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/gremo1",
+            "outputPath": "dist/sportapp",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -60,18 +60,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "gremo1:build"
+            "browserTarget": "sportapp:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "gremo1:build:production"
+              "browserTarget": "sportapp:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "gremo1:build"
+            "browserTarget": "sportapp:build"
           }
         },
         "test": {
@@ -107,7 +107,7 @@
         }
       }
     },
-    "gremo1-e2e": {
+    "sportapp-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -116,11 +116,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "gremo1:serve"
+            "devServerTarget": "sportapp:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "gremo1:serve:production"
+              "devServerTarget": "sportapp:serve:production"
             }
           }
         },
@@ -136,5 +136,5 @@
       }
     }
   },
-  "defaultProject": "gremo1"
+  "defaultProject": "sportapp"
 }

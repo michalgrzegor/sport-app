@@ -43,7 +43,6 @@ export function LoopsReducer(state = InitialState, action: LoopsActions.LoopsAct
     switch(action.type){
         
         case LoopsActions.SET_LOOPS_DATA:
-            console.log(`loops: `, action.payload)
             return {
                 ...state,
                 loops: action.payload
@@ -53,7 +52,6 @@ export function LoopsReducer(state = InitialState, action: LoopsActions.LoopsAct
             const loopsDayMLD = [];
             let dateArrayMLD = [];
             action.payload.forEach((loop)=>dateArrayMLD.push(loop.calendar_date));
-            console.log(dateArrayMLD);
             dateArrayMLD = _.uniq(dateArrayMLD);
             dateArrayMLD.forEach(date => {
                 const day: LoopsDays = {
@@ -85,7 +83,6 @@ export function LoopsReducer(state = InitialState, action: LoopsActions.LoopsAct
             }
 
         case LoopsActions.SET_TAGS:
-            console.log(action.payload)
             return {
                 ...state,
                 tags: action.payload

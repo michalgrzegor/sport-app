@@ -276,14 +276,11 @@ export class NoteComponent implements OnInit, OnDestroy {
             id: this.boardNote.id
           }
           if(this.data.name === 'main'){
-            console.log(`kiedy main`)
             this._httpService.patchBoardNote(note, this.boardNote.id,  this.data.index)
           }else{
-            console.log(`kiedy nie main`)
             this._httpService.patchBoardNoteTP(note, this.trainingPlan.id, note.id,  this.data.index)
           }
         }else if(this.athleteCardMode){
-          console.log(`kiedy nie athletecardmode`)
           let note = {
             platform_note_name : result.board_note_name,
             platform_note_link : result.board_note_link,

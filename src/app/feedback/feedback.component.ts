@@ -24,11 +24,9 @@ export class FeedbackComponent implements OnInit {
   }
 
   onSubmit(form){
-    console.log(form.value)
   }
 
   changeTextarea(data){
-    console.log(data)
   }
 
 

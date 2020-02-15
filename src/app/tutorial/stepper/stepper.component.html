@@ -18,7 +18,7 @@
   <div mat-dialog-content class="mat-content">
     <div class="tutorial-container">
       <div *ngIf="isWelcome" class="welcome-panel">
-        <h5>Welcome to Gremmo</h5>
+        <h5>Welcome to Sport App</h5>
         <p>This tutorial will guide you through the basic functions of our tool.</p>
         <!-- <p>This tutorial will guide you through the basic functions of our tool. If you have any feedback, you want to give us, please contact us. In the upper right corner is the email icon.</p> -->
         <p>If you want to skip tutorials, all of them are repeatable, so you can go through them later. You can find them by clicking the cog icon.</p>
@@ -74,9 +74,7 @@
           <h5>Tiles</h5>
           <img *ngIf="!isHandset"  src="assets/pictures/tutorial/tiles.png" alt="display with training program" class="img-web">
           <img *ngIf="isHandset"  src="assets/pictures/tutorial/tileshandset.png" alt="display with training program" class="img-handset resize-vert tiles-img">
-          <!-- <p *ngIf="isWeb" >In Gremmo, to fill a program with activities, first you create tiles that represent trainings, meals, questions and notes and then you drag and drop these tiles to a program. One tile can be used in many programs.</p>
-          <p *ngIf="!isWeb" >In Gremmo, to fill a program with activities, first you create tiles that represent trainings, meals, questions and notes and then you add these tiles to a program. One tile can be used in many programs. </p> -->
-          <p>In Gremmo, to fill a program with activities, first you create tiles.<br> Tiles represent workouts, meals, questions and notes. </p>
+          <p>In Sport App, to fill a program with activities, first you create tiles.<br> Tiles represent workouts, meals, questions and notes. </p>
           <p>One tile can be used in many programs.</p>
           <div class="buttons-welcome">
               <button mat-button (click)="openCreator('tile')">Create first tile</button>
@@ -111,7 +109,7 @@
           <p>If you are missing a feature or have any comments you want to give us, please contact us. In the upper right corner is the email icon.</p>
           <img *ngIf="!isHandset"  src="assets/pictures/tutorial/mail.png" alt="display with training program" class="img-web">
           <img *ngIf="isHandset"  src="assets/pictures/tutorial/mailhandset.png" alt="display with training program" class="img-handset congratulation-img">
-          <p>See how your clients use Gremmo.</p>
+          <p>See how your clients use Sport App.</p>
           <div class="buttons-welcome">
               <button  (click)="toClient()" mat-button>Your client tutorial</button>
           </div>

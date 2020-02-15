@@ -11,7 +11,6 @@ import { CallendarDataService } from '../callendar-data.service';
 
 @Injectable()
 export class CalendarDataEffects {
-    // url: string = 'https://gremo-one-test.herokuapp.com/api/v1/';
     url: string = 'https://gremmo-one.herokuapp.com/api/v1/';
 
     getHttpOptions() {

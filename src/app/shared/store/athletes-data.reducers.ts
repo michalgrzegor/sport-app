@@ -110,7 +110,6 @@ export function AthletesDataReducer(state = InitialState, action: AthletesDataAc
             if(!athleteSAD.fitness_level){athleteSAD.fitness_level = 1;}
             if(!athleteSAD.custom_athlete_parameters){athleteSAD.custom_athlete_parameters = [];}
             if(!athleteSAD.platform_notes){athleteSAD.platform_notes = [];};
-            console.log(athleteSAD)
             return {
                 ...state,
                 athlete: athleteSAD,
@@ -119,7 +118,6 @@ export function AthletesDataReducer(state = InitialState, action: AthletesDataAc
             }
         
         case AthletesDataActions.SET_ATHLETES_DATA:
-            console.log(action.payload)
             const athletesSAD = [...action.payload];
             athletesSAD.forEach(
                 athlete => {
@@ -155,7 +153,6 @@ export function AthletesDataReducer(state = InitialState, action: AthletesDataAc
                     }
                 }
             )
-            console.log(athletesSAD)
             return {
                 ...state,
                 athletes: athletesDAFA
@@ -235,7 +232,6 @@ export function AthletesDataReducer(state = InitialState, action: AthletesDataAc
             }
         
         case AthletesDataActions.UPDATE_ATHLETE:
-            console.log(action.payload)
             const athleteUA = Object.assign({}, state.athlete);
             const minInvUA: MinAthleteInvitation = {id: action.payload.id, athlete_email: action.payload.email}
             if(action.payload.status===2){athleteUA.invitation = minInvUA};
@@ -247,7 +243,6 @@ export function AthletesDataReducer(state = InitialState, action: AthletesDataAc
             }
         
         case AthletesDataActions.UPDATE_ATHLETE_DATA:
-            console.log(action.payload)
             const oldAthleteUAD = Object.assign({}, state.athlete);
             const newAthleteUAD = Object.assign({}, action.payload);
             oldAthleteUAD.athlete_name = newAthleteUAD.athlete_name
@@ -320,7 +315,6 @@ export function AthletesDataReducer(state = InitialState, action: AthletesDataAc
             }
         
         case AthletesDataActions.SET_IS_IN_PLATFORM:
-            console.log(action.payload)
             return {
                 ...state,
                 isInPlatform: action.payload

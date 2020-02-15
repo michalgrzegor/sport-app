@@ -41,7 +41,6 @@ export class WeekSummaryComponent implements OnInit, OnDestroy {
     this.weekSub = this.weekState.subscribe(
       data => {
         this.week = data;
-        console.log(data)
         if(this.tiles && this.week && this.tiles.length>0){
           this.arrayWithTiles = this.makeTilesArray();
         }
@@ -78,7 +77,6 @@ export class WeekSummaryComponent implements OnInit, OnDestroy {
         }
       }
     );
-    console.log(array)
     return array
   }
 

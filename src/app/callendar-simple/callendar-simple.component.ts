@@ -213,7 +213,6 @@ export class CallendarSimpleComponent implements OnInit, OnDestroy {
     this.trainingPlanState = this._store.select(state => state.tiles.trainingPlan);
     this.trainingPlanSub = this.trainingPlanState.subscribe(
       tp => {
-        console.log(`trainingPlanSub: `, tp);
         let samePlan = false;
         if(this.trainingPlan && tp){
           if(tp.id === this.trainingPlan.id){samePlan = true;}
@@ -420,25 +419,23 @@ export class CallendarSimpleComponent implements OnInit, OnDestroy {
   doRequests(noTrial:boolean, athleteAccount:boolean){
     
     let app_metadata = null;
-    if(this.getUserProfile() && JSON.parse(this.getUserProfile())['https://gremo.sport.comapp_metadata']){
-      app_metadata = JSON.parse(this.getUserProfile())['https://gremo.sport.comapp_metadata']
+    if(this.getUserProfile() && JSON.parse(this.getUserProfile())['https://sport.app.comapp_metadata']){
+      app_metadata = JSON.parse(this.getUserProfile())['https://sport.app.comapp_metadata']
     }
 
     if(this.getUserProfile() && app_metadata && app_metadata.account_level_data && app_metadata.account_level_data.account_level === 0 && !athleteAccount && !noTrial){
       //when athlete account
-      console.log(`athlete account`)
       this._httpService.getTrainingPlanFromPlatform();
       this._store.dispatch(new TilesDataActions.SpinnerStartStopCalendar(false));
       this._store.dispatch(new TilesDataActions.SetAthleteAccount(true));
       //polling
       this._pollingService.checkIfInGroup();
     }else if(
-      (this.getUserProfile() && app_metadata && app_metadata.account_level_data  && !app_metadata.account_level_data && JSON.parse(this.getUserProfile())['https://gremo.sport.comuser_metadata'] && JSON.parse(this.getUserProfile())['https://gremo.sport.comuser_metadata'].training_plan_last_id) && !athleteAccount && !noTrial||
-      (this.getUserProfile() && app_metadata && app_metadata.account_level_data  && app_metadata.account_level_data.account_level === 1 && !app_metadata.account_level_data.current_paid_access_end_date && JSON.parse(this.getUserProfile())['https://gremo.sport.comuser_metadata'] && JSON.parse(this.getUserProfile())['https://gremo.sport.comuser_metadata'].training_plan_last_id) && !athleteAccount && !noTrial || 
-      (this.getUserProfile() && app_metadata && app_metadata.account_level_data  && app_metadata.account_level_data.account_level > 0 && app_metadata.account_level_data.current_paid_access_end_date && JSON.parse(this.getUserProfile())['https://gremo.sport.comuser_metadata'] && JSON.parse(this.getUserProfile())['https://gremo.sport.comuser_metadata'].training_plan_last_id) && !athleteAccount && !noTrial){
+      (this.getUserProfile() && app_metadata && app_metadata.account_level_data  && !app_metadata.account_level_data && JSON.parse(this.getUserProfile())['https://sport.app.comuser_metadata'] && JSON.parse(this.getUserProfile())['https://sport.app.comuser_metadata'].training_plan_last_id) && !athleteAccount && !noTrial||
+      (this.getUserProfile() && app_metadata && app_metadata.account_level_data  && app_metadata.account_level_data.account_level === 1 && !app_metadata.account_level_data.current_paid_access_end_date && JSON.parse(this.getUserProfile())['https://sport.app.comuser_metadata'] && JSON.parse(this.getUserProfile())['https://sport.app.comuser_metadata'].training_plan_last_id) && !athleteAccount && !noTrial || 
+      (this.getUserProfile() && app_metadata && app_metadata.account_level_data  && app_metadata.account_level_data.account_level > 0 && app_metadata.account_level_data.current_paid_access_end_date && JSON.parse(this.getUserProfile())['https://sport.app.comuser_metadata'] && JSON.parse(this.getUserProfile())['https://sport.app.comuser_metadata'].training_plan_last_id) && !athleteAccount && !noTrial){
 
       //when paid or trial account
-      console.log(`paid or trial account`)
       this._store.dispatch(new TilesDataActions.FetchTrainingPlan());
       this._store.dispatch(new TilesDataActions.SetNoTp(false));
       this._store.dispatch(new TilesDataActions.FetchTpManager());
@@ -447,7 +444,6 @@ export class CallendarSimpleComponent implements OnInit, OnDestroy {
       //polling
       this._pollingService.checkIfInGroup();
     }else if(!athleteAccount && !noTrial){
-      console.log(`else`)
       this._store.dispatch(new TilesDataActions.SetNoTp(true));
       this._store.dispatch(new TilesDataActions.SpinnerStartStopCalendar(false));
       this._store.dispatch(new TilesDataActions.FetchTpManager());
@@ -456,7 +452,6 @@ export class CallendarSimpleComponent implements OnInit, OnDestroy {
       //polling
       this._pollingService.checkIfInGroup();
     }else{
-      console.log(`else else`, this.noTP, this.onPlatformWithoutPlan, this.athleteAccount);
       this._store.dispatch(new TilesDataActions.SetTrainingPlan(null));
       this._store.dispatch(new ChartDataActions.SetTP(null))
       this._store.dispatch(new TilesDataActions.SetNoTp(true));
@@ -512,7 +507,6 @@ export class CallendarSimpleComponent implements OnInit, OnDestroy {
       if(this.callendarNoDisplayArray.calendar[this.openedDay.callendarIndex].weeks[this.openedDay.weeksIndex].weekDates[this.openedDay.weekDatesIndex].momentDate === daya.momentDate){
         day.day.association.push(asso);
       }
-      console.log(day)
     }
 
     

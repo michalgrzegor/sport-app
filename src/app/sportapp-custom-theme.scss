@@ -1,7 +1,7 @@
 @import '~@angular/material/theming';
 @include mat-core();
 
-$mat-gremo-bluegreen: (
+$mat-sportapp-bluegreen: (
     50 : #ecf0f2,
     100 : #cfdade,
     200 : #b0c2c8,
@@ -34,9 +34,9 @@ $mat-gremo-bluegreen: (
     )
 );
 
-$gremo-app-primary: mat-palette($mat-gremo-bluegreen);
-$gremo-app-accent:  mat-palette($mat-gremo-bluegreen, A200, A100, A400);
-$gremo-app-warn:    mat-palette($mat-red);
+$sportapp-app-primary: mat-palette($mat-sportapp-bluegreen);
+$sportapp-app-accent:  mat-palette($mat-sportapp-bluegreen, A200, A100, A400);
+$sportapp-app-warn:    mat-palette($mat-red);
 
-$gremo-app-theme: mat-light-theme($gremo-app-primary, $gremo-app-accent, $gremo-app-warn);
-@include angular-material-theme($gremo-app-theme);
+$sportapp-app-theme: mat-light-theme($sportapp-app-primary, $sportapp-app-accent, $sportapp-app-warn);
+@include angular-material-theme($sportapp-app-theme);

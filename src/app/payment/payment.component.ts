@@ -182,8 +182,8 @@ export class PaymentComponent implements OnInit {
     this._store.dispatch(new TilesDataActions.CardPaymentChange(false));
 
     let app_metadata
-    if(this.getUserProfile() && JSON.parse(this.getUserProfile())['https://gremo.sport.comapp_metadata']){
-      app_metadata = JSON.parse(this.getUserProfile())['https://gremo.sport.comapp_metadata'];
+    if(this.getUserProfile() && JSON.parse(this.getUserProfile())['https://sport.app.comapp_metadata']){
+      app_metadata = JSON.parse(this.getUserProfile())['https://sport.app.comapp_metadata'];
       if(this.getUserProfile() && app_metadata && app_metadata.account_level_data.account_level > 0 && app_metadata.account_level_data.current_paid_access_end_date){
         if(app_metadata.account_level_data.current_paid_access_end_date*1000 > Date.now()){
           this._store.dispatch(new TilesDataActions.ManagerInit(true));
@@ -224,7 +224,6 @@ export class PaymentComponent implements OnInit {
     this.cardPaymentState = this._store.select(state => state.tiles.cardPayment);
     this.cardPaymentSub = this.cardPaymentState.subscribe(
       data => {
-        console.log(`card payment`, data)
         this.cardPayment = data}
     );
 

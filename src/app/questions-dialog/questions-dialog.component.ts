@@ -30,7 +30,6 @@ export class QuestionsDialogComponent implements OnInit {
   ngOnInit() {
     this.question_answers = [];
     this.data.tiles.forEach((tile, index)=>{
-      console.log(tile)
       const numArray = [];
       if(!tile.tile_question.tile_answear_numeric){
         if(tile.tile_question && tile.tile_question.tile_answears_descriptives){
@@ -56,14 +55,11 @@ export class QuestionsDialogComponent implements OnInit {
   }
 
   onSubmit(form){
-    console.log(form.value)
   }
 
   checkForValid(){
-    console.log(this.data.formAnswer);
     const validArray = []
     this.data.formAnswer.forEach(option=>{
-      console.log(option)
       if(!option.question_answer && !option.noQuestion){
         validArray.push(`0`);
       }else if(!option.question_answer && option.noQuestion){
@@ -76,7 +72,6 @@ export class QuestionsDialogComponent implements OnInit {
   }
 
   changeTextarea(data){
-    console.log(this.mytext)
   }
 
 

@@ -1,3 +1,4 @@
+import { WeekDate } from './../../shared/callendar-data.service';
 import { HttpCommentClientService } from './../../shared/http-comment-client.service';
 import { StarDialogComponent } from './star-dialog/star-dialog.component';
 import { Star, Association, CalendarComment } from './../../shared/store/tiles-data.reducers';
@@ -319,9 +320,7 @@ export class CallendarDayComponent implements OnInit, OnDestroy {
         data => {
           this.tilesToChange = data;
           if(data && data.length > 0 && this.gridArray && this.gridArray.length > 0){
-            console.log( `tiles to change`)
             this.addMissingID(this.gridArray, this.tilesToChange);
-            console.log(`tilestochange`)
             this.makeGrids(this.gridArray);
           }
         }
@@ -365,11 +364,8 @@ export class CallendarDayComponent implements OnInit, OnDestroy {
           this.day = data;
           this.gridArray = data;
           if(data){
-            console.log(`day 2`)
             this.makeGrids(this.gridArray)
             if(this.tilesToChange && this.tilesToChange.length > 0 && data.length > 0){
-              console.log(`day 2 if`)
-              console.log(`grid`, this.gridArray, this.tilesToChange)
               this.addMissingID(this.gridArray, this.tilesToChange);
               this.makeGrids(this.gridArray);
             }
@@ -437,7 +433,6 @@ export class CallendarDayComponent implements OnInit, OnDestroy {
                 }
               )
             });
-            console.log(`day`)
             this.makeGrids(this.gridArray)
           };
 
@@ -510,7 +505,6 @@ export class CallendarDayComponent implements OnInit, OnDestroy {
   fabTogglerState: any = 'inactive';
 
   makeGrids(data){
-    console.log(this.openedDay, `robi grida`, data)
     this.gridArrayS1 = [];
     this.gridArrayS2 = [];
     this.gridArrayS3 = [];
@@ -535,12 +529,10 @@ export class CallendarDayComponent implements OnInit, OnDestroy {
       this._httpService.getTrainingPlanById(this.trainingPlan.id);
       this._store.dispatch(new CallendarDataActions.ResetATCH())
     }
-    console.log(`add missing`, tiles, assocs);
     if(tiles.length > 0 && assocs.length > 0){
       tiles.forEach(
         tile => {
           if(!tile.asso_id){
-            console.log(`dajesz dajesz dajesz dajesz dajesz dajesz dajesz dajesz dajesz dajesz dajesz dajesz dajesz `)
             assocs.forEach(
               asso => {
                 if(asso.tile_id === tile.id && asso.training_sesion === tile.tile_session && asso.asso_index_in_array === tile.asso_index_in_array && asso.calendar_date === tile.asso.calendar_date){
@@ -758,8 +750,7 @@ export class CallendarDayComponent implements OnInit, OnDestroy {
       };
 
 
-      const varTwo = {date: this.dayDate, day: this.callendarArray.calendar[this.openedDay.callendarIndex].weeks[this.openedDay.weeksIndex].weekDates[this.openedDay.weekDatesIndex]}
-      console.log(lastId)
+      const varTwo = {date: this.dayDate, day: this.callendarArray.calendar[this.openedDay.callendarIndex].weeks[this.openedDay.weeksIndex].weekDates[this.openedDay.weekDatesIndex]};
       this._httpCalendarService.postCalendarAssoc(this.trainingPlan, this.trainingPlan.id, asso, this.openedDay.callendarIndex, this.openedDay.weeksIndex, this.openedDay.weekDatesIndex, newOrder, session , varTwo, lastId+1, true, this.callendarArray.calendar[this.openedDay.callendarIndex].weeks[this.openedDay.weeksIndex].weekDates[this.openedDay.weekDatesIndex].momentDate, this.callendarArray.calendar[this.openedDay.callendarIndex].weeks[this.openedDay.weeksIndex].weekDates);
 
       //Open Snack Bar
@@ -778,7 +769,6 @@ export class CallendarDayComponent implements OnInit, OnDestroy {
         asso_temporary_id: tileChangeSession.tile_temporary_id,
         asso_index_in_array: number_in_array
       };
-      console.log(event.container.data)
       transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
       this._httpCalendarService.patchCalendarAssoc(this.trainingPlan.id, tileChangeSession.asso_id, assoChangeSession, this.openedDay.callendarIndex, this.openedDay.weeksIndex, this.openedDay.weekDatesIndex, tileChangeSession.tile_temporary_id, sessionNumber);
     }
@@ -792,7 +782,6 @@ export class CallendarDayComponent implements OnInit, OnDestroy {
   }
 
   makeNewOrder(array: Tile[]){
-    console.log(`make new order: `,array)
     const newOrder = [];
     array.forEach(
       item => {
@@ -845,7 +834,6 @@ export class CallendarDayComponent implements OnInit, OnDestroy {
   }
 
   close(){
-    console.log(this.openedDay);
     const callendarIndex = this.openedDay.callendarIndex;
     const weeksIndex = this.openedDay.weeksIndex;
     const weekDatesIndex = this.openedDay.weekDatesIndex;
@@ -922,7 +910,6 @@ export class CallendarDayComponent implements OnInit, OnDestroy {
     
     this.copiedDay.forEach(
       asso => {
-        console.log(`count`)
         const newAsso = Object.assign({}, asso);
         newAsso.calendar_date = this.dayDate;
         array.push(newAsso);
@@ -1166,7 +1153,6 @@ export class CallendarDayComponent implements OnInit, OnDestroy {
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result){
-        console.log(result);
         const json = {
           comment_data: result.comment_data,
           comment_body: result.comment_body,
@@ -1197,7 +1183,6 @@ export class CallendarDayComponent implements OnInit, OnDestroy {
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result){
-        console.log(result);
         const json = {
           comment_data: result.comment_data,
           comment_body: result.comment_body,
@@ -1230,18 +1215,18 @@ export class CallendarDayComponent implements OnInit, OnDestroy {
     }})
   }
 
-  takeWeek(){
-    let week = [...this.callendarArray.calendar[this.openedDay.callendarIndex].weeks[this.openedDay.weeksIndex].weekDates.map(a => {return Object.assign({}, a)})];
-    const weekNext = [...this.callendarArray.calendar[this.openedDay.callendarIndex+1].weeks[0].weekDates.map(a => {return Object.assign({}, a)})];
-    if( !week[0].available && this.openedDay.callendarIndex > 0 ) {
-      const weekPrevious = [...this.callendarArray.calendar[this.openedDay.callendarIndex-1].weeks[this.callendarArray.calendar[this.openedDay.callendarIndex-1].weeks.length-1].weekDates.map(a => {return Object.assign({}, a)})];
-      week = week.map( (day, index) => {
-        if(!day.available){
-          day = weekPrevious
-        }
-      })
-    }
-  }
+  // takeWeek(){
+  //   let week = [...this.callendarArray.calendar[this.openedDay.callendarIndex].weeks[this.openedDay.weeksIndex].weekDates.map(a => {return Object.assign({}, a)})];
+  //   const weekNext = [...this.callendarArray.calendar[this.openedDay.callendarIndex+1].weeks[0].weekDates.map(a => {return Object.assign({}, a)})];
+  //   if( !week[0].available && this.openedDay.callendarIndex > 0 ) {
+  //     const weekPrevious = [...this.callendarArray.calendar[this.openedDay.callendarIndex-1].weeks[this.callendarArray.calendar[this.openedDay.callendarIndex-1].weeks.length-1].weekDates.map(a => {return Object.assign({}, a)})];
+  //     week = week.map( (day: WeekDate, index) => {
+  //       if(!day.available){
+  //         day = weekPrevious[0]
+  //       }
+  //     })
+  //   }
+  // }
 
 
 

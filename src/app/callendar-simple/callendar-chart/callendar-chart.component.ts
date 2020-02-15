@@ -100,7 +100,6 @@ export class CallendarChartComponent implements OnInit, OnDestroy {
           data.forEach(
             day => {
               if(this.calendarArray && moment(day).format("MM-DD-YYYY") === moment(this.calendarArray.calendar.calendar[this.callendarIndex].weeks[this.weeksIndex].weekDates[this.weekDatesIndex].momentDate).format("MM-DD-YYYY")){
-                console.log(`detekcja`)
                 this._changeDetector.markForCheck();
               }
             }
@@ -145,15 +144,12 @@ export class CallendarChartComponent implements OnInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
-    //Add 'implements AfterViewInit' to the class.
     this._changeDetector.markForCheck();
     this.fireChangeState = this._store.select(state => state.tiles.fireChange);
     this.fireChangeSub = this.fireChangeState.subscribe(
       data => {
         this.fireChange = data;
         if(data){
-          console.log(`?????????????<-------------------- odpala --------------------------->????????????????????????`)
           this._changeDetector.markForCheck();
         }
       }

@@ -43,19 +43,6 @@ export class HttpCalendarClientService {
   ) { };
 
   makeWeek(openDayDate: string, tp: TrainingPlan){
-    // console.log(`make week from http client`)
-    // const callendarArray: CallendarArray = this._calendarService.makeArray(tp);
-    // const assoArray = [];
-    // callendarArray.calendar[callendarIndex].weeks[weeksIndex].weekDates.forEach(
-    //   week => {
-    //     if(week.association){
-    //       week.association.forEach(
-    //         asso => assoArray.push(asso)
-    //       )
-    //     }
-    //   }
-    // );
-    // this._store.dispatch(new TilesDataActions.MakeWeek(assoArray));
     const firstDay = moment(openDayDate).weekday(0);
     const lastDay = moment(openDayDate).weekday(6);
     const assoArray = [];
@@ -66,211 +53,213 @@ export class HttpCalendarClientService {
         }
       }
     );
-    console.log(assoArray)
     this._store.dispatch(new TilesDataActions.MakeWeek(assoArray));
   }
 
   makeClendarArray(tp: TrainingPlan, calendarArray){
-    console.log(`make calendar array`,calendarArray)
     this._store.dispatch(new CallendarDataActions.InitDataNoItteration({calendar: calendarArray, planName: tp.training_plan_name}))
     this._store.dispatch(new TilesDataActions.SetTrainingPlan(tp));
   }
 
-  // makeClendarArray(tp: TrainingPlan){
-  //   const calendarArray = this._calendarService.makeArray(tp);
-  //   this._store.dispatch(new CallendarDataActions.InitData({calendar: calendarArray, planName: tp.training_plan_name}))
-  //   this._store.dispatch(new TilesDataActions.SetTrainingPlan(tp));
-  // }
-
   //REQUESTS
   //MASS Create Asso
 
-  pasteAsso(tp_id: number, associations: Association[], tp: TrainingPlan, callendarIndex: number, weeksIndex: number, day, array: CallendarArray, callendarWeek: WeekDate[]){
-    const assocs = {
-      calendar_assocs: associations
-    };
-    this._store.dispatch(new ChartDataActions.SetTP(tp));
-    this._store.dispatch(new TilesDataActions.MakeDay({date: day.momentDate, day: day}));
-    if(assocs && assocs.calendar_assocs && assocs.calendar_assocs.length > 0){
-      this._store.dispatch(new CallendarDataActions.SetDaysToChange([assocs.calendar_assocs[0].calendar_date]))
-    }
-    this.makeClendarArray(tp,array);
-    this.makeWeek(day.momentDate,tp);
+  pasteAsso(
+    tp_id: number, 
+    associations: Association[], 
+    tp: TrainingPlan, 
+    callendarIndex: number, 
+    weeksIndex: number, 
+    day, 
+    array: CallendarArray, 
+    callendarWeek: WeekDate[]){
+      const assocs = {
+        calendar_assocs: associations
+      };
+      this._store.dispatch(new ChartDataActions.SetTP(tp));
+      this._store.dispatch(new TilesDataActions.MakeDay({date: day.momentDate, day: day}));
+      if(assocs && assocs.calendar_assocs && assocs.calendar_assocs.length > 0){
+        this._store.dispatch(new CallendarDataActions.SetDaysToChange([assocs.calendar_assocs[0].calendar_date]))
+      }
+      this.makeClendarArray(tp,array);
+      this.makeWeek(day.momentDate,tp);
 
-    this._store.dispatch(new CallendarDataActions.PasteAssoEffect({tp_id: tp_id, assocs: assocs}));
-    const cal = [];
-    callendarWeek.forEach(c=>cal.push(Object.assign({},c)));
-    this._store.dispatch(new CallendarDataActions.SetWeek(cal));
-    // this._http.post(`${this.url}training_plans/${tp_id}/calendar_assocs_mass_create`, assocs, this.getHttpOptions()).subscribe(
-    //   (response: Association[]) => {
-    //     console.log(response);
-    //   }
-    // )
+      this._store.dispatch(new CallendarDataActions.PasteAssoEffect({tp_id: tp_id, assocs: assocs}));
+      const cal = [];
+      callendarWeek.forEach(c=>cal.push(Object.assign({},c)));
+      this._store.dispatch(new CallendarDataActions.SetWeek(cal));
   }
 
-  repeatWeaklyAsso(tp_id: number, associations: Association[], calendar: CallendarArray, tp: TrainingPlan, isOpenedDay: boolean, callendarIndex: number, weeksIndex: number, openedDayDate: string, arrayt: CallendarArray, callendarWeek: WeekDate[]){
-    const assocs = {
-      calendar_assocs: associations
-    };
-    let array = [];
-    if(assocs){
-      assocs.calendar_assocs.forEach(asso => {array.push(asso.calendar_date);});
-      array = _.uniq(array)
-    }
-    const trP = Object.assign({}, tp);
-    associations.forEach(asso=>trP.calendar_assocs.push(asso));
-    this._store.dispatch(new ChartDataActions.SetTP(trP));
-    this._store.dispatch(new CallendarDataActions.SetDaysToChange(array))
-    this.makeClendarArray(tp,arrayt);
-    if(isOpenedDay){
-      this.makeWeek(openedDayDate,tp);
-    }
+  repeatWeaklyAsso(
+    tp_id: number, 
+    associations: Association[], 
+    calendar: CallendarArray, 
+    tp: TrainingPlan, 
+    isOpenedDay: boolean, 
+    callendarIndex: number, 
+    weeksIndex: number, 
+    openedDayDate: string, 
+    arrayt: CallendarArray, 
+    callendarWeek: WeekDate[]){
+      const assocs = {
+        calendar_assocs: associations
+      };
+      let array = [];
+      if(assocs){
+        assocs.calendar_assocs.forEach(asso => {array.push(asso.calendar_date);});
+        array = _.uniq(array)
+      }
+      const trP = Object.assign({}, tp);
+      associations.forEach(asso=>trP.calendar_assocs.push(asso));
+      this._store.dispatch(new ChartDataActions.SetTP(trP));
+      this._store.dispatch(new CallendarDataActions.SetDaysToChange(array))
+      this.makeClendarArray(tp,arrayt);
+      if(isOpenedDay){
+        this.makeWeek(openedDayDate,tp);
+      }
 
-    this._store.dispatch(new CallendarDataActions.RWAEffect({tp_id: tp_id, assocs: assocs, tp: trP}));
-    const cal = [];
-    callendarWeek.forEach(c=>cal.push(Object.assign({},c)));
-    this._store.dispatch(new CallendarDataActions.SetWeek(cal));
-    // this._http.post(`${this.url}training_plans/${tp_id}/calendar_assocs_mass_create`, assocs, this.getHttpOptions()).subscribe(
-    //   (response: Association[]) => {
-    //     console.log(response);
-    //     // const trP = Object.assign({}, tp);
-    //     // response.forEach(asso=>trP.calendar_assocs.push(asso));
-    //     // this._store.dispatch(new ChartDataActions.SetTP(trP));
-    //     // this._store.dispatch(new CallendarDataActions.SetDaysToChange(array))
-    //     // this.makeClendarArray(trP);
-    //     // if(isOpenedDay){
-    //     //   this.makeWeek(callendarIndex,weeksIndex,trP);
-    //     // }
-    //   }
-    // )
+      this._store.dispatch(new CallendarDataActions.RWAEffect({tp_id: tp_id, assocs: assocs, tp: trP}));
+      const cal = [];
+      callendarWeek.forEach(c=>cal.push(Object.assign({},c)));
+      this._store.dispatch(new CallendarDataActions.SetWeek(cal));
   }
 
-  repeatDailyAsso(tp_id: number, associations: Association[], calendar: CallendarArray, tp: TrainingPlan, isOpenedDay: boolean, callendarIndex: number, weeksIndex: number, openedDayDate: string, arrayt: CallendarArray, callendarWeek: WeekDate[]){
-    const assocs = {
-      calendar_assocs: associations
-    };
-    let array = [];
-    if(assocs){
-      assocs.calendar_assocs.forEach(asso => {array.push(asso.calendar_date);});
-      array = _.uniq(array)
-    }
-    const trP = Object.assign({}, tp);
-    associations.forEach(asso=>trP.calendar_assocs.push(asso));
-    this._store.dispatch(new ChartDataActions.SetTP(trP));
-    this._store.dispatch(new CallendarDataActions.SetDaysToChange(array))
-    this.makeClendarArray(tp,arrayt);
-    if(isOpenedDay){
-      this.makeWeek(openedDayDate,tp);
-    }
+  repeatDailyAsso(
+    tp_id: number, 
+    associations: Association[], 
+    calendar: CallendarArray, 
+    tp: TrainingPlan, 
+    isOpenedDay: boolean, 
+    callendarIndex: number, 
+    weeksIndex: number, 
+    openedDayDate: string, 
+    arrayt: CallendarArray, 
+    callendarWeek: WeekDate[]){
+      const assocs = {
+        calendar_assocs: associations
+      };
+      let array = [];
+      if(assocs){
+        assocs.calendar_assocs.forEach(asso => {array.push(asso.calendar_date);});
+        array = _.uniq(array)
+      }
+      const trP = Object.assign({}, tp);
+      associations.forEach(asso=>trP.calendar_assocs.push(asso));
+      this._store.dispatch(new ChartDataActions.SetTP(trP));
+      this._store.dispatch(new CallendarDataActions.SetDaysToChange(array))
+      this.makeClendarArray(tp,arrayt);
+      if(isOpenedDay){
+        this.makeWeek(openedDayDate,tp);
+      }
 
-    this._store.dispatch(new CallendarDataActions.RDAEffect({tp_id: tp_id, assocs: assocs, tp: trP}));
-    const cal = [];
-    callendarWeek.forEach(c=>cal.push(Object.assign({},c)));
-    this._store.dispatch(new CallendarDataActions.SetWeek(cal));
-    // this._http.post(`${this.url}training_plans/${tp_id}/calendar_assocs_mass_create`, assocs, this.getHttpOptions()).subscribe(
-    //   (response: Association[]) => {
-    //     console.log(response);
-    //     // const trP = Object.assign({}, tp);
-    //     // response.forEach(asso=>trP.calendar_assocs.push(asso));
-    //     // this._store.dispatch(new ChartDataActions.SetTP(trP));
-    //     // this._store.dispatch(new CallendarDataActions.SetDaysToChange(array))
-    //     // this.makeClendarArray(trP);
-    //     // if(isOpenedDay){
-    //     //   this.makeWeek(callendarIndex,weeksIndex,trP);
-    //     // }
-    //   }
-    //   )
+      this._store.dispatch(new CallendarDataActions.RDAEffect({tp_id: tp_id, assocs: assocs, tp: trP}));
+      const cal = [];
+      callendarWeek.forEach(c=>cal.push(Object.assign({},c)));
+      this._store.dispatch(new CallendarDataActions.SetWeek(cal));
     }
     
-  repeatWeaklyDayAsso(tp_id: number, associations: Association[], calendar: CallendarArray, tp: TrainingPlan, isOpenedDay: boolean, callendarIndex: number, weeksIndex: number, openedDayDate: string, arrayt: CallendarArray, callendarWeek: WeekDate[]){
-    const assocs = {
-      calendar_assocs: associations
-    };
-    let array = [];
-    if(assocs){
-      assocs.calendar_assocs.forEach(asso => {array.push(asso.calendar_date);});
-      array = _.uniq(array)
-    }
-    const trP = Object.assign({}, tp);
-    associations.forEach(asso=>trP.calendar_assocs.push(asso));
-    this._store.dispatch(new ChartDataActions.SetTP(trP));
-    this._store.dispatch(new CallendarDataActions.SetDaysToChange(array))
-    this.makeClendarArray(tp,arrayt);
-    if(isOpenedDay){
-      this.makeWeek(openedDayDate,tp);
-    }
+  repeatWeaklyDayAsso(
+    tp_id: number, 
+    associations: Association[], 
+    calendar: CallendarArray, 
+    tp: TrainingPlan, 
+    isOpenedDay: boolean, 
+    callendarIndex: number, 
+    weeksIndex: number, 
+    openedDayDate: string, 
+    arrayt: CallendarArray, 
+    callendarWeek: WeekDate[]){
+      const assocs = {
+        calendar_assocs: associations
+      };
+      let array = [];
+      if(assocs){
+        assocs.calendar_assocs.forEach(asso => {array.push(asso.calendar_date);});
+        array = _.uniq(array)
+      }
+      const trP = Object.assign({}, tp);
+      associations.forEach(asso=>trP.calendar_assocs.push(asso));
+      this._store.dispatch(new ChartDataActions.SetTP(trP));
+      this._store.dispatch(new CallendarDataActions.SetDaysToChange(array))
+      this.makeClendarArray(tp,arrayt);
+      if(isOpenedDay){
+        this.makeWeek(openedDayDate,tp);
+      }
 
-    this._store.dispatch(new CallendarDataActions.RWDAEffect({tp_id: tp_id, assocs: assocs, tp: trP}));
-    const cal = [];
-    callendarWeek.forEach(c=>cal.push(Object.assign({},c)));
-    this._store.dispatch(new CallendarDataActions.SetWeek(cal));
-    // this._http.post(`${this.url}training_plans/${tp_id}/calendar_assocs_mass_create`, assocs, this.getHttpOptions()).subscribe(
-    //   (response: Association[]) => {
-    //     console.log(response);
-    //   }
-    // )
+      this._store.dispatch(new CallendarDataActions.RWDAEffect({tp_id: tp_id, assocs: assocs, tp: trP}));
+      const cal = [];
+      callendarWeek.forEach(c=>cal.push(Object.assign({},c)));
+      this._store.dispatch(new CallendarDataActions.SetWeek(cal));
   }
 
-  repeatDailyDayAsso(tp_id: number, associations: Association[], calendar: CallendarArray, tp: TrainingPlan, isOpenedDay: boolean, callendarIndex: number, weeksIndex: number, openedDayDate: string, arrayt: CallendarArray, callendarWeek: WeekDate[]){
-    console.log(associations)
-    const assocs = {
-      calendar_assocs: associations
-    };
-    let array = [];
-    if(assocs){
-      assocs.calendar_assocs.forEach(asso => {array.push(asso.calendar_date);});
-      array = _.uniq(array)
-    }
-    const trP = Object.assign({}, tp);
-    associations.forEach(asso=>trP.calendar_assocs.push(asso));
-    this._store.dispatch(new ChartDataActions.SetTP(trP));
-    this._store.dispatch(new CallendarDataActions.SetDaysToChange(array));
-    // this.makeClendarArray(tp,arrayt);
-    if(isOpenedDay){
-      this.makeWeek(openedDayDate,tp);
-    }
+  repeatDailyDayAsso(
+    tp_id: number, 
+    associations: Association[], 
+    calendar: CallendarArray, 
+    tp: TrainingPlan, 
+    isOpenedDay: boolean, 
+    callendarIndex: number, 
+    weeksIndex: number, 
+    openedDayDate: string, 
+    arrayt: CallendarArray, 
+    callendarWeek: WeekDate[]){
+      const assocs = {
+        calendar_assocs: associations
+      };
+      let array = [];
+      if(assocs){
+        assocs.calendar_assocs.forEach(asso => {array.push(asso.calendar_date);});
+        array = _.uniq(array)
+      }
+      const trP = Object.assign({}, tp);
+      associations.forEach(asso=>trP.calendar_assocs.push(asso));
+      this._store.dispatch(new ChartDataActions.SetTP(trP));
+      this._store.dispatch(new CallendarDataActions.SetDaysToChange(array));
+      if(isOpenedDay){
+        this.makeWeek(openedDayDate,tp);
+      }
 
-    this._store.dispatch(new CallendarDataActions.RDDAEffect({tp_id: tp_id, assocs: assocs, tp: trP}));
-    const cal = [];
-    callendarWeek.forEach(c=>cal.push(Object.assign({},c)));
-    this._store.dispatch(new CallendarDataActions.SetWeek(cal));
-    // this._http.post(`${this.url}training_plans/${tp_id}/calendar_assocs_mass_create`, assocs, this.getHttpOptions()).subscribe(
-    //   (response: Association[]) => {
-    //     console.log(response);
-    //   }
-    // )
+      this._store.dispatch(new CallendarDataActions.RDDAEffect({tp_id: tp_id, assocs: assocs, tp: trP}));
+      const cal = [];
+      callendarWeek.forEach(c=>cal.push(Object.assign({},c)));
+      this._store.dispatch(new CallendarDataActions.SetWeek(cal));
   }
 
   //MASS DELETE DAY
 
-  deleteDay(tp_id: number, associations: Association[], callendarIndex:number, weeksIndex:number, weekDatesIndex:number, day, tp: TrainingPlan, calendar: CallendarArray, array: string[], callendarWeek: WeekDate[]){
-    const idArray = [];
-    associations.forEach(
-      asso => {
-        idArray.push(asso.id);
+  deleteDay(
+    tp_id: number, 
+    associations: Association[], 
+    callendarIndex:number, 
+    weeksIndex:number, 
+    weekDatesIndex:number, 
+    day, 
+    tp: TrainingPlan, 
+    calendar: CallendarArray, 
+    array: string[], 
+    callendarWeek: WeekDate[]) {
+      const idArray = [];
+      associations.forEach(
+        asso => {
+          idArray.push(asso.id);
+        }
+      )
+      const assocs = {
+        calendar_assocs: idArray
+      };
+      day.association = [];
+      this._store.dispatch(new TilesDataActions.MakeDay({date: day.momentDate, day: day}));
+      if(assocs){
+        this._store.dispatch(new CallendarDataActions.SetDaysToChange([day.momentDate]))
       }
-    )
-    const assocs = {
-      calendar_assocs: idArray
-    };
-    day.association = [];
-    this._store.dispatch(new TilesDataActions.MakeDay({date: day.momentDate, day: day}));
-    if(assocs){
-      this._store.dispatch(new CallendarDataActions.SetDaysToChange([day.momentDate]))
-    }
-    this.makeClendarArray(tp,calendar);
-    this.makeWeek(day.momentDate,tp);
+      this.makeClendarArray(tp,calendar);
+      this.makeWeek(day.momentDate,tp);
 
 
-    this._store.dispatch(new CallendarDataActions.DeleteAllDayEffect({tp_id: tp_id, assocs: assocs}));
-    const cal = [];
-    callendarWeek.forEach(c=>cal.push(Object.assign({},c)));
-    this._store.dispatch(new CallendarDataActions.SetWeek(cal));
-    // this._http.patch(`${this.url}training_plans/${tp_id}/calendar_assocs_mass_destroy`, assocs, this.getHttpOptions()).subscribe(
-    //   response => {
-    //     console.log(response);
-    //   }
-    // )
+      this._store.dispatch(new CallendarDataActions.DeleteAllDayEffect({tp_id: tp_id, assocs: assocs}));
+      const cal = [];
+      callendarWeek.forEach(c=>cal.push(Object.assign({},c)));
+      this._store.dispatch(new CallendarDataActions.SetWeek(cal));
   }
 
    //CALENDAR ASOCSY
@@ -301,7 +290,6 @@ export class HttpCalendarClientService {
       this._store.dispatch(new ChartDataActions.SetTP(tp));
       this._store.dispatch(new CallendarDataActions.SetDaysToChange([calendar_assoc.calendar_date]));
 
-      console.log(`post htp client: `, isOpenedDay, openedDayDate)
       
       if(isOpenedDay){
         this._store.dispatch(new TilesActions.MakeDay(varTwo));
@@ -313,12 +301,6 @@ export class HttpCalendarClientService {
       const cal = [];
       callendarWeek.forEach(c=>cal.push(Object.assign({},c)));
       this._store.dispatch(new CallendarDataActions.SetWeek(cal));
-      // this._http.post(`${this.url}training_plans/${training_plan_id}/calendar_assocs`, calendar_assoc, this.getHttpOptions()).subscribe(
-      //   (response: any) => {
-      //     console.log(response);
-
-      //   }
-      // )
   }
 
   deleteCalendarAssoc(
@@ -354,11 +336,6 @@ export class HttpCalendarClientService {
     callendarWeek.forEach(c=>cal.push(Object.assign({},c)));
     cal.forEach((c:WeekDate)=>c.association.forEach((a,index)=>{if(a.id===asso_id){c.association.splice(index,1)}}))
     this._store.dispatch(new CallendarDataActions.SetWeek(cal));
-    // this._http.delete(`${this.url}training_plans/${training_plan_id}/calendar_assocs/${asso_id}`, this.getHttpOptions()).subscribe(
-    //   response => {
-    //     console.log(response);
-    //   }
-    // )
   }
 
   patchCalendarAssoc(
@@ -374,7 +351,6 @@ export class HttpCalendarClientService {
     this._store.dispatch(new CallendarDataActions.ChangeSession({callendarIndex: callendarIndex, weeksIndex: weeksIndex, weekDatesIndex: weekDatesIndex, tempId: tempId, sessionNumber: sessionNumber}));
     this._http.patch(`${this.url}training_plans/${training_plan_id}/calendar_assocs/${asso_id}`, calendar_asso, this.getHttpOptions()).subscribe(
       response => {
-        console.log(response);
       }
     )
   }
@@ -383,10 +359,8 @@ export class HttpCalendarClientService {
     training_plan_id: number,
     new_order_array: {}
   ){
-    console.log(`to z http client: `,new_order_array, training_plan_id)
     this._http.post(`${this.url}/training_plans/${training_plan_id}/mass_index_update`, new_order_array, this.getHttpOptions()).subscribe(
       response => {
-        console.log(response);
       }
     )
   }

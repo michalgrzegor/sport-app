@@ -220,7 +220,6 @@ export class AppComponent implements OnInit, OnDestroy {
           .then(subscription => {
             //send sub to the server
             // _pushNotificationService.sendSubscriptionToTheServer(subscription).subscribe()
-            console.log(subscription)
           })
           .catch(console.error)
       }
@@ -232,7 +231,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this._router.events.subscribe(event => {
       if(event instanceof NavigationEnd){
 
-        console.log(event.urlAfterRedirects);
         gtag('config', 'UA-148354485-1', {'page_path': event.urlAfterRedirects});
       }
     })
@@ -343,7 +341,6 @@ export class AppComponent implements OnInit, OnDestroy {
       data => {
         this.isAuthenticated = data;
         if(data && this.isInGroup){
-          console.log(`QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ odpala polling bez timeout isAuthenticatedSub`)
           setTimeout(()=>this.polling(),2000);
         }
       }
@@ -385,7 +382,6 @@ export class AppComponent implements OnInit, OnDestroy {
       data => {
         if(data){
           this.tags = data;
-          console.log(data)
           if(this.loopsDays){
             this.makeNotificationsArray(this.loopsDays);
           }
@@ -413,7 +409,6 @@ export class AppComponent implements OnInit, OnDestroy {
       data => {
         this.isInGroup = data;
         if(data && this.isAuthenticated){
-          console.log(`QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ odpala polling bez timeout isInGroupSub`)
           setTimeout(()=>this.polling(),2000);
         }else if(!data && this.pollingSubscribe && this.isAuthenticated){
           this.pollingSubscribe.unsubscribe();
@@ -473,8 +468,8 @@ export class AppComponent implements OnInit, OnDestroy {
           this.setInvitations(JSON.stringify(data) );
           if(this.getUserProfile()){
             const profile = JSON.parse(this.getUserProfile());
-            if(profile['https://gremo.sport.comapp_metadata'] && profile['https://gremo.sport.comapp_metadata'].invitations){
-              profile['https://gremo.sport.comapp_metadata'].invitations = data;
+            if(profile['https://sport.app.comapp_metadata'] && profile['https://sport.app.comapp_metadata'].invitations){
+              profile['https://sport.app.comapp_metadata'].invitations = data;
             }
             this._cookieService.set('profile', JSON.stringify(profile));
           }
@@ -522,16 +517,14 @@ export class AppComponent implements OnInit, OnDestroy {
   //main menu function
 
   polling(): void {
-    console.log(`polling odpala`)
     this.pollingSubscribe = this._pollingService.invitationsPolling$.subscribe((data: Invitation[]) => {
-      console.log(data);
       if(data.length > 0){
         this.invitations = data;
         this.setInvitations(JSON.stringify(data) );
         if(this.getUserProfile()){
           const profile = JSON.parse(this.getUserProfile());
-          if(profile['https://gremo.sport.comapp_metadata'] && profile['https://gremo.sport.comapp_metadata'].invitations){
-            profile['https://gremo.sport.comapp_metadata'].invitations = data;
+          if(profile['https://sport.app.comapp_metadata'] && profile['https://sport.app.comapp_metadata'].invitations){
+            profile['https://sport.app.comapp_metadata'].invitations = data;
           }
           this._cookieService.set('profile', JSON.stringify(profile));
         };
@@ -661,8 +654,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
 
     let app_metadata = null;
-    if(this.getUserProfile() && JSON.parse(this.getUserProfile())['https://gremo.sport.comapp_metadata']){
-      app_metadata = JSON.parse(this.getUserProfile())['https://gremo.sport.comapp_metadata']
+    if(this.getUserProfile() && JSON.parse(this.getUserProfile())['https://sport.app.comapp_metadata']){
+      app_metadata = JSON.parse(this.getUserProfile())['https://sport.app.comapp_metadata']
     };
     
     this._store.dispatch(new TilesDataActions.SetAthleteAccount(false));
@@ -670,13 +663,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
     if(this.getUserProfile() && app_metadata && app_metadata.account_level_data.account_level === 0){
       //there is athlete acount
-      console.log(`there is athlete acount`)
       this._store.dispatch(new TilesDataActions.IsPaidAccountSet(false));
       this._store.dispatch(new TilesDataActions.AccountLevelSet(0));
       this._store.dispatch(new TilesDataActions.AccountTrialSet(false));
     }else if(this.getUserProfile() && app_metadata && app_metadata.account_level_data.account_level === 1 && !app_metadata.account_level_data.current_paid_access_end_date){
       //there is trial account
-      console.log(`there is trial account`)
       this._store.dispatch(new TilesDataActions.IsPaidAccountSet(true));
       this._store.dispatch(new TilesDataActions.AccountLevelSet(1));
       this._store.dispatch(new TilesDataActions.AccountTrialSet(true));
@@ -686,14 +677,12 @@ export class AppComponent implements OnInit, OnDestroy {
       this._store.dispatch(new TilesDataActions.FetchTiles());
       this._store.dispatch(new TilesDataActions.SetAthleteAccount(false));
       if(app_metadata.account_level_data.trial_end_date*1000 < Date.now()){
-        console.log(`koniec triala`);
         this._store.dispatch(new TilesDataActions.IsPaidAccountSet(false));
         this._store.dispatch(new TilesDataActions.AccountLevelSet(0));
         this._store.dispatch(new TilesDataActions.AccountTrialSet(false));
       }
     }else if(this.getUserProfile() && app_metadata && app_metadata.account_level_data.account_level > 0 && app_metadata.account_level_data.current_paid_access_end_date){
       //there is paid account
-      console.log(`there is paid account`)
       if(app_metadata.account_level_data.current_paid_access_end_date*1000 > Date.now()){
         //tutaj idzie logika gdy jest dostęp
         this._store.dispatch(new TilesDataActions.IsPaidAccountSet(true));
@@ -805,7 +794,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   openAnswers(not, index: number){
-    console.log(not)
     const tilesFiltered = [];
     this.tiles.forEach(tile => {
       not.questions.forEach(q => {
@@ -844,7 +832,6 @@ export class AppComponent implements OnInit, OnDestroy {
           question_answers: result.formAnswer,
           calendar_assoc_id: result.calendar_assoc_id
         }
-        console.log(jsonForRequest)
         // this._httpService.postAnswers(jsonForRequest,nots);
       }
     })
@@ -852,8 +839,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   makeTags(){
     let app_metadata = null;
-    if(this.getUserProfile() && JSON.parse(this.getUserProfile())['https://gremo.sport.comapp_metadata']){
-        app_metadata = JSON.parse(this.getUserProfile())['https://gremo.sport.comapp_metadata']
+    if(this.getUserProfile() && JSON.parse(this.getUserProfile())['https://sport.app.comapp_metadata']){
+        app_metadata = JSON.parse(this.getUserProfile())['https://sport.app.comapp_metadata']
     }
     if(this.getUserProfile() && app_metadata && app_metadata.tags){
       const tags: Tags = {};

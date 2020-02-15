@@ -90,7 +90,6 @@ export class BoardComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    console.log(`odpalił się board note LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL`)
     this._breakpointObserver
     .observe([Breakpoints.Handset])
     .subscribe((state: BreakpointState) => {
@@ -138,31 +137,27 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.athleteAccountonPaidAccountState = this._store.select(state => state.tiles.athleteAccountonPaidAccount);
     this.athleteAccountonPaidAccountSub = this.athleteAccountonPaidAccountState.subscribe(
       data => {
-        console.log(data)
         this.athleteAccountonPaidAccount = data;
         
         let app_metadata = null;
-        if(this.getUserProfile() && JSON.parse(this.getUserProfile())['https://gremo.sport.comapp_metadata']){
-          app_metadata = JSON.parse(this.getUserProfile())['https://gremo.sport.comapp_metadata']
+        if(this.getUserProfile() && JSON.parse(this.getUserProfile())['https://sport.app.comapp_metadata']){
+          app_metadata = JSON.parse(this.getUserProfile())['https://sport.app.comapp_metadata']
         }
 
         if(this.getUserProfile() && app_metadata && app_metadata.account_level_data  && app_metadata.account_level_data.account_level === 0){
           //when athlete account
-          console.log(`athlete account`);
           this._store.dispatch(new TilesDataActions.SpinnerStartStopCalendar(false));
           this._store.dispatch(new TilesDataActions.SetAthleteAccount(true));
         }else if(
-          (this.getUserProfile() && app_metadata && app_metadata.account_level_data  && !app_metadata.account_level_data && JSON.parse(this.getUserProfile())['https://gremo.sport.comuser_metadata'] && JSON.parse(this.getUserProfile())['https://gremo.sport.comuser_metadata'].training_plan_last_id) && !data||
-          (this.getUserProfile() && app_metadata && app_metadata.account_level_data  && app_metadata.account_level_data.account_level === 1 && !app_metadata.account_level_data.current_paid_access_end_date && JSON.parse(this.getUserProfile())['https://gremo.sport.comuser_metadata'] && JSON.parse(this.getUserProfile())['https://gremo.sport.comuser_metadata'].training_plan_last_id) && !data || 
-          (this.getUserProfile() && app_metadata && app_metadata.account_level_data  && app_metadata.account_level_data.account_level > 0 && app_metadata.account_level_data.current_paid_access_end_date && JSON.parse(this.getUserProfile())['https://gremo.sport.comuser_metadata'] && JSON.parse(this.getUserProfile())['https://gremo.sport.comuser_metadata'].training_plan_last_id) && !data){
+          (this.getUserProfile() && app_metadata && app_metadata.account_level_data  && !app_metadata.account_level_data && JSON.parse(this.getUserProfile())['https://sport.app.comuser_metadata'] && JSON.parse(this.getUserProfile())['https://sport.app.comuser_metadata'].training_plan_last_id) && !data||
+          (this.getUserProfile() && app_metadata && app_metadata.account_level_data  && app_metadata.account_level_data.account_level === 1 && !app_metadata.account_level_data.current_paid_access_end_date && JSON.parse(this.getUserProfile())['https://sport.app.comuser_metadata'] && JSON.parse(this.getUserProfile())['https://sport.app.comuser_metadata'].training_plan_last_id) && !data || 
+          (this.getUserProfile() && app_metadata && app_metadata.account_level_data  && app_metadata.account_level_data.account_level > 0 && app_metadata.account_level_data.current_paid_access_end_date && JSON.parse(this.getUserProfile())['https://sport.app.comuser_metadata'] && JSON.parse(this.getUserProfile())['https://sport.app.comuser_metadata'].training_plan_last_id) && !data){
 
           //when paid or trial account
-          console.log(`paid or trial account`);
           this._store.dispatch(new TilesDataActions.SetNoTp(false));
           this._store.dispatch(new BoardDataActions.FetchTrainingBoard());
           this._store.dispatch(new TilesDataActions.SetAthleteAccount(false));
         }else if(!data){
-          console.log(`else`);
           this.name = 'main'
           this._store.dispatch(new TilesDataActions.SetNoTp(true))
           this._store.dispatch(new BoardDataActions.FetchBoard());
@@ -177,7 +172,7 @@ export class BoardComponent implements OnInit, OnDestroy {
         this.tpManager = data;
         if(data){
           data.forEach(tpM => {
-              if(tpM.id === JSON.parse(this.getUserProfile())['https://gremo.sport.comuser_metadata'].training_plan_last_id){
+              if(tpM.id === JSON.parse(this.getUserProfile())['https://sport.app.comuser_metadata'].training_plan_last_id){
                 this.name = tpM.training_plan_name;
               }})
         }else{
@@ -414,14 +409,11 @@ export class BoardComponent implements OnInit, OnDestroy {
             id: this.boardNotes[index].id
           }
           if(this.name === 'main'){
-            console.log(`kiedy main`)
             this._httpService.patchBoardNote(note, note.id, index)
           }else{
-            console.log(`kiedy nie main`)
             this._httpService.patchBoardNoteTP(note, this.trainingPlan.id, note.id,  index)
           }
         }else if(this.athleteCardMode){
-          console.log(`kiedy nie athletecardmode`)
           let note = {
             platform_note_name : result.board_note_name,
             platform_note_link : result.board_note_link,
