@@ -18,7 +18,7 @@ import * as TilesDataActions from '../../shared/store/tiles-data.actions';
 @Component({
   selector: 'app-tp-menu',
   templateUrl: './tp-menu.component.html',
-  styleUrls: ['./tp-menu.component.css']
+  styleUrls: ['./tp-menu.component.scss']
 })
 export class TpMenuComponent implements OnInit, OnDestroy {
   tpManagerState: Observable<TpInfo[]>;

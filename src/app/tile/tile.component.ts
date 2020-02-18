@@ -24,7 +24,7 @@ import * as moment from 'moment';
 @Component({
   selector: 'app-tile',
   templateUrl: './tile.component.html',
-  styleUrls: ['./tile.component.css'],
+  styleUrls: ['./tile.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('hideShow', [

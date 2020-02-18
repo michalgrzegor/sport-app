@@ -11,7 +11,7 @@ import * as moment from 'moment';
 @Component({
   selector: 'app-week-summary',
   templateUrl: './week-summary.component.html',
-  styleUrls: ['./week-summary.component.css']
+  styleUrls: ['./week-summary.component.scss']
 })
 export class WeekSummaryComponent implements OnInit, OnDestroy {
   @ViewChild("rectangle") rectangle: ElementRef;

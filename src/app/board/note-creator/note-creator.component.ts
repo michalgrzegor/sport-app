@@ -10,7 +10,7 @@ export interface NewNoteData {
 @Component({
   selector: 'app-note-creator',
   templateUrl: './note-creator.component.html',
-  styleUrls: ['./note-creator.component.css']
+  styleUrls: ['./note-creator.component.scss']
 })
 export class NoteCreatorComponent implements OnInit {
   //errors

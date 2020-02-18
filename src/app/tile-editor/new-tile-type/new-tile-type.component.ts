@@ -13,7 +13,7 @@ export interface DialogData {
 @Component({
   selector: 'app-new-tile-type',
   templateUrl: './new-tile-type.component.html',
-  styleUrls: ['./new-tile-type.component.css']
+  styleUrls: ['./new-tile-type.component.scss']
 })
 export class NewTileTypeComponent implements OnInit, OnDestroy {
   subColor: Subscription;

@@ -10,7 +10,7 @@ import * as fromApp from '../../../shared/store/app.reducers';
 @Component({
   selector: 'app-star-dialog',
   templateUrl: './star-dialog.component.html',
-  styleUrls: ['./star-dialog.component.css']
+  styleUrls: ['./star-dialog.component.scss']
 })
 export class StarDialogComponent implements OnInit, OnDestroy {
 

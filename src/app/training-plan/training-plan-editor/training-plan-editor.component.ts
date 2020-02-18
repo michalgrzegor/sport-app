@@ -21,7 +21,7 @@ export interface TPDialogData {
 @Component({
   selector: 'app-training-plan-editor',
   templateUrl: './training-plan-editor.component.html',
-  styleUrls: ['./training-plan-editor.component.css']
+  styleUrls: ['./training-plan-editor.component.scss']
 })
 export class TrainingPlanEditorComponent implements OnInit, OnDestroy {
   date = new Date();

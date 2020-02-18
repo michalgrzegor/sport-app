@@ -40,7 +40,7 @@ export interface CardEditor {
 @Component({
   selector: 'app-tile-editor',
   templateUrl: './tile-editor.component.html',
-  styleUrls: ['./tile-editor.component.css']
+  styleUrls: ['./tile-editor.component.scss']
 })
 export class TileEditorComponent implements OnInit, OnDestroy {
   tileState: Observable<Tile>;

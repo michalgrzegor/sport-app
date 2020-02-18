@@ -7,7 +7,7 @@ import * as TilesActions from '../../shared/store/tiles-data.actions';
 @Component({
   selector: 'app-tiles-search',
   templateUrl: './tiles-search.component.html',
-  styleUrls: ['./tiles-search.component.css']
+  styleUrls: ['./tiles-search.component.scss']
 })
 export class TilesSearchComponent {
 

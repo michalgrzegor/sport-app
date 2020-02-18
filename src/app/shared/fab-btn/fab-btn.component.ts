@@ -4,7 +4,7 @@ import { FabBtnAnimations } from './fab-btn.animations';
 @Component({
   selector: 'app-fab-btn',
   templateUrl: './fab-btn.component.html',
-  styleUrls: ['./fab-btn.component.css'],
+  styleUrls: ['./fab-btn.component.scss'],
   animations: FabBtnAnimations
 })
 export class FabBtnComponent {

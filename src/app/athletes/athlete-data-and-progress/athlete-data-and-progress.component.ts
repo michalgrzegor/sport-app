@@ -26,7 +26,7 @@ let More = require('highcharts/highcharts-more');
 @Component({
   selector: 'app-athlete-data-and-progress',
   templateUrl: './athlete-data-and-progress.component.html',
-  styleUrls: ['./athlete-data-and-progress.component.css']
+  styleUrls: ['./athlete-data-and-progress.component.scss']
 })
 export class AthleteDataAndProgressComponent implements OnInit, OnDestroy {
 

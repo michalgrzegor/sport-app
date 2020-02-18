@@ -18,7 +18,7 @@ import * as _ from 'lodash';
 @Component({
   selector: 'app-tiles-collection',
   templateUrl: './tiles-collection.component.html',
-  styleUrls: ['./tiles-collection.component.css']
+  styleUrls: ['./tiles-collection.component.scss']
 })
 export class TilesCollectionComponent implements OnInit, OnDestroy {
   tileAllAttrState: Observable<fromTilesData.State>;

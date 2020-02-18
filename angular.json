@@ -136,5 +136,10 @@
       }
     }
   },
-  "defaultProject": "sportapp"
+  "defaultProject": "sportapp",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }

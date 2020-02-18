@@ -38,7 +38,7 @@ import { VerifyDialogCommentComponent } from '../comment/verify-dialog-comment/v
 @Component({
   selector: 'app-callendar-day',
   templateUrl: './callendar-day.component.html',
-  styleUrls: ['./callendar-day.component.css'],
+  styleUrls: ['./callendar-day.component.scss'],
   animations: [
     trigger('hideShow', [
       state('show', style({minHeight: '235px'})),

@@ -15,7 +15,7 @@ import * as LoopsActions from '../shared/store/loops.actions'
 @Component({
   selector: 'app-loops',
   templateUrl: './loops.component.html',
-  styleUrls: ['./loops.component.css']
+  styleUrls: ['./loops.component.scss']
 })
 export class LoopsComponent implements OnInit  {
 

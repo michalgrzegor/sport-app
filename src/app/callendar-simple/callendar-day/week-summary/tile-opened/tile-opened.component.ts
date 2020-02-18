@@ -5,7 +5,7 @@ import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-tile-opened',
   templateUrl: './tile-opened.component.html',
-  styleUrls: ['./tile-opened.component.css']
+  styleUrls: ['./tile-opened.component.scss']
 })
 export class TileOpenedComponent implements OnInit {
 

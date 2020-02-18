@@ -14,7 +14,7 @@ declare var Stripe;
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
-  styleUrls: ['./card.component.css'],
+  styleUrls: ['./card.component.scss'],
   animations: [
     trigger('rotate', [
       state('show', style({transform: 'rotate(0deg)'})),

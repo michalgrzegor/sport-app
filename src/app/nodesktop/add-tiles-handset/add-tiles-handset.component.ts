@@ -16,7 +16,7 @@ import * as _ from 'lodash';
 @Component({
   selector: 'app-add-tiles-handset',
   templateUrl: './add-tiles-handset.component.html',
-  styleUrls: ['./add-tiles-handset.component.css']
+  styleUrls: ['./add-tiles-handset.component.scss']
 })
 export class AddTilesHandsetComponent implements OnInit, OnDestroy {
   tileAllAttrState: Observable<fromTilesData.State>;

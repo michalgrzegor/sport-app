@@ -14,7 +14,7 @@ export interface CreatorData {
 @Component({
   selector: 'app-creator',
   templateUrl: './creator.component.html',
-  styleUrls: ['./creator.component.css']
+  styleUrls: ['./creator.component.scss']
 })
 export class CreatorComponent implements OnInit {
 

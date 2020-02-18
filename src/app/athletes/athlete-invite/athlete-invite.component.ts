@@ -19,7 +19,7 @@ export interface IsInvited {
 @Component({
   selector: 'app-athlete-invite',
   templateUrl: './athlete-invite.component.html',
-  styleUrls: ['./athlete-invite.component.css']
+  styleUrls: ['./athlete-invite.component.scss']
 })
 export class AthleteInviteComponent implements OnInit, OnDestroy {
 

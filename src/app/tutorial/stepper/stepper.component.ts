@@ -17,7 +17,7 @@ type PaneType = 'one' | 'two' | 'three' | 'four' | 'five';
 @Component({
   selector: 'app-stepper',
   templateUrl: './stepper.component.html',
-  styleUrls: ['./stepper.component.css'],
+  styleUrls: ['./stepper.component.scss'],
   animations: [
     trigger('slide', [
       state('one', style({ transform: 'translateX(0)' })),

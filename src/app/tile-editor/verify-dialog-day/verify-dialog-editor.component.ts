@@ -8,7 +8,7 @@ export interface TileVerifyData {
 @Component({
   selector: 'app-verify-dialog-editor',
   templateUrl: './verify-dialog-editor.component.html',
-  styleUrls: ['./verify-dialog-editor.component.css']
+  styleUrls: ['./verify-dialog-editor.component.scss']
 })
 export class VerifyDialogEditorComponent implements OnInit {
 

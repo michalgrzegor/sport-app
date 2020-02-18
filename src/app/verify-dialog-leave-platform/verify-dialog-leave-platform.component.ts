@@ -5,7 +5,7 @@ import { DialogData } from 'src/app/tile-editor/new-tile-type/new-tile-type.comp
 @Component({
   selector: 'app-verify-dialog-leave-platform',
   templateUrl: './verify-dialog-leave-platform.component.html',
-  styleUrls: ['./verify-dialog-leave-platform.component.css']
+  styleUrls: ['./verify-dialog-leave-platform.component.scss']
 })
 export class VerifyDialogLeavePlatformComponent {
 

@@ -42,7 +42,7 @@ const URL_WSS = 'wss://gremmo-one.herokuapp.com/cable'
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.scss'],
   animations: [
     trigger('list1', [
       state('in', style({

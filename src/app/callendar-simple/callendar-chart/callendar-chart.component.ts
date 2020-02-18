@@ -15,7 +15,7 @@ import * as moment from 'moment';
 @Component({
   selector: 'app-callendar-chart',
   templateUrl: './callendar-chart.component.html',
-  styleUrls: ['./callendar-chart.component.css'],
+  styleUrls: ['./callendar-chart.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 

@@ -15,7 +15,7 @@ export interface QDialogData {
 @Component({
   selector: 'app-questions-dialog',
   templateUrl: './questions-dialog.component.html',
-  styleUrls: ['./questions-dialog.component.css']
+  styleUrls: ['./questions-dialog.component.scss']
 })
 export class QuestionsDialogComponent implements OnInit {
   question_answers = [];

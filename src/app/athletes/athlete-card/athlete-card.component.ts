@@ -19,7 +19,7 @@ import * as _ from 'lodash';
 @Component({
   selector: 'app-athlete-card',
   templateUrl: './athlete-card.component.html',
-  styleUrls: ['./athlete-card.component.css']
+  styleUrls: ['./athlete-card.component.scss']
 })
 export class AthleteCardComponent implements OnInit, OnDestroy {
   athleteState: Observable<Athlete>;

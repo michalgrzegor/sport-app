@@ -12,7 +12,7 @@ import * as TilesActions from '../../shared/store/tiles-data.actions';
 @Component({
   selector: 'app-tiles-category',
   templateUrl: './tiles-category.component.html',
-  styleUrls: ['./tiles-category.component.css'],
+  styleUrls: ['./tiles-category.component.scss'],
   animations: [
     trigger('hideShow', [
       state('show', style({height: '235px'})),

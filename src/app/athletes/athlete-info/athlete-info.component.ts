@@ -18,7 +18,7 @@ import { PollingService } from 'src/app/shared/polling.service';
 @Component({
   selector: 'app-athlete-info',
   templateUrl: './athlete-info.component.html',
-  styleUrls: ['./athlete-info.component.css']
+  styleUrls: ['./athlete-info.component.scss']
 })
 export class AthleteInfoComponent implements OnInit, OnDestroy {
   @Input() isActivatedPlan: boolean;

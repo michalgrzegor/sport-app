@@ -10,7 +10,7 @@ import { HttpClientService } from 'src/app/shared/http-client.service';
 @Component({
   selector: 'app-athlete-creator',
   templateUrl: './athlete-creator.component.html',
-  styleUrls: ['./athlete-creator.component.css']
+  styleUrls: ['./athlete-creator.component.scss']
 })
 export class AthleteCreatorComponent implements OnInit {
   

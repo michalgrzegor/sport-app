@@ -18,7 +18,7 @@ export interface AthleteMinFlat {
 @Component({
   selector: 'app-athlete-manager',
   templateUrl: './athlete-manager.component.html',
-  styleUrls: ['./athlete-manager.component.css']
+  styleUrls: ['./athlete-manager.component.scss']
 })
 export class AthleteManagerComponent implements OnInit, OnDestroy {
   athletesState: Observable<AthleteMin[]>;
