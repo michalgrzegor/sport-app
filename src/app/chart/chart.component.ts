@@ -1,20 +1,19 @@
-import { SummaryDataService } from './../shared/summary-data.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { SummaryDataService } from './../shared/summary-data.service';
+import { Answear } from '../shared/store/chart-data.reducers';
+import { HttpClientService } from '../shared/http-client.service';
+import { TrainingPlan } from '../shared/store/tiles-data.reducers';
+import { Observable, Subscription } from 'rxjs';
+import { Tile } from '../models/tile';
 
 import { Store } from '@ngrx/store';
 import * as ChartDataActions from '../shared/store/chart-data.actions';
 import * as fromApp from '../shared/store/app.reducers';
-import { Observable, Subscription } from 'rxjs';
-import { TrainingPlan } from '../shared/store/tiles-data.reducers';
-
-import { Tile } from '../models/tile';
 
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import * as Highcharts from 'highcharts';
-import { Answear } from '../shared/store/chart-data.reducers';
-import { stringify } from 'querystring';
-import { HttpClientService } from '../shared/http-client.service';
+
 
 declare var require: any;
 let Boost = require('highcharts/modules/boost');

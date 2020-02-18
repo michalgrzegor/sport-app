@@ -13,10 +13,6 @@
 
       <button *ngIf="(!isPaidAccount && !athleteAccountonPaidAccount && !isHandset) || (isTrial  && !athleteAccountonPaidAccount && !isHandset)"  class="upgrade-btn" (click)="openUpgradeDialog()" mat-button>Upgrade</button>
 
-      <button class="notification-btn" (click)="openFeedback()"  mat-button>
-        <mat-icon>mail</mat-icon>
-      </button>
-
       <button class="setting-btn" (click)="openChat()" *ngIf="!isHandset"  mat-button>
         <mat-icon>chat</mat-icon>
       </button>
@@ -329,5 +325,3 @@
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
-
-<app-chat *ngIf="!isHandset && isChatOn"  id="chat"></app-chat>

@@ -6,16 +6,17 @@ import { MatDialog } from '@angular/material';
 import { NewTileTypeComponent } from './new-tile-type/new-tile-type.component';
 import { DataService } from 'src/app/shared/data.service';
 import { Tile } from 'src/app/models/tile';
+import { Subscription, Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
+import { VerifyDialogEditorComponent } from './verify-dialog-day/verify-dialog-editor.component';
+
 import * as _ from 'lodash';
 
 
 import * as fromApp from '../shared/store/app.reducers';
-import { Subscription, Observable } from 'rxjs';
-import { Router } from '@angular/router';
-import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import * as TilesDataActions from '../shared/store/tiles-data.actions';
 import * as CalendarDataActions from '../shared/store/callendar-data.actions';
-import { VerifyDialogEditorComponent } from './verify-dialog-day/verify-dialog-editor.component';
 
 export interface TrainingType {
   name: string,
@@ -866,9 +867,10 @@ export class TileEditorComponent implements OnInit, OnDestroy {
     this.isEditedSub.unsubscribe();
     this.mainRouteSub.unsubscribe();
     this.tagsSub.unsubscribe();
+    this.isTutorialSub.unsubscribe();
     this.trainingTypes.forEach(
       tpt => tpt.selected = false
-    )
+    );
   }
 
   

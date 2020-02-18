@@ -1,18 +1,32 @@
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Loops, LoopsDays, Tags } from './shared/store/loops.reducers';
+import { TrainingPlan, Invitation } from './shared/store/tiles-data.reducers';
+import { Subscription, Observable } from 'rxjs';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { BreakpointObserver, BreakpointState, Breakpoints, MediaMatcher } from '@angular/cdk/layout'
+import { MatDialog, MatSnackBar } from '@angular/material';
+import { SwUpdate, SwPush } from '@angular/service-worker';
+import { QuestionsDialogComponent } from './questions-dialog/questions-dialog.component';
+import { Tile } from './models/tile';
+import { TrainingPlanEditorComponent } from './training-plan/training-plan-editor/training-plan-editor.component';
+import { PaymentComponent } from './payment/payment.component';
+import { VerifyDialogLeavePlatformComponent } from './verify-dialog-leave-platform/verify-dialog-leave-platform.component';
+import { StepperComponent } from './tutorial/stepper/stepper.component';
+import { environment } from 'src/environments/environment';
+
 import { PollingService } from './shared/polling.service';
 import { HttpPaymentClientService } from './shared/http-payment-client.service';
 import { HttpClientService } from './shared/http-client.service';
-import { Loops, LoopsDays, Tags } from './shared/store/loops.reducers';
-import { TrainingPlan, Invitation } from './shared/store/tiles-data.reducers';
-import { Subscription, Observable, Subject } from 'rxjs';
 import { AuthService } from './auth/auth.service';
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { trigger, state, style, transition, animate } from '@angular/animations';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { BreakpointObserver, BreakpointState, Breakpoints, MediaMatcher } from '@angular/cdk/layout'
+import { CookieService } from 'ngx-cookie-service';
+import { DataService } from './shared/data.service';
+import { GoogleAnalyticsService } from './shared/google-analytics.service';
+import { PushNotificationService } from './shared/push-notification.service';
 
 import * as moment from 'moment';
 
+import { Store } from '@ngrx/store';
 import * as fromApp from './shared/store/app.reducers';
 import * as TilesDataActions from './shared/store/tiles-data.actions';
 import * as AthleteDataActions from './shared/store/athletes-data.actions';
@@ -21,29 +35,9 @@ import * as ChartDataActions from './shared/store/chart-data.actions';
 import * as LoopsActions from './shared/store/loops.actions';
 import * as CalendarDataActions from './shared/store/callendar-data.actions';
 import * as ChatActions from './shared/store/chat.actions';
-import { MatDialog, MatSnackBar } from '@angular/material';
-import { SwUpdate, SwPush } from '@angular/service-worker';
-import { QuestionsDialogComponent } from './questions-dialog/questions-dialog.component';
-import { Tile } from './models/tile';
-import { TrainingPlanEditorComponent } from './training-plan/training-plan-editor/training-plan-editor.component';
-import { CookieService } from 'ngx-cookie-service';
-import { PaymentComponent } from './payment/payment.component';
-import { VerifyDialogLeavePlatformComponent } from './verify-dialog-leave-platform/verify-dialog-leave-platform.component';
-import { DataService } from './shared/data.service';
-import { GoogleAnalyticsService } from './shared/google-analytics.service';
-import { FeedbackComponent } from './feedback/feedback.component';
-import { StepperComponent } from './tutorial/stepper/stepper.component';
-// import { WebsocketService } from './shared/websocket.service';
-
-import { environment } from 'src/environments/environment';
-import { PushNotificationService } from './shared/push-notification.service';
-import { WebsocketService } from './shared/websocket.service';
 
 declare let gtag: Function;
 const URL_WSS = 'wss://gremmo-one.herokuapp.com/cable'
-
-
-
 
 @Component({
   selector: 'app-root',
@@ -945,27 +939,6 @@ export class AppComponent implements OnInit, OnDestroy {
     })
   };
 
-  // checkForIvitations(){
-  //   this._httpPaymentService.checkForInvitations();
-  // }
-
-  openFeedback(){
-    const dialogRef = this._dialog.open(FeedbackComponent, {
-      autoFocus: false,
-      id: `tp-editor`,
-      width: `408px`,
-      data: {feedback: null}
-    });
-
-    
-    dialogRef.afterClosed().subscribe(result => {
-      if(result){
-        const profile = JSON.parse(this.getUserProfile());
-        this._httpService.sentFeedback(profile.email, result.feedback);
-      }
-    })
-  }
-
   openTutorial(){
     if(this.isWeb){
       this._router.navigate(['/calendar'], { queryParams: { 'right': 'tp' }});
@@ -1013,5 +986,10 @@ export class AppComponent implements OnInit, OnDestroy {
     this.athleteAccountonPaidAccountSub.unsubscribe();
     this.paidAccountForDisplaysSub.unsubscribe();
     this.tagsSub.unsubscribe();
+    this.isInGroupSub.unsubscribe();
+    this.notificationsSub.unsubscribe();
+    this.isAuthenticatedSub.unsubscribe();
+    this.isChatOnSub.unsubscribe();
+    this.pollingSubscribe.unsubscribe();
   }
 }

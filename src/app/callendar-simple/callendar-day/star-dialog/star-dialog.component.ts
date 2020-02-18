@@ -2,10 +2,10 @@ import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Star, TrainingPlan } from 'src/app/shared/store/tiles-data.reducers';
 import { HttpClientService } from 'src/app/shared/http-client.service';
-import { Store } from '@ngrx/store';
-
-import * as fromApp from '../../../shared/store/app.reducers';
 import { Subscription, Observable } from 'rxjs';
+
+import { Store } from '@ngrx/store';
+import * as fromApp from '../../../shared/store/app.reducers';
 
 @Component({
   selector: 'app-star-dialog',

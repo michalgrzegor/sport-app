@@ -1,4 +1,3 @@
-import { WeekDate } from './../../shared/callendar-data.service';
 import { HttpCommentClientService } from './../../shared/http-comment-client.service';
 import { StarDialogComponent } from './star-dialog/star-dialog.component';
 import { Star, Association, CalendarComment } from './../../shared/store/tiles-data.reducers';
@@ -6,8 +5,10 @@ import { SummaryDataService, Summary } from './../../shared/summary-data.service
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Tile } from 'src/app/models/tile';
 import { Subscription, Observable } from 'rxjs';
-import * as _ from 'lodash';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+
+import * as _ from 'lodash';
+import * as moment from 'moment';
 
 //store imports
 import * as fromApp from '../../shared/store/app.reducers';
@@ -16,12 +17,12 @@ import { Store } from '@ngrx/store';
 import * as TilesActions from '../../shared/store/tiles-data.actions';
 import * as fromTilesData from '../../shared/store/tiles-data.reducers'
 import * as TilesDataActions from '../../shared/store/tiles-data.actions';
+
 import { OpenedDay } from '../../shared/store/callendar-data.reducers';
 import { CallendarArray } from 'src/app/shared/callendar-data.service';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { RepeatDialogComponent, RepeatData } from '../repeat-dialog/repeat-dialog.component';
 import { TrainingPlan } from '../../shared/store/tiles-data.reducers';
-import * as moment from 'moment';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { FabBtnAnimations } from 'src/app/shared/fab-btn/fab-btn.animations';
@@ -1249,6 +1250,7 @@ export class CallendarDayComponent implements OnInit, OnDestroy {
     this.copiedDaySub.unsubscribe();
     this.pastedSub.unsubscribe();
     this.tilesToChangeSub.unsubscribe();
+    this.commentsSub.unsubscribe();
   }
 
 }

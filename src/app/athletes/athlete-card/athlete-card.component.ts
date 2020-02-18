@@ -1,19 +1,17 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Athlete, CustomAthleteParameter, AthleteMin, PlatformNote } from 'src/app/shared/store/athletes-data.reducers';
 
 import { Store } from '@ngrx/store';
 import * as AthleteDataActions from '../../shared/store/athletes-data.actions';
 import * as fromApp from '../../shared/store/app.reducers';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { CookieService } from 'ngx-cookie-service';
 import { HttpClientService } from 'src/app/shared/http-client.service';
 import { AthleteCreatorComponent } from '../athlete-creator/athlete-creator.component';
 import { VerifyDialogAthleteComponent } from '../verify-dialog-athlete/verify-dialog-athlete.component';
 
-import { VerifyDialogCustomParamComponent } from '../verify-dialog-custom-param/verify-dialog-custom-param.component';
 import { TpInfo } from 'src/app/shared/store/tiles-data.reducers';
 
 import * as _ from 'lodash';

@@ -1,13 +1,13 @@
+import { Component, OnInit, Inject, Input } from '@angular/core';
 import { HttpPaymentClientService } from './../shared/http-payment-client.service';
 import { PaymentServiceService } from './payment-service.service';
-import { Component, OnInit, Inject, Input } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSliderChange } from '@angular/material';
-
-import * as fromApp from '../shared/store/app.reducers';
-import * as TilesDataActions from '../shared/store/tiles-data.actions';
-import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+
+import { Store } from '@ngrx/store';
+import * as fromApp from '../shared/store/app.reducers';
+import * as TilesDataActions from '../shared/store/tiles-data.actions';
 
 export interface Plan {
   user_amount: number;

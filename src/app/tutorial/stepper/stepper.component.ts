@@ -1,12 +1,12 @@
-import { Component, OnInit, Inject, Input } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { Breakpoints, BreakpointState, BreakpointObserver } from '@angular/cdk/layout';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { CreatorComponent } from '../creator/creator.component';
 
+import { Store } from '@ngrx/store';
 import * as fromApp from '../../shared/store/app.reducers';
 import * as CalendarDataActions from '../../shared/store/callendar-data.actions';
-import { Store } from '@ngrx/store';
 
 export interface StepperData {
   firstTimeUser: boolean

@@ -1,5 +1,5 @@
+import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Component, OnInit, Inject } from '@angular/core';
 import { DialogData } from 'src/app/tile-editor/new-tile-type/new-tile-type.component';
 
 @Component({
@@ -7,14 +7,10 @@ import { DialogData } from 'src/app/tile-editor/new-tile-type/new-tile-type.comp
   templateUrl: './verify-dialog-note.component.html',
   styleUrls: ['./verify-dialog-note.component.css']
 })
-export class VerifyDialogNoteComponent implements OnInit {
+export class VerifyDialogNoteComponent {
 
   constructor(
     public _dialogRef: MatDialogRef<VerifyDialogNoteComponent>,
     @Inject(MAT_DIALOG_DATA) public _data: DialogData
   ) { }
-
-  ngOnInit() {
-  }
-
 }

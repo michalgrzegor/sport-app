@@ -7,17 +7,17 @@ import { Component, OnInit, Input, OnDestroy, ChangeDetectionStrategy, ChangeDet
 import { Tile } from 'src/app/models/tile';
 import { Observable, Subscription } from 'rxjs';
 import { OpenedDay } from 'src/app/shared/store/callendar-data.reducers';
-import { Store } from '@ngrx/store';
-import {MatDialog} from '@angular/material';
-
-import * as fromApp from '../shared/store/app.reducers';
-import * as TilesDataActions from '../shared/store/tiles-data.actions';
+import { MatDialog } from '@angular/material';
 import { CallendarArray } from 'src/app/shared/callendar-data.service';
-
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { VerifyDialogDayComponent } from './verify-dialog-day/verify-dialog-day.component';
+
+import { Store } from '@ngrx/store';
+import * as fromApp from '../shared/store/app.reducers';
+import * as TilesDataActions from '../shared/store/tiles-data.actions';
+
 
 import * as moment from 'moment';
 
@@ -370,6 +370,7 @@ export class TileComponent implements OnInit, OnDestroy {
     this.callendarArraySub.unsubscribe();
     this.mainRouteSub.unsubscribe();
     this.trainingPlanSub.unsubscribe();
+    this.gridArraySub.unsubscribe();
   }
 
 }

@@ -12,6 +12,7 @@ import { Subscription, Observable } from 'rxjs';
 
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../shared/store/app.reducers';
+
 import { PollingService } from 'src/app/shared/polling.service';
 
 @Component({

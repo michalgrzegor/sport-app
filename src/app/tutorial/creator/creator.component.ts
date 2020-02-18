@@ -1,11 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Observable, Subscription } from 'rxjs';
 
 
+import { Store } from '@ngrx/store';
 import * as fromApp from '../../shared/store/app.reducers';
 import * as CalendarDataActions from '../../shared/store/callendar-data.actions';
-import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
 
 export interface CreatorData {
   creator: string

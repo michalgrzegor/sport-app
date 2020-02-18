@@ -1,13 +1,13 @@
 import { Component, OnInit, Inject, ViewChild, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Observable, Subscription } from 'rxjs';
+import { HttpClientService } from 'src/app/shared/http-client.service';
 
 import * as moment from 'moment';
 
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../shared/store/app.reducers';
-import * as CalendarDataActions from '../../shared/store/callendar-data.actions';
-import { Observable, Subscription } from 'rxjs';
-import { HttpClientService } from 'src/app/shared/http-client.service';
+
 
 
 export interface TPDialogData {
@@ -93,10 +93,7 @@ export class TrainingPlanEditorComponent implements OnInit, OnDestroy {
     this.dialogRef.close()
   }
 
-  ngOnDestroy(): void {
-    this.isTutorialSub.unsubscribe()
-  }
-
+  
   createFirstPlan(){
     if(this.isTutorial && this.data.training_plan_name && this.data.date_from && this.data.date_to && this.data.training_sesion_number){
       const newTP = {
@@ -113,5 +110,9 @@ export class TrainingPlanEditorComponent implements OnInit, OnDestroy {
       this._httpService.postTrainingPlan(newTP);
     }
   }
-
+  
+  ngOnDestroy(): void {
+    this.isTutorialSub.unsubscribe()
+  }
+  
 }

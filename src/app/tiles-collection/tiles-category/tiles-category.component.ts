@@ -2,11 +2,11 @@ import { Tag, TrainingType } from './../../tile-editor/tile-editor.component';
 import { DataService } from 'src/app/shared/data.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { Store } from '@ngrx/store';
+import { Observable, Subscription } from 'rxjs';
 
+import { Store } from '@ngrx/store';
 import * as fromApp from '../../shared/store/app.reducers';
 import * as TilesActions from '../../shared/store/tiles-data.actions';
-import { Observable, Subscription } from 'rxjs';
 
 
 @Component({

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 import { FabBtnAnimations } from './fab-btn.animations';
 
 @Component({
@@ -7,7 +7,7 @@ import { FabBtnAnimations } from './fab-btn.animations';
   styleUrls: ['./fab-btn.component.css'],
   animations: FabBtnAnimations
 })
-export class FabBtnComponent implements OnInit {
+export class FabBtnComponent {
 
   fabbuttons = [
     {
@@ -50,9 +50,6 @@ export class FabBtnComponent implements OnInit {
 
   onToggleFab() {
     this.buttons.length ? this.hideItems() : this.showItems();
-  }
-
-  ngOnInit() {
   }
 
 }

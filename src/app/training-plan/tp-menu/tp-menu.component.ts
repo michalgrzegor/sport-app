@@ -1,18 +1,19 @@
-import { HttpClientService } from './../../shared/http-client.service';
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { HttpClientService } from './../../shared/http-client.service';
 import { Subscription, Observable } from 'rxjs';
+import { TpInfo, TrainingPlan } from '../../shared/store/tiles-data.reducers';
+import { MatSort, MatTableDataSource } from '@angular/material';
+import { SelectionModel } from '@angular/cdk/collections';
+import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
+import { CookieService } from 'ngx-cookie-service';
 
 import { Store } from '@ngrx/store';
 import * as tilesDataActions from '../../shared/store/tiles-data.actions';
 import * as CallendarDataActions from '../../shared/store/callendar-data.actions';
 import * as ChartDataActions from '../../shared/store/chart-data.actions';
 import * as fromApp from '../../shared/store/app.reducers';
-import { TpInfo, TrainingPlan } from '../../shared/store/tiles-data.reducers';
-import { MatSort, MatTableDataSource } from '@angular/material';
-import { SelectionModel } from '@angular/cdk/collections';
-import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import * as TilesDataActions from '../../shared/store/tiles-data.actions';
-import { CookieService } from 'ngx-cookie-service';
+
 
 @Component({
   selector: 'app-tp-menu',
@@ -246,6 +247,7 @@ export class TpMenuComponent implements OnInit, OnDestroy {
     this.filterModeSub.unsubscribe();
     this.trainingPlanSub.unsubscribe();
     this.mainRouteSub.unsubscribe();
+    this.noTrialSub.unsubscribe();
     this.athleteAccountonPaidAccountSub.unsubscribe();
     this._store.dispatch(new tilesDataActions.TpMode(false));
   }

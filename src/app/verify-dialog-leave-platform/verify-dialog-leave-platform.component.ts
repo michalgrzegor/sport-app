@@ -1,5 +1,5 @@
+import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Component, OnInit, Inject } from '@angular/core';
 import { DialogData } from 'src/app/tile-editor/new-tile-type/new-tile-type.component';
 
 @Component({
@@ -7,14 +7,10 @@ import { DialogData } from 'src/app/tile-editor/new-tile-type/new-tile-type.comp
   templateUrl: './verify-dialog-leave-platform.component.html',
   styleUrls: ['./verify-dialog-leave-platform.component.css']
 })
-export class VerifyDialogLeavePlatformComponent implements OnInit {
+export class VerifyDialogLeavePlatformComponent {
 
   constructor(
     public _dialogRef: MatDialogRef<VerifyDialogLeavePlatformComponent>,
     @Inject(MAT_DIALOG_DATA) public _data: DialogData
   ) { }
-
-  ngOnInit() {
-  }
-
 }

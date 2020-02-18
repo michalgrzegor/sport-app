@@ -22,14 +22,12 @@ import { PaymentComponent } from './payment/payment.component';
 import { ErrorsHandler } from './shared/handle-errors';
 import { VerifyDialogLeavePlatformComponent } from './verify-dialog-leave-platform/verify-dialog-leave-platform.component';
 import { LoginComponent } from './login/login.component';
-import { FeedbackComponent } from './feedback/feedback.component';
 import { StepperComponent } from './tutorial/stepper/stepper.component';
 import { CreatorComponent } from './tutorial/creator/creator.component';
 import { AthleteCreatorComponent } from './athletes/athlete-creator/athlete-creator.component';
 import { TrainingPlanEditorComponent } from './training-plan/training-plan-editor/training-plan-editor.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from 'src/environments/environment';
-import { ChatComponent } from './chat/chat.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 
@@ -41,13 +39,11 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     PaymentComponent,
     CardComponent,
     VerifyDialogLeavePlatformComponent,
-    FeedbackComponent,
     LoginComponent,
     StepperComponent,
     CreatorComponent,
     AthleteCreatorComponent,
-    TrainingPlanEditorComponent,
-    ChatComponent
+    TrainingPlanEditorComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -80,7 +76,6 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     QuestionsDialogComponent,
     PaymentComponent,
     VerifyDialogLeavePlatformComponent,
-    FeedbackComponent,
     StepperComponent,
     CreatorComponent,
     AthleteCreatorComponent,

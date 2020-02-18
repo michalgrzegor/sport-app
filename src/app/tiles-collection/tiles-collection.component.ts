@@ -1,17 +1,19 @@
-import { Store } from '@ngrx/store';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Tile } from 'src/app/models/tile';
-import { Observable, Subscription } from 'rxjs';
-
-import * as fromApp from '../shared/store/app.reducers';
-import * as TilesActions from '../shared/store/tiles-data.actions';
-import * as fromTilesData from '../shared/store/tiles-data.reducers'
-import { filter } from 'rxjs/operators';
-import { from } from 'rxjs';
-import * as _ from 'lodash';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Breakpoints, BreakpointState, BreakpointObserver } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
+
+import { Observable, Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { from } from 'rxjs';
+
+import { Store } from '@ngrx/store';
+import * as fromApp from '../shared/store/app.reducers';
+import * as TilesActions from '../shared/store/tiles-data.actions';
+import * as fromTilesData from '../shared/store/tiles-data.reducers'
+
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-tiles-collection',
@@ -207,6 +209,7 @@ export class TilesCollectionComponent implements OnInit, OnDestroy {
     this.isSearchModeSub.unsubscribe();
     this.allMomentDateArraySub.unsubscribe();
     this.mainRouteSub.unsubscribe();
+    this.subsData.unsubscribe();
     this._store.dispatch(new TilesActions.EnterTilesCollectionMode(false));
   }
 }

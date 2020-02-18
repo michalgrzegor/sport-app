@@ -304,5 +304,6 @@ export class NoteComponent implements OnInit, OnDestroy {
     this.athleteSub.unsubscribe();
     this.isPaidAccountSub.unsubscribe();
     this.trainingPlanSub.unsubscribe();
-  }
+    this.boardNoteSub.unsubscribe();
+    }
 }

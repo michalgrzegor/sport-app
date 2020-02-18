@@ -1,17 +1,17 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { Tile } from 'src/app/models/tile';
-import { Subscription, Observable } from 'rxjs';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
+import { Store } from '@ngrx/store';
 import * as fromTilesData from '../../shared/store/tiles-data.reducers';
 import * as TilesActions from '../../shared/store/tiles-data.actions';
 import * as fromApp from '../../shared/store/app.reducers';
-import { Store } from '@ngrx/store';
 
+import { Subscription, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { from } from 'rxjs';
 
 import * as _ from 'lodash';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-add-tiles-handset',
@@ -117,8 +117,9 @@ export class AddTilesHandsetComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.tileAllAttrSub.unsubscribe()
-    this.isCategoryModeSub.unsubscribe()
-    this.isSearchModeSub.unsubscribe()
+    this.tileAllAttrSub.unsubscribe();
+    this.isCategoryModeSub.unsubscribe();
+    this.isSearchModeSub.unsubscribe();
+    this.subsData.unsubscribe();
   }
 }

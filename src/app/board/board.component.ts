@@ -1,10 +1,5 @@
-import { Note } from './../shared/store/board-data.reducers';
-import { Store } from '@ngrx/store';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-
-import * as BoardDataActions from '../shared/store/board-data.actions';
-import * as TilesDataActions from '../shared/store/tiles-data.actions';
-import * as fromApp from '../shared/store/app.reducers';
+import { Note } from './../shared/store/board-data.reducers';
 import { Observable, Subscription } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material';
@@ -16,6 +11,11 @@ import { VerifyDialogNoteComponent } from '../tile/verify-dialog-note/verify-dia
 import { HttpClientService } from '../shared/http-client.service';
 import { CookieService } from 'ngx-cookie-service';
 import { TpInfo, TrainingPlan } from '../shared/store/tiles-data.reducers';
+
+import { Store } from '@ngrx/store';
+import * as BoardDataActions from '../shared/store/board-data.actions';
+import * as TilesDataActions from '../shared/store/tiles-data.actions';
+import * as fromApp from '../shared/store/app.reducers';
 
 @Component({
   selector: 'app-board',
@@ -44,16 +44,6 @@ export class BoardComponent implements OnInit, OnDestroy {
   tpManagerSub: Subscription;
   tpManager: TpInfo[] = [];
 
-  name = 'main'
-
-  //note creator variables
-  board_note_name: string;
-  board_note_link: string;
-  board_note_description: string;
-  board_note_id: number;
-
-  index: number;
-
   athleteCardModeState: Observable<boolean>;
   athleteCardModeSub: Subscription;
   athleteCardMode: boolean;
@@ -70,6 +60,16 @@ export class BoardComponent implements OnInit, OnDestroy {
   athleteAccountonPaidAccountState: Observable<boolean>;
   athleteAccountonPaidAccountSub: Subscription;
   athleteAccountonPaidAccount: boolean;
+
+  name = 'main'
+
+  //note creator variables
+  board_note_name: string;
+  board_note_link: string;
+  board_note_description: string;
+  board_note_id: number;
+
+  index: number;
 
   //responsive variables
   isHandset: boolean;

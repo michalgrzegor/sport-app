@@ -1,16 +1,16 @@
-import { HttpClientService } from 'src/app/shared/http-client.service';
 import { Component, OnInit } from '@angular/core';
-
-import * as fromApp from '../shared/store/app.reducers';
-import { Store } from '@ngrx/store';
+import { HttpClientService } from 'src/app/shared/http-client.service';
 import { Subscription, Observable } from 'rxjs';
-import * as TilesDataActions from '../shared/store/tiles-data.actions';
 import { CookieService } from 'ngx-cookie-service';
 import { TrainingPlan } from '../shared/store/tiles-data.reducers';
 import { BreakpointObserver, BreakpointState, Breakpoints } from '@angular/cdk/layout';
-import * as LoopsActions from '../shared/store/loops.actions'
 import { Tags } from '../shared/store/loops.reducers';
 import { DataService } from '../shared/data.service';
+
+import { Store } from '@ngrx/store';
+import * as fromApp from '../shared/store/app.reducers';
+import * as TilesDataActions from '../shared/store/tiles-data.actions';
+import * as LoopsActions from '../shared/store/loops.actions'
 
 @Component({
   selector: 'app-loops',

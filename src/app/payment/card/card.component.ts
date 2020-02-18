@@ -1,13 +1,13 @@
+import { Component, OnInit, ViewChild, ElementRef, Input, OnDestroy } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { CookieService } from 'ngx-cookie-service';
-
-import * as fromApp from '../../shared/store/app.reducers';
-import * as TilesDataActions from '../../shared/store/tiles-data.actions';
-import { Store } from '@ngrx/store';
 import { HttpPaymentClientService } from 'src/app/shared/http-payment-client.service';
 import { Observable, Subscription } from 'rxjs';
+
+import { Store } from '@ngrx/store';
+import * as fromApp from '../../shared/store/app.reducers';
+import * as TilesDataActions from '../../shared/store/tiles-data.actions';
 
 declare var Stripe;
 
@@ -24,7 +24,7 @@ declare var Stripe;
     ])
   ]
 })
-export class CardComponent implements OnInit {
+export class CardComponent implements OnInit, OnDestroy {
   @ViewChild('cardElement') cardElement: ElementRef;
   @Input() planSubscrition;
   summaryClose: boolean = false;
@@ -46,7 +46,6 @@ export class CardComponent implements OnInit {
 
   style = {
     base: {
-      // Add your base input styles here. For example:
       fontSize: '16px',
       color: "rgba(255, 255, 255, 0.67)",
       fontFamily: "Lato"
@@ -192,6 +191,10 @@ export class CardComponent implements OnInit {
 
       }
     }
+  }
+
+  ngOnDestroy(): void {
+    this.cardFailSub.unsubscribe()
   }
 
 }

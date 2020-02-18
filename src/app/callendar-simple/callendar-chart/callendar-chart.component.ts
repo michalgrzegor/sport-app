@@ -1,13 +1,16 @@
 import { Component, OnInit, Input, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import * as _ from 'lodash';
+import { BreakpointObserver, BreakpointState, Breakpoints } from '@angular/cdk/layout';
 import { Subscription, Observable } from 'rxjs';
+
+import { OpenedDay } from 'src/app/shared/store/callendar-data.reducers';
+import { Association } from 'src/app/shared/store/tiles-data.reducers';
+
 //store imports
 import * as fromApp from '../../shared/store/app.reducers';
 import { Store } from '@ngrx/store';
+
+import * as _ from 'lodash';
 import * as moment from 'moment';
-import { OpenedDay } from 'src/app/shared/store/callendar-data.reducers';
-import { Association } from 'src/app/shared/store/tiles-data.reducers';
-import { BreakpointObserver, BreakpointState, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-callendar-chart',
@@ -34,6 +37,10 @@ export class CallendarChartComponent implements OnInit, OnDestroy {
   fireChangeSub: Subscription;
   fireChange: string = null;
 
+  trainingColor: string[] = [];
+  chartSub: Subscription;
+  pieSlices: Slice[] = [];
+
   @Input() callendarIndex: number;
   @Input() weeksIndex: number;
   @Input() weekDatesIndex: number;
@@ -43,10 +50,6 @@ export class CallendarChartComponent implements OnInit, OnDestroy {
   isOpened: boolean = false;
 
   day: Association[];
-
-  trainingColor: string[] = [];
-  chartSub: Subscription;
-  pieSlices: Slice[] = [];
 
   //responsive variables
   isHandset: boolean;
@@ -193,12 +196,15 @@ export class CallendarChartComponent implements OnInit, OnDestroy {
     this.calendarArraySub.unsubscribe();
     this.openedDaySub.unsubscribe();
     this.fireChangeSub.unsubscribe();
+    this.daysToChangeSub.unsubscribe();
+    this.chartSub.unsubscribe();
     this.calendarArray = null;
   }
 
   
 
 }
+
 export interface Slice {
   offset?: number,
   value: number,

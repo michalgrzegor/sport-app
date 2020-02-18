@@ -1,11 +1,10 @@
-import { style } from '@angular/animations';
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Input } from '@angular/core';
-
-import * as fromApp from '../../../shared/store/app.reducers';
-import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { Tile } from 'src/app/models/tile';
 import { WeekDate } from 'src/app/shared/callendar-data.service';
+
+import { Store } from '@ngrx/store';
+import * as fromApp from '../../../shared/store/app.reducers';
 
 import * as moment from 'moment';
 
