@@ -4,8 +4,7 @@ import { DialogData } from 'src/app/tile-editor/new-tile-type/new-tile-type.comp
 
 @Component({
   selector: 'app-verify-dialog-allday',
-  templateUrl: './verify-dialog-allday.component.html',
-  styleUrls: ['./verify-dialog-allday.component.scss']
+  templateUrl: './verify-dialog-allday.component.html'
 })
 export class VerifyDialogAllDayComponent {
 

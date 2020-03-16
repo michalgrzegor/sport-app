@@ -9,7 +9,7 @@ import { CookieService } from 'ngx-cookie-service';
 
 import { Store } from '@ngrx/store';
 import * as tilesDataActions from '../../shared/store/tiles-data.actions';
-import * as CallendarDataActions from '../../shared/store/callendar-data.actions';
+import * as CallendarDataActions from '../../shared/store/calendar-data.actions';
 import * as ChartDataActions from '../../shared/store/chart-data.actions';
 import * as fromApp from '../../shared/store/app.reducers';
 import * as TilesDataActions from '../../shared/store/tiles-data.actions';

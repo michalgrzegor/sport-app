@@ -5,7 +5,7 @@ import { StoreModule } from '@ngrx/store';
 import { reducers } from './store/app.reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { TilesDataEffects } from './store/tiles-data.effects';
-import { CalendarDataEffects } from './store/callendar-data.effects';
+import { CalendarDataEffects } from './store/calendar-data.effects';
 import { BoardDataEffects } from './store/board-data.effects';
 import { ChartDataEffects } from './store/chart-data.effects';
 import { AthleteDataEffects } from './store/athletes-data.effects';

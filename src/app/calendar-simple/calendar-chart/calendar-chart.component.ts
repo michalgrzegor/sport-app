@@ -1,26 +1,23 @@
 import { Component, OnInit, Input, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { BreakpointObserver, BreakpointState, Breakpoints } from '@angular/cdk/layout';
+import * as _ from 'lodash';
 import { Subscription, Observable } from 'rxjs';
-
-import { OpenedDay } from 'src/app/shared/store/callendar-data.reducers';
-import { Association } from 'src/app/shared/store/tiles-data.reducers';
-
 //store imports
 import * as fromApp from '../../shared/store/app.reducers';
 import { Store } from '@ngrx/store';
-
-import * as _ from 'lodash';
 import * as moment from 'moment';
+import { OpenedDay } from 'src/app/shared/store/calendar-data.reducers';
+import { Association } from 'src/app/shared/store/tiles-data.reducers';
+import { BreakpointObserver, BreakpointState, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
-  selector: 'app-callendar-chart',
-  templateUrl: './callendar-chart.component.html',
-  styleUrls: ['./callendar-chart.component.scss'],
+  selector: 'app-calendar-chart',
+  templateUrl: './calendar-chart.component.html',
+  styleUrls: ['./calendar-chart.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 
-export class CallendarChartComponent implements OnInit, OnDestroy {
+export class CalendarChartComponent implements OnInit, OnDestroy {
   calendarArrayState: Observable<any>;
   calendarArraySub: Subscription;
   calendarArray: any;
@@ -37,11 +34,7 @@ export class CallendarChartComponent implements OnInit, OnDestroy {
   fireChangeSub: Subscription;
   fireChange: string = null;
 
-  trainingColor: string[] = [];
-  chartSub: Subscription;
-  pieSlices: Slice[] = [];
-
-  @Input() callendarIndex: number;
+  @Input() calendarIndex: number;
   @Input() weeksIndex: number;
   @Input() weekDatesIndex: number;
 
@@ -50,6 +43,10 @@ export class CallendarChartComponent implements OnInit, OnDestroy {
   isOpened: boolean = false;
 
   day: Association[];
+
+  trainingColor: string[] = [];
+  chartSub: Subscription;
+  pieSlices: Slice[] = [];
 
   //responsive variables
   isHandset: boolean;
@@ -95,14 +92,15 @@ export class CallendarChartComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.daysToChangeState = this._store.select(state => state.callendar.daysToChange);
+    this.daysToChangeState = this._store.select(state => state.calendar.daysToChange);
     this.daysToChangeSub = this.daysToChangeState.subscribe(
       data => {
         if(data){
           
           data.forEach(
             day => {
-              if(this.calendarArray && moment(day).format("MM-DD-YYYY") === moment(this.calendarArray.calendar.calendar[this.callendarIndex].weeks[this.weeksIndex].weekDates[this.weekDatesIndex].momentDate).format("MM-DD-YYYY")){
+              if(this.calendarArray && moment(day).format("MM-DD-YYYY") === moment(this.calendarArray.calendar.calendar[this.calendarIndex].weeks[this.weeksIndex].weekDates[this.weekDatesIndex].momentDate).format("MM-DD-YYYY")){
+                console.log(`detekcja`)
                 this._changeDetector.markForCheck();
               }
             }
@@ -113,16 +111,16 @@ export class CallendarChartComponent implements OnInit, OnDestroy {
 
     
     
-    this.calendarArrayState = this._store.select(state => state.callendar);
+    this.calendarArrayState = this._store.select(state => state.calendar);
     this.calendarArraySub = this.calendarArrayState.subscribe(
       (data) => {
         if(!this.calendarArray){
           this._changeDetector.markForCheck();
         }
         this.calendarArray = data;
-        this.day = data.calendar.calendar[this.callendarIndex].weeks[this.weeksIndex].weekDates[this.weekDatesIndex].association;
+        this.day = data.calendar.calendar[this.calendarIndex].weeks[this.weeksIndex].weekDates[this.weekDatesIndex].association;
         this.drawPieChart();
-        if(moment().format("MM-DD-YYYY") === moment(data.calendar.calendar[this.callendarIndex].weeks[this.weeksIndex].weekDates[this.weekDatesIndex].momentDate).format("MM-DD-YYYY")){
+        if(moment().format("MM-DD-YYYY") === moment(data.calendar.calendar[this.calendarIndex].weeks[this.weeksIndex].weekDates[this.weekDatesIndex].momentDate).format("MM-DD-YYYY")){
           this.isToday = true;
         }else{
           this.isToday = false;
@@ -130,7 +128,7 @@ export class CallendarChartComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.openedDayState = this._store.select(state => state.callendar.openedDay);
+    this.openedDayState = this._store.select(state => state.calendar.openedDay);
     this.openedDaySub = this.openedDayState.subscribe(
       data => {
         this.openedDay = data;
@@ -153,6 +151,7 @@ export class CallendarChartComponent implements OnInit, OnDestroy {
       data => {
         this.fireChange = data;
         if(data){
+          console.log(`?????????????<-------------------- odpala --------------------------->????????????????????????`)
           this._changeDetector.markForCheck();
         }
       }
@@ -196,15 +195,12 @@ export class CallendarChartComponent implements OnInit, OnDestroy {
     this.calendarArraySub.unsubscribe();
     this.openedDaySub.unsubscribe();
     this.fireChangeSub.unsubscribe();
-    this.daysToChangeSub.unsubscribe();
-    this.chartSub.unsubscribe();
     this.calendarArray = null;
   }
 
   
 
 }
-
 export interface Slice {
   offset?: number,
   value: number,

@@ -1,6 +1,6 @@
 import { Tag } from './../../tile-editor/tile-editor.component';
 import { Association, TpInfo, Invitation } from 'src/app/shared/store/tiles-data.reducers';
-import { WeekDate } from './../callendar-data.service';
+import { WeekDate } from '../calendar-data.service';
 import { Tile } from './../../models/tile';
 import { Action } from '@ngrx/store';
 import { TrainingPlan, Star, CalendarComment } from './tiles-data.reducers';

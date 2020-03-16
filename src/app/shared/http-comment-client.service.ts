@@ -14,7 +14,9 @@ import { CalendarComment } from './store/tiles-data.reducers';
   providedIn: 'root'
 })
 export class HttpCommentClientService {
-  url: string = 'https://gremmo-one.herokuapp.com/api/v1/';
+
+  URL: string = 'https://ccoach-app.herokuapp.com/api/v1/';
+
   getHttpOptions() {
     const token = this._cookieService.get('token');
     const httpOptions = {
@@ -35,7 +37,7 @@ export class HttpCommentClientService {
   ) { };
 
   postCommentTrainer(tp_id: number, comment: CalendarComment){
-    this._http.post(`${this.url}training_plans/${tp_id}/calendar_comments`, comment, this.getHttpOptions()).subscribe(
+    this._http.post(`${this.URL}training_plans/${tp_id}/calendar_comments`, comment, this.getHttpOptions()).subscribe(
       response => {
         this._store.dispatch(new TilesDataActions.AddComment(response));
       }
@@ -43,7 +45,7 @@ export class HttpCommentClientService {
   }
 
   postCommentAthlete(comment: CalendarComment){
-    this._http.post(`${this.url}platform_training_plan_calendar_comments`, comment, this.getHttpOptions()).subscribe(
+    this._http.post(`${this.URL}platform_training_plan_calendar_comments`, comment, this.getHttpOptions()).subscribe(
       response => {
         this._store.dispatch(new TilesDataActions.AddComment(response));
       }
@@ -51,7 +53,7 @@ export class HttpCommentClientService {
   }
 
   patchCommentTrainer(comment_id: number, tp_id: number, comment: CalendarComment){
-    this._http.patch(`${this.url}training_plans/${tp_id}/calendar_comments/${comment_id}`, comment, this.getHttpOptions()).subscribe(
+    this._http.patch(`${this.URL}training_plans/${tp_id}/calendar_comments/${comment_id}`, comment, this.getHttpOptions()).subscribe(
       response => {
         this._store.dispatch(new TilesDataActions.EditComment(response));
       }
@@ -59,7 +61,7 @@ export class HttpCommentClientService {
   }
 
   patchCommentAthlete(comment_id: number, comment: CalendarComment){
-    this._http.patch(`${this.url}platform_training_plan_calendar_comments/${comment_id}`, comment, this.getHttpOptions()).subscribe(
+    this._http.patch(`${this.URL}platform_training_plan_calendar_comments/${comment_id}`, comment, this.getHttpOptions()).subscribe(
       response => {
         this._store.dispatch(new TilesDataActions.EditComment(response));
       }
@@ -67,7 +69,7 @@ export class HttpCommentClientService {
   }
 
   deleteCommentTrainer(comment_id: number, tp_id: number){
-    this._http.delete(`${this.url}training_plans/${tp_id}/calendar_comments/${comment_id}`, this.getHttpOptions()).subscribe(
+    this._http.delete(`${this.URL}training_plans/${tp_id}/calendar_comments/${comment_id}`, this.getHttpOptions()).subscribe(
       response => {
         this._store.dispatch(new TilesDataActions.DeleteComment(comment_id));
       }
@@ -75,7 +77,7 @@ export class HttpCommentClientService {
   }
 
   deleteCommentAthlete(comment_id: number){
-    this._http.delete(`${this.url}platform_training_plan_calendar_comments/${comment_id}`, this.getHttpOptions()).subscribe(
+    this._http.delete(`${this.URL}platform_training_plan_calendar_comments/${comment_id}`, this.getHttpOptions()).subscribe(
       response => {
         this._store.dispatch(new TilesDataActions.DeleteComment(comment_id));
       }

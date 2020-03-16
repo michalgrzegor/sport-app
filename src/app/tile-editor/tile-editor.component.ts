@@ -16,7 +16,7 @@ import * as _ from 'lodash';
 
 import * as fromApp from '../shared/store/app.reducers';
 import * as TilesDataActions from '../shared/store/tiles-data.actions';
-import * as CalendarDataActions from '../shared/store/callendar-data.actions';
+import * as CalendarDataActions from '../shared/store/calendar-data.actions';
 
 export interface TrainingType {
   name: string,
@@ -224,7 +224,7 @@ export class TileEditorComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.isTutorialState = this._store.select(state => state.callendar.isTutorial);
+    this.isTutorialState = this._store.select(state => state.calendar.isTutorial);
     this.isTutorialSub = this.isTutorialState.subscribe(
       data => {
         this.isTutorial = data;

@@ -9,6 +9,6 @@ export const environment = {
     domain: 'dev-9ej1r9oe.auth0.com',
     clientID: '7y6PXMSrRgdQDJHOlHxJa93siPe7olM5',
     callbackURL: 'http://localhost:4200',
-    audience: "https://gremmo-one.herokuapp.com/"
+    audience: "https://ccoach-app.herokuapp.com/"
   }
 };

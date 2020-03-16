@@ -45,32 +45,32 @@
   </div>
   
   <div *ngIf="!noTP && isPaidAccount" >
-    <div *ngIf="callendarArray" class="master-container">
+    <div *ngIf="calendarArray" class="master-container">
       <div class="grid-container-nav">
         <button mat-button (click)="sub()">
           <mat-icon class="menu-right-icon">keyboard_arrow_left</mat-icon>
         </button>
-        <div class="month-name">{{ callendarArray.calendar[i].monthName.monthDate | date: 'MMMM yyyy' }}</div>
+        <div class="month-name">{{ calendarArray.calendar[i].monthName.monthDate | date: 'MMMM yyyy' }}</div>
         <button mat-button (click)="add()">
           <mat-icon class="menu-right-icon">keyboard_arrow_right</mat-icon>
         </button>
       </div>
       <div class="grid-container">
-        <div *ngFor="let dayOfTheWeek of callendarArray.calendar[i].weekDays" class="day-of-the-week">{{
+        <div *ngFor="let dayOfTheWeek of calendarArray.calendar[i].weekDays" class="day-of-the-week">{{
           dayOfTheWeek.dayOfTheWeek }}</div>
       </div>
-      <div *ngFor="let week of callendarArray.calendar[i].weeks; let in = index" class="grid-container">
+      <div *ngFor="let week of calendarArray.calendar[i].weeks; let inde = index" class="grid-container">
         <div *ngFor="let day of week.weekDates; let ind = index" class="calendar-item-chart" [ngStyle]="{height: isHandset ? '48px' : '72px'}">
           <div 
             *ngIf="day.available && !dayToedit(day.momentDate)"
             id="{{day.momentDate}}" 
             class="dropp-container" 
             [ngStyle]="{width: isHandset ? '44px' : '72px'}"
-            (click)="expand(i, in, ind)" 
+            (click)="expand(i, inde, ind)" 
             cdkDropList 
             [cdkDropListData]="fakeData"
             [cdkDropListConnectedTo]="allMomentDateArray"
-            (cdkDropListDropped)="drop($event, day, i, in, ind)" 
+            (cdkDropListDropped)="drop($event, day, i, inde, ind)" 
             #dayInMonth="cdkDropList"
           ></div>
           <div 
@@ -78,21 +78,21 @@
             id="{{day.momentDate}}" 
             class="dropp-container" 
             [ngStyle]="{width: isHandset ? '44px' : '72px'}"
-            (click)="expand(i, in, ind)" 
+            (click)="expand(i, inde, ind)" 
           ></div>
           <div class="calendar-item-chart-date">
-            <div class="transparent-handset" *ngIf="(isHandset && openedDay && openedDay.callendarIndex === i && openedDay.weeksIndex === in && openedDay.weekDatesIndex !== ind) || (isHandset && openedDay && openedDay.callendarIndex === i && openedDay.weeksIndex !== in && openedDay.weekDatesIndex !== ind) || (isHandset && openedDay && openedDay.callendarIndex === i && openedDay.weeksIndex !== in && openedDay.weekDatesIndex === ind)" ></div>
-            <div class="transparent" *ngIf="(!isHandset && openedDay && openedDay.callendarIndex === i && openedDay.weeksIndex === in && openedDay.weekDatesIndex !== ind) || (!isHandset && openedDay && openedDay.callendarIndex === i && openedDay.weeksIndex !== in && openedDay.weekDatesIndex !== ind) || (!isHandset && openedDay && openedDay.callendarIndex === i && openedDay.weeksIndex !== in && openedDay.weekDatesIndex === ind)" ></div>
+            <div class="transparent-handset" *ngIf="(isHandset && openedDay && openedDay.calendarIndex === i && openedDay.weeksIndex === inde && openedDay.weekDatesIndex !== ind) || (isHandset && openedDay && openedDay.calendarIndex === i && openedDay.weeksIndex !== inde && openedDay.weekDatesIndex !== ind) || (isHandset && openedDay && openedDay.calendarIndex === i && openedDay.weeksIndex !== inde && openedDay.weekDatesIndex === ind)" ></div>
+            <div class="transparent" *ngIf="(!isHandset && openedDay && openedDay.calendarIndex === i && openedDay.weeksIndex === inde && openedDay.weekDatesIndex !== ind) || (!isHandset && openedDay && openedDay.calendarIndex === i && openedDay.weeksIndex !== inde && openedDay.weekDatesIndex !== ind) || (!isHandset && openedDay && openedDay.calendarIndex === i && openedDay.weeksIndex !== inde && openedDay.weekDatesIndex === ind)" ></div>
             <span [ngClass]="{'span-handset' : isHandset, 'span-tablet' : isTablet, 'span-web' : isWeb}" >{{day.value}}
               <mat-icon *ngIf="day.star && day.available"  class="star-front" [ngClass]="{'star-web' : isWeb, 'star-tablet' : isTablet, 'star-handset' : isHandset}"  [ngStyle]="{'color': day.star}">stars</mat-icon>
             </span>
           </div>
-          <app-callendar-chart
-            *ngIf="day.available" [callendarIndex]="i" [weeksIndex]="in" [weekDatesIndex]="ind"></app-callendar-chart>
+          <app-calendar-chart
+            *ngIf="day.available" [calendarIndex]="i" [weeksIndex]="inde" [weekDatesIndex]="ind"></app-calendar-chart>
         </div>
         <div *ngFor="let cont of week.container" class="calendar-container">
-          <div class="animation-container" *ngIf="callendarNoDisplayArray.calendar[i].weeks[in].container[0].container && callendarNoDisplayArray.calendar[i].weeks[in].container[0].expanded" [@hideShow]>
-            <app-callendar-day></app-callendar-day>
+          <div class="animation-container" *ngIf="calendarNoDisplayArray.calendar[i].weeks[inde].container[0].container && calendarNoDisplayArray.calendar[i].weeks[inde].container[0].expanded" [@hideShow]>
+            <app-calendar-day></app-calendar-day>
           </div>
         </div>
       </div>
@@ -100,42 +100,42 @@
   </div>
 
   <div *ngIf="!noTP && !isPaidAccount" >
-    <div *ngIf="callendarArray" class="master-container">
+    <div *ngIf="calendarArray" class="master-container">
       <div class="grid-container-nav">
         <button mat-button (click)="sub()">
           <mat-icon class="menu-right-icon">keyboard_arrow_left</mat-icon>
         </button>
-        <div class="month-name">{{ callendarArray.calendar[i].monthName.monthDate | date: 'MMMM yyyy' }}</div>
+        <div class="month-name">{{ calendarArray.calendar[i].monthName.monthDate | date: 'MMMM yyyy' }}</div>
         <button mat-button (click)="add()">
           <mat-icon class="menu-right-icon">keyboard_arrow_right</mat-icon>
         </button>
       </div>
       <div class="grid-container">
-        <div *ngFor="let dayOfTheWeek of callendarArray.calendar[i].weekDays" class="day-of-the-week">{{
+        <div *ngFor="let dayOfTheWeek of calendarArray.calendar[i].weekDays" class="day-of-the-week">{{
           dayOfTheWeek.dayOfTheWeek }}</div>
       </div>
-      <div *ngFor="let week of callendarArray.calendar[i].weeks; let in = index" class="grid-container">
+      <div *ngFor="let week of calendarArray.calendar[i].weeks; let inde = index" class="grid-container">
         <div *ngFor="let day of week.weekDates; let ind = index" class="calendar-item-chart" [ngStyle]="{height: isHandset ? '48px' : '72px'}">
           <div 
             *ngIf="day.available"
             id="{{day.momentDate}}" 
             class="dropp-container" 
             [ngStyle]="{width: isHandset ? '44px' : '72px'}"
-            (click)="expand(i, in, ind)" 
+            (click)="expand(i, inde, ind)" 
           ></div>
           <div class="calendar-item-chart-date">
-            <div class="transparent-handset" *ngIf="(isHandset && openedDay && openedDay.callendarIndex === i && openedDay.weeksIndex === in && openedDay.weekDatesIndex !== ind) || (isHandset && openedDay && openedDay.callendarIndex === i && openedDay.weeksIndex !== in && openedDay.weekDatesIndex !== ind) || (isHandset && openedDay && openedDay.callendarIndex === i && openedDay.weeksIndex !== in && openedDay.weekDatesIndex === ind)" ></div>
-            <div class="transparent" *ngIf="(!isHandset && openedDay && openedDay.callendarIndex === i && openedDay.weeksIndex === in && openedDay.weekDatesIndex !== ind) || (!isHandset && openedDay && openedDay.callendarIndex === i && openedDay.weeksIndex !== in && openedDay.weekDatesIndex !== ind) || (!isHandset && openedDay && openedDay.callendarIndex === i && openedDay.weeksIndex !== in && openedDay.weekDatesIndex === ind)" ></div>
+            <div class="transparent-handset" *ngIf="(isHandset && openedDay && openedDay.calendarIndex === i && openedDay.weeksIndex === inde && openedDay.weekDatesIndex !== ind) || (isHandset && openedDay && openedDay.calendarIndex === i && openedDay.weeksIndex !== inde && openedDay.weekDatesIndex !== ind) || (isHandset && openedDay && openedDay.calendarIndex === i && openedDay.weeksIndex !== inde && openedDay.weekDatesIndex === ind)" ></div>
+            <div class="transparent" *ngIf="(!isHandset && openedDay && openedDay.calendarIndex === i && openedDay.weeksIndex === inde && openedDay.weekDatesIndex !== ind) || (!isHandset && openedDay && openedDay.calendarIndex === i && openedDay.weeksIndex !== inde && openedDay.weekDatesIndex !== ind) || (!isHandset && openedDay && openedDay.calendarIndex === i && openedDay.weeksIndex !== inde && openedDay.weekDatesIndex === ind)" ></div>
             <span [ngClass]="{'span-handset' : isHandset, 'span-tablet' : isTablet, 'span-web' : isWeb}" >{{day.value}}
               <mat-icon *ngIf="day.star && day.available"  class="star-front" [ngClass]="{'star-web' : isWeb, 'star-tablet' : isTablet, 'star-handset' : isHandset}"  [ngStyle]="{'color': day.star}">stars</mat-icon>
             </span>
           </div>
-          <app-callendar-chart
-            *ngIf="day.available" [callendarIndex]="i" [weeksIndex]="in" [weekDatesIndex]="ind"></app-callendar-chart>
+          <app-calendar-chart
+            *ngIf="day.available" [calendarIndex]="i" [weeksIndex]="inde" [weekDatesIndex]="ind"></app-calendar-chart>
         </div>
         <div *ngFor="let cont of week.container" class="calendar-container">
-          <div class="animation-container" *ngIf="callendarNoDisplayArray.calendar[i].weeks[in].container[0].container && callendarNoDisplayArray.calendar[i].weeks[in].container[0].expanded" [@hideShow]>
-            <app-callendar-day></app-callendar-day>
+          <div class="animation-container" *ngIf="calendarNoDisplayArray.calendar[i].weeks[inde].container[0].container && calendarNoDisplayArray.calendar[i].weeks[inde].container[0].expanded" [@hideShow]>
+            <app-calendar-day></app-calendar-day>
           </div>
         </div>
       </div>

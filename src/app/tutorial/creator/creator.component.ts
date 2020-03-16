@@ -5,7 +5,7 @@ import { Observable, Subscription } from 'rxjs';
 
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../shared/store/app.reducers';
-import * as CalendarDataActions from '../../shared/store/callendar-data.actions';
+import * as CalendarDataActions from '../../shared/store/calendar-data.actions';
 
 export interface CreatorData {
   creator: string
@@ -13,8 +13,7 @@ export interface CreatorData {
 
 @Component({
   selector: 'app-creator',
-  templateUrl: './creator.component.html',
-  styleUrls: ['./creator.component.scss']
+  templateUrl: './creator.component.html'
 })
 export class CreatorComponent implements OnInit {
 
@@ -31,7 +30,7 @@ export class CreatorComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.tileCloseState = this._store.select(state => state.callendar.tileClose);
+    this.tileCloseState = this._store.select(state => state.calendar.tileClose);
     this.tileCloseSub = this.tileCloseState.subscribe(
       data => {
         this.tileClose = data;

@@ -146,7 +146,6 @@ export class ChartComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-
     this.loadingState = this._store.select(state => state.chart.loading);
     this.loadingSub = this.loadingState.subscribe(
       data => {

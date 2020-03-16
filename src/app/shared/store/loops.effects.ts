@@ -8,7 +8,7 @@ import { CookieService } from 'ngx-cookie-service';
 
 @Injectable()
 export class LoopsEffects {
-    url: string = 'https://gremmo-one.herokuapp.com/api/v1/';
+    url: string = 'https://ccoach-app.herokuapp.com/api/v1/';
 
     getHttpOptions() {
         const token = this._cookieService.get('token');

@@ -3,7 +3,7 @@
 </div>
 
 <!-- when no payment -->
-<div *ngIf="(planShow && !isManage && !isPaidAccount) || (isTrial && !cardPayment)" mat-dialog-content>
+<div class="no-payment" *ngIf="(planShow && !isManage && !isPaidAccount) || (isTrial && !cardPayment)" mat-dialog-content>
   <h4 class="title">trainer account</h4>
   <p class="slogan">Tools to help coach your athletes.</p>
   <div class="slider-quote">

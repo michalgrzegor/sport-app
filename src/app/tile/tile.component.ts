@@ -6,9 +6,9 @@ import { VerifyDialogComponent } from './verify-dialog/verify-dialog.component';
 import { Component, OnInit, Input, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Tile } from 'src/app/models/tile';
 import { Observable, Subscription } from 'rxjs';
-import { OpenedDay } from 'src/app/shared/store/callendar-data.reducers';
+import { OpenedDay } from 'src/app/shared/store/calendar-data.reducers';
 import { MatDialog } from '@angular/material';
-import { CallendarArray } from 'src/app/shared/callendar-data.service';
+import { CalendarArray } from 'src/app/shared/calendar-data.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
@@ -71,9 +71,9 @@ export class TileComponent implements OnInit, OnDestroy {
   openedDaySub: Subscription;
   openedDay: OpenedDay = null;
   
-  callendarArrayState: Observable<CallendarArray>;
-  callendarArraySub: Subscription;
-  callendarArray: CallendarArray = null;
+  calendarArrayState: Observable<CalendarArray>;
+  calendarArraySub: Subscription;
+  calendarArray: CalendarArray = null;
   
   mainRouteState: Observable<string>;
   mainRouteSub: Subscription;
@@ -186,14 +186,14 @@ export class TileComponent implements OnInit, OnDestroy {
 
     //subscriptions to states
     
-    this.callendarArrayState = this._store.select(state => state.callendar.calendar);
-    this.callendarArraySub = this.callendarArrayState.subscribe(
+    this.calendarArrayState = this._store.select(state => state.calendar.calendar);
+    this.calendarArraySub = this.calendarArrayState.subscribe(
       data => {
-        this.callendarArray = data;
+        this.calendarArray = data;
       }
     );
 
-    this.openedDayState = this._store.select(state => state.callendar.openedDay);
+    this.openedDayState = this._store.select(state => state.calendar.openedDay);
     this.openedDaySub = this.openedDayState.subscribe(
       data => this.openedDay = data
     );
@@ -250,7 +250,7 @@ export class TileComponent implements OnInit, OnDestroy {
 
   delete(){
     if(!this.isInCollection){
-      const openedDay = this.callendarArray.calendar[this.openedDay.callendarIndex].weeks[this.openedDay.weeksIndex].weekDates[this.openedDay.weekDatesIndex];
+      const openedDay = this.calendarArray.calendar[this.openedDay.calendarIndex].weeks[this.openedDay.weeksIndex].weekDates[this.openedDay.weekDatesIndex];
   
       this.isVerifiedSub = this._dialog.open(VerifyDialogComponent, {
         width: '300px',
@@ -261,8 +261,8 @@ export class TileComponent implements OnInit, OnDestroy {
       this.isVerifiedSub.afterClosed().subscribe(result => {
         this.isVerified = result;
         if(result){
-          this._httpCalendarService.deleteCalendarAssoc(this.trainingPlan, this.tr_id, this.asso_id, this.openedDay.callendarIndex, this.openedDay.weeksIndex, this.openedDay.weekDatesIndex, this.tileRef.tile_temporary_id, openedDay.momentDate, openedDay, this.callendarArray.calendar[this.openedDay.callendarIndex].weeks[this.openedDay.weeksIndex].weekDates);
-          this.makeWeek(this.openedDay.callendarIndex, this.openedDay.weeksIndex)
+          this._httpCalendarService.deleteCalendarAssoc(this.trainingPlan, this.tr_id, this.asso_id, this.openedDay.calendarIndex, this.openedDay.weeksIndex, this.openedDay.weekDatesIndex, this.tileRef.tile_temporary_id, openedDay.momentDate, openedDay, this.calendarArray.calendar[this.openedDay.calendarIndex].weeks[this.openedDay.weeksIndex].weekDates);
+          this.makeWeek(this.openedDay.calendarIndex, this.openedDay.weeksIndex)
         }
       })
     } else {
@@ -299,9 +299,9 @@ export class TileComponent implements OnInit, OnDestroy {
     this._store.dispatch(new TilesDataActions.EditTile(this.tileRef));
   }
 
-  makeWeek(callendarIndex: number, weeksIndex: number){
+  makeWeek(calendarIndex: number, weeksIndex: number){
     const assoArray = [];
-    this.callendarArray.calendar[callendarIndex].weeks[weeksIndex].weekDates.forEach(
+    this.calendarArray.calendar[calendarIndex].weeks[weeksIndex].weekDates.forEach(
       week => {
         if(week.association){
           week.association.forEach(
@@ -331,7 +331,7 @@ export class TileComponent implements OnInit, OnDestroy {
         asso_temporary_id: this.tile.asso.asso_temporary_id,
         asso_index_in_array: this.numberArray[session]+1
       };
-      this._httpCalendarService.patchCalendarAssoc(this.trainingPlan.id, this.asso_id, assoChangeSession, this.openedDay.callendarIndex, this.openedDay.weeksIndex, this.openedDay.weekDatesIndex, this.tile.asso.asso_temporary_id, session+1);
+      this._httpCalendarService.patchCalendarAssoc(this.trainingPlan.id, this.asso_id, assoChangeSession, this.openedDay.calendarIndex, this.openedDay.weeksIndex, this.openedDay.weekDatesIndex, this.tile.asso.asso_temporary_id, session+1);
     }
   };
 
@@ -350,7 +350,7 @@ export class TileComponent implements OnInit, OnDestroy {
         asso_temporary_id: this.tile.asso.asso_temporary_id,
         asso_index_in_array: this.numberArray[session-1]+1
       };
-      this._httpCalendarService.patchCalendarAssoc(this.trainingPlan.id, this.asso_id, assoChangeSession, this.openedDay.callendarIndex, this.openedDay.weeksIndex, this.openedDay.weekDatesIndex, this.tile.asso.asso_temporary_id, session-1);
+      this._httpCalendarService.patchCalendarAssoc(this.trainingPlan.id, this.asso_id, assoChangeSession, this.openedDay.calendarIndex, this.openedDay.weeksIndex, this.openedDay.weekDatesIndex, this.tile.asso.asso_temporary_id, session-1);
     }
   };
 
@@ -367,7 +367,7 @@ export class TileComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(){
     this.openedDaySub.unsubscribe();
-    this.callendarArraySub.unsubscribe();
+    this.calendarArraySub.unsubscribe();
     this.mainRouteSub.unsubscribe();
     this.trainingPlanSub.unsubscribe();
     this.gridArraySub.unsubscribe();

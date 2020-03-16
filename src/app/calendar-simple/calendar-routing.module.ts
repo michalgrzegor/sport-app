@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 
 import { Routes, RouterModule } from '@angular/router';
-import { CallendarSimpleComponent } from './callendar-simple.component';
+import { CalendarSimpleComponent } from './calendar-simple.component';
 import { GuardGuard } from '../auth/guard.guard';
 
 const routes: Routes = [
-        { path: '', component: CallendarSimpleComponent, canActivate: [GuardGuard]}
+        { path: '', component: CalendarSimpleComponent, canActivate: [GuardGuard]}
 ]
 
 @NgModule({

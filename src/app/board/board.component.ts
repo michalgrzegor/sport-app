@@ -124,7 +124,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     });
 
 
-    this.planNameState = this._store.select(state => state.callendar.planName);
+    this.planNameState = this._store.select(state => state.calendar.planName);
     this.planNameSub = this.planNameState.subscribe(
       data => this.planName = data
     )

@@ -1,27 +1,31 @@
 /* styling training type chips */
-.chips-type {
-  padding-left: 4px;
-  background: rgba(96, 132, 144, 0.3);
-}
+#searchby {
+  .mat-chip-list {
+    padding: 0 10px;
 
-.chips-type mat-icon {
-  margin-right: 8px;
-  color: rgba(255, 255, 255, 0.57);
-}
+    .chips-type {
+      padding-left: 4px;
+      background: rgba(96, 132, 144, 0.3);
 
-.training-type-icon {
-  box-sizing: border-box;
-  width: 24px;
-  height: 24px;
-  border-radius: 12px;
-  margin-right: 8px;
-}
-.mat-chip-list{
-  padding: 0 10px;
-}
+      .training-type-icon {
+        box-sizing: border-box;
+        width: 24px;
+        height: 24px;
+        border-radius: 12px;
+        margin-right: 8px;
+      }
+    }
+  }
 
-h4{
-  margin: 0px;
-  height: 48px;
-  line-height: 48px;
+  h4 {
+    margin: 0px;
+    height: 48px;
+    line-height: 48px;
+
+    mat-icon {
+      margin-right: 8px;
+      color: rgba(255, 255, 255, 0.57);
+    }
+  }
+
 }

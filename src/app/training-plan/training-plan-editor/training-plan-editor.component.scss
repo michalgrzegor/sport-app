@@ -4,14 +4,12 @@ p {
   color: #FF5D51;
 }
 
-.enabled {
-  background-color: #608490;
-  color: rgba(255, 255, 255, 0.87)
-}
-
 .grid-to-right {
   display: grid;
   grid-template-columns: 1fr auto auto;
+
+  .enabled {
+    background-color: #608490;
+    color: rgba(255, 255, 255, 0.87)
+  }
 }
-
-

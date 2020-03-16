@@ -132,8 +132,9 @@ export class AthleteCardComponent implements OnInit, OnDestroy {
     });
 
     if(!this.athlete){
-      if(JSON.parse(this.getUserProfile())['https://gremo.sport.comuser_metadata'] && JSON.parse(this.getUserProfile())['https://gremo.sport.comuser_metadata'].athlete_platform_last_id){
-        this._httpService.getAthleteCardById(JSON.parse(this.getUserProfile())['https://gremo.sport.comuser_metadata'].athlete_platform_last_id)
+      console.log(`odpala athlete card`)
+      if(JSON.parse(this.getUserProfile())['https://sport.app.comuser_metadata'] && JSON.parse(this.getUserProfile())['https://sport.app.comuser_metadata'].athlete_platform_last_id){
+        this._httpService.getAthleteCardById(JSON.parse(this.getUserProfile())['https://sport.app.comuser_metadata'].athlete_platform_last_id)
         this._store.dispatch(new AthleteDataActions.OnACMode());
       }else{
         this._store.dispatch(new AthleteDataActions.OnACMode());

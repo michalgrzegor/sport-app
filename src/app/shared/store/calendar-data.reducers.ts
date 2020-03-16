@@ -1,10 +1,10 @@
-import { CallendarArray } from './../callendar-data.service';
-import * as CalendarDataActions from './callendar-data.actions';
+import { CalendarArray } from '../calendar-data.service';
+import * as CalendarDataActions from './calendar-data.actions';
 import * as _ from 'lodash';
 import { Association } from './tiles-data.reducers';
 
 export interface State {
-    calendar: CallendarArray;
+    calendar: CalendarArray;
     lastContainer: LastContainer;
     day: Association[];
     dayDate: string;
@@ -52,7 +52,7 @@ const initialState: State = {
    week: null
 }
 
-export function callendarDataReducer(state = initialState, action: CalendarDataActions.CallendarDataActions){
+export function calendarDataReducer(state = initialState, action: CalendarDataActions.CalendarDataActions){
     switch(action.type) {
         case CalendarDataActions.INIT_DATA:
             const allMomentDateArrayID = [];
@@ -98,7 +98,7 @@ export function callendarDataReducer(state = initialState, action: CalendarDataA
             }
 
         case CalendarDataActions.ADD_ASSO:
-            let assArray = state.calendar.calendar[action.payload.callendarIndex].weeks[action.payload.weeksIndex].weekDates[action.payload.weekDatesIndex].association;
+            let assArray = state.calendar.calendar[action.payload.calendarIndex].weeks[action.payload.weeksIndex].weekDates[action.payload.weekDatesIndex].association;
             assArray.push(Object.assign({}, action.payload.associations));
             assArray.forEach(
                 asso => {
@@ -115,7 +115,7 @@ export function callendarDataReducer(state = initialState, action: CalendarDataA
             )
             return {
                 ...state,
-                calendar: _.set(state.calendar, 'state.calendar.calendar[action.payload.callendarIndex].weeks[action.payload.weeksIndex].weekDates[action.payload.weekDatesIndex].association', assArray)
+                calendar: _.set(state.calendar, 'state.calendar.calendar[action.payload.calendarIndex].weeks[action.payload.weeksIndex].weekDates[action.payload.weekDatesIndex].association', assArray)
             }
 
         case CalendarDataActions.REPEAT_WEEKLY:
@@ -134,16 +134,16 @@ export function callendarDataReducer(state = initialState, action: CalendarDataA
         case CalendarDataActions.OPEN_CONTAINER:
             const calendarOC = Object.assign({}, state.calendar);
             const dayOC = [];
-            const dayDateOC = state.calendar.calendar[action.payload.callendarIndex].weeks[action.payload.weeksIndex].weekDates[action.payload.weekDatesIndex].momentDate;
+            const dayDateOC = state.calendar.calendar[action.payload.calendarIndex].weeks[action.payload.weeksIndex].weekDates[action.payload.weekDatesIndex].momentDate;
             let openedDayOC = {
-                callendarIndex: action.payload.callendarIndex,
+                calendarIndex: action.payload.calendarIndex,
                 weeksIndex: action.payload.weeksIndex,
                 weekDatesIndex: action.payload.weekDatesIndex
             }
 
             //adding temporary id to all asso to identyfying tiles
             let temporaryId = 1;
-            calendarOC.calendar[action.payload.callendarIndex].weeks[action.payload.weeksIndex].weekDates[action.payload.weekDatesIndex].association.forEach(
+            calendarOC.calendar[action.payload.calendarIndex].weeks[action.payload.weeksIndex].weekDates[action.payload.weekDatesIndex].association.forEach(
                 asso => {
                     asso.asso_temporary_id = temporaryId;
                     dayOC.push(asso);
@@ -152,14 +152,14 @@ export function callendarDataReducer(state = initialState, action: CalendarDataA
                 }
             )
 
-            if(state.lastContainer && state.lastContainer.calendarIndex == action.payload.callendarIndex && state.lastContainer.weeksIndex == action.payload.weeksIndex && state.lastContainer.weekIndex == action.payload.weekDatesIndex && calendarOC.calendar[state.lastContainer.calendarIndex].weeks[state.lastContainer.weeksIndex].container[0].expanded){
+            if(state.lastContainer && state.lastContainer.calendarIndex == action.payload.calendarIndex && state.lastContainer.weeksIndex == action.payload.weeksIndex && state.lastContainer.weekIndex == action.payload.weekDatesIndex && calendarOC.calendar[state.lastContainer.calendarIndex].weeks[state.lastContainer.weeksIndex].container[0].expanded){
                 calendarOC.calendar[state.lastContainer.calendarIndex].weeks[state.lastContainer.weeksIndex].container[0].expanded = false;
                 openedDayOC = null;
             } else if(state.lastContainer) {
                 calendarOC.calendar[state.lastContainer.calendarIndex].weeks[state.lastContainer.weeksIndex].container[0].expanded = false;
-                calendarOC.calendar[action.payload.callendarIndex].weeks[action.payload.weeksIndex].container[0].expanded = true;
+                calendarOC.calendar[action.payload.calendarIndex].weeks[action.payload.weeksIndex].container[0].expanded = true;
             } else {
-                calendarOC.calendar[action.payload.callendarIndex].weeks[action.payload.weeksIndex].container[0].expanded = true;
+                calendarOC.calendar[action.payload.calendarIndex].weeks[action.payload.weeksIndex].container[0].expanded = true;
             }
             let lastContainerOC: LastContainer = null;
             if(!state.lastContainer){
@@ -167,7 +167,7 @@ export function callendarDataReducer(state = initialState, action: CalendarDataA
             } else {
                 lastContainerOC = state.lastContainer;
             }
-            lastContainerOC.calendarIndex = action.payload.callendarIndex;
+            lastContainerOC.calendarIndex = action.payload.calendarIndex;
             lastContainerOC.weeksIndex = action.payload.weeksIndex;
             lastContainerOC.weekIndex = action.payload.weekDatesIndex;
 
@@ -192,7 +192,7 @@ export function callendarDataReducer(state = initialState, action: CalendarDataA
         case CalendarDataActions.CHANGE_SESSION:
             const calendarCS = Object.assign({},state.calendar);
             const dayCS = [...state.day];
-            calendarCS.calendar[action.payload.callendarIndex].weeks[action.payload.weeksIndex].weekDates[action.payload.weekDatesIndex].association.forEach(
+            calendarCS.calendar[action.payload.calendarIndex].weeks[action.payload.weeksIndex].weekDates[action.payload.weekDatesIndex].association.forEach(
                 asso => {
                     if(action.payload.tempId === asso.asso_temporary_id){
                         asso.training_sesion = action.payload.sessionNumber;
@@ -215,15 +215,15 @@ export function callendarDataReducer(state = initialState, action: CalendarDataA
         case CalendarDataActions.DELETE_ASSO:
             const calendarDA = state.calendar;
             let assoToDeleteDA = null;
-            calendarDA.calendar[action.payload.callendarIndex].weeks[action.payload.weeksIndex].weekDates[action.payload.weekDatesIndex].association.forEach(
+            calendarDA.calendar[action.payload.calendarIndex].weeks[action.payload.weeksIndex].weekDates[action.payload.weekDatesIndex].association.forEach(
                 asso => {
                     if(action.payload.tempId === asso.asso_temporary_id){
                         assoToDeleteDA = asso;
                     }
                 }
             );
-            const indexDA = calendarDA.calendar[action.payload.callendarIndex].weeks[action.payload.weeksIndex].weekDates[action.payload.weekDatesIndex].association.indexOf(assoToDeleteDA);
-            calendarDA.calendar[action.payload.callendarIndex].weeks[action.payload.weeksIndex].weekDates[action.payload.weekDatesIndex].association.splice(indexDA, 1);
+            const indexDA = calendarDA.calendar[action.payload.calendarIndex].weeks[action.payload.weeksIndex].weekDates[action.payload.weekDatesIndex].association.indexOf(assoToDeleteDA);
+            calendarDA.calendar[action.payload.calendarIndex].weeks[action.payload.weeksIndex].weekDates[action.payload.weekDatesIndex].association.splice(indexDA, 1);
             return {
                 ...state,
                 calendar: calendarDA
@@ -243,8 +243,8 @@ export function callendarDataReducer(state = initialState, action: CalendarDataA
 
         case CalendarDataActions.CLOSE_CONTAINER:
             const calendarCC = Object.assign({}, state.calendar);
-            calendarCC.calendar[action.payload.callendarIndex].weeks[action.payload.weeksIndex].container[0].expanded = false;
-            calendarCC.calendar[action.payload.callendarIndex].weeks[action.payload.weeksIndex].container[0].container = false;
+            calendarCC.calendar[action.payload.calendarIndex].weeks[action.payload.weeksIndex].container[0].expanded = false;
+            calendarCC.calendar[action.payload.calendarIndex].weeks[action.payload.weeksIndex].container[0].container = false;
             return {
                 ...state,
                 calendar: calendarCC,
@@ -253,7 +253,7 @@ export function callendarDataReducer(state = initialState, action: CalendarDataA
 
         case CalendarDataActions.DELETE_ALL_DAY:
             const calendarDAD = state.calendar;
-            calendarDAD.calendar[action.payload.callendarIndex].weeks[action.payload.weeksIndex].weekDates[action.payload.weekDatesIndex].association = [];
+            calendarDAD.calendar[action.payload.calendarIndex].weeks[action.payload.weeksIndex].weekDates[action.payload.weekDatesIndex].association = [];
             return {
                 ...state,
                 calendar: calendarDAD
@@ -273,11 +273,11 @@ export function callendarDataReducer(state = initialState, action: CalendarDataA
 
         case CalendarDataActions.PASTE_ASSO:
             const calendarCA = state.calendar;
-            let tempIDPA = calendarCA.calendar[state.openedDay.callendarIndex].weeks[state.openedDay.weeksIndex].weekDates[state.openedDay.weekDatesIndex].association.length + 1;
+            let tempIDPA = calendarCA.calendar[state.openedDay.calendarIndex].weeks[state.openedDay.weeksIndex].weekDates[state.openedDay.weekDatesIndex].association.length + 1;
             let indexOnePA = 1;
             let indexTwoPA = 1;
             let indexThreePA = 1;
-            calendarCA.calendar[state.openedDay.callendarIndex].weeks[state.openedDay.weeksIndex].weekDates[state.openedDay.weekDatesIndex].association.forEach(
+            calendarCA.calendar[state.openedDay.calendarIndex].weeks[state.openedDay.weeksIndex].weekDates[state.openedDay.weekDatesIndex].association.forEach(
                 asso => {
                     if(asso.training_sesion === 1){
                         indexOnePA = indexOnePA + 1;
@@ -302,7 +302,7 @@ export function callendarDataReducer(state = initialState, action: CalendarDataA
                     indexThreePA = indexThreePA + 1;
                 }
                 tempIDPA = tempIDPA + 1;
-                calendarCA.calendar[state.openedDay.callendarIndex].weeks[state.openedDay.weeksIndex].weekDates[state.openedDay.weekDatesIndex].association.push(Object.assign({}, newAsso));
+                calendarCA.calendar[state.openedDay.calendarIndex].weeks[state.openedDay.weeksIndex].weekDates[state.openedDay.weekDatesIndex].association.push(Object.assign({}, newAsso));
             });
             return {
                 ...state,
@@ -312,7 +312,7 @@ export function callendarDataReducer(state = initialState, action: CalendarDataA
 
         case CalendarDataActions.CHANGE_ASSO_INDEX:
             const calendarCAI = state.calendar;
-            calendarCAI.calendar[state.openedDay.callendarIndex].weeks[state.openedDay.weeksIndex].weekDates[state.openedDay.weekDatesIndex].association.forEach(
+            calendarCAI.calendar[state.openedDay.calendarIndex].weeks[state.openedDay.weeksIndex].weekDates[state.openedDay.weekDatesIndex].association.forEach(
                 asso => {
                     if(asso.training_sesion === action.payload.sessionNumber){
                         action.payload.newOrder.forEach(
@@ -336,7 +336,7 @@ export function callendarDataReducer(state = initialState, action: CalendarDataA
             calendarMWC.calendar.forEach(
                 month => {
                     const monthIndex = calendarMWC.calendar.indexOf(month)
-                    if(monthIndex === action.payload.callendarIndex){
+                    if(monthIndex === action.payload.calendarIndex){
                         month.weeks.forEach(
                             week => {
                                 const weekIndex = calendarMWC.calendar[monthIndex].weeks.indexOf(week);
@@ -372,7 +372,7 @@ export function callendarDataReducer(state = initialState, action: CalendarDataA
                                 }
                             }
                         )
-                    }else if(monthIndex > action.payload.callendarIndex){
+                    }else if(monthIndex > action.payload.calendarIndex){
                         month.weeks.forEach(
                             week => {
                                 const weekIndex = calendarMWC.calendar[monthIndex].weeks.indexOf(week);
@@ -488,7 +488,7 @@ export interface LastContainer {
 }
 
 export interface OpenedDay {
-    callendarIndex: number;
+    calendarIndex: number;
     weeksIndex: number;
     weekDatesIndex: number;
 }

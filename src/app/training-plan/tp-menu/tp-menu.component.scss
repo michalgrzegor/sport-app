@@ -1,27 +1,28 @@
-table {
-  background: #345763;
-  width: 100%;
-}
+.tp-name {
+  display: grid;
+  grid-template-columns: 48px 1fr 48px;
 
-th,
-td {
-  color: rgba(255, 255, 255, 0.67);
-  font-family: 'Lato'
-}
+  .center-container {
+    width: 48px;
+    height: 48px;
 
-.table-icon-active {
-  color: rgba(255, 255, 255, 0.87);
-  cursor: default;
-}
+    button {
+      min-width: 0px;
+      padding: 0px;
+      width: 48px;
+      height: 48px;
 
-.table-icon-active-status {
-  color: #88C540;
-  cursor: default;
-}
+      mat-icon {
+        color: rgba(255, 255, 255, 0.67);
+      }
+    }
+  }
 
-.table-icon-inactive {
-  color: rgba(255, 255, 255, 0.27);
-  cursor: default;
+  h4 {
+    margin: 0px;
+    height: 48px;
+    line-height: 48px;
+  }
 }
 
 .padding {
@@ -29,41 +30,32 @@ td {
   grid-template-columns: 10px 1fr 10px;
   margin-bottom: 24px;
   margin-top: 16px;
-}
 
-.mat-form-field {
-  font-size: 14px;
-  width: 100%;
-  color: rgba(255, 255, 255, 0.87);
-}
+  .mat-elevation-z8 {
+    table {
+      background: #345763;
+      width: 100%;
 
-.pointer {
-  cursor: pointer;
-}
+      th,
+      td {
+        color: rgba(255, 255, 255, 0.67);
+        font-family: 'Lato';
 
-.tp-name {
-  display: grid;
-  grid-template-columns: 48px 1fr 48px;
-}
+        .table-icon-active {
+          color: rgba(255, 255, 255, 0.87);
+          cursor: default;
+        }
 
-.center-container {
-  width: 48px;
-  height: 48px;
-}
+        .table-icon-active-status {
+          color: #88C540;
+          cursor: default;
+        }
 
-.tp-name h4 {
-  margin: 0px;
-  height: 48px;
-  line-height: 48px;
-}
-
-.tp-name button {
-  min-width: 0px;
-  padding: 0px;
-  width: 48px;
-  height: 48px;
-}
-
-.tp-name button mat-icon {
-  color: rgba(255, 255, 255, 0.67);
+        .table-icon-inactive {
+          color: rgba(255, 255, 255, 0.27);
+          cursor: default;
+        }
+      }
+    }
+  }
 }

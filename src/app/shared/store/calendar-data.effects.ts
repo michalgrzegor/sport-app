@@ -3,15 +3,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
-import * as CalendarDataActions from './callendar-data.actions';
+import * as CalendarDataActions from './calendar-data.actions';
 import { switchMap, map, mergeMap, catchError } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 import { EMPTY } from 'rxjs';
-import { CallendarDataService } from '../callendar-data.service';
+import { CalendarDataService } from '../calendar-data.service';
 
 @Injectable()
 export class CalendarDataEffects {
-    url: string = 'https://gremmo-one.herokuapp.com/api/v1/';
+    url: string = 'https://ccoach-app.herokuapp.com/api/v1/';
 
     getHttpOptions() {
         const token = this._cookieService.get('token');
@@ -162,6 +162,6 @@ export class CalendarDataEffects {
         private actions$: Actions,
         private _http: HttpClient,
         private _cookieService: CookieService,
-        private _calendarService: CallendarDataService
+        private _calendarService: CalendarDataService
     ){}
 }

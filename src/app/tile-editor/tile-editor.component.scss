@@ -1,188 +1,207 @@
-form {
+#tile-editor-form {
   display: flex;
   flex-direction: column;
   padding: 0px 10px;
-}
 
-mat-form-field {
-  width: 100%;
-}
+  h4 {
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
 
-.short-inputs {
-  display: flex;
-}
+  h5 {
+    text-transform: lowercase;
+    margin-top: 10.5px;
+    margin-bottom: 16px;
+  }
 
-.short-inputs mat-form-field {
-  flex: 1;
-}
+  h6 {
+    margin: 0 0 8px;
+    font-family: 'Lato';
+    font-size: 12px;
+    color: #B0AA54;
+  }
 
-.short-input-left {
-  margin-right: 16px;
-}
+  mat-chip-list {
+    mat-chip {
+      .training-type-icon {
+        box-sizing: border-box;
+        width: 24px;
+        height: 24px;
+        border-radius: 12px;
+        margin-right: 8px;
+      }
+    }
+  }
 
-.short-input-right {
-  margin-left: 16px;
-}
+  /* styling training type chips */
+  .chips-type {
+    padding-left: 4px;
+    background: rgba(96, 132, 144, 0.3);
 
-/* styling training type chips */
-.chips-type {
-  padding-left: 4px;
-  background: rgba(96, 132, 144, 0.3);
-}
+    mat-icon {
+      margin-right: 8px;
+      color: rgba(255, 255, 255, 0.57);
+    }
+  }
 
-.chips-type mat-icon {
-  margin-right: 8px;
-  color: rgba(255, 255, 255, 0.57);
-}
+  .divider-line {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
 
-.training-type-icon {
-  box-sizing: border-box;
-  width: 24px;
-  height: 24px;
-  border-radius: 12px;
-  margin-right: 8px;
-}
+  .activity-container {
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 16px;
+    border-radius: 4px;
+    margin-bottom: 24px;
+    -webkit-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.45);
+    -moz-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.45);
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.45);
 
-/* Main styling */
-.divider-border {
-  margin-top: 16px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
+    .header-delete {
+      display: grid;
+      grid-template-columns: 1fr 48px 48px;
+      margin: 4px 0;
 
-#tile-editor-form h4 {
-  margin-top: 16px;
-  margin-bottom: 16px;
-}
+      .delete-button {
+        min-width: 0px;
+        padding: 0;
+        width: 48px;
+        height: 48px;
+        border-radius: 24px;
+      }
 
-#tile-editor-form h5 {
-  text-transform: lowercase;
-  margin-top: 10.5px;
-  margin-bottom: 16px;
-}
+      .delete-button:hover {
+        background-color: rgba(255, 255, 255, 0.03)
+      }
+    }
 
-.mat-chip-list {
-  margin-bottom: 16px;
-}
+    //training
 
-.divider-line {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
+    .activity-container {
 
-h6 {
-  margin: 0 0 8px;
-  font-family: 'Lato';
-  font-size: 12px;
-  color: #B0AA54;
-}
+      .activity-open-container {
+        overflow: hidden;
+        transition: all 0.6s ease-in-out;
+        max-height: 0px;
+      }
+    }
 
-.buttons-finish .add:disabled {
-  opacity: 0.2;
-}
+    .add-btn-container {
+      text-align: center;
 
-.after-delete-activity {
-  margin-bottom: 16px;
-}
+      .add-button {
+        mat-icon {
+          margin: 0 6px;
+          color: rgba(255, 255, 255, 0.87);
+        }
+      }
+    }
 
-.nutrient-background-color {
-  background: rgba(255, 255, 255, 0.05);
-  padding: 8px;
-  border-radius: 4px;
-  margin-bottom: 16px;
-}
+    .short-inputs {
+      display: flex;
 
-.header-delete {
-  display: grid;
-  grid-template-columns: 1fr 48px 48px;
-  margin: 4px 0;
-}
+      mat-form-field {
+        flex: 1;
+      }
 
-.header-delete-nutrient {
-  display: grid;
-  grid-template-columns:48px 1fr 48px;
-  margin: 4px 0;
-}
+      .short-input-left {
+        margin-right: 16px;
+      }
 
-.delete-button {
-  min-width: 0px;
-  padding: 0;
-  width: 48px;
-  height: 48px;
-  border-radius: 24px;
-}
+      .short-input-right {
+        margin-left: 16px;
+      }
+    }
 
-.delete-button:hover {
-  background-color: rgba(255, 255, 255, 0.03)
-}
+    // diet
 
-.activity-container {
-  background-color: rgba(0, 0, 0, 0.05);
-  padding: 16px;
-  border-radius: 4px;
-  margin-bottom: 24px;
-  -webkit-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.45);
-  -moz-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.45);
-  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.45);
-}
+    .diet-open-container {
+      overflow: hidden;
+      transition: all 0.6s ease-in-out;
+      max-height: 0px;
+    }
 
-.add-btn-container {
-  text-align: center;
-}
+    .open {
+      max-height: 1800px;
+    }
 
+    .close {
+      max-height: 0px;
+    }
 
+    .nutrient-background-color {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 8px;
+      border-radius: 4px;
+      margin-bottom: 16px;
 
-.add-button mat-icon {
-  margin: 0 6px;
-  color: rgba(255, 255, 255, 0.87);
-}
+      .header-delete-nutrient {
+        display: grid;
+        grid-template-columns: 48px 1fr 48px;
+        margin: 4px 0;
 
-.rotate {
-  animation-name: rotateBtn;
-  animation-duration: 0.5s;
-  transform: rotate(180deg);
-}
+        .delete-button {
+          min-width: 0px;
+          padding: 0;
+          width: 48px;
+          height: 48px;
+          border-radius: 24px;
+        }
 
-.rotateReverse {
-  animation-name: rotateReverseBtn;
-  animation-duration: 0.5s;
-  transform: rotate(0deg);
-}
+        .delete-button:hover {
+          background-color: rgba(255, 255, 255, 0.03)
+        }
+      }
+    }
 
-@keyframes rotateBtn {
-  0% {
+    // Tags
+
+    .mat-chip-list {
+      margin-bottom: 16px;
+    }
+
+    .buttons-finish {
+      .add:disabled {
+        opacity: 0.2;
+      }
+    }
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  //animation
+
+  .rotate {
+    animation-name: rotateBtn;
+    animation-duration: 0.5s;
+    transform: rotate(180deg);
+  }
+
+  .rotateReverse {
+    animation-name: rotateReverseBtn;
+    animation-duration: 0.5s;
     transform: rotate(0deg);
   }
 
-  100% {
-    transform: rotate(180deg);
+  @keyframes rotateBtn {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(180deg);
+    }
   }
-}
 
-@keyframes rotateReverseBtn {
-  0% {
-    transform: rotate(180deg);
+  @keyframes rotateReverseBtn {
+    0% {
+      transform: rotate(180deg);
+    }
+
+    100% {
+      transform: rotate(0deg);
+    }
   }
-
-  100% {
-    transform: rotate(0deg);
-  }
-}
-
-.activity-open-container {
-  overflow: hidden;
-  transition: all 0.6s ease-in-out;
-  max-height: 0px;
-}
-
-.diet-open-container {
-  overflow: hidden;
-  transition: all 0.6s ease-in-out;
-  max-height: 0px;
-}
-
-.open {
-  max-height: 1800px;
-}
-
-.close {
-  max-height: 0px;
 }

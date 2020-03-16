@@ -4,8 +4,7 @@ import { DialogData } from 'src/app/tile-editor/new-tile-type/new-tile-type.comp
 
 @Component({
   selector: 'app-verify-dialog-note',
-  templateUrl: './verify-dialog-note.component.html',
-  styleUrls: ['./verify-dialog-note.component.scss']
+  templateUrl: './verify-dialog-note.component.html'
 })
 export class VerifyDialogNoteComponent {
 

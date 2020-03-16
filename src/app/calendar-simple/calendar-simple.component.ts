@@ -1,8 +1,8 @@
-import { HttpPaymentClientService } from './../shared/http-payment-client.service';
-import { HttpClientService } from './../shared/http-client.service';
-import { OpenedDay } from './../shared/store/callendar-data.reducers';
+import { HttpPaymentClientService } from '../shared/http-payment-client.service';
+import { HttpClientService } from '../shared/http-client.service';
+import { OpenedDay } from '../shared/store/calendar-data.reducers';
 import { Observable, Subscription } from 'rxjs';
-import { CallendarDataService, CallendarArray, WeekDate } from './../shared/callendar-data.service';
+import { CalendarDataService, CalendarArray, WeekDate } from '../shared/calendar-data.service';
 import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import * as moment from 'moment';
 import * as _ from 'lodash';
@@ -12,7 +12,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 
 //store imports
 import * as fromApp from '../shared/store/app.reducers';
-import * as CallendarDataActions from '../shared/store/callendar-data.actions';
+import * as CalendarDataActions from '../shared/store/calendar-data.actions';
 import * as TilesDataActions from '../shared/store/tiles-data.actions';
 import * as ChartDataActions from '../shared/store/chart-data.actions';
 import { Store } from '@ngrx/store';
@@ -32,9 +32,9 @@ export interface Day {
 }
 
 @Component({
-  selector: 'app-callendar-simple',
-  templateUrl: './callendar-simple.component.html',
-  styleUrls: ['./callendar-simple.component.css'],
+  selector: 'app-calendar-simple',
+  templateUrl: './calendar-simple.component.html',
+  styleUrls: ['./calendar-simple.component.css'],
   animations: [
     trigger('hideShow', [
       state('void', style({minHeight: '0px', height: '0px', opacity: 0})),
@@ -43,7 +43,7 @@ export interface Day {
       transition('* => void', animate('0.32s ease-out'))
     ])]
 })
-export class CallendarSimpleComponent implements OnInit, OnDestroy {
+export class CalendarSimpleComponent implements OnInit, OnDestroy {
   //animation
 
   i: number = 0;
@@ -52,10 +52,10 @@ export class CallendarSimpleComponent implements OnInit, OnDestroy {
   isOpenBoardSub: Subscription;
   isOpenBoard: boolean = false;
 
-  callendarArrayState: Observable<CallendarArray>;
-  callendarArraySub: Subscription;
-  callendarArray: CallendarArray = null;
-  callendarNoDisplayArray: CallendarArray = null;
+  calendarArrayState: Observable<CalendarArray>;
+  calendarArraySub: Subscription;
+  calendarArray: CalendarArray = null;
+  calendarNoDisplayArray: CalendarArray = null;
   
   openedDayState: Observable<OpenedDay>;
   openedDaySub: Subscription;
@@ -154,7 +154,7 @@ export class CallendarSimpleComponent implements OnInit, OnDestroy {
     private _cdr: ChangeDetectorRef,
     private _snackBar: MatSnackBar,
     public _dialog: MatDialog,
-    private _callendarDataService: CallendarDataService,
+    private _calendarDataService: CalendarDataService,
     private _store: Store<fromApp.AppState>,
     public _breakpointObserver: BreakpointObserver,
     private _cookieService: CookieService,
@@ -164,13 +164,13 @@ export class CallendarSimpleComponent implements OnInit, OnDestroy {
     private _httpPaymentService: HttpPaymentClientService
     ) {}
 
-  expand(callendarIndex: number, weeksIndex: number, weekDatesIndex: number) {
-    const day = this.callendarNoDisplayArray.calendar[callendarIndex].weeks[weeksIndex].weekDates[weekDatesIndex];
-    this._store.dispatch(new CallendarDataActions.OpenContainer({callendarIndex: callendarIndex, weeksIndex: weeksIndex, weekDatesIndex: weekDatesIndex}));
-    this._store.dispatch(new TilesDataActions.MakeDay({date: day.momentDate, day: this.callendarNoDisplayArray.calendar[callendarIndex].weeks[weeksIndex].weekDates[weekDatesIndex]}));
-    this._store.dispatch(new CallendarDataActions.SetWeek(this.callendarNoDisplayArray.calendar[callendarIndex].weeks[weeksIndex].weekDates));
+  expand(calendarIndex: number, weeksIndex: number, weekDatesIndex: number) {
+    const day = this.calendarNoDisplayArray.calendar[calendarIndex].weeks[weeksIndex].weekDates[weekDatesIndex];
+    this._store.dispatch(new CalendarDataActions.OpenContainer({calendarIndex: calendarIndex, weeksIndex: weeksIndex, weekDatesIndex: weekDatesIndex}));
+    this._store.dispatch(new TilesDataActions.MakeDay({date: day.momentDate, day: this.calendarNoDisplayArray.calendar[calendarIndex].weeks[weeksIndex].weekDates[weekDatesIndex]}));
+    this._store.dispatch(new CalendarDataActions.SetWeek(this.calendarNoDisplayArray.calendar[calendarIndex].weeks[weeksIndex].weekDates));
     // summary:
-    this.makeWeek(callendarIndex, weeksIndex);
+    this.makeWeek(calendarIndex, weeksIndex);
   }
  
   ngOnInit() {
@@ -219,16 +219,17 @@ export class CallendarSimpleComponent implements OnInit, OnDestroy {
         }
         if(tp){
           if(!this.trainingPlan || tp.id !== this.trainingPlan.id){
-            let array = this._callendarDataService.makeArray(tp);
+            let array = this._calendarDataService.makeArray(tp);
+            console.log(array)
             if(this.openedDay && samePlan){
-              array.calendar[this.openedDay.callendarIndex].weeks[this.openedDay.weeksIndex].container[0].expanded = true;
+              array.calendar[this.openedDay.calendarIndex].weeks[this.openedDay.weeksIndex].container[0].expanded = true;
             }
-            this._store.dispatch(new CallendarDataActions.InitData({calendar: array, planName: tp.training_plan_name}));
+            this._store.dispatch(new CalendarDataActions.InitData({calendar: array, planName: tp.training_plan_name}));
           }
           this._store.dispatch(new TilesDataActions.SpinnerStartStopCalendar(false))
         }
-        if(tp && this.callendarArray){
-          this.makeStars(this.callendarArray, tp)
+        if(tp && this.calendarArray){
+          this.makeStars(this.calendarArray, tp)
         }
         this.trainingPlan = tp;
 
@@ -257,25 +258,25 @@ export class CallendarSimpleComponent implements OnInit, OnDestroy {
     );
     
     //calendar array store
-    this.callendarArrayState = this._store.select(state => state.callendar.calendar);
-    this.callendarArraySub = this.callendarArrayState.subscribe(
-      (data: CallendarArray) => {
+    this.calendarArrayState = this._store.select(state => state.calendar.calendar);
+    this.calendarArraySub = this.calendarArrayState.subscribe(
+      (data: CalendarArray) => {
         
         if(this.trainingPlan){
-          if(this.callendarArray && this.callendarArray.id === data.id){
+          if(this.calendarArray && this.calendarArray.id === data.id){
             const array = Object.assign({},data);
             if(this.openedDay){
-              array.calendar[this.openedDay.callendarIndex].weeks[this.openedDay.weeksIndex].container[0].container = true;
-              array.calendar[this.openedDay.callendarIndex].weeks[this.openedDay.weeksIndex].container[0].expanded = true;
+              array.calendar[this.openedDay.calendarIndex].weeks[this.openedDay.weeksIndex].container[0].container = true;
+              array.calendar[this.openedDay.calendarIndex].weeks[this.openedDay.weeksIndex].container[0].expanded = true;
             }
-            this.callendarNoDisplayArray = array;
-            if(this.callendarArray.calendar.length !== data.calendar.length){
-              this.callendarArray = array;
-              this.callendarNoDisplayArray = array;
+            this.calendarNoDisplayArray = array;
+            if(this.calendarArray.calendar.length !== data.calendar.length){
+              this.calendarArray = array;
+              this.calendarNoDisplayArray = array;
             }
           }else{
-            this.callendarArray = data;
-            this.callendarNoDisplayArray = data;
+            this.calendarArray = data;
+            this.calendarNoDisplayArray = data;
             this._store.dispatch(new TilesDataActions.SpinnerStartStopCalendar(false));
             
           }
@@ -322,7 +323,7 @@ export class CallendarSimpleComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.planNameState = this._store.select(state => state.callendar.planName);
+    this.planNameState = this._store.select(state => state.calendar.planName);
     this.planNameSub = this.planNameState.subscribe(
       data => this.planName = data
     );
@@ -337,7 +338,7 @@ export class CallendarSimpleComponent implements OnInit, OnDestroy {
       data => this.isPaidAccount = data
     );
 
-    this.isOpenBoardState = this._store.select(state => state.callendar.isOpenTpBoard);
+    this.isOpenBoardState = this._store.select(state => state.calendar.isOpenTpBoard);
     this.isOpenBoardSub = this.isOpenBoardState.subscribe(
       data => this.isOpenBoard = data
     );
@@ -364,7 +365,7 @@ export class CallendarSimpleComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.allMomentDateArrayState = this._store.select(state => state.callendar.allMomentDateArray);
+    this.allMomentDateArrayState = this._store.select(state => state.calendar.allMomentDateArray);
     this.allMomentDateArraySub = this.allMomentDateArrayState.subscribe(
       data => {
         if(data){
@@ -374,12 +375,12 @@ export class CallendarSimpleComponent implements OnInit, OnDestroy {
       }
     )
 
-    this.openedDayState = this._store.select(state => state.callendar.openedDay);
+    this.openedDayState = this._store.select(state => state.calendar.openedDay);
     this.openedDaySub = this.openedDayState.subscribe(
       data => {
         this.openedDay = data;
         if(data){
-          this.callendarNoDisplayArray.calendar.forEach(
+          this.calendarNoDisplayArray.calendar.forEach(
             month => month.weeks.forEach(
               week => {
                 week.container[0].container = false;
@@ -387,10 +388,10 @@ export class CallendarSimpleComponent implements OnInit, OnDestroy {
               }
             )
           )
-          this.callendarNoDisplayArray.calendar[data.callendarIndex].weeks[data.weeksIndex].container[0].container = true;
-          this.callendarNoDisplayArray.calendar[data.callendarIndex].weeks[data.weeksIndex].container[0].expanded = true;
-        }else if(data === null && this.callendarNoDisplayArray){
-          this.callendarNoDisplayArray.calendar.forEach(
+          this.calendarNoDisplayArray.calendar[data.calendarIndex].weeks[data.weeksIndex].container[0].container = true;
+          this.calendarNoDisplayArray.calendar[data.calendarIndex].weeks[data.weeksIndex].container[0].expanded = true;
+        }else if(data === null && this.calendarNoDisplayArray){
+          this.calendarNoDisplayArray.calendar.forEach(
             month => month.weeks.forEach(
               week => {
                 week.container[0].container = false;
@@ -463,11 +464,11 @@ export class CallendarSimpleComponent implements OnInit, OnDestroy {
     }
   }
 
-  drop(event: CdkDragDrop<Tile[]>, daya: WeekDate, callendarIndex: number, weeksIndex: number, weekDatesIndex: number){
+  drop(event: CdkDragDrop<Tile[]>, daya: WeekDate, calendarIndex: number, weeksIndex: number, weekDatesIndex: number){
 
     const tile = Object.assign({},event.previousContainer.data[event.previousIndex]);
     const arrayOne = []
-    this.callendarNoDisplayArray.calendar[callendarIndex].weeks[weeksIndex].weekDates[weekDatesIndex].association.forEach(
+    this.calendarNoDisplayArray.calendar[calendarIndex].weeks[weeksIndex].weekDates[weekDatesIndex].association.forEach(
       asso => {
         if(asso.training_sesion === 1){
           arrayOne.push(asso)
@@ -499,31 +500,31 @@ export class CallendarSimpleComponent implements OnInit, OnDestroy {
 
     if(this.openedDay){
       isOpenedDay = true;
-      openedDayDate = this.callendarNoDisplayArray.calendar[this.openedDay.callendarIndex].weeks[this.openedDay.weeksIndex].weekDates[this.openedDay.weekDatesIndex].momentDate;
-      day.date = this.callendarNoDisplayArray.calendar[this.openedDay.callendarIndex].weeks[this.openedDay.weeksIndex].weekDates[this.openedDay.weekDatesIndex].momentDate;
-      this.callendarNoDisplayArray.calendar[this.openedDay.callendarIndex].weeks[this.openedDay.weeksIndex].weekDates[this.openedDay.weekDatesIndex].association.forEach(
+      openedDayDate = this.calendarNoDisplayArray.calendar[this.openedDay.calendarIndex].weeks[this.openedDay.weeksIndex].weekDates[this.openedDay.weekDatesIndex].momentDate;
+      day.date = this.calendarNoDisplayArray.calendar[this.openedDay.calendarIndex].weeks[this.openedDay.weeksIndex].weekDates[this.openedDay.weekDatesIndex].momentDate;
+      this.calendarNoDisplayArray.calendar[this.openedDay.calendarIndex].weeks[this.openedDay.weeksIndex].weekDates[this.openedDay.weekDatesIndex].association.forEach(
         asso => day.day.association.push(asso)
       );
-      if(this.callendarNoDisplayArray.calendar[this.openedDay.callendarIndex].weeks[this.openedDay.weeksIndex].weekDates[this.openedDay.weekDatesIndex].momentDate === daya.momentDate){
+      if(this.calendarNoDisplayArray.calendar[this.openedDay.calendarIndex].weeks[this.openedDay.weeksIndex].weekDates[this.openedDay.weekDatesIndex].momentDate === daya.momentDate){
         day.day.association.push(asso);
       }
     }
 
     
 
-    this._httpCalendarService.postCalendarAssoc(this.trainingPlan, this.trainingPlan.id, asso, callendarIndex, weeksIndex, weekDatesIndex, null, 1, {date: day.date, day: day.day}, null, isOpenedDay, openedDayDate, this.callendarNoDisplayArray.calendar[callendarIndex].weeks[weeksIndex].weekDates);
+    this._httpCalendarService.postCalendarAssoc(this.trainingPlan, this.trainingPlan.id, asso, calendarIndex, weeksIndex, weekDatesIndex, null, 1, {date: day.date, day: day.day}, null, isOpenedDay, openedDayDate, this.calendarNoDisplayArray.calendar[calendarIndex].weeks[weeksIndex].weekDates);
 
     //sumary
 
     //Open Snack Bar
     let snackBarRef = this._snackBar.open(`Do you want to repeat this action?`, `REPEAT`, {duration: 6000});
     //Add functionality after close
-    snackBarRef.onAction().subscribe(() => this.openDialog(asso, callendarIndex, weeksIndex, weekDatesIndex))
+    snackBarRef.onAction().subscribe(() => this.openDialog(asso, calendarIndex, weeksIndex, weekDatesIndex))
   }
 
-  makeStars(calendar: CallendarArray, tp: TrainingPlan){
+  makeStars(calendar: CalendarArray, tp: TrainingPlan){
     calendar.calendar.forEach(
-      callendar => callendar.weeks.forEach(
+      calendar => calendar.weeks.forEach(
         week => week.weekDates.forEach(
           date => {
             tp.calendar_stars.forEach(
@@ -540,7 +541,7 @@ export class CallendarSimpleComponent implements OnInit, OnDestroy {
   }
 
 
-  openDialog(ass, callendarIndex: number, weeksIndex: number, weekDatesIndex: number): void {
+  openDialog(asso, calendarIndex: number, weeksIndex: number, weekDatesIndex: number): void {
     const dialogRef = this._dialog.open(RepeatDialogComponent, {
       width: `280px`,
       autoFocus: false,
@@ -554,15 +555,16 @@ export class CallendarSimpleComponent implements OnInit, OnDestroy {
     });
 
     //subscribe to data from closed dialog
-    dialogRef.afterClosed().subscribe((data) => {if(data){this.repeatAction(data, ass, callendarIndex, weeksIndex, weekDatesIndex)}})
+    dialogRef.afterClosed().subscribe((data) => {if(data){this.repeatAction(data, asso, calendarIndex, weeksIndex, weekDatesIndex)}})
   }
 
   add(){
-    const limit = this.callendarNoDisplayArray.calendar.length;
+    const limit = this.calendarNoDisplayArray.calendar.length;
     if(this.i < limit - 1){
       this.i = this.i + 1;
+      console.log(this.calendarArray.calendar[this.i])
       if(this.openedDay){
-        this._store.dispatch(new CallendarDataActions.CloseContainer({callendarIndex: this.openedDay.callendarIndex, weeksIndex: this.openedDay.weeksIndex, weekDatesIndex: this.openedDay.weekDatesIndex}))
+        this._store.dispatch(new CalendarDataActions.CloseContainer({calendarIndex: this.openedDay.calendarIndex, weeksIndex: this.openedDay.weeksIndex, weekDatesIndex: this.openedDay.weekDatesIndex}))
       }
     }
   }
@@ -571,26 +573,26 @@ export class CallendarSimpleComponent implements OnInit, OnDestroy {
     if(this.i > 0){
       this.i = this.i - 1;
       if(this.openedDay){
-        this._store.dispatch(new CallendarDataActions.CloseContainer({callendarIndex: this.openedDay.callendarIndex, weeksIndex: this.openedDay.weeksIndex, weekDatesIndex: this.openedDay.weekDatesIndex}))
+        this._store.dispatch(new CalendarDataActions.CloseContainer({calendarIndex: this.openedDay.calendarIndex, weeksIndex: this.openedDay.weeksIndex, weekDatesIndex: this.openedDay.weekDatesIndex}))
       }
     }
   }
 
-  repeatAction(data: RepeatData, ass: Association, callendarIndex: number, weeksIndex: number, weekDatesIndex: number): void {
+  repeatAction(data: RepeatData, assos: Association, calendarIndexV: number, weeksIndex: number, weekDatesIndex: number): void {
     if(data.weekly){
       const tp: TrainingPlan = Object.assign({}, this.trainingPlan);
-      const callendarRW = this.callendarNoDisplayArray;
-      const callendarNumberRW = callendarIndex;
+      const calendarRW = this.calendarNoDisplayArray;
+      const calendarNumberRW = calendarIndexV;
       const weeksNumberRW = weeksIndex;
       const weekDatesNumberRW = weekDatesIndex;
       let nRW = 0;
-      const limitRW = (callendarRW.calendar.length * 6) - (callendarNumberRW*6 + weeksNumberRW);
+      const limitRW = (calendarRW.calendar.length * 6) - (calendarNumberRW*6 + weeksNumberRW);
       const newAssoArrayRW = [];
       for(let i = 1; i <= Number(data.weekly)+nRW && i < limitRW; i++){
-          if(callendarRW.calendar[callendarNumberRW + Math.floor((weeksNumberRW + i) / 6)].weeks[(weeksNumberRW + i - (6 * (Math.floor((weeksNumberRW + i) / 6))))].weekDates[weekDatesNumberRW].available){
-              let asso = Object.assign({}, ass);
-              asso.calendar_date = callendarRW.calendar[callendarNumberRW + Math.floor((weeksNumberRW + i) / 6)].weeks[(weeksNumberRW + i - (6 * (Math.floor((weeksNumberRW + i) / 6))))].weekDates[weekDatesNumberRW].momentDate;
-              callendarRW.calendar[callendarNumberRW + Math.floor((weeksNumberRW + i) / 6)].weeks[(weeksNumberRW + i - (6 * (Math.floor((weeksNumberRW + i) / 6))))].weekDates[weekDatesNumberRW].association.push(asso);
+          if(calendarRW.calendar[calendarNumberRW + Math.floor((weeksNumberRW + i) / 6)].weeks[(weeksNumberRW + i - (6 * (Math.floor((weeksNumberRW + i) / 6))))].weekDates[weekDatesNumberRW].available){
+              let asso = Object.assign({}, assos);
+              asso.calendar_date = calendarRW.calendar[calendarNumberRW + Math.floor((weeksNumberRW + i) / 6)].weeks[(weeksNumberRW + i - (6 * (Math.floor((weeksNumberRW + i) / 6))))].weekDates[weekDatesNumberRW].momentDate;
+              calendarRW.calendar[calendarNumberRW + Math.floor((weeksNumberRW + i) / 6)].weeks[(weeksNumberRW + i - (6 * (Math.floor((weeksNumberRW + i) / 6))))].weekDates[weekDatesNumberRW].association.push(asso);
               newAssoArrayRW.push(asso);
           }else{
               nRW = nRW + 1;
@@ -603,29 +605,29 @@ export class CallendarSimpleComponent implements OnInit, OnDestroy {
       let openedDayDate: string = null;
       if(this.openedDay){
         isOpenedDay = true;
-        calendarIndex = this.openedDay.callendarIndex;
+        calendarIndex = this.openedDay.calendarIndex;
         weeksIndexx = this.openedDay.weeksIndex;
-        openedDayDate = this.callendarNoDisplayArray.calendar[this.openedDay.callendarIndex].weeks[this.openedDay.weeksIndex].weekDates[this.openedDay.weekDatesIndex].momentDate
+        openedDayDate = this.calendarNoDisplayArray.calendar[this.openedDay.calendarIndex].weeks[this.openedDay.weeksIndex].weekDates[this.openedDay.weekDatesIndex].momentDate
       }
-      this._httpCalendarService.repeatWeaklyAsso(this.trainingPlan.id, newAssoArrayRW, callendarRW, tp, isOpenedDay, calendarIndex, weeksIndexx, openedDayDate, this.callendarArray,this.callendarNoDisplayArray.calendar[this.openedDay.callendarIndex].weeks[this.openedDay.weeksIndex].weekDates);
+      this._httpCalendarService.repeatWeaklyAsso(this.trainingPlan.id, newAssoArrayRW, calendarRW, tp, isOpenedDay, calendarIndex, weeksIndexx, openedDayDate, this.calendarArray,this.calendarNoDisplayArray.calendar[this.openedDay.calendarIndex].weeks[this.openedDay.weeksIndex].weekDates);
       
     } else if (data.daily) {
       const tp: TrainingPlan = Object.assign({}, this.trainingPlan);
-      const callendarRD = this.callendarNoDisplayArray;
-      const callendarNumberRD = callendarIndex;
+      const calendarRD = this.calendarNoDisplayArray;
+      const calendarNumberRD = calendarIndexV;
       const weeksNumberRD = weeksIndex;
       const weekDatesNumberRD = weekDatesIndex;
       let nRD = 0;
-      const limitRD = (callendarRD.calendar.length * 6 * 7) - (callendarNumberRD * 6 * 7) - (weeksNumberRD * 7) - weekDatesNumberRD - 7;
+      const limitRD = (calendarRD.calendar.length * 6 * 7) - (calendarNumberRD * 6 * 7) - (weeksNumberRD * 7) - weekDatesNumberRD - 7;
       const newAssoArrayRD = [];
       for(let i = 1; i <= Number(data.daily) + nRD && i < limitRD; i++) {
-        let a = callendarNumberRD + Math.floor((weeksNumberRD + Math.floor((weekDatesNumberRD + i) / 7))/6);
+        let a = calendarNumberRD + Math.floor((weeksNumberRD + Math.floor((weekDatesNumberRD + i) / 7))/6);
         let b = weeksNumberRD + Math.floor((weekDatesNumberRD + i) / 7) - (6 * Math.floor((weeksNumberRD + Math.floor((weekDatesNumberRD + i) / 7))/6));
         let c = weekDatesNumberRD + i - (7 * (Math.floor((weekDatesNumberRD + i) / 7)));
-        if(callendarRD.calendar[a].weeks[b].weekDates[c].available){
-          let asso = Object.assign({},ass);
-          asso.calendar_date = callendarRD.calendar[a].weeks[b].weekDates[c].momentDate;
-          callendarRD.calendar[a].weeks[b].weekDates[c].association.push(asso);
+        if(calendarRD.calendar[a].weeks[b].weekDates[c].available){
+          let asso = Object.assign({},assos);
+          asso.calendar_date = calendarRD.calendar[a].weeks[b].weekDates[c].momentDate;
+          calendarRD.calendar[a].weeks[b].weekDates[c].association.push(asso);
           newAssoArrayRD.push(asso);
         } else {
           nRD = nRD + 1;
@@ -638,20 +640,20 @@ export class CallendarSimpleComponent implements OnInit, OnDestroy {
       let openedDayDate: string = null;
       if(this.openedDay){
         isOpenedDay = true;
-        calendarIndex = this.openedDay.callendarIndex;
+        calendarIndex = this.openedDay.calendarIndex;
         weeksIndexx = this.openedDay.weeksIndex;
-        openedDayDate = this.callendarNoDisplayArray.calendar[this.openedDay.callendarIndex].weeks[this.openedDay.weeksIndex].weekDates[this.openedDay.weekDatesIndex].momentDate
+        openedDayDate = this.calendarNoDisplayArray.calendar[this.openedDay.calendarIndex].weeks[this.openedDay.weeksIndex].weekDates[this.openedDay.weekDatesIndex].momentDate
       }
-      this._httpCalendarService.repeatDailyAsso(this.trainingPlan.id, newAssoArrayRD, callendarRD, tp, isOpenedDay, calendarIndex, weeksIndexx, openedDayDate, this.callendarArray,this.callendarNoDisplayArray.calendar[this.openedDay.callendarIndex].weeks[this.openedDay.weeksIndex].weekDates);
+      this._httpCalendarService.repeatDailyAsso(this.trainingPlan.id, newAssoArrayRD, calendarRD, tp, isOpenedDay, calendarIndex, weeksIndexx, openedDayDate, this.calendarArray,this.calendarNoDisplayArray.calendar[this.openedDay.calendarIndex].weeks[this.openedDay.weeksIndex].weekDates);
       
     } 
   }
 
   // summary:
-  makeWeek(callendarIndex: number, weeksIndex: number){
+  makeWeek(calendarIndex: number, weeksIndex: number){
     
     const assoArray = [];
-    this.callendarNoDisplayArray.calendar[callendarIndex].weeks[weeksIndex].weekDates.forEach(
+    this.calendarNoDisplayArray.calendar[calendarIndex].weeks[weeksIndex].weekDates.forEach(
       week => {
         if(week.association){
           week.association.forEach(
@@ -737,7 +739,7 @@ export class CallendarSimpleComponent implements OnInit, OnDestroy {
   }
 
   openTpBoard(){
-    this._store.dispatch(new CallendarDataActions.OpenTpBoard());
+    this._store.dispatch(new CalendarDataActions.OpenTpBoard());
   }
 
 
@@ -802,7 +804,7 @@ export class CallendarSimpleComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.callendarArraySub.unsubscribe();
+    this.calendarArraySub.unsubscribe();
     this.planNameSub.unsubscribe();
     this.trainingPlanSub.unsubscribe();
     this.openedDaySub.unsubscribe();

@@ -32,7 +32,9 @@ import { MatSnackBar } from '@angular/material';
   providedIn: 'root'
 })
 export class HttpClientService implements OnDestroy {
-  url: string = 'https://gremmo-one.herokuapp.com/api/v1/';
+
+  URL: string = 'https://ccoach-app.herokuapp.com/api/v1/';
+
   getHttpOptions() {
     const token = this._cookieService.get('token');
     const httpOptions = {
@@ -170,7 +172,7 @@ export class HttpClientService implements OnDestroy {
   //POST REQUESTS TILES
 
   createTrainingTile(tile: Tile) {
-    this._http.post(`${this.url}training_tiles`, tile, this.getHttpOptions() ).subscribe(
+    this._http.post(`${this.URL}training_tiles`, tile, this.getHttpOptions() ).subscribe(
       response => {
         this.createTileFunctions(response);
       }
@@ -178,7 +180,7 @@ export class HttpClientService implements OnDestroy {
   }
 
   createDietTile(tile: Tile) {
-    this._http.post(`${this.url}diet_tiles`, tile, this.getHttpOptions() ).subscribe(
+    this._http.post(`${this.URL}diet_tiles`, tile, this.getHttpOptions() ).subscribe(
       response => {
         this.createTileFunctions(response);
       }
@@ -186,7 +188,7 @@ export class HttpClientService implements OnDestroy {
   }
 
   createQuestionTile(tile: Tile) {
-    this._http.post(`${this.url}question_tiles`, tile, this.getHttpOptions() ).subscribe(
+    this._http.post(`${this.URL}question_tiles`, tile, this.getHttpOptions() ).subscribe(
       response => {
         this.createTileFunctions(response);
         
@@ -195,7 +197,7 @@ export class HttpClientService implements OnDestroy {
   }
 
   createMotivationTile(tile: Tile) {
-    this._http.post(`${this.url}motivation_tiles`, tile, this.getHttpOptions() ).subscribe(
+    this._http.post(`${this.URL}motivation_tiles`, tile, this.getHttpOptions() ).subscribe(
       response => {
         this.createTileFunctions(response);
       }
@@ -204,23 +206,23 @@ export class HttpClientService implements OnDestroy {
 
   //DELETE REQUESTS TILES
 
-  deleteTrainingTile(id){
-    this._http.delete(`${this.url}training_tiles/${id}`, this.getHttpOptions()).subscribe(
+  deleteTrainingTile(id: string){
+    this._http.delete(`${this.URL}training_tiles/${id}`, this.getHttpOptions()).subscribe(
     )
   }
 
-  deleteDietTile(id){
-    this._http.delete(`${this.url}diet_tiles/${id}`, this.getHttpOptions()).subscribe(
+  deleteDietTile(id: string){
+    this._http.delete(`${this.URL}diet_tiles/${id}`, this.getHttpOptions()).subscribe(
     )
   }
 
-  deleteQuestionTile(id){
-    this._http.delete(`${this.url}question_tiles/${id}`, this.getHttpOptions()).subscribe(
+  deleteQuestionTile(id: string){
+    this._http.delete(`${this.URL}question_tiles/${id}`, this.getHttpOptions()).subscribe(
     )
   }
 
-  deleteMotivationTile(id){
-    this._http.delete(`${this.url}motivation_tiles/${id}`, this.getHttpOptions()).subscribe(
+  deleteMotivationTile(id: string){
+    this._http.delete(`${this.URL}motivation_tiles/${id}`, this.getHttpOptions()).subscribe(
     )
   }
 
@@ -228,28 +230,28 @@ export class HttpClientService implements OnDestroy {
   //UPDATE TILES
 
   updateTrainingTile(id: number, tile: Tile){
-    this._http.patch(`${this.url}training_tiles/${id}`, tile, this.getHttpOptions()).subscribe(
+    this._http.patch(`${this.URL}training_tiles/${id}`, tile, this.getHttpOptions()).subscribe(
       (response: Tile) => {
         this._store.dispatch(new TilesActions.UpdateTiles(response));
       }
     )
   }
   updateDietTile(id: number, tile: Tile){
-    this._http.patch(`${this.url}diet_tiles/${id}`, tile, this.getHttpOptions()).subscribe(
+    this._http.patch(`${this.URL}diet_tiles/${id}`, tile, this.getHttpOptions()).subscribe(
       (response: Tile) => {
         this._store.dispatch(new TilesActions.UpdateTiles(response));
       }
     )
   }
   updateQuestionTile(id: number, tile: Tile){
-    this._http.patch(`${this.url}question_tiles/${id}`, tile, this.getHttpOptions()).subscribe(
+    this._http.patch(`${this.URL}question_tiles/${id}`, tile, this.getHttpOptions()).subscribe(
       (response: Tile) => {
         this._store.dispatch(new TilesActions.UpdateTiles(response));
       }
     )
   }
   updateMotivationTile(id: number, tile: Tile){
-    this._http.patch(`${this.url}motivation_tiles/${id}`, tile, this.getHttpOptions()).subscribe(
+    this._http.patch(`${this.URL}motivation_tiles/${id}`, tile, this.getHttpOptions()).subscribe(
       (response: Tile) => {
         this._store.dispatch(new TilesActions.UpdateTiles(response));
       }
@@ -262,7 +264,7 @@ export class HttpClientService implements OnDestroy {
   //POST REQUEST BOARD NOTE
 
   postBoardNote(note: Note){
-    this._http.post(`${this.url}user_board_notes`, note, this.getHttpOptions()).subscribe(
+    this._http.post(`${this.URL}user_board_notes`, note, this.getHttpOptions()).subscribe(
       response => {
         this._store.dispatch(new BoardDataActions.AddNote(response));
       }
@@ -272,7 +274,7 @@ export class HttpClientService implements OnDestroy {
   //DELETE REQUEST BOARD NOTE
 
   deleteBoardNote(id: number, index: number){
-    this._http.delete(`${this.url}user_board_notes/${id}`, this.getHttpOptions()).subscribe(
+    this._http.delete(`${this.URL}user_board_notes/${id}`, this.getHttpOptions()).subscribe(
       response => {
         this._store.dispatch(new BoardDataActions.DeleteNote(index));
       }
@@ -282,7 +284,7 @@ export class HttpClientService implements OnDestroy {
   //PATCH REQUEST BOARD NOTE
 
   patchBoardNote(note, id: number, index: number){
-    this._http.patch(`${this.url}user_board_notes/${id}`, note, this.getHttpOptions()).subscribe(
+    this._http.patch(`${this.URL}user_board_notes/${id}`, note, this.getHttpOptions()).subscribe(
       (response: Note) => {
         this._store.dispatch(new BoardDataActions.UpdateNote({index: index, note: response}));
         this._store.dispatch(new BoardDataActions.SetNote(response));
@@ -292,16 +294,16 @@ export class HttpClientService implements OnDestroy {
 
   //set user metadata
 
-  setUserMetaData(id){
-    this._http.post(`${this.url}auth_metadatas`, {metadata_type: 'training_plan_last_id', training_plan_last_id: id}, this.getHttpOptions()).subscribe(
+  setUserMetaData(id: number){
+    this._http.post(`${this.URL}auth_metadatas`, {metadata_type: 'training_plan_last_id', training_plan_last_id: id}, this.getHttpOptions()).subscribe(
       response => {
         this.changeTPLastId(id);
       }
     )
   }
 
-  setAthleteUserMetaData(id){
-    this._http.post(`${this.url}auth_metadatas`, {metadata_type: 'athlete_platform_last_id', athlete_platform_last_id: id}, this.getHttpOptions()).subscribe(
+  setAthleteUserMetaData(id: number){
+    this._http.post(`${this.URL}auth_metadatas`, {metadata_type: 'athlete_platform_last_id', athlete_platform_last_id: id}, this.getHttpOptions()).subscribe(
       response => {
         this.changeAthleteLastId(id);
       }
@@ -311,7 +313,7 @@ export class HttpClientService implements OnDestroy {
   //post training plan
 
   postTrainingPlan(tp: TrainingPlan){
-    this._http.post(`${this.url}training_plans`, tp, this.getHttpOptions()).subscribe(
+    this._http.post(`${this.URL}training_plans`, tp, this.getHttpOptions()).subscribe(
       (response: TrainingPlan) => {
         this._store.dispatch(new TilesActions.SetTrainingPlan(response));
         const tpElement: TpInfo = {
@@ -330,7 +332,7 @@ export class HttpClientService implements OnDestroy {
   //get trainingPlan by id
 
   getTrainingPlanById(id: number){
-    this._http.get(`${this.url}training_plans/${id}`, this.getHttpOptions()).subscribe(
+    this._http.get(`${this.URL}training_plans/${id}`, this.getHttpOptions()).subscribe(
       (response: TrainingPlan) => {
         this._store.dispatch(new TilesActions.SetTrainingPlan(response));
         this._store.dispatch(new ChartDataActions.SetTP(response));
@@ -344,8 +346,8 @@ export class HttpClientService implements OnDestroy {
 
   //get traing plan from platform
 
-  getTrainingPlanFromPlatform(){
-    this._http.get(`${this.url}platform_training_plan`, this.getHttpOptions()).subscribe(
+  getTrainingPlanFromPlatform() {
+    this._http.get(`${this.URL}platform_training_plan`, this.getHttpOptions()).subscribe(
       (response: any) => {
         if(response.message === "You have not been invited to any group yet"){
           this._store.dispatch(new TilesActions.SetTrainingPlan(null));
@@ -379,7 +381,7 @@ export class HttpClientService implements OnDestroy {
   //patch training plan
 
   patchTrainingPlan(tp: TrainingPlan, id: number){
-    this._http.patch(`${this.url}training_plans/${id}`, tp, this.getHttpOptions()).subscribe(
+    this._http.patch(`${this.URL}training_plans/${id}`, tp, this.getHttpOptions()).subscribe(
       (response: TrainingPlan) => {
         this._store.dispatch(new TilesActions.SetTrainingPlan(response));
         this._store.dispatch(new TilesActions.FetchTpManager());
@@ -391,8 +393,10 @@ export class HttpClientService implements OnDestroy {
   //delete training plan
 
   deleteTrainingPlan(id: number){
-    this._http.delete(`${this.url}training_plans/${id}`, this.getHttpOptions()).subscribe(
+    console.log(`deletuje`, `${this.URL}training_plans/${id}`, this.getHttpOptions())
+    this._http.delete(`${this.URL}training_plans/${id}`, this.getHttpOptions()).subscribe(
       (response) => {
+        console.log(response)
         this._store.dispatch(new TilesDataActions.DeleteTpManager(id));
       }
     )
@@ -402,7 +406,7 @@ export class HttpClientService implements OnDestroy {
   //Post Board Note
 
   postBoardNoteTP(note: Note, id: number){
-    this._http.post(`${this.url}training_plans/${id}/training_plan_board_notes`, note, this.getHttpOptions()).subscribe(
+    this._http.post(`${this.URL}training_plans/${id}/training_plan_board_notes`, note, this.getHttpOptions()).subscribe(
       response => {
         this._store.dispatch(new BoardDataActions.AddNote(response));
       }
@@ -412,7 +416,7 @@ export class HttpClientService implements OnDestroy {
   //Patch Board Note
 
   patchBoardNoteTP(note: Note, id: number, idBN: number, idNote: number){
-    this._http.patch(`${this.url}training_plans/${id}/training_plan_board_notes/${idBN}`, note, this.getHttpOptions()).subscribe(
+    this._http.patch(`${this.URL}training_plans/${id}/training_plan_board_notes/${idBN}`, note, this.getHttpOptions()).subscribe(
       (response: Note) => {
         this._store.dispatch(new BoardDataActions.UpdateNote({index: idNote, note: response}));
         this._store.dispatch(new BoardDataActions.SetNote(response));
@@ -423,7 +427,7 @@ export class HttpClientService implements OnDestroy {
   //Delete Board Note
 
   deleteBoardNoteTP(id: number, idBN: number, index: number){
-    this._http.delete(`${this.url}training_plans/${id}/training_plan_board_notes/${idBN}`, this.getHttpOptions()).subscribe(
+    this._http.delete(`${this.URL}training_plans/${id}/training_plan_board_notes/${idBN}`, this.getHttpOptions()).subscribe(
       response => {
         this._store.dispatch(new BoardDataActions.DeleteNote(index));
       }
@@ -431,7 +435,7 @@ export class HttpClientService implements OnDestroy {
   }
 
   loadBoardById(id: number) {
-    this._http.get(`${this.url}training_plans/${id}/training_plan_board_notes`, this.getHttpOptions()).subscribe(
+    this._http.get(`${this.URL}training_plans/${id}/training_plan_board_notes`, this.getHttpOptions()).subscribe(
       (response: Note[]) => {
         this._store.dispatch(new BoardDataActions.SetBoard(response))
       }
@@ -443,14 +447,15 @@ export class HttpClientService implements OnDestroy {
   //Get athlete card by id
 
   getAthleteCardById(id: number){
-    this._http.get(`${this.url}athlete_platforms/${id}`, this.getHttpOptions()).subscribe(
+    console.log(`idzie`)
+    this._http.get(`${this.URL}athlete_platforms/${id}`, this.getHttpOptions()).subscribe(
       (response: Athlete) => {
         this._store.dispatch(new AthleteDataActions.SetAthleteData(response));
         this.setAthleteUserMetaData(response.id);
       })}
     
   postAthlete(athlete: Athlete){
-    this._http.post(`${this.url}athlete_platforms`, athlete, this.getHttpOptions()).subscribe(
+    this._http.post(`${this.URL}athlete_platforms`, athlete, this.getHttpOptions()).subscribe(
       (response: Athlete) => {
         this._store.dispatch(new AthleteDataActions.SetAthleteData(response));
         this.setAthleteUserMetaData(response.id);
@@ -465,7 +470,7 @@ export class HttpClientService implements OnDestroy {
     })}
 
   patchAthlete(id: number, athlete: Athlete){
-    this._http.patch(`${this.url}athlete_platforms/${id}`, athlete, this.getHttpOptions()).subscribe(
+    this._http.patch(`${this.URL}athlete_platforms/${id}`, athlete, this.getHttpOptions()).subscribe(
       (response: any) => {
         this._store.dispatch(new AthleteDataActions.UpdateAthleteData(response))
       }
@@ -473,7 +478,7 @@ export class HttpClientService implements OnDestroy {
   };
 
   deleteAthlete(id: number){
-    this._http.delete(`${this.url}athlete_platforms/${id}`, this.getHttpOptions()).subscribe(
+    this._http.delete(`${this.URL}athlete_platforms/${id}`, this.getHttpOptions()).subscribe(
       response => {
         this._store.dispatch(new AthleteDataActions.FetchAthletesData())
       }
@@ -481,7 +486,7 @@ export class HttpClientService implements OnDestroy {
   }
 
   searchUser(email:string){
-    this._http.post(`${this.url}user_account_searches`, {user_email: email}, this.getHttpOptions()).subscribe(
+    this._http.post(`${this.URL}user_account_searches`, {user_email: email}, this.getHttpOptions()).subscribe(
       (response: any) => {
         this._store.dispatch(new AthleteDataActions.SpinnerOnOffInvite(false));
         this._store.dispatch(new AthleteDataActions.SetUserId(response.user_id))
@@ -501,7 +506,7 @@ export class HttpClientService implements OnDestroy {
   }
 
   inviteNewUser(platform_id: number, user_email: string){
-    this._http.post(`${this.url}athlete_platforms/${platform_id}/to_app_invitations`, {athlete_email: user_email}, this.getHttpOptions()).subscribe(
+    this._http.post(`${this.URL}athlete_platforms/${platform_id}/to_app_invitations`, {athlete_email: user_email}, this.getHttpOptions()).subscribe(
       (response: any) => {
         this._store.dispatch(new AthleteDataActions.UpdateAthlete({id: response.id, email: user_email, status: 3}));
         this._store.dispatch(new AthleteDataActions.SetInvitationSucces(true));
@@ -510,7 +515,7 @@ export class HttpClientService implements OnDestroy {
   }
 
   inviteExistUser(platform_id: number, user_id: string, user_email: string){
-    this._http.post(`${this.url}athlete_platforms/${platform_id}/invitations`, {user_id: user_id}, this.getHttpOptions()).subscribe(
+    this._http.post(`${this.URL}athlete_platforms/${platform_id}/invitations`, {user_id: user_id}, this.getHttpOptions()).subscribe(
       (response: any) => {
         this._store.dispatch(new AthleteDataActions.UpdateAthlete({id: response.id, email: user_email, status: 2}));
         this._store.dispatch(new AthleteDataActions.SetInvitationSucces(true));
@@ -519,7 +524,7 @@ export class HttpClientService implements OnDestroy {
   }
 
   deleteInviteNewUser(platform_id: number, invitation_id: number){
-    this._http.delete(`${this.url}athlete_platforms/${platform_id}/to_app_invitations/${invitation_id}`, this.getHttpOptions()).subscribe(
+    this._http.delete(`${this.URL}athlete_platforms/${platform_id}/to_app_invitations/${invitation_id}`, this.getHttpOptions()).subscribe(
       (response: any) => {
         this._store.dispatch(new AthleteDataActions.DeleteInvitations())
       }
@@ -527,7 +532,7 @@ export class HttpClientService implements OnDestroy {
   }
 
   deleteInviteExistUser(platform_id: number, invitation_id: number){
-    this._http.delete(`${this.url}athlete_platforms/${platform_id}/invitations/${invitation_id}`, this.getHttpOptions()).subscribe(
+    this._http.delete(`${this.URL}athlete_platforms/${platform_id}/invitations/${invitation_id}`, this.getHttpOptions()).subscribe(
       (response: any) => {
         this._store.dispatch(new AthleteDataActions.DeleteInvitations())
       }
@@ -535,7 +540,7 @@ export class HttpClientService implements OnDestroy {
   }
 
   acceptInvitation(trainer_token){
-    this._http.post(`${this.url}attendant_memberships`, { platform_token : trainer_token }, this.getHttpOptions()).subscribe(
+    this._http.post( `${this.URL}attendant_memberships`, { platform_token : trainer_token }, this.getHttpOptions() ).subscribe(
       response => {
         this._cookieService.delete('invitations');
         this._store.dispatch(new TilesActions.SetInvitations(null));
@@ -544,7 +549,7 @@ export class HttpClientService implements OnDestroy {
   }
 
   deleteInvitation(platform_token: string, index: number){
-    this._http.delete(`${this.url}athleted_invitations/${platform_token}`, this.getHttpOptions()).subscribe(
+    this._http.delete( `${this.URL}athleted_invitations/${platform_token}`, this.getHttpOptions() ).subscribe(
       response => {
         this._store.dispatch(new TilesDataActions.CancelInvitation(index));
       }
@@ -552,7 +557,7 @@ export class HttpClientService implements OnDestroy {
   }
 
   exitFromPlatform(){
-    this._http.delete(`${this.url}attendant_membership`, this.getHttpOptions()).subscribe(
+    this._http.delete(`${this.URL}attendant_membership`, this.getHttpOptions()).subscribe(
       response => {
         this._store.dispatch(new TilesDataActions.SetOnPlatformWithoutPlan(false));
       }
@@ -560,7 +565,7 @@ export class HttpClientService implements OnDestroy {
   }
 
   removeAthlete(athlete_platform_id: number, id: number){
-    this._http.delete(`${this.url}athlete_platforms/${athlete_platform_id}/memberships/${id}`, this.getHttpOptions()).subscribe(
+    this._http.delete(`${this.URL}athlete_platforms/${athlete_platform_id}/memberships/${id}`, this.getHttpOptions()).subscribe(
       response => {
         this._store.dispatch(new AthleteDataActions.FetchAthletesData());
         this._store.dispatch(new AthleteDataActions.UpdateAthlete({id: null, email: null, status: 4}));
@@ -573,7 +578,7 @@ export class HttpClientService implements OnDestroy {
   //post custom params athlete
 
   postCustomParams(athlete_platform_id: number, custom_params){
-    this._http.post(`${this.url}athlete_platforms/${athlete_platform_id}/custom_athlete_parameters`, custom_params, this.getHttpOptions()).subscribe(
+    this._http.post(`${this.URL}athlete_platforms/${athlete_platform_id}/custom_athlete_parameters`, custom_params, this.getHttpOptions()).subscribe(
       (response: CustomAthleteParameter)=>{
         this._store.dispatch(new AthleteDataActions.AddCustomParams(response))
       }
@@ -581,14 +586,14 @@ export class HttpClientService implements OnDestroy {
   }
 
   deleteCustomParam(id: number, athlete_platform_id: number){
-    this._http.delete(`${this.url}athlete_platforms/${athlete_platform_id}/custom_athlete_parameters/${id}`, this.getHttpOptions()).subscribe(
+    this._http.delete(`${this.URL}athlete_platforms/${athlete_platform_id}/custom_athlete_parameters/${id}`, this.getHttpOptions()).subscribe(
       response => {
       }
     )
   }
 
   patchCustomParam(id: number, athlete_platform_id: number, custom_param: CustomAthleteParameter){
-    this._http.patch(`${this.url}athlete_platforms/${athlete_platform_id}/custom_athlete_parameters/${id}`, custom_param, this.getHttpOptions()).subscribe(
+    this._http.patch(`${this.URL}athlete_platforms/${athlete_platform_id}/custom_athlete_parameters/${id}`, custom_param, this.getHttpOptions()).subscribe(
       response => {
         this._store.dispatch(new AthleteDataActions.EditCustomParams(response))
       }
@@ -599,7 +604,7 @@ export class HttpClientService implements OnDestroy {
   //post note
 
   postPlatformNote(id:number, note: Note){
-    this._http.post(`${this.url}athlete_platforms/${id}/platform_notes`, note, this.getHttpOptions()).subscribe(
+    this._http.post(`${this.URL}athlete_platforms/${id}/platform_notes`, note, this.getHttpOptions()).subscribe(
       response => {
         this._store.dispatch(new AthleteDataActions.UpdateAthleteNotes(response))
       }
@@ -607,7 +612,7 @@ export class HttpClientService implements OnDestroy {
   }
 
   patchPlatformNote(id:number, note: Note){
-    this._http.patch(`${this.url}athlete_platforms/${id}/platform_notes/${note.id}`, note, this.getHttpOptions()).subscribe(
+    this._http.patch(`${this.URL}athlete_platforms/${id}/platform_notes/${note.id}`, note, this.getHttpOptions()).subscribe(
       response => {
         this._store.dispatch(new AthleteDataActions.UpdateAthleteNote(response));
       }
@@ -615,7 +620,7 @@ export class HttpClientService implements OnDestroy {
   }
 
   deletePlatformNote(id:number, note: Note){
-    this._http.delete(`${this.url}athlete_platforms/${id}/platform_notes/${note.id}`, this.getHttpOptions()).subscribe(
+    this._http.delete(`${this.URL}athlete_platforms/${id}/platform_notes/${note.id}`, this.getHttpOptions()).subscribe(
       response => {
         this._store.dispatch(new AthleteDataActions.DeleteAthleteNote(note))
       }
@@ -625,7 +630,7 @@ export class HttpClientService implements OnDestroy {
   //Training Plan stars
 
   postTrainingPlanStar(tp_id: number, star: Star){
-    this._http.post(`${this.url}training_plans/${tp_id}/calendar_stars`, star, this.getHttpOptions()).subscribe(
+    this._http.post(`${this.URL}training_plans/${tp_id}/calendar_stars`, star, this.getHttpOptions()).subscribe(
       (response: Star) => {
         this._store.dispatch(new TilesDataActions.AddStar(response));
         //
@@ -634,7 +639,7 @@ export class HttpClientService implements OnDestroy {
   }
 
   patchTrainingPlanStar(tp_id: number, star: Star, star_id: number){
-    this._http.patch(`${this.url}training_plans/${tp_id}/calendar_stars/${star_id}`, star, this.getHttpOptions()).subscribe(
+    this._http.patch(`${this.URL}training_plans/${tp_id}/calendar_stars/${star_id}`, star, this.getHttpOptions()).subscribe(
       (response: Star) => {
         this._store.dispatch(new TilesDataActions.AddStar(response));
       }
@@ -642,7 +647,7 @@ export class HttpClientService implements OnDestroy {
   }
 
   deleteTrainingPlanStar(tp_id: number, star_id: number){
-    this._http.delete(`${this.url}training_plans/${tp_id}/calendar_stars/${star_id}`, this.getHttpOptions()).subscribe(
+    this._http.delete(`${this.URL}training_plans/${tp_id}/calendar_stars/${star_id}`, this.getHttpOptions()).subscribe(
       (response: Star) => {
         this._store.dispatch(new TilesDataActions.DeleteStar(star_id));
       }
@@ -659,7 +664,7 @@ export class HttpClientService implements OnDestroy {
   //answers for questions
 
   postAnswers(json, notifications: any[]){
-    this._http.post(`${this.url}platform_training_plan_question_answers`, json, this.getHttpOptions()).subscribe(
+    this._http.post(`${this.URL}platform_training_plan_question_answers`, json, this.getHttpOptions()).subscribe(
       response => {
         this._store.dispatch(new LoopsDataActions.SetNotifications(notifications));
       }
@@ -667,7 +672,7 @@ export class HttpClientService implements OnDestroy {
   }
 
   fetchChartData(tp_id: number){
-    this._http.get(`${this.url}training_plans/${tp_id}/training_plan_question_answers`, this.getHttpOptions()).subscribe(
+    this._http.get(`${this.URL}training_plans/${tp_id}/training_plan_question_answers`, this.getHttpOptions()).subscribe(
       (response: Answear[]) => {
         this._store.dispatch(new ChartDataActions.SetChartData(response))
       }
@@ -678,7 +683,7 @@ export class HttpClientService implements OnDestroy {
   //tag functionality
 
   postTag(tagName: string){
-    this._http.post(`${this.url}tile_tags`, {tag_name: tagName}, this.getHttpOptions()).subscribe(
+    this._http.post(`${this.URL}tile_tags`, {tag_name: tagName}, this.getHttpOptions()).subscribe(
       (response: Tag) => {
         this._store.dispatch(new TilesDataActions.AddTag(response));
       }
@@ -686,7 +691,7 @@ export class HttpClientService implements OnDestroy {
   };
 
   deleteTag(tag_id: number){
-    this._http.delete(`${this.url}tile_tags/${tag_id}`, this.getHttpOptions()).subscribe(
+    this._http.delete(`${this.URL}tile_tags/${tag_id}`, this.getHttpOptions()).subscribe(
       (response) => {
         
       }
@@ -694,7 +699,7 @@ export class HttpClientService implements OnDestroy {
   };
 
   setTagsQuestions(tags: any){
-    this._http.post(`${this.url}auth_metadatas`, tags, this.getHttpOptions()).subscribe(
+    this._http.post(`${this.URL}auth_metadatas`, tags, this.getHttpOptions()).subscribe(
       response => {
         this.changeTags(tags);
 
@@ -706,15 +711,7 @@ export class HttpClientService implements OnDestroy {
         this._store.dispatch(new LoopsActions.SetTags(tag));
       }
     )
-  }
-
-  sentFeedback(email, text){
-    this._http.post(`${this.url}in_app_feedbacks`, {email: email, description: text}, this.getHttpOptions()).subscribe(
-      response => {
-        let snackBarRef = this._snackBar.open(`The message has been sent`, null, {duration: 6000});
-      }
-    )
-  }
+  };
 
   
   ngOnDestroy(): void {

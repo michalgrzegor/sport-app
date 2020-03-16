@@ -1,0 +1,13 @@
+@mixin textLato($font_weight, $font_size) {
+    font-family: 'Lato', sans-serif;
+    font-style: normal;
+    font-weight: $font_weight;
+    font-size: $font_size;
+}
+
+@mixin textRaleway($font_weight, $font_size) {
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: $font_weight;
+    font-size: $font_size;
+}

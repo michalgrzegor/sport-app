@@ -1,4 +1,4 @@
-import { CallendarArray } from './../callendar-data.service';
+import { CalendarArray } from '../calendar-data.service';
 import { Action } from '@ngrx/store';
 import { Association, TrainingPlan } from './tiles-data.reducers';
 
@@ -45,74 +45,74 @@ export const SET_WEEK = "SET_WEEK";
 export class InitData implements Action {
     readonly type = INIT_DATA;
 
-    constructor(public payload: {calendar: CallendarArray, planName: string}){}
+    constructor(public payload: {calendar: CalendarArray, planName: string}){}
 }
 
 export class InitDataNoItteration implements Action {
     readonly type = INIT_DATA_NO_ITTERATION;
 
-    constructor(public payload: {calendar: CallendarArray, planName: string}){}
+    constructor(public payload: {calendar: CalendarArray, planName: string}){}
 }
 
 export class AddAsso implements Action {
     readonly type = ADD_ASSO;
 
-    constructor(public payload: {callendarIndex: number, weeksIndex: number, weekDatesIndex: number, associations: Association, newOrder: number[], sessionNumber: number}){}
+    constructor(public payload: {calendarIndex: number, weeksIndex: number, weekDatesIndex: number, associations: Association, newOrder: number[], sessionNumber: number}){}
 }
 
 export class RepeatWeekly implements Action {
     readonly type = REPEAT_WEEKLY;
 
-    constructor(public payload: CallendarArray){}
+    constructor(public payload: CalendarArray){}
 }
 
 export class RepeatDaily implements Action {
     readonly type = REPEAT_DAILY;
 
-    constructor(public payload: CallendarArray){}
+    constructor(public payload: CalendarArray){}
 }
 
 
 export class OpenContainer implements Action {
     readonly type = OPEN_CONTAINER;
 
-    constructor(public payload: {callendarIndex: number, weeksIndex: number, weekDatesIndex: number}){}
+    constructor(public payload: {calendarIndex: number, weeksIndex: number, weekDatesIndex: number}){}
 }
 
 export class ChangeSession implements Action {
     readonly type = CHANGE_SESSION;
     
-    constructor(public payload: {callendarIndex: number, weeksIndex: number, weekDatesIndex: number, tempId: number, sessionNumber: number}){}
+    constructor(public payload: {calendarIndex: number, weeksIndex: number, weekDatesIndex: number, tempId: number, sessionNumber: number}){}
 }
 
 export class DeleteAsso implements Action {
     readonly type = DELETE_ASSO;
     
-    constructor(public payload: {callendarIndex: number, weeksIndex: number, weekDatesIndex: number, tempId: number}){}
+    constructor(public payload: {calendarIndex: number, weeksIndex: number, weekDatesIndex: number, tempId: number}){}
 }
 
 export class RepeatWeeklyDay implements Action {
     readonly type = REPEAT_WEEKLY_DAY;
     
-    constructor(public payload: CallendarArray){}
+    constructor(public payload: CalendarArray){}
 }
 
 export class RepeatDailyDay implements Action {
     readonly type = REPEAT_DAILY_DAY;
     
-    constructor(public payload: CallendarArray){}
+    constructor(public payload: CalendarArray){}
 }
 
 export class CloseContainer implements Action {
     readonly type = CLOSE_CONTAINER;
 
-    constructor(public payload: {callendarIndex: number, weeksIndex: number, weekDatesIndex: number}){}
+    constructor(public payload: {calendarIndex: number, weeksIndex: number, weekDatesIndex: number}){}
 }
 
 export class DeleteAllDay implements Action {
     readonly type = DELETE_ALL_DAY;
 
-    constructor(public payload: {callendarIndex: number, weeksIndex: number, weekDatesIndex: number}){}
+    constructor(public payload: {calendarIndex: number, weeksIndex: number, weekDatesIndex: number}){}
 }
 
 export class FetchAllTPNames implements Action {
@@ -146,7 +146,7 @@ export class ChangeAssoIndex implements Action {
 export class MoveWeek implements Action {
     readonly type = MOVE_WEEK;
 
-    constructor(public payload: {callendarIndex: number, weeksIndex: number}){}
+    constructor(public payload: {calendarIndex: number, weeksIndex: number}){}
 }
 
 export class OpenTpBoard implements Action {
@@ -246,4 +246,4 @@ export class SetWeek implements Action {
     constructor(public payload: any[]){}
 }
 
-export type CallendarDataActions = InitData | AddAsso | RepeatWeekly | RepeatDaily | OpenContainer | ChangeSession | DeleteAsso | RepeatDailyDay | RepeatWeeklyDay | CloseContainer | DeleteAllDay | FetchAllTPNames | SetAllTPNames | CopyAsso | PasteAsso | ChangeAssoIndex | MoveWeek | OpenTpBoard | CloseTpBoard | SetTutorial | SetClose | SetDaysToChange | ConsoleLog | DeleteAllDayEffect | DeleteDayEffect | PasteAssoEffect | UpdateCalendar | RWAEffect | RDAEffect | RWDAEffect | RDDAEffect | PCAEffect | ResetATCH | InitDataNoItteration | SetWeek;
+export type CalendarDataActions = InitData | AddAsso | RepeatWeekly | RepeatDaily | OpenContainer | ChangeSession | DeleteAsso | RepeatDailyDay | RepeatWeeklyDay | CloseContainer | DeleteAllDay | FetchAllTPNames | SetAllTPNames | CopyAsso | PasteAsso | ChangeAssoIndex | MoveWeek | OpenTpBoard | CloseTpBoard | SetTutorial | SetClose | SetDaysToChange | ConsoleLog | DeleteAllDayEffect | DeleteDayEffect | PasteAssoEffect | UpdateCalendar | RWAEffect | RDAEffect | RWDAEffect | RDDAEffect | PCAEffect | ResetATCH | InitDataNoItteration | SetWeek;

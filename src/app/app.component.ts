@@ -33,7 +33,7 @@ import * as AthleteDataActions from './shared/store/athletes-data.actions';
 import * as BoardDataActions from './shared/store/board-data.actions';
 import * as ChartDataActions from './shared/store/chart-data.actions';
 import * as LoopsActions from './shared/store/loops.actions';
-import * as CalendarDataActions from './shared/store/callendar-data.actions';
+import * as CalendarDataActions from './shared/store/calendar-data.actions';
 import * as ChatActions from './shared/store/chat.actions';
 
 declare let gtag: Function;
@@ -445,7 +445,7 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.allTPNamesState = this._store.select(state => state.callendar.allTPNames);
+    this.allTPNamesState = this._store.select(state => state.calendar.allTPNames);
     this.allTPNamesSub = this.allTPNamesState.subscribe(
       data => {
         this.allTPNames = data;
@@ -596,6 +596,7 @@ export class AppComponent implements OnInit, OnDestroy {
   onAthletes(): void{
     this.toNormal();
     if(this.isWeb){
+      console.log(`this `, this)
       this._router.navigate(['/athletecard'], { queryParams: { 'right': 'athletemanager'}});
       this.mainRoute = 'athletecard';
       this._store.dispatch(new TilesDataActions.SeteMainRoute('athletecard'))

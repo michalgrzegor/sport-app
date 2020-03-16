@@ -12,7 +12,7 @@ import * as fromApp from './app.reducers';
 
 @Injectable()
 export class TilesDataEffects {
-    url: string = 'https://gremmo-one.herokuapp.com/api/v1/';
+    url: string = 'https://ccoach-app.herokuapp.com/api/v1/';
 
     constructor(
         private _store: Store<fromApp.AppState>,

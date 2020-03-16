@@ -7,7 +7,7 @@ import { TrainingPlan, Association } from './store/tiles-data.reducers';
 @Injectable({
   providedIn: 'root'
 })
-export class CallendarDataService implements OnInit {
+export class CalendarDataService implements OnInit {
   localeString: string = 'en';
   navDate: any;
   weekDaysHeaderArr: Array<string> = [];
@@ -29,7 +29,7 @@ export class CallendarDataService implements OnInit {
     // this.navDate = moment();
   }
 
-  makeArray(tp: TrainingPlan): CallendarArray {
+  makeArray(tp: TrainingPlan): CalendarArray {
     moment.locale(this.localeString);
     this.navDate = moment();
     const dateFrom = moment(tp.date_from);
@@ -76,15 +76,15 @@ export class CallendarDataService implements OnInit {
     
     let dateStart = moment(tp.date_from);
 
-    let callendarArray: CallendarArray = {
+    let calendarArray: CalendarArray = {
       calendar : []
     }
     for (let i = 0; i <= months; i++) {
-      callendarArray.calendar.push(this.makeMonthArray(dateStart, tp));
+      calendarArray.calendar.push(this.makeMonthArray(dateStart, tp));
       dateStart.add(1, 'month');
     }
-    callendarArray.id = tp.id;
-    return callendarArray;
+    calendarArray.id = tp.id;
+    return calendarArray;
   }
 
   makeMonthArray(date: moment.Moment, tp: TrainingPlan): MonthArray {
@@ -109,7 +109,7 @@ export class CallendarDataService implements OnInit {
     })
     monthArray.weekDays = weekdays;
 
-    //making array of callendar day date
+    //making array of calendar day date
     let gridArr = [];
 
     const firstDayDate: moment.Moment = moment(date).startOf('month');
@@ -194,7 +194,7 @@ export class CallendarDataService implements OnInit {
   
 }
 
-//interfaces of objects from callendar
+//interfaces of objects from calendar
 export interface Container {
   container: boolean;
   expanded: boolean;
@@ -218,7 +218,7 @@ export interface DayName {
   dayOfTheWeek: string;
 }
 
-//interfaces of arrays from callendar
+//interfaces of arrays from calendar
 
 
 export interface WeekDates {
@@ -226,7 +226,7 @@ export interface WeekDates {
   container: Container[];
 }
 
-//interface of the month of the callendar
+//interface of the month of the calendar
 
 export interface MonthArray {
   monthName: MonthName;
@@ -234,9 +234,9 @@ export interface MonthArray {
   weeks: WeekDates[];
 }
 
-//interface of the callendar
+//interface of the calendar
 
-export interface CallendarArray {
+export interface CalendarArray {
   calendar: MonthArray[];
   id?: number;
 }

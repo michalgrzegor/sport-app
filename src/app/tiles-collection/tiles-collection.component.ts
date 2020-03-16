@@ -144,7 +144,7 @@ export class TilesCollectionComponent implements OnInit, OnDestroy {
       data => this.mainRoute = data
     )
 
-    this.allMomentDateArrayState = this._store.select(state => state.callendar.allMomentDateArray);
+    this.allMomentDateArrayState = this._store.select(state => state.calendar.allMomentDateArray);
     this.allMomentDateArraySub = this.allMomentDateArrayState.subscribe(
       data =>{
         if(data){

@@ -1,4 +1,4 @@
-import { CallendarArray, CallendarDataService, WeekDate } from './callendar-data.service';
+import { CalendarArray, CalendarDataService, WeekDate } from './calendar-data.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Store } from '@ngrx/store';
@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import * as fromApp from './store/app.reducers';
 import * as TilesActions from './store/tiles-data.actions';
 import * as TilesDataActions from './store/tiles-data.actions';
-import * as CallendarDataActions from './store/callendar-data.actions';
+import * as CallendarDataActions from './store/calendar-data.actions';
 import * as ChartDataActions from './store/chart-data.actions';
 
 import { CookieService } from 'ngx-cookie-service';
@@ -20,7 +20,7 @@ import * as moment from 'moment';
 })
 export class HttpCalendarClientService {
 
-  url: string = 'https://gremmo-one.herokuapp.com/api/v1/';
+  URL: string = 'https://ccoach-app.herokuapp.com/api/v1/';
   
   getHttpOptions() {
     const token = this._cookieService.get('token');
@@ -38,8 +38,7 @@ export class HttpCalendarClientService {
   constructor(
     private _http: HttpClient,
     private _store: Store<fromApp.AppState>,
-    private _cookieService: CookieService,
-    private _calendarService: CallendarDataService
+    private _cookieService: CookieService
   ) { };
 
   makeWeek(openDayDate: string, tp: TrainingPlan){
@@ -68,11 +67,11 @@ export class HttpCalendarClientService {
     tp_id: number, 
     associations: Association[], 
     tp: TrainingPlan, 
-    callendarIndex: number, 
+    calendarIndex: number, 
     weeksIndex: number, 
     day, 
-    array: CallendarArray, 
-    callendarWeek: WeekDate[]){
+    array: CalendarArray, 
+    calendarWeek: WeekDate[]){
       const assocs = {
         calendar_assocs: associations
       };
@@ -86,21 +85,21 @@ export class HttpCalendarClientService {
 
       this._store.dispatch(new CallendarDataActions.PasteAssoEffect({tp_id: tp_id, assocs: assocs}));
       const cal = [];
-      callendarWeek.forEach(c=>cal.push(Object.assign({},c)));
+      calendarWeek.forEach(c=>cal.push(Object.assign({},c)));
       this._store.dispatch(new CallendarDataActions.SetWeek(cal));
   }
 
   repeatWeaklyAsso(
     tp_id: number, 
     associations: Association[], 
-    calendar: CallendarArray, 
+    calendar: CalendarArray, 
     tp: TrainingPlan, 
     isOpenedDay: boolean, 
-    callendarIndex: number, 
+    calendarIndex: number, 
     weeksIndex: number, 
     openedDayDate: string, 
-    arrayt: CallendarArray, 
-    callendarWeek: WeekDate[]){
+    arrayt: CalendarArray, 
+    calendarWeek: WeekDate[]){
       const assocs = {
         calendar_assocs: associations
       };
@@ -120,21 +119,21 @@ export class HttpCalendarClientService {
 
       this._store.dispatch(new CallendarDataActions.RWAEffect({tp_id: tp_id, assocs: assocs, tp: trP}));
       const cal = [];
-      callendarWeek.forEach(c=>cal.push(Object.assign({},c)));
+      calendarWeek.forEach(c=>cal.push(Object.assign({},c)));
       this._store.dispatch(new CallendarDataActions.SetWeek(cal));
   }
 
   repeatDailyAsso(
     tp_id: number, 
     associations: Association[], 
-    calendar: CallendarArray, 
+    calendar: CalendarArray, 
     tp: TrainingPlan, 
     isOpenedDay: boolean, 
-    callendarIndex: number, 
+    calendarIndex: number, 
     weeksIndex: number, 
     openedDayDate: string, 
-    arrayt: CallendarArray, 
-    callendarWeek: WeekDate[]){
+    arrayt: CalendarArray, 
+    calendarWeek: WeekDate[]){
       const assocs = {
         calendar_assocs: associations
       };
@@ -154,21 +153,21 @@ export class HttpCalendarClientService {
 
       this._store.dispatch(new CallendarDataActions.RDAEffect({tp_id: tp_id, assocs: assocs, tp: trP}));
       const cal = [];
-      callendarWeek.forEach(c=>cal.push(Object.assign({},c)));
+      calendarWeek.forEach(c=>cal.push(Object.assign({},c)));
       this._store.dispatch(new CallendarDataActions.SetWeek(cal));
     }
     
   repeatWeaklyDayAsso(
     tp_id: number, 
     associations: Association[], 
-    calendar: CallendarArray, 
+    calendar: CalendarArray, 
     tp: TrainingPlan, 
     isOpenedDay: boolean, 
-    callendarIndex: number, 
+    calendarIndex: number, 
     weeksIndex: number, 
     openedDayDate: string, 
-    arrayt: CallendarArray, 
-    callendarWeek: WeekDate[]){
+    arrayt: CalendarArray, 
+    calendarWeek: WeekDate[]){
       const assocs = {
         calendar_assocs: associations
       };
@@ -188,21 +187,21 @@ export class HttpCalendarClientService {
 
       this._store.dispatch(new CallendarDataActions.RWDAEffect({tp_id: tp_id, assocs: assocs, tp: trP}));
       const cal = [];
-      callendarWeek.forEach(c=>cal.push(Object.assign({},c)));
+      calendarWeek.forEach(c=>cal.push(Object.assign({},c)));
       this._store.dispatch(new CallendarDataActions.SetWeek(cal));
   }
 
   repeatDailyDayAsso(
     tp_id: number, 
     associations: Association[], 
-    calendar: CallendarArray, 
+    calendar: CalendarArray, 
     tp: TrainingPlan, 
     isOpenedDay: boolean, 
-    callendarIndex: number, 
+    calendarIndex: number, 
     weeksIndex: number, 
     openedDayDate: string, 
-    arrayt: CallendarArray, 
-    callendarWeek: WeekDate[]){
+    arrayt: CalendarArray, 
+    calendarWeek: WeekDate[]){
       const assocs = {
         calendar_assocs: associations
       };
@@ -221,7 +220,7 @@ export class HttpCalendarClientService {
 
       this._store.dispatch(new CallendarDataActions.RDDAEffect({tp_id: tp_id, assocs: assocs, tp: trP}));
       const cal = [];
-      callendarWeek.forEach(c=>cal.push(Object.assign({},c)));
+      calendarWeek.forEach(c=>cal.push(Object.assign({},c)));
       this._store.dispatch(new CallendarDataActions.SetWeek(cal));
   }
 
@@ -230,14 +229,14 @@ export class HttpCalendarClientService {
   deleteDay(
     tp_id: number, 
     associations: Association[], 
-    callendarIndex:number, 
+    calendarIndex:number, 
     weeksIndex:number, 
     weekDatesIndex:number, 
     day, 
     tp: TrainingPlan, 
-    calendar: CallendarArray, 
+    calendar: CalendarArray, 
     array: string[], 
-    callendarWeek: WeekDate[]) {
+    calendarWeek: WeekDate[]) {
       const idArray = [];
       associations.forEach(
         asso => {
@@ -258,7 +257,7 @@ export class HttpCalendarClientService {
 
       this._store.dispatch(new CallendarDataActions.DeleteAllDayEffect({tp_id: tp_id, assocs: assocs}));
       const cal = [];
-      callendarWeek.forEach(c=>cal.push(Object.assign({},c)));
+      calendarWeek.forEach(c=>cal.push(Object.assign({},c)));
       this._store.dispatch(new CallendarDataActions.SetWeek(cal));
   }
 
@@ -269,7 +268,7 @@ export class HttpCalendarClientService {
     training_plan: TrainingPlan,
     training_plan_id: number, 
     calendar_assoc: Association, 
-    callendarIndex: number, 
+    calendarIndex: number, 
     weeksIndex: number, 
     weekDatesIndex: number, 
     newOrder: any,
@@ -278,12 +277,12 @@ export class HttpCalendarClientService {
     temporary_id: number,
     isOpenedDay: boolean,
     openedDayDate: string,
-    callendarWeek: WeekDate[]
+    calendarWeek: WeekDate[]
     ){
 
       const asso: Association = Object.assign({}, calendar_assoc);
       asso.asso_temporary_id = temporary_id;
-      this._store.dispatch(new CallendarDataActions.AddAsso({callendarIndex: callendarIndex, weeksIndex: weeksIndex, weekDatesIndex: weekDatesIndex, associations: asso, newOrder: newOrder, sessionNumber: sessionNumber}));
+      this._store.dispatch(new CallendarDataActions.AddAsso({calendarIndex: calendarIndex, weeksIndex: weeksIndex, weekDatesIndex: weekDatesIndex, associations: asso, newOrder: newOrder, sessionNumber: sessionNumber}));
       
       const tp = Object.assign({}, training_plan);
       tp.calendar_assocs.push(asso);
@@ -299,7 +298,7 @@ export class HttpCalendarClientService {
       this._store.dispatch(new CallendarDataActions.PCAEffect({tp_id: training_plan_id, assocs: calendar_assoc, tp: tp}));
 
       const cal = [];
-      callendarWeek.forEach(c=>cal.push(Object.assign({},c)));
+      calendarWeek.forEach(c=>cal.push(Object.assign({},c)));
       this._store.dispatch(new CallendarDataActions.SetWeek(cal));
   }
 
@@ -307,16 +306,16 @@ export class HttpCalendarClientService {
     training_plan: TrainingPlan,
     training_plan_id: number, 
     asso_id: number,
-    callendarIndex: number,
+    calendarIndex: number,
     weeksIndex: number,
     weekDatesIndex: number,
     tempId: number,
     date: string,
     day: any,
-    callendarWeek: WeekDate[]
+    calendarWeek: WeekDate[]
   ){
 
-    this._store.dispatch(new CallendarDataActions.DeleteAsso({callendarIndex: callendarIndex, weeksIndex: weeksIndex, weekDatesIndex: weekDatesIndex, tempId: tempId}));
+    this._store.dispatch(new CallendarDataActions.DeleteAsso({calendarIndex: calendarIndex, weeksIndex: weeksIndex, weekDatesIndex: weekDatesIndex, tempId: tempId}));
     this._store.dispatch(new TilesDataActions.MakeDay({date: date, day: day}));
     let tp = Object.assign({}, training_plan);
     tp.calendar_assocs.forEach(
@@ -333,7 +332,7 @@ export class HttpCalendarClientService {
 
     this._store.dispatch(new CallendarDataActions.DeleteDayEffect({training_plan_id: training_plan_id, asso_id: asso_id}));
     const cal = [];
-    callendarWeek.forEach(c=>cal.push(Object.assign({},c)));
+    calendarWeek.forEach(c=>cal.push(Object.assign({},c)));
     cal.forEach((c:WeekDate)=>c.association.forEach((a,index)=>{if(a.id===asso_id){c.association.splice(index,1)}}))
     this._store.dispatch(new CallendarDataActions.SetWeek(cal));
   }
@@ -342,14 +341,14 @@ export class HttpCalendarClientService {
     training_plan_id: number, 
     asso_id: number, 
     calendar_asso: Association,
-    callendarIndex: number,
+    calendarIndex: number,
     weeksIndex: number,
     weekDatesIndex: number,
     tempId: number,
     sessionNumber: number
   ){
-    this._store.dispatch(new CallendarDataActions.ChangeSession({callendarIndex: callendarIndex, weeksIndex: weeksIndex, weekDatesIndex: weekDatesIndex, tempId: tempId, sessionNumber: sessionNumber}));
-    this._http.patch(`${this.url}training_plans/${training_plan_id}/calendar_assocs/${asso_id}`, calendar_asso, this.getHttpOptions()).subscribe(
+    this._store.dispatch(new CallendarDataActions.ChangeSession({calendarIndex: calendarIndex, weeksIndex: weeksIndex, weekDatesIndex: weekDatesIndex, tempId: tempId, sessionNumber: sessionNumber}));
+    this._http.patch(`${this.URL}training_plans/${training_plan_id}/calendar_assocs/${asso_id}`, calendar_asso, this.getHttpOptions()).subscribe(
       response => {
       }
     )
@@ -359,7 +358,7 @@ export class HttpCalendarClientService {
     training_plan_id: number,
     new_order_array: {}
   ){
-    this._http.post(`${this.url}/training_plans/${training_plan_id}/mass_index_update`, new_order_array, this.getHttpOptions()).subscribe(
+    this._http.post(`${this.URL}/training_plans/${training_plan_id}/mass_index_update`, new_order_array, this.getHttpOptions()).subscribe(
       response => {
       }
     )

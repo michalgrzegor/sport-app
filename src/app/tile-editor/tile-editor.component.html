@@ -45,7 +45,6 @@
             <div *ngIf="actualTrainingPlan === 'training'" >
                 <div formArrayName="tile_activities" *ngFor="let activityCtrl of tile_editor_form.get('tile_activities')['controls']; let i = index;" class="activity-container">
                         <div [formGroupName]="i">
-                            <!-- <div class="divider-line"></div> -->
                             <mat-form-field style="display: none" appearance="fill">
                                 <input 
                                     matInput 
@@ -198,13 +197,11 @@
                                     </div>
                                     <h6 *ngIf="tile_editor_form.get('tile_activities')['controls'][i].get('tile_activity_rest_after_activity_intensity_amount').hasError('maxlength')" >{{errorMaxLengthShort}}</h6>
                                 </div>
-                                <!-- <button mat-button color="primary" (click)="deleteActivity(i)" type="button" class="medium-button">DELETE {{i+1}} ACTIVITY</button> -->
                             </div>
                         </div>
                 </div>
             
             
-                <!-- <div class="divider-line after-delete-activity"></div> -->
                 <div class="add-btn-container">
                     <button mat-button color="primary" (click)="addNewActivity()" type="button" class="add-button"><mat-icon>add_circle_outline</mat-icon>ADD ACTIVITY</button>
                 </div>
@@ -394,7 +391,6 @@
                                             </mat-form-field>
                                         </div>
                                         <h6 *ngIf="tile_editor_form.get('tile_diets')['controls'][i].get('tile_diet_nutrients')['controls'][j].get('tile_diet_nutrient_amount').hasError('maxlength')" >{{errorMaxLengthShort}}</h6>
-                                        <!-- <button mat-button color="primary" (click)="deleteNutrient(i,j)" type="button" class="medium-button">DELETE {{j+1}} NUTRIENT</button> -->
                                     </div>
                                 </div>
                                 <div class="add-btn-container">
@@ -411,11 +407,9 @@
                                 <h6 *ngIf="tile_editor_form.get('tile_diets')['controls'][i].get('tile_diet_note').hasError('maxlength')" >{{errorMaxLengthLong}}</h6>
                             </div>
                         </div>
-                        <!-- <button mat-button color="primary" (click)="deleteDiet(i)" type="button" class="medium-button">DELETE {{i+1}} MEAL/TARGET</button> -->
         
                     </div>
                 </div>
-                <!-- <div class="divider-line after-delete-activity"></div> -->
                 <div class="add-btn-container">
                     <button mat-button color="primary" (click)="addNewDiet()" type="button" class="add-button"><mat-icon>add_circle_outline</mat-icon>ADD MEAL</button>
                 </div>
@@ -425,7 +419,6 @@
         <!-- tile question -->
             <div *ngIf="actualTrainingPlan === 'question'">
                 <div formGroupName="tile_question">
-                    <!-- <div class="divider-line"></div> -->
                     <div class="activity-container">
                         <h4 *ngIf="!tile_editor_form.get('tile_question').get('tile_ask_question').value" >ASK QUESTION</h4>
                         <h4 *ngIf="tile_editor_form.get('tile_question').get('tile_ask_question').value && tile_editor_form.get('tile_question').get('tile_ask_question').value.length > 0" >{{tile_editor_form.get('tile_question').get('tile_ask_question').value}}</h4>

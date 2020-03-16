@@ -50,7 +50,7 @@ export class TrainingPlanEditorComponent implements OnInit, OnDestroy {
       this.validDate = true;
     }
 
-    this.isTutorialState = this._store.select(state => state.callendar.isTutorial);
+    this.isTutorialState = this._store.select(state => state.calendar.isTutorial);
     this.isTutorialSub = this.isTutorialState.subscribe(
       data => {
         this.isTutorial = data;

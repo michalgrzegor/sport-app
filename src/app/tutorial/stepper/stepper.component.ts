@@ -6,7 +6,7 @@ import { CreatorComponent } from '../creator/creator.component';
 
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../shared/store/app.reducers';
-import * as CalendarDataActions from '../../shared/store/callendar-data.actions';
+import * as CalendarDataActions from '../../shared/store/calendar-data.actions';
 
 export interface StepperData {
   firstTimeUser: boolean

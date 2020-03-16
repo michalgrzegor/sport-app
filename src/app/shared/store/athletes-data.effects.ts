@@ -8,7 +8,7 @@ import { CookieService } from 'ngx-cookie-service';
 
 @Injectable()
 export class AthleteDataEffects {
-    url: string = 'https://gremmo-one.herokuapp.com/api/v1/';
+    url: string = 'https://ccoach-app.herokuapp.com/api/v1/';
     
 
     getHttpOptions() {

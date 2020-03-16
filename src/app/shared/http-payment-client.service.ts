@@ -7,7 +7,7 @@ import * as fromApp from './store/app.reducers';
 import * as TilesActions from './store/tiles-data.actions';
 import * as TilesDataActions from '../shared/store/tiles-data.actions';
 import * as AthleteDataActions from '../shared/store/athletes-data.actions';
-import * as CalendarDataActions from '../shared/store/callendar-data.actions';
+import * as CalendarDataActions from '../shared/store/calendar-data.actions';
 import { BreakpointObserver, BreakpointState, Breakpoints } from '@angular/cdk/layout';
 
 import { CookieService } from 'ngx-cookie-service';
@@ -19,7 +19,9 @@ import { StepperComponent } from '../tutorial/stepper/stepper.component';
   providedIn: 'root'
 })
 export class HttpPaymentClientService {
-  url: string = 'https://gremmo-one.herokuapp.com/api/v1/';
+  
+  URL: string = 'https://ccoach-app.herokuapp.com/api/v1/';
+
   getHttpOptions() {
     const token = this._cookieService.get('token');
     const httpOptions = {
@@ -108,7 +110,7 @@ isWeb: boolean;
   //Check for platform
 
   leavePlatform(){
-    this._http.delete(`${this.url}attendant_membership`, this.getHttpOptions()).subscribe(
+    this._http.delete(`${this.URL}attendant_membership`, this.getHttpOptions()).subscribe(
       (response)=>{
         this._httpClient.getTrainingPlanFromPlatform();
       }
@@ -116,7 +118,7 @@ isWeb: boolean;
   }
 
   checkPlatform(){
-    this._http.get(`${this.url}attendant_membership`, this.getHttpOptions()).subscribe(
+    this._http.get(`${this.URL}attendant_membership`, this.getHttpOptions()).subscribe(
       (response: any) => {
         if(response.is_in_active_platform){
           this._store.dispatch(new AthleteDataActions.SetIsInPlatform(true));
@@ -128,7 +130,7 @@ isWeb: boolean;
   }
 
   activatePlan(platfom_id: number, tp_id: number, athlete_id: number){
-    this._http.post(`${this.url}athlete_platforms/${platfom_id}/plan_appends`, {training_plan_id: tp_id}, this.getHttpOptions()).subscribe(
+    this._http.post(`${this.URL}athlete_platforms/${platfom_id}/plan_appends`, {training_plan_id: tp_id}, this.getHttpOptions()).subscribe(
       response => {
         this._store.dispatch(new AthleteDataActions.FetchAthletesData());
         this._httpClient.getAthleteCardById(athlete_id)
@@ -137,7 +139,7 @@ isWeb: boolean;
   }
 
   deactivatePlan(platfom_id: number, plan_append_id: number, athlete_id: number){
-    this._http.delete(`${this.url}athlete_platforms/${platfom_id}/plan_appends/${plan_append_id}`, this.getHttpOptions()).subscribe(
+    this._http.delete(`${this.URL}athlete_platforms/${platfom_id}/plan_appends/${plan_append_id}`, this.getHttpOptions()).subscribe(
       response => {
         this._store.dispatch(new AthleteDataActions.FetchAthletesData());
         this._httpClient.getAthleteCardById(athlete_id)
@@ -146,7 +148,7 @@ isWeb: boolean;
   }
 
   firstTimeLogInvitation(){
-    this._http.post(`${this.url}queue_invitations`, null, this.getHttpOptions()).subscribe(
+    this._http.post(`${this.URL}queue_invitations`, null, this.getHttpOptions()).subscribe(
       (response: any) => {
         if(response.message === "No queue invitation processes to perform."){
           return
@@ -157,11 +159,11 @@ isWeb: boolean;
     )
   }
 
-  invitationStream$ = this._http.get(`${this.url}athleted_invitations`, this.getHttpOptions());
+  invitationStream$ = this._http.get(`${this.URL}athleted_invitations`, this.getHttpOptions());
 
   //ACOUNT LEVEL 
   startTrial(){
-    this._http.post(`${this.url}create_trial`, {}, this.getHttpOptions()).subscribe(
+    this._http.post(`${this.URL}create_trial`, {}, this.getHttpOptions()).subscribe(
       (response: any) => {
         
         //changing cookies
@@ -191,12 +193,12 @@ isWeb: boolean;
     };
 
   firstTiles(){
-    this._http.post(`${this.url}initial_tile_collections`, {}, this.getHttpOptions()).subscribe(
+    this._http.post(`${this.URL}initial_tile_collections`, {}, this.getHttpOptions()).subscribe(
     )
   }
   
   endTrial(){
-    this._http.put(`${this.url}end_trial`, null, this.getHttpOptions()).subscribe(
+    this._http.put(`${this.URL}end_trial`, null, this.getHttpOptions()).subscribe(
       (response: any) => {
 
         //changing cookies
@@ -216,7 +218,7 @@ isWeb: boolean;
   }
     
   startSubscription(data){
-    this._http.post(`${this.url}create_first_stripe_subscription`, data, this.getHttpOptions()).subscribe(
+    this._http.post(`${this.URL}create_first_stripe_subscription`, data, this.getHttpOptions()).subscribe(
       (response: any) => {
 
         if(response.message === 'Payment failed'){
@@ -251,7 +253,7 @@ isWeb: boolean;
   }
 
   startSubscriptionWithID(plan_id){
-    this._http.post(`${this.url}create_stripe_subscription`, plan_id, this.getHttpOptions()).subscribe(
+    this._http.post(`${this.URL}create_stripe_subscription`, plan_id, this.getHttpOptions()).subscribe(
       (response: any) => {
 
         if(response.message === 'Payment failed'){
@@ -284,7 +286,7 @@ isWeb: boolean;
   };
 
   cardFailureUpdate(plan_id){
-    this._http.post(`${this.url}create_stripe_subscription`, plan_id, this.getHttpOptions()).subscribe(
+    this._http.post(`${this.URL}create_stripe_subscription`, plan_id, this.getHttpOptions()).subscribe(
       (response: any) => {
 
         if(response.message === 'Payment failed'){
@@ -317,7 +319,7 @@ isWeb: boolean;
   };
 
   cancelSubscription(){
-    this._http.put(`${this.url}cancel_stripe_subscription`, null, this.getHttpOptions()).subscribe(
+    this._http.put(`${this.URL}cancel_stripe_subscription`, null, this.getHttpOptions()).subscribe(
       (response: any) => {
           
         //changing cookies
@@ -348,7 +350,7 @@ isWeb: boolean;
   }
 
   upgradeDowngradeSubscription(plan_id){
-    this._http.post(`${this.url}preview_proration`, plan_id, this.getHttpOptions()).subscribe(
+    this._http.post(`${this.URL}preview_proration`, plan_id, this.getHttpOptions()).subscribe(
       (response: any) => {
 
         this._store.dispatch(new TilesActions.SetPrice(response.proration));
@@ -362,7 +364,7 @@ isWeb: boolean;
     }
     
   confirmUpgradeDowngradeSubscription(plan_id){
-    this._http.put(`${this.url}update_stripe_subscription`, plan_id, this.getHttpOptions()).subscribe(
+    this._http.put(`${this.URL}update_stripe_subscription`, plan_id, this.getHttpOptions()).subscribe(
       (response: any) => {
         this._store.dispatch(new TilesDataActions.SpinnerChange(false));
         this._store.dispatch(new TilesDataActions.AccountLevelSet(response.account_level_data.account_level));

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Input } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Tile } from 'src/app/models/tile';
-import { WeekDate } from 'src/app/shared/callendar-data.service';
+import { WeekDate } from 'src/app/shared/calendar-data.service';
 
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../../shared/store/app.reducers';
@@ -36,7 +36,7 @@ export class WeekSummaryComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.weekState = this._store.select(state => state.callendar.week);
+    this.weekState = this._store.select(state => state.calendar.week);
     this.weekSub = this.weekState.subscribe(
       data => {
         this.week = data;
