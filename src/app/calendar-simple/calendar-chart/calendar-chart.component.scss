@@ -1,49 +1,52 @@
+@import "../../shared/scss-var/colors";
+@import "../../shared/scss-var/mixins";
+
 .flexbox-pie-chart {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-}
 
-.pie {
-  background: #608490;
-  overflow: hidden;
-  border-radius: 100%;
-  position: relative;
-}
+  .pie {
+    background: $mainGreenLight;
+    overflow: hidden;
+    border-radius: 100%;
+    position: relative;
 
-.pie-web {
-  height: 56px;
-  width: 56px;
-}
+    .pie__segment {
+      height: 100%;
+      overflow: hidden;
+      position: absolute;
+      transform-origin: 50% 100%;
+      width: 100%;
 
-.pie-handset {
-  height: 36px;
-  width: 36px;
-}
+      .pie__segment__before {
+        height: 100%;
+        position: absolute;
+        transform-origin: 50% 0;
+        width: 100%
+      }
+    }
+  }
 
-.pie-tablet {
-  height: 56px;
-  width: 56px;
-}
+  .pie-web {
+    height: 56px;
+    width: 56px;
+  }
 
-.pie__segment__before {
-  height: 100%;
-  position: absolute;
-  transform-origin: 50% 0;
-  width: 100%
-}
+  .pie-handset {
+    height: 36px;
+    width: 36px;
+  }
 
-.pie__segment {
-  height: 100%;
-  overflow: hidden;
-  position: absolute;
-  transform-origin: 50% 100%;
-  width: 100%;
-}
+  .pie-tablet {
+    height: 56px;
+    width: 56px;
+  }
 
-.border_day_web {
-  border: #8FB4C0 solid 8px
-}
+  .border_day_web {
+    border: $mainGreenLightBright solid 8px
+  }
 
-.border_day_handset {
-  border: #8FB4C0 solid 4px
+  .border_day_handset {
+    border: $mainGreenLightBright solid 4px
+  }
 }

@@ -1,17 +1,36 @@
-$lightGray: #F1F1F1;
-$black: #1F1F1F;
-$white: rgba(255, 255, 255, 0.87);
-$mainGreen: #345763;
-$mainGreenLight: #608490;
-$brightGreen: #88C540;
-$brightYellow: #E8A022;
-
 /*-----FONT COLORS------*/
 
 $fontBlackHighContrast: rgba(0, 0, 0, 0.87);
-$fontBlackMediumContrast: rgba(0, 0, 0, 0.69);
-$fontBlackLowContrast: rgba(0, 0, 0, 0.51);
+$fontBlackMediumContrast: rgba(0, 0, 0, 0.67);
+$fontBlackLowContrast: rgba(0, 0, 0, 0.57);
 
 $fontWhiteHighContrast: rgba(255, 255, 255, 0.87);
 $fontWhiteMediumContrast: rgba(255, 255, 255, 0.77);
-$fontWhiteLowContrast: rgba(255, 255, 255, 0.66);
+$fontWhiteLowContrast: rgba(255, 255, 255, 0.67);
+
+/*-----Kolory Elementów------*/
+
+$WhiteDotTwo: rgba(255, 255, 255, 0.2);
+
+$BlackDotOne: rgba(255, 255, 255, 0.1);
+
+$brightYellow: #E8A022;
+$lighterBrightYellow: #EBB72B;
+
+$brightRed: #FF5D51;
+$darherBrightRed: #F64535;
+
+$brightGreen: #88C540;
+$darkerBrightGreen: #63A12E;
+
+$brightBlue: #31C2E1;
+$darkerBrightBlue: #259CB2;
+
+$brightViolet: #614EA1;
+$darkerBrightViolet: #4E4091;
+
+$ErrorYellow: #B0AA54;
+
+$mainGreen: #345763;
+$mainGreenLight: #608490;
+$mainGreenLightBright: #8FB4C0;

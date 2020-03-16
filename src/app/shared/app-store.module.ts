@@ -1,4 +1,3 @@
-import { ChatEffects } from './store/chat.effects';
 import { NgModule } from '@angular/core';
 
 import { StoreModule } from '@ngrx/store';
@@ -14,7 +13,7 @@ import { LoopsEffects } from './store/loops.effects';
 @NgModule({
     imports: [
         StoreModule.forRoot(reducers),
-        EffectsModule.forRoot([TilesDataEffects, CalendarDataEffects, BoardDataEffects, ChartDataEffects, AthleteDataEffects, LoopsEffects, ChatEffects]),
+        EffectsModule.forRoot([TilesDataEffects, CalendarDataEffects, BoardDataEffects, ChartDataEffects, AthleteDataEffects, LoopsEffects]),
     ],
     exports: [
         StoreModule,

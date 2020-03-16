@@ -1,13 +1,25 @@
 @mixin textLato($font_weight, $font_size) {
-    font-family: 'Lato', sans-serif;
-    font-style: normal;
-    font-weight: $font_weight;
-    font-size: $font_size;
+  font-family: 'Lato', sans-serif;
+  font-style: normal;
+  font-weight: $font_weight;
+  font-size: $font_size;
 }
 
 @mixin textRaleway($font_weight, $font_size) {
-    font-family: 'Raleway', sans-serif;
-    font-style: normal;
-    font-weight: $font_weight;
-    font-size: $font_size;
+  font-family: 'Raleway', sans-serif;
+  font-style: normal;
+  font-weight: $font_weight;
+  font-size: $font_size;
 }
+
+@mixin boxShadow() {
+  -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.12), 0px 0px 4px rgba(0, 0, 0, 0.24);
+  -moz-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.12), 0px 0px 4px rgba(0, 0, 0, 0.24);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.12), 0px 0px 4px rgba(0, 0, 0, 0.24);
+}
+
+// @include textLato(400, 14px);
+// @include textRaleway(400, 14px);
+// @include boxShadow();
+// @import "../../shared/scss-var/colors";
+// @import "../../shared/scss-var/mixins";

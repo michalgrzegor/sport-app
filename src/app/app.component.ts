@@ -34,7 +34,6 @@ import * as BoardDataActions from './shared/store/board-data.actions';
 import * as ChartDataActions from './shared/store/chart-data.actions';
 import * as LoopsActions from './shared/store/loops.actions';
 import * as CalendarDataActions from './shared/store/calendar-data.actions';
-import * as ChatActions from './shared/store/chat.actions';
 
 declare let gtag: Function;
 const URL_WSS = 'wss://gremmo-one.herokuapp.com/cable'
@@ -307,11 +306,6 @@ export class AppComponent implements OnInit, OnDestroy {
     
 
     //data from ngrx
-    
-    this.isChatOnState = this._store.select(state => state.chat.isChatOn);
-    this.isChatOnSub = this.isChatOnState.subscribe(
-      data => this.isChatOn = data
-    )
 
     this.athleteAccountonPaidAccountState = this._store.select(state => state.tiles.athleteAccountonPaidAccount);
     this.athleteAccountonPaidAccountSub = this.athleteAccountonPaidAccountState.subscribe(
@@ -586,11 +580,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this._router.navigate(['/chart'], {queryParams: { 'right': `tp`}});
     this.mainRoute = 'chart';
     this._store.dispatch(new TilesDataActions.SeteMainRoute('chart'))
-  }
-
-  onChat(): void {
-    this._router.navigate(['/chat']);
-    this.mainRoute = 'chat'
   }
 
   onAthletes(): void{
@@ -962,10 +951,6 @@ export class AppComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       this._store.dispatch(new CalendarDataActions.SetTutorial(false));
     })
-  }
-
-  openChat(){
-    this._store.dispatch(new ChatActions.IsOnChat(!this.isChatOn));
   }
   
   ngOnDestroy() {

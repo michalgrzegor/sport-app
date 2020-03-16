@@ -1,46 +1,40 @@
-table {
-  background: #345763;
-  width: 100%;
-}
-
-th,
-td {
-  color: rgba(255, 255, 255, 0.67);
-  font-family: 'Lato'
-}
-
-.table-icon-active {
-  color: rgba(255, 255, 255, 0.87);
-  cursor: default;
-}
-
-.table-icon-active-status {
-  color: #88C540;
-  cursor: default;
-}
-
-.table-icon-inactive {
-  color: rgba(255, 255, 255, 0.27);
-  cursor: default;
-}
+@import "../../shared/scss-var/colors";
+@import "../../shared/scss-var/mixins";
 
 .padding {
   display: grid;
   grid-template-columns: 10px 1fr 10px;
   margin-bottom: 24px;
   margin-top: 16px;
-}
 
-.mat-form-field {
-  font-size: 14px;
-  width: 100%;
-  color: rgba(255, 255, 255, 0.87);
-}
+  mat-form-field {
+    width: 100%;
+  }
 
-.pointer {
-  cursor: pointer;
-}
+  table {
+    background: $mainGreen;
+    width: 100%;
 
-.tp {
-    padding-left: 36px;
+    th,
+    td {
+      color: $fontWhiteLowContrast;
+      @include textLato(400, 14px);
+    }
+
+    .table-icon-active {
+      color: $fontWhiteHighContrast;
+      cursor: default;
+    }
+
+    .table-icon-inactive {
+      color: rgba(255, 255, 255, 0.27);
+      cursor: default;
+    }
+
+    .tp {
+      padding-left: 36px;
+    }
+  }
+
+
 }

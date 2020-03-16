@@ -154,7 +154,7 @@ export class ChartComponent implements OnInit, OnDestroy {
     )
     
 
-    this.answersState = this._store.select(state => state.chart.answears);
+    this.answersState = this._store.select(state => state.chart.answers);
     this.answersSub = this.answersState.subscribe(
       data => { 
         this.answers = data;

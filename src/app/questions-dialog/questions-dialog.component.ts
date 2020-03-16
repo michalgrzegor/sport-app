@@ -31,17 +31,17 @@ export class QuestionsDialogComponent implements OnInit {
     this.question_answers = [];
     this.data.tiles.forEach((tile, index)=>{
       const numArray = [];
-      if(!tile.tile_question.tile_answear_numeric){
-        if(tile.tile_question && tile.tile_question.tile_answears_descriptives){
-          let array = tile.tile_question.tile_answears_descriptives.split(',');
+      if(!tile.tile_question.tile_answer_numeric){
+        if(tile.tile_question && tile.tile_question.tile_answers_descriptives){
+          let array = tile.tile_question.tile_answers_descriptives.split(',');
           tile.array = array;
         }else{
           tile.array = null;
           this.data.formAnswer[index].noQuestion = true;
         }
-      }else if(tile.tile_question.tile_answear_numeric){
-        const from = Number(tile.tile_question.tile_answear_numeric_from);
-        const to = Number(tile.tile_question.tile_answear_numeric_to);
+      }else if(tile.tile_question.tile_answer_numeric){
+        const from = Number(tile.tile_question.tile_answer_numeric_from);
+        const to = Number(tile.tile_question.tile_answer_numeric_to);
         
         tile.array = _.range(from, to+1);
       }

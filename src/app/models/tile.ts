@@ -133,8 +133,8 @@ export class TileMotivation {
 
 export class TileQuestion {
     tile_ask_question?: string;
-    tile_answear_numeric?: boolean;
-    tile_answear_numeric_from?: number;
-    tile_answear_numeric_to?: number;
-    tile_answears_descriptives?: string;
+    tile_answer_numeric?: boolean;
+    tile_answer_numeric_from?: number;
+    tile_answer_numeric_to?: number;
+    tile_answers_descriptives?: string;
 }

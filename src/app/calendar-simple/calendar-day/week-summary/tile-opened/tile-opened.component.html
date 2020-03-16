@@ -81,11 +81,11 @@
         <div class="tile-type-training" *ngIf="tile.tile_type === 'question'">
           <div class="tile-activities">
               <p class="activity-name">{{tile.tile_question.tile_ask_question}}</p>
-              <p class="activity-content" *ngIf="tile.tile_question.tile_answear_numeric" >
-                Numeric answer from {{tile.tile_question.tile_answear_numeric_from}} to {{tile.tile_question.tile_answear_numeric_to}}
+              <p class="activity-content" *ngIf="tile.tile_question.tile_answer_numeric" >
+                Numeric answer from {{tile.tile_question.tile_answer_numeric_from}} to {{tile.tile_question.tile_answer_numeric_to}}
               </p>
-              <p class="activity-content" *ngIf="!tile.tile_question.tile_answear_numeric" >
-                Answers: {{tile.tile_question.tile_answears_descriptives}}
+              <p class="activity-content" *ngIf="!tile.tile_question.tile_answer_numeric" >
+                Answers: {{tile.tile_question.tile_answers_descriptives}}
               </p>
           </div>
         </div>

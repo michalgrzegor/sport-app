@@ -3,8 +3,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 
 @Component({
   selector: 'app-repeat-dialog',
-  templateUrl: './repeat-dialog.component.html',
-  styleUrls: ['./repeat-dialog.component.css']
+  templateUrl: './repeat-dialog.component.html'
 })
 export class RepeatDialogComponent implements OnInit {
   input: number;

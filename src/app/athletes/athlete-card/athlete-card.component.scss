@@ -1,43 +1,41 @@
-.separator {
-  height: 8px;
-  width: 100%;
-}
+@import "../../shared/scss-var/colors";
+@import "../../shared/scss-var/mixins";
 
 .tp-name {
   display: grid;
   grid-template-columns: 48px 1fr 48px;
   margin: 0 10px;
-}
 
-.center-container {
-  width: 48px;
-  height: 48px;
-}
+  h4 {
+    margin: 0px;
+    height: 48px;
+    line-height: 48px;
+  }
 
-.tp-name h4 {
-  margin: 0px;
-  height: 48px;
-  line-height: 48px;
-}
+  button {
+    min-width: 0px;
+    padding: 0px;
+    margin: 0;
+  }
 
-.tp-name button {
-  min-width: 0px;
-  padding: 0px;
-  margin: 0;
-}
+  .center-container {
+    width: 48px;
+    height: 48px;
 
-.menu-right-icon {
-  padding: 12px;
-  color: rgba(255, 255, 255, 0.87);
+    .menu-right-icon {
+      padding: 12px;
+      color: $fontWhiteHighContrast;
+    }
+  }
 }
 
 .divider-line {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid $WhiteDotTwo;
   margin: 0 10px;
 }
 
 .link-to-plan {
-  color: #E8A022;
+  color: $brightYellow;
   cursor: pointer;
 }
 
@@ -47,28 +45,30 @@
   height: 36px;
   margin: 0 10px;
   box-sizing: border-box;
-  border-bottom: 1px solid rgba(255, 255, 255, .27);
+  border-bottom: 1px solid $WhiteDotTwo;
+
+  .card-bookmark {
+    @include textLato(300, 14px);
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    color: $fontWhiteHighContrast;
+    text-transform: uppercase;
+    padding-top: 10px;
+    cursor: pointer;
+  }
+
+  .card-bookmark:hover {
+    background: $BlackDotOne;
+  }
+
+  .card-bookmark-selected {
+    border-bottom: 2px solid $fontWhiteHighContrast;
+    font-weight: 700;
+  }
 }
 
-.card-bookmarks .card-bookmark {
-  margin: 0;
+.separator {
+  height: 8px;
   width: 100%;
-  font-family: Lato;
-  font-style: normal;
-  font-weight: 300;
-  font-size: 14px;
-  text-align: center;
-  color: rgba(255, 255, 255, .87);
-  text-transform: uppercase;
-  padding-top: 10px;
-  cursor: pointer;
-}
-
-.card-bookmarks .card-bookmark:hover {
-  background: rgba(0, 0, 0, .1);
-}
-
-.card-bookmarks .card-bookmark-selected {
-  border-bottom: 2px solid rgba(255, 255, 255, .87);
-  font-weight: 700;
 }

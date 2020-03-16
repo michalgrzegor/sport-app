@@ -13,21 +13,13 @@
 
       <button *ngIf="(!isPaidAccount && !athleteAccountonPaidAccount && !isHandset) || (isTrial  && !athleteAccountonPaidAccount && !isHandset)"  class="upgrade-btn" (click)="openUpgradeDialog()" mat-button>Upgrade</button>
 
-      <button class="setting-btn" (click)="openChat()" *ngIf="!isHandset"  mat-button>
-        <mat-icon>chat</mat-icon>
-      </button>
 
       <button class="setting-btn" mat-button>
         <mat-icon *ngIf="notifications.length === 0 && invitations.length === 0" class="zero-not">notification_important</mat-icon>
         <mat-icon *ngIf="notifications.length > 0 || invitations.length > 0" matBadge="{{notifications.length + invitations.length}}" matBadgeColor="warn" [matMenuTriggerFor]="notification">notification_important</mat-icon>
-        <!-- <mat-icon matBadge="{{notifications.length + invitations.length}}" matBadgeColor="warn" [matMenuTriggerFor]="notification">notification_important</mat-icon> -->
 
         <mat-menu #notification="matMenu" xPosition="before">
           <ng-template matMenuContent>
-            <!-- <button mat-menu-item>
-              <span>Check for invitations</span>
-              <button (click)="checkForIvitations()" class="button-invitations" mat-button click-stop-propagation><mat-icon>cached</mat-icon></button>
-            </button> -->
             <button *ngFor="let inv of invitations, let i = index" mat-menu-item>
               <mat-icon>email</mat-icon>
               <span class="span-invitation" *ngIf="!inv.trainer_nick && !isHandset" >{{inv.trainer_email}} invites you</span>
@@ -111,11 +103,6 @@
               <button *ngIf="isPaidAccount"  class="main-html-sidenav-container-item" mat-button (click)="snav.close(); onBoard()">
                   <mat-icon class="menu-right-icon">dashboard</mat-icon>
                   <span>Boards</span>
-              </button>
-              
-              <button class="main-html-sidenav-container-item" mat-button (click)="snav.close(); onChat()">
-                  <mat-icon class="menu-right-icon">chat</mat-icon>
-                  <span>Chat</span>
               </button>
       
               <button *ngIf="!isPaidAccount || (paidAccountForDisplays && athleteAccountonPaidAccount)"  class="main-html-sidenav-container-item" mat-button (click)="snav.close(); onLoops()">

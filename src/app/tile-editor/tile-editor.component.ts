@@ -363,10 +363,10 @@ export class TileEditorComponent implements OnInit, OnDestroy {
     //when question check
     tile_question: new FormGroup({
       tile_ask_question: new FormControl('', Validators.maxLength(255)),
-      tile_answear_numeric: new FormControl(''),
-      tile_answear_numeric_from: new FormControl(''),
-      tile_answear_numeric_to: new FormControl(''),
-      tile_answears_descriptives: new FormControl('', Validators.maxLength(255)),
+      tile_answer_numeric: new FormControl(''),
+      tile_answer_numeric_from: new FormControl(''),
+      tile_answer_numeric_to: new FormControl(''),
+      tile_answers_descriptives: new FormControl('', Validators.maxLength(255)),
     }),
 
     tile_activities_sets: new FormControl('', Validators.maxLength(255)),
@@ -654,7 +654,7 @@ export class TileEditorComponent implements OnInit, OnDestroy {
     }else if(obj.tile_type === 'question' && this.tile_editor_form.valid){
 
       let array = [];
-      array.push( obj.tile_question.tile_ask_question, obj.tile_question.tile_answear_numeric, obj.tile_question.tile_answear_numeric_from, obj.tile_question.tile_answear_numeric_to, obj.tile_question.tile_answears_descriptives );
+      array.push( obj.tile_question.tile_ask_question, obj.tile_question.tile_answer_numeric, obj.tile_question.tile_answer_numeric_from, obj.tile_question.tile_answer_numeric_to, obj.tile_question.tile_answers_descriptives );
       array = _.remove(array, null);
       if(array.length === 0){delete obj.tile_question};
       this._httpService.createQuestionTile(obj);
@@ -686,10 +686,10 @@ export class TileEditorComponent implements OnInit, OnDestroy {
         tile_type_color: "#E8A022",
         tile_type_name: "question",
         tile_question: {
-          tile_answear_numeric: false,
-          tile_answear_numeric_from: null,
-          tile_answear_numeric_to: null,
-          tile_answears_descriptives: "it was too easy, simple but satisfying, i feel invigorated, training was demanding, training was too hard",
+          tile_answer_numeric: false,
+          tile_answer_numeric_from: null,
+          tile_answer_numeric_to: null,
+          tile_answers_descriptives: "it was too easy, simple but satisfying, i feel invigorated, training was demanding, training was too hard",
           tile_ask_question: "How do you feel after training?",
         }
       };
@@ -711,7 +711,7 @@ export class TileEditorComponent implements OnInit, OnDestroy {
           }
         )
       }
-      if(tile_to_edit.tile_type === 'question' && tile_to_edit.tile_question.tile_answears_descriptives){
+      if(tile_to_edit.tile_type === 'question' && tile_to_edit.tile_question.tile_answers_descriptives){
         this.isDescriptive = true;
       }
       this.tile_editor_form.patchValue(tile_to_edit);
@@ -787,7 +787,7 @@ export class TileEditorComponent implements OnInit, OnDestroy {
           }
         )
       }
-      if(tile_to_edit.tile_type === 'question' && tile_to_edit.tile_question.tile_answears_descriptives){
+      if(tile_to_edit.tile_type === 'question' && tile_to_edit.tile_question.tile_answers_descriptives){
         this.isDescriptive = true;
       }
       this.tile_editor_form.patchValue(tile_to_edit);

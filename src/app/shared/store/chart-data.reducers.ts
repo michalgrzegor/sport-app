@@ -13,14 +13,14 @@ export interface Answear {
 }
 export interface TpAnswear {
     date: string;
-    answear: Summary;
+    answer: Summary;
     tile_id: string[];
     comment: string;
 }
 
 export interface State {
     trainingPlan: TrainingPlan,
-    answears: Answear[];
+    answers: Answear[];
     tilesId: string[];
 
     //summary chart
@@ -35,7 +35,7 @@ export interface State {
 
 const InitialState: State = {
     trainingPlan: null,
-    answears: null,
+    answers: null,
     tilesId: null,
 
     //summary chart
@@ -59,7 +59,7 @@ export function ChartDataReducer(state = InitialState, action: ChartDataActions.
             tilesIdSCD = _.uniq(tilesIdSCD);
             return {
                 ...state,
-                answears: action.payload,
+                answers: action.payload,
                 tilesId: tilesIdSCD
             }
 
@@ -76,7 +76,7 @@ export function ChartDataReducer(state = InitialState, action: ChartDataActions.
                 date => {
                     let tpAns: TpAnswear = {
                         date: date,
-                        answear: null,
+                        answer: null,
                         tile_id: [],
                         comment: null
                     };

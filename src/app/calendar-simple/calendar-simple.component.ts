@@ -34,7 +34,7 @@ export interface Day {
 @Component({
   selector: 'app-calendar-simple',
   templateUrl: './calendar-simple.component.html',
-  styleUrls: ['./calendar-simple.component.css'],
+  styleUrls: ['./calendar-simple.component.scss'],
   animations: [
     trigger('hideShow', [
       state('void', style({minHeight: '0px', height: '0px', opacity: 0})),

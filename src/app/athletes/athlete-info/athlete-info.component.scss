@@ -1,407 +1,438 @@
-.athlete-static-data {
-  margin: 8px 10px 0;
-  display: grid;
-}
-
-.shadow {
-  -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.12), 0px 0px 4px rgba(0, 0, 0, 0.24);
-  -moz-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.12), 0px 0px 4px rgba(0, 0, 0, 0.24);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.12), 0px 0px 4px rgba(0, 0, 0, 0.24);
-  border-radius: 4px;
-}
+@import "../../shared/scss-var/colors";
+@import "../../shared/scss-var/mixins";
 
 h5 {
   height: 48px;
   line-height: 48px;
   font-size: 14px;
   text-align: center;
-  background: #608490;
+  background: $mainGreenLight;
   border-radius: 4px 4px 0 0;
 }
 
-.athlete-fitness-level-chart {
-  margin-top: 1px;
-  display: grid;
-  grid-template-columns: 1fr 16px 1fr;
-  padding: 16px 0;
-  background: #608490;
-  border-radius: 0 0 4px 4px;
-}
-
-.glow {
-  -webkit-box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.45);
-  -moz-box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.45);
-  box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.45);
-}
-
-.no-left {
-  border-radius: 0 0 4px 0;
-  border-left: 1px solid #345763;
-}
-
-.level-10 {
-  background-color: #FF5D51;
-  height: 24px;
-  width: 16px;
-}
-
-.level-9 {
-  background-color: #F64535;
-  height: 24px;
-  width: 16px;
-}
-
-.level-8 {
-  background-color: #EBB72B;
-  height: 24px;
-  width: 16px;
-}
-
-.level-7 {
-  background-color: #E8A022;
-  height: 24px;
-  width: 16px;
-}
-
-.level-6 {
-  background-color: #88C540;
-  height: 24px;
-  width: 16px;
-}
-
-.level-5 {
-  background-color: #63A12E;
-  height: 24px;
-  width: 16px;
-}
-
-.level-4 {
-  background-color: #31C2E1;
-  height: 24px;
-  width: 16px;
-}
-
-.level-3 {
-  background-color: #259CB2;
-  height: 24px;
-  width: 16px;
-}
-
-.level-2 {
-  background-color: #614EA1;
-  height: 24px;
-  width: 16px;
-}
-
-.level-1 {
-  background-color: #4E4091;
-  height: 24px;
-  width: 16px;
-}
-
-.no-level {
-  background-color: #8FB4C0;
-  height: 24px;
-  width: 16px;
-}
-
-.no-level:hover,
-.level-1:hover,
-.level-2:hover,
-.level-3:hover,
-.level-4:hover,
-.level-5:hover,
-.level-6:hover,
-.level-7:hover,
-.level-8:hover,
-.level-9:hover,
-.level-10:hover {
-  -webkit-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.35);
-  -moz-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.35);
-  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.35);
-  cursor: pointer;
-}
-
-.athlete-data,
-.athlete-fitness-level {
-  -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.12), 0px 0px 4px rgba(0, 0, 0, 0.24);
-  -moz-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.12), 0px 0px 4px rgba(0, 0, 0, 0.24);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.12), 0px 0px 4px rgba(0, 0, 0, 0.24);
+.shadow {
+  @include boxShadow();
   border-radius: 4px;
 }
 
-.no-shadow {
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
+.athlete-static-data {
+  margin: 8px 10px 0;
+  display: grid;
+
+  .athlete-data,
+  .athlete-fitness-level {
+    @include boxShadow();
+    border-radius: 4px;
+  }
+
+  .athlete-fitness-level {
+
+    .no-left {
+      border-radius: 0 0 4px 0;
+      border-left: 1px solid $mainGreen;
+    }
+
+    .header-fitmess-lvl {
+
+      .no-left-border-radius {
+        border-radius: 0 4px 0 0;
+      }
+
+      h5 {
+        line-height: 48px;
+        border-top-right-radius: 4px;
+      }
+
+      .btn-cnt {
+        background: $mainGreenLight;
+        border-top-right-radius: 4px;
+      }
+
+      .athlete-fitness-level-filler {
+        background: $mainGreenLight;
+        border-top-left-radius: 4px;
+      }
+
+      button {
+        min-width: 48px;
+        width: 48px;
+        height: 48px;
+        border-radius: 24px;
+        padding: 0;
+
+        mat-icon {
+          color: $fontWhiteHighContrast;
+        }
+      }
+
+    }
+
+
+    .athlete-fitness-level-chart {
+      margin-top: 1px;
+      display: grid;
+      grid-template-columns: 1fr 16px 1fr;
+      padding: 16px 0;
+      background: $mainGreenLight;
+      border-radius: 0 0 4px 4px;
+
+      .glow {
+        -webkit-box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.45);
+        -moz-box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.45);
+        box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.45);
+      }
+
+      .level-10 {
+        background-color: $brightRed;
+        height: 24px;
+        width: 16px;
+      }
+
+      .level-9 {
+        background-color: $darherBrightRed;
+        height: 24px;
+        width: 16px;
+      }
+
+      .level-8 {
+        background-color: $lighterBrightYellow;
+        height: 24px;
+        width: 16px;
+      }
+
+      .level-7 {
+        background-color: $brightYellow;
+        height: 24px;
+        width: 16px;
+      }
+
+      .level-6 {
+        background-color: $brightGreen;
+        height: 24px;
+        width: 16px;
+      }
+
+      .level-5 {
+        background-color: $darkerBrightGreen;
+        height: 24px;
+        width: 16px;
+      }
+
+      .level-4 {
+        background-color: $brightBlue;
+        height: 24px;
+        width: 16px;
+      }
+
+      .level-3 {
+        background-color: $darkerBrightBlue;
+        height: 24px;
+        width: 16px;
+      }
+
+      .level-2 {
+        background-color: $brightViolet;
+        height: 24px;
+        width: 16px;
+      }
+
+      .level-1 {
+        background-color: $darkerBrightViolet;
+        height: 24px;
+        width: 16px;
+      }
+
+      .no-level {
+        background-color: $mainGreenLightBright;
+        height: 24px;
+        width: 16px;
+      }
+
+      .no-edit:hover {
+        cursor: default;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+      }
+
+      .no-level:hover,
+      .level-1:hover,
+      .level-2:hover,
+      .level-3:hover,
+      .level-4:hover,
+      .level-5:hover,
+      .level-6:hover,
+      .level-7:hover,
+      .level-8:hover,
+      .level-9:hover,
+      .level-10:hover {
+        -webkit-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.35);
+        -moz-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.35);
+        box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.35);
+        cursor: pointer;
+      }
+    }
+  }
+
+  .athlete-data {
+
+    .no-border-radius {
+      border-radius: 4px 0 0 0;
+    }
+
+    .is-handset-no-edit-mode {
+      grid-template-columns: 52px 1fr 52px;
+    }
+
+    .is-handset-edit-mode {
+      grid-template-columns: 104px 1fr;
+    }
+
+    .no-handset-edit-mode {
+      grid-template-columns: 104px 1fr 104px;
+    }
+
+    .no-handset-no-edit-mode {
+      grid-template-columns: 52px 1fr 52px;
+    }
+
+    .athlete-data-header {
+      display: grid;
+      background: $mainGreenLight;
+      border-radius: 4px 4px 0 0;
+
+      button {
+        padding: 0;
+        margin: 0;
+        min-width: 0px;
+        width: 48px;
+        height: 48px;
+        border-radius: 24px;
+      }
+
+      mat-icon {
+        color: $fontWhiteHighContrast;
+      }
+    }
+
+    .no-shadow {
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none;
+    }
+
+    .no-right {
+      border-radius: 0 0 0 4px;
+    }
+
+    .athlete-data-card {
+      margin-top: 1px;
+      height: 272px;
+      background: $mainGreenLight;
+      border-radius: 0 0 4px 4px;
+
+      .form-container {
+        display: grid;
+        grid-column-gap: 8px;
+
+        .form-element {
+          box-sizing: border-box;
+          height: calc(272px / 6);
+          padding-top: 8px;
+
+          div {
+            @include textLato(400, 14px);
+            margin-top: 2px;
+            padding-left: 16px;
+            color: $fontWhiteHighContrast;
+          }
+        }
+
+        input {
+          @include textLato(400, 14px);
+          box-sizing: border-box;
+          width: 100%;
+          border: none;
+          background-color: rgba(255, 255, 255, 0.15);
+          color: $fontWhiteHighContrast;
+          padding-left: 16px;
+        }
+
+        p {
+          @include textLato(400, 10px);
+          padding-left: 16px;
+          margin: 0;
+          color: $fontWhiteLowContrast;
+        }
+      }
+    }
+  }
+
+
 }
+
+
 
 .div-for-shadow {
+  @include boxShadow();
   margin: 0 10px;
-  -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.12), 0px 0px 4px rgba(0, 0, 0, 0.24);
-  -moz-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.12), 0px 0px 4px rgba(0, 0, 0, 0.24);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.12), 0px 0px 4px rgba(0, 0, 0, 0.24);
   border-radius: 4px;
-}
 
-.athlete-data-card {
-  margin-top: 1px;
-  height: 272px;
-  background: #608490;
-  border-radius: 0 0 4px 4px;
-}
+  .athlete-card-status {
 
-.no-right {
-  border-radius: 0 0 0 4px;
-}
+    .athlete-card-status-header {
+      margin-bottom: 1px;
+    }
 
-.form-container {
-  display: grid;
-  grid-column-gap: 8px;
-}
+    .athlete-card-status-tp {
+      background: $mainGreenLight;
+      border-radius: 0px;
+      margin-bottom: 1px;
 
-.form-container input {
-  box-sizing: border-box;
-  width: 100%;
-  border: none;
-  background-color: rgba(255, 255, 255, 0.15);
-  font-family: 'Lato';
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.87);
-  padding-left: 16px;
-}
+      .mobile-grid {
+        grid-template-columns: 1fr;
+      }
 
-.form-element {
-  box-sizing: border-box;
-  height: calc(272px / 6);
-  padding-top: 8px;
-}
+      .grid-tp {
+        text-align: center;
+        display: grid;
+        grid-template-columns: 1fr 124px 124px 124px 1fr;
 
-.form-container p {
-  padding-left: 16px;
-  margin: 0;
-  font-family: 'Lato';
-  font-size: 10px;
-  color: rgba(255, 255, 255, 0.67);
-}
+        .mobile-width {
+          width: 100%;
+          padding: 0 8px;
+        }
 
-.form-element div {
-  margin-top: 2px;
-  padding-left: 16px;
-  font-family: 'Lato';
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.87);
-}
+        .select-tp {
+          @include textLato(400, 16px);
+          box-sizing: border-box;
+          width: 124px;
+          height: 36px;
+          border: none;
+          background-color: rgba(255, 255, 255, 0.15);
+          margin: 6px 0;
+          color: $fontWhiteHighContrast;
+          justify-self: center;
 
-.athlete-data-header {
-  display: grid;
-  background: #608490;
-  border-radius: 4px 4px 0 0;
-}
+          option {
+            @include textLato(400, 16px);
+            background-color: $mainGreenLight;
+            color: $fontWhiteHighContrast;
+            height: 36px;
+            border: none;
+            padding: 6px;
+          }
+        }
 
-.no-border-radius {
-  border-radius: 4px 0 0 0;
-}
+        .athlete-card-status-tp-btn {
+          @include textRaleway(800, 14px);
+          width: 94px;
+          height: 36px;
+          margin: 6px auto;
+          text-transform: uppercase;
+          color: $fontWhiteHighContrast;
+        }
 
-.is-handset-no-edit-mode {
-  grid-template-columns: 52px 1fr 52px;
-}
+        .select-tp:focus {
+          border: none;
+        }
 
-.is-handset-edit-mode {
-  grid-template-columns: 104px 1fr;
-}
+      }
 
-.no-handset-edit-mode {
-  grid-template-columns: 104px 1fr 104px;
-}
+      .grid-tp-activated {
+        text-align: center;
+        display: grid;
+        grid-template-columns: 124px 1fr 124px;
 
-.no-handset-no-edit-mode {
-  grid-template-columns: 52px 1fr 52px;
-}
+        .activated-plan-header {
+          @include textRaleway(400, 12px);
 
-.athlete-data-header button {
-  padding: 0;
-  margin: 0;
-  min-width: 0px;
-  width: 48px;
-  height: 48px;
-  border-radius: 24px;
-}
+          span {
+            font-size: 14px;
+            color: $brightBlue;
+            font-weight: 800;
+          }
 
-.athlete-data-header mat-icon {
-  color: rgba(255, 255, 255, 0.87);
-}
+          .email {
+            text-transform: none;
+          }
 
-.no-edit:hover {
-  cursor: default;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
+          .pending {
+            text-transform: none;
+            color: $brightGreen;
+          }
+        }
+
+        .athlete-card-status-tp-btn-deactivate {
+          @include textRaleway(800, 14px);
+          min-width: 124px;
+          height: 36px;
+          margin: 6px auto;
+          text-transform: uppercase;
+          color: $fontWhiteHighContrast;
+        }
+      }
+
+    }
+
+    .athlete-card-status-body {
+
+      .athlete-card-status-element-grid,
+      .athlete-card-status-element {
+        border-radius: 0 0 4px 4px;
+      }
+
+      .athlete-card-status-element {
+        h5 {
+          border-radius: 0 0 4px 4px;
+        }
+
+        .orange {
+          color: $brightYellow;
+        }
+
+        .athlete-card-status-tp-btn-deactivate {
+          @include textRaleway(800, 14px);
+          min-width: 124px;
+          height: 36px;
+          margin: 6px auto;
+          text-transform: uppercase;
+          color: $fontWhiteHighContrast;
+        }
+      }
+
+      .athlete-card-status-element-grid {
+        display: grid;
+        grid-template-columns: 124px 1fr 124px;
+
+        .filler-color {
+          background: $mainGreenLight;
+          border-radius: 0 0 4px 0;
+
+          .athlete-card-status-tp-btn-deactivate {
+            @include textRaleway(800, 14px);
+            min-width: 124px;
+            height: 36px;
+            margin: 6px auto;
+            text-transform: uppercase;
+            color: $fontWhiteHighContrast;
+          }
+        }
+
+        .grid-left-filler {
+          border-radius: 0 0 0 4px;
+          background: $mainGreenLight;
+        }
+
+        h5 {
+          border-radius: 0;
+        }
+      }
+    }
+
+  }
 }
 
 .add-margin-10px {
   margin-top: 8px;
-}
-
-.athlete-card-status-element-grid {
-  display: grid;
-  grid-template-columns: 124px 1fr 124px;
-}
-
-.filler-color {
-  background: #608490;
-  border-radius: 0 0 4px 0;
-}
-
-.athlete-card-status-element-grid,
-.athlete-card-status-element {
-  border-radius: 0 0 4px 4px;
-}
-
-.athlete-card-status-element-grid h5 {
-  border-radius: 0;
-}
-
-.athlete-card-status-element h5 {
-  border-radius: 0 0 4px 4px;
-}
-
-.grid-left-filler {
-  border-radius: 0 0 0 4px;
-  background: #608490;
-}
-
-.athlete-card-status-header {
-  margin-bottom: 1px;
-}
-
-.athlete-card-status-tp {
-  background: #608490;
-  border-radius: 0px;
-  margin-bottom: 1px;
-}
-
-.grid-tp {
-  text-align: center;
-  display: grid;
-  grid-template-columns: 1fr 124px 124px 124px 1fr;
-}
-
-.grid-tp-activated {
-  text-align: center;
-  display: grid;
-  grid-template-columns: 124px 1fr 124px;
-}
-
-.activated-plan-header {
-  font-family: 'Raleway', sans-serif;
-  font-size: 12px;
-}
-
-.activated-plan-header span {
-  font-size: 14px;
-  color: #31C2E1;
-  font-weight: 800;
-}
-
-.activated-plan-header .email {
-  text-transform: none;
-}
-
-.activated-plan-header .pending {
-  text-transform: none;
-  color: #88C540;
-}
-
-.mobile-grid {
-  grid-template-columns: 1fr;
-}
-
-.select-tp {
-  box-sizing: border-box;
-  width: 124px;
-  height: 36px;
-  border: none;
-  background-color: rgba(255, 255, 255, 0.15);
-  margin: 6px 0;
-  font-family: 'Lato';
-  font-size: 16px;
-  color: rgba(255, 255, 255, 0.87);
-  justify-self: center;
-}
-
-.mobile-width {
-  width: 100%;
-  padding: 0 8px;
-}
-
-.select-tp:focus {
-  border: none;
-}
-
-.select-tp option {
-  background-color: #608490;
-  font-family: 'Lato';
-  font-size: 16px;
-  color: rgba(255, 255, 255, 0.87);
-  height: 36px;
-  border: none;
-  padding: 6px;
-}
-
-.athlete-card-status-tp-btn {
-  width: 94px;
-  height: 36px;
-  margin: 6px auto;
-  font-family: 'Raleway', sans-serif;
-  text-transform: uppercase;
-  font-weight: 800;
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.87);
-}
-
-.athlete-card-status-tp-btn-deactivate {
-  min-width: 124px;
-  height: 36px;
-  margin: 6px auto;
-  font-family: 'Raleway', sans-serif;
-  text-transform: uppercase;
-  font-weight: 800;
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.87);
-}
-
-.orange {
-  color: #E8A022;
-}
-
-.header-fitmess-lvl h5 {
-  line-height: 48px;
-  border-top-right-radius: 4px;
-}
-
-.header-fitmess-lvl .btn-cnt {
-  background: #608490;
-  border-top-right-radius: 4px;
-}
-
-.header-fitmess-lvl .athlete-fitness-level-filler {
-  background: #608490;
-  border-top-left-radius: 4px;
-}
-
-.header-fitmess-lvl button {
-  min-width: 48px;
-  width: 48px;
-  height: 48px;
-  border-radius: 24px;
-  padding: 0;
-}
-
-.header-fitmess-lvl button mat-icon {
-  color: rgba(255, 255, 255, 0.87);
-}
-
-.no-left-border-radius {
-  border-radius: 0 4px 0 0;
 }

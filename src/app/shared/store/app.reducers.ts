@@ -6,7 +6,6 @@ import * as fromBoard from './board-data.reducers';
 import * as fromChart from './chart-data.reducers';
 import * as fromAthletes from './athletes-data.reducers';
 import * as fromLoops from './loops.reducers';
-import * as fromChat from './chat.reducers';
 
 export interface AppState {
     calendar: fromCallendar.State,
@@ -14,8 +13,7 @@ export interface AppState {
     board: fromBoard.State,
     chart: fromChart.State,
     athletes: fromAthletes.State,
-    loops: fromLoops.State,
-    chat: fromChat.State
+    loops: fromLoops.State
 
 }
 
@@ -25,6 +23,5 @@ export const reducers: ActionReducerMap<AppState> = {
     board: fromBoard.BoardDataReducer,
     chart: fromChart.ChartDataReducer,
     athletes: fromAthletes.AthletesDataReducer,
-    loops: fromLoops.LoopsReducer,
-    chat: fromChat.ChatReducer
+    loops: fromLoops.LoopsReducer
 }

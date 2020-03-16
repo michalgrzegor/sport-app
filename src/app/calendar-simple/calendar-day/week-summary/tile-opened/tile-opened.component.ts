@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Tile } from 'src/app/models/tile';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
+import { Breakpoints, BreakpointState, BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-tile-opened',
@@ -11,12 +12,67 @@ export class TileOpenedComponent implements OnInit {
 
   @Input() tile: Tile;
   safeLink: SafeResourceUrl;
+
+  //responsive variables
+  isHandset: boolean;
+  isTablet: boolean;
+  isWeb: boolean;
+  isTabletLand: boolean;
   
   constructor(
     private _sanitizer: DomSanitizer,
+    public _breakpointObserver: BreakpointObserver
   ) { }
 
   ngOnInit() {
+    this._breakpointObserver
+      .observe([Breakpoints.Handset])
+      .subscribe((state: BreakpointState) => {
+        if (state.matches) {
+          this.isHandset = true;
+          this.isTablet = false;
+          this.isTabletLand = false;
+          this.isWeb = false;
+        } else {
+        }
+      });
+
+    this._breakpointObserver
+      .observe([Breakpoints.Tablet])
+      .subscribe((state: BreakpointState) => {
+        if (state.matches) {
+          this.isHandset = false;
+          this.isTablet = true;
+          this.isTabletLand = false;
+          this.isWeb = false;
+        } else {
+        }
+      });
+
+    this._breakpointObserver
+      .observe([Breakpoints.Web])
+      .subscribe((state: BreakpointState) => {
+        if (state.matches) {
+          this.isHandset = false;
+          this.isTablet = false;
+          this.isTabletLand = false;
+          this.isWeb = true;
+        } else {
+        }
+      });
+
+    this._breakpointObserver
+      .observe([Breakpoints.TabletLandscape])
+      .subscribe((state: BreakpointState) => {
+        if (state.matches) {
+          this.isHandset = false;
+          this.isTablet = false;
+          this.isTabletLand = true;
+          this.isWeb = false;
+        } else {
+        }
+      });
+
     //youtube link sanitizing
     if(this.tile.tile_type === 'motivation' && this.tile.tile_motivation.tile_motivation_link){
       let link = this.tile.tile_motivation.tile_motivation_link;
