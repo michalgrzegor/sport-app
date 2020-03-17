@@ -1,9 +1,12 @@
+@import "../shared/scss-var/colors";
+@import "../shared/scss-var/mixins";
+
 #new-tp-editor {
 
   p {
     margin: 0;
     margin-bottom: 16px;
-    color: #FF5D51;
+    color: $brightRed;
   }
 
   .card-answer {
@@ -19,8 +22,8 @@
     grid-template-columns: 1fr auto auto;
 
     .enabled {
-      background-color: #608490;
-      color: rgba(255, 255, 255, 0.87)
+      background-color: $mainGreenLight;
+      color: $fontWhiteHighContrast;
     }
   }
 }

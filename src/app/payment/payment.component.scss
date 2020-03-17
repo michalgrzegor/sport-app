@@ -1,18 +1,19 @@
+@import "../shared/scss-var/colors";
+@import "../shared/scss-var/mixins";
+
 mat-slider {
   width: 100%;
   margin-top: 36px;
 }
 
 .divider {
-  border-bottom: 1px rgba(255, 255, 255, 0.37) solid;
+  border-bottom: 1px $WhiteDotFour solid;
   margin-top: 24px;
 }
 
 .plan-description {
-  color: rgba(255, 255, 255, 0.67);
-  font-size: 16px;
-  font-weight: 400;
-  font-family: 'Lato', sans-serif;
+  @include textLato(400, 16px);
+  color: $fontWhiteLowContrast;
   line-height: 24px;
 
   .plan-description-title {
@@ -29,10 +30,9 @@ mat-slider {
   }
 
   .slogan {
+    @include textLato(400, 12px);
     text-align: center;
-    color: rgba(255, 255, 255, 0.67);
-    font-size: 12px;
-    font-family: 'Lato', sans-serif;
+    color: $fontWhiteLowContrast;
   }
 
   .month {
@@ -49,7 +49,7 @@ mat-slider {
     text-transform: lowercase;
     display: grid;
     grid-template-columns: 1fr 48px auto 1fr;
-    color: rgba(255, 255, 255, 0.67);
+    color: $fontWhiteLowContrast;
 
     mat-icon {
       margin: 6px 12px;
@@ -70,15 +70,13 @@ mat-slider {
     margin-top: 24px;
 
     button {
+      @include textRaleway(800, 16px);
       padding: 16px;
-      font-family: 'Raleway';
-      font-weight: 800;
       line-height: 16px;
-      font-size: 16px;
-      color: rgba(0, 0, 0, 0.67);
-      background-color: #E8A022;
+      color: $fontBlackMediumContrast;
+      background-color: $brightYellow;
       border-radius: 24px;
-      /* border: #E8A022 3px solid; */
+      /* border: $brightYellow 3px solid; */
     }
   }
 
@@ -86,7 +84,7 @@ mat-slider {
 }
 
 .back {
-  color: rgba(255, 255, 255, 0.67);
+  color: $fontWhiteLowContrast;
 }
 
 app-spinner {
@@ -100,7 +98,7 @@ app-spinner {
     width: 96px;
     height: 96px;
     font-size: 96px;
-    color: #E8A022;
+    color: $brightYellow;
   }
 
   .success-title {
@@ -109,28 +107,26 @@ app-spinner {
 
   .btn-upgrade,
   .btn-cancel {
+    @include textRaleway(800, 16px);
     padding: 16px;
-    font-family: 'Raleway';
-    font-weight: 800;
     line-height: 16px;
-    font-size: 16px;
-    color: rgba(0, 0, 0, 0.67);
+    color: $fontBlackMediumContrast;
     border-radius: 24px;
     margin-bottom: 24px;
   }
 
   .btn-upgrade {
-    background-color: #88C540;
+    background-color: $brightGreen;
   }
 
   .btn-cancel {
-    background-color: #FF5D51;
+    background-color: $brightRed;
   }
 }
 
 .upgrade-downgrade {
   .back {
-    color: rgba(255, 255, 255, 0.67);
+    color: $fontWhiteLowContrast;
   }
 
   .title {
@@ -140,11 +136,10 @@ app-spinner {
   }
 
   .slogan-change {
+    @include textLato(400, 16px);
     text-align: center;
-    color: rgba(255, 255, 255, 0.67);
-    font-size: 16px;
+    color: $fontWhiteLowContrast;
     line-height: auto;
-    font-family: 'Lato', sans-serif;
   }
 
   .slider-quote {
@@ -155,7 +150,7 @@ app-spinner {
     text-transform: lowercase;
     display: grid;
     grid-template-columns: 1fr 48px auto 1fr;
-    color: rgba(255, 255, 255, 0.67);
+    color: $fontWhiteLowContrast;
 
     mat-icon {
       margin: 6px 12px;
@@ -185,7 +180,7 @@ app-spinner {
 
   .pay-buttons {
     .changePlan {
-      background-color: #88C540;
+      background-color: $brightGreen;
     }
   }
 }
@@ -193,11 +188,11 @@ app-spinner {
 .confirmation_change_plan {
 
   p {
-    color: rgba(255, 255, 255, 0.67);
+    color: $fontWhiteLowContrast;
   }
 
   .yellow-conf {
-    color: #E8A022;
+    color: $brightYellow;
   }
 
   .btn-grid {
@@ -206,11 +201,10 @@ app-spinner {
     grid-template-columns: 1fr auto;
 
     .confirm-btn {
-      color: rgba(255, 255, 255, 0.67);
-      font-family: 'Raleway';
+      @include textRaleway(800, 16px);
+      color: $fontWhiteLowContrast;
       text-transform: uppercase;
-      font-weight: 700;
-      background-color: rgba(255, 255, 255, 0.17)
+      background-color: $WhiteDotTwo;
     }
   }
 }

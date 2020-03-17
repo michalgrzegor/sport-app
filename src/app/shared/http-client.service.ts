@@ -295,7 +295,7 @@ export class HttpClientService implements OnDestroy {
   //set user metadata
 
   setUserMetaData(id: number){
-    this._http.post(`${this.URL}auth_metadatas`, {metadata_type: 'training_plan_last_id', training_plan_last_id: id}, this.getHttpOptions()).subscribe(
+    this._http.post(`${this.URL}auth_metadata`, {metadata_type: 'training_plan_last_id', training_plan_last_id: id}, this.getHttpOptions()).subscribe(
       response => {
         this.changeTPLastId(id);
       }
@@ -303,7 +303,7 @@ export class HttpClientService implements OnDestroy {
   }
 
   setAthleteUserMetaData(id: number){
-    this._http.post(`${this.URL}auth_metadatas`, {metadata_type: 'athlete_platform_last_id', athlete_platform_last_id: id}, this.getHttpOptions()).subscribe(
+    this._http.post(`${this.URL}auth_metadata`, {metadata_type: 'athlete_platform_last_id', athlete_platform_last_id: id}, this.getHttpOptions()).subscribe(
       response => {
         this.changeAthleteLastId(id);
       }
@@ -699,7 +699,7 @@ export class HttpClientService implements OnDestroy {
   };
 
   setTagsQuestions(tags: any){
-    this._http.post(`${this.URL}auth_metadatas`, tags, this.getHttpOptions()).subscribe(
+    this._http.post(`${this.URL}auth_metadata`, tags, this.getHttpOptions()).subscribe(
       response => {
         this.changeTags(tags);
 

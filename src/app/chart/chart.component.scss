@@ -1,14 +1,16 @@
+@import "../shared/scss-var/mixins";
+@import "../shared/scss-var/colors";
+
 app-spinner {
   margin-top: 40%;
 }
+
 .chart-header {
+  @include textRaleway(800, 16px);
   height: 48px;
   line-height: 48px;
-  font-family: 'Raleway', sans-serif;
-  font-weight: 800;
-  font-size: 16px;
   box-sizing: border-box;
-  border-bottom: 1px solid rgba(255, 255, 255, .27);
+  border-bottom: 1px solid $WhiteDotThree;
   margin: 0 10px;
 }
 
@@ -18,160 +20,155 @@ app-spinner {
   height: 36px;
   margin: 0 10px;
   box-sizing: border-box;
-  border-bottom: 1px solid rgba(255, 255, 255, .27);
+  border-bottom: 1px solid $WhiteDotThree;
+
+  .chart-bookmark {
+    cursor: pointer;
+
+    h6 {
+      @include textLato(300, 14px);
+      margin: 0;
+      width: 100%;
+      text-align: center;
+      color: $fontWhiteHighContrast;
+      text-transform: uppercase;
+      padding-top: 10px;
+    }
+  }
+
+  .chart-bookmark:hover {
+    background: $BlackDotOne;
+  }
+
+  .chart-bookmark-selected {
+    border-bottom: 2px solid $fontWhiteHighContrast;
+
+    h6 {
+      font-weight: 700;
+    }
+  }
+
 }
 
-.chart-bookmark-container .chart-bookmark {
-  cursor: pointer;
-}
-
-.chart-bookmark-container .chart-bookmark:hover {
-  background: rgba(0, 0, 0, .1);
-}
-
-.chart-bookmark-container .chart-bookmark-selected {
-  border-bottom: 2px solid rgba(255, 255, 255, .87);
-}
-
-.chart-bookmark-container .chart-bookmark h6 {
-  margin: 0;
-  width: 100%;
-  font-family: Lato;
-  font-style: normal;
-  font-weight: 300;
-  font-size: 14px;
-  text-align: center;
-  color: rgba(255, 255, 255, .87);
-  text-transform: uppercase;
-  padding-top: 10px;
-}
-
-.chart-bookmark-container .chart-bookmark-selected h6 {
-  font-weight: 700;
-}
 
 /* chart container */
 
 .chart-container {
   margin: 12px 10px;
-}
 
-.chart-container .grid-container-nav {
-  display: grid;
-  grid-template-columns: 1fr 12px 1fr;
-  z-index: 100;
-  position: relative;
-}
+  .grid-container-nav {
+    display: grid;
+    grid-template-columns: 1fr 12px 1fr;
+    z-index: 100;
+    position: relative;
 
-.chart-container .grid-container-nav .chart-tpdata-container {
-  height: 192px;
-  border-radius: 4px;
-  background: #223940;
-}
+    .chart-tpdata-container {
+      height: 192px;
+      border-radius: 4px;
+      background: $mainGreenDarkL;
 
-.chart-container .grid-container-nav .chart-tpdata-container .tpdata-title {
-  height: 48px;
-  border-bottom: 1px solid rgba(255, 255, 255, .27);
-  font-family: 'Raleway', sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, .67);
-  padding: 0 16px;
-  line-height: 48px;
-  box-sizing: border-box;
-}
+      .tpdata-title {
+        @include textRaleway(400, 16px);
+        height: 48px;
+        border-bottom: 1px solid $WhiteDotThree;
+        text-transform: uppercase;
+        color: $fontWhiteLowContrast;
+        padding: 0 16px;
+        line-height: 48px;
+        box-sizing: border-box;
+      }
 
-.chart-container .grid-container-nav .chart-tpdata-container .tpdata-btns {
-  box-sizing: border-box;
-  overflow: hidden;
-  height: 128px;
-  display: flex;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  padding: 0 8px;
-  z-index: 100;
-}
+      .tpdata-btns {
+        box-sizing: border-box;
+        overflow: hidden;
+        height: 128px;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        padding: 0 8px;
+        z-index: 100;
 
-.chart-container .grid-container-nav .chart-tpdata-container .tpdata-btns:hover {
-  min-height: 128px;
-  height: auto;
-  z-index: 100;
-  background: #223940;
-  border-radius: 4px;
-  padding-bottom: 16px;
-}
+        .tpdata-btn {
+          @include textRaleway(400, 16px);
+          display: inline-block;
+          color: $fontWhiteLowContrast;
+          padding: 0 8px;
+          margin: 6px 0;
+          border-right: 1px solid $fontWhiteLowContrast;
+          cursor: pointer;
+          height: 20px;
+        }
 
-.chart-container .grid-container-nav .chart-tpdata-container .margin-bottom {
-  height: 16px;
-}
+        .tpdata-btn-selected {
+          color: $fontWhiteHighContrast;
+          font-weight: 800;
+        }
+      }
 
-.chart-container .grid-container-nav .chart-tpdata-container .tpdata-btns .tpdata-btn {
-  display: inline-block;
-  font-family: 'Raleway', sans-serif;
-  font-size: 16px;
-  color: rgba(255, 255, 255, .67);
-  padding: 0 8px;
-  margin: 6px 0;
-  border-right: 1px solid rgba(255, 255, 255, .67);
-  cursor: pointer;
-  height: 20px;
-}
+      .tpdata-btns:hover {
+        min-height: 128px;
+        height: auto;
+        z-index: 100;
+        background: mainGreenDarkL;
+        border-radius: 4px;
+        padding-bottom: 16px;
+      }
 
-.chart-container .grid-container-nav .chart-tpdata-container .tpdata-btns .tpdata-btn-selected {
-  color: rgba(255, 255, 255, .87);
-  font-weight: 800;
-}
+      .margin-bottom {
+        height: 16px;
+      }
 
-.chart-navigator {
-  display: grid;
-  grid-template-columns: 36px 36px 36px 1fr auto auto auto 1fr 36px 36px 36px;
-  align-items: center;
-  height: 56px;
-  border-radius: 4px;
-  background: #27414A;
-  margin-top: 12px;
-  padding: 0 8px;
-  position: relative;
-}
+    }
+  }
 
-.chart-navigator .chart-nav-btn {
-  text-align: center;
-  min-width: 36px;
-  width: 36px;
-  height: 36px;
-  padding: 0;
-}
+  .chart-navigator {
+    display: grid;
+    grid-template-columns: 36px 36px 36px 1fr auto auto auto 1fr 36px 36px 36px;
+    align-items: center;
+    height: 56px;
+    border-radius: 4px;
+    background: $mainGreenDarkB;
+    margin-top: 12px;
+    padding: 0 8px;
+    position: relative;
 
-.chart-navigator .chart-nav-btn svg {
-  padding-bottom: 2px;
-}
+    .chart-nav-btn {
+      text-align: center;
+      min-width: 36px;
+      width: 36px;
+      height: 36px;
+      padding: 0;
 
-.chart-navigator .chart-text {
-  text-align: center;
-  min-width: 0px;
-  padding: 0 16px;
-  font-family: 'Raleway', sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, .67);
-}
+      svg {
+        padding-bottom: 2px;
+      }
+    }
 
-.chart-navigator .chart-text-selected {
-  font-weight: 800;
-  color: rgba(255, 255, 255, .87);
-}
+    .chart-text {
+      @include textRaleway(400, 16px);
+      text-align: center;
+      min-width: 0px;
+      padding: 0 16px;
+      text-transform: uppercase;
+      color: $fontWhiteLowContrast;
+    }
 
-.grid-chat {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  margin: 12px 0;
-  position: relative;
-}
+    .chart-text-selected {
+      font-weight: 800;
+      color: $fontWhiteHighContrast;
+    }
+  }
 
-.grid-chat .border {
-  padding: 6px;
-  border-radius: 4px;
-  background: rgba(0, 0, 0, 0.2);
+  .grid-chat {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    margin: 12px 0;
+    position: relative;
+
+    .border {
+      padding: 6px;
+      border-radius: 4px;
+      background: $BlackDotTwo;
+    }
+  }
 }

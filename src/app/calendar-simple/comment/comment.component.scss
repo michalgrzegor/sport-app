@@ -1,27 +1,20 @@
-p {
-  margin: 0;
-  margin-bottom: 16px;
-  color: #FF5D51;
-}
+@import "../../shared/scss-var/colors";
 
-.enabled {
-  background-color: #608490;
-  color: rgba(255, 255, 255, 0.87)
-}
+#new-tp-editor {
+  p {
+    margin: 0;
+    margin-bottom: 16px;
+    color: $brightRed;
+  }
+  
+  .enabled {
+    background-color: $mainGreenLight;
+    color: $fontWhiteHighContrast;
+  }
+  
+  .grid-to-right {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+  }
 
-.grid-to-right {
-  display: grid;
-  grid-template-columns: 1fr auto auto;
-}
-
-.bg-for-area {
-  background: rgba(0, 0, 0, .1);
-}
-
-.bg-for-area textarea {
-  font-family: 'Lato';
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.67);
-  font-weight: 300;
-  padding: 6px;
 }

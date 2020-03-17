@@ -7,11 +7,16 @@ $fontBlackLowContrast: rgba(0, 0, 0, 0.57);
 $fontWhiteHighContrast: rgba(255, 255, 255, 0.87);
 $fontWhiteMediumContrast: rgba(255, 255, 255, 0.77);
 $fontWhiteLowContrast: rgba(255, 255, 255, 0.67);
+$fontWhiteBright: rgba(255, 255, 255, 0.45);
 
 /*-----Kolory Elementów------*/
 
-$WhiteDotTwo: rgba(255, 255, 255, 0.2);
+$WhiteDotFour: rgba(255, 255, 255, 0.37);
+$WhiteDotThree: rgba(255, 255, 255, 0.27);
+$WhiteDotTwo: rgba(255, 255, 255, 0.17);
+$WhiteDotOne: rgba(255, 255, 255, 0.1);
 
+$BlackDotTwo: rgba(255, 255, 255, 0.1);
 $BlackDotOne: rgba(255, 255, 255, 0.1);
 
 $brightYellow: #E8A022;
@@ -32,5 +37,8 @@ $darkerBrightViolet: #4E4091;
 $ErrorYellow: #B0AA54;
 
 $mainGreen: #345763;
+$mainGreenDarkL: #223940;
+$mainGreenDark: #052E39;
+$mainGreenDarkB: #27414A;
 $mainGreenLight: #608490;
 $mainGreenLightBright: #8FB4C0;

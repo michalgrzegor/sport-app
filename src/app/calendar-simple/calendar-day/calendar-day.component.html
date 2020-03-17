@@ -9,8 +9,6 @@
       <mat-icon class="star" *ngIf="tPStar && isWeb" [ngStyle]="{'color': tPStar.star_color}" matTooltip="{{tPStar.star_description}}" matTooltipClass="comment-tooltip">star</mat-icon>
       <div *ngIf="!tPStar && isWeb"></div>
       <div *ngIf="!isWeb" ></div>
-      <!-- <div *ngIf="!isHandset"></div> -->
-      <!-- <div *ngIf="isHandset && !tPStar" ></div> -->
       <div class="close-button-handset" *ngIf="isHandset" >
         <button mat-button (click)="close()"><mat-icon>close</mat-icon></button>
       </div>
@@ -209,6 +207,9 @@
       </div>
     </div>
   </div>
+
+
+
   <div class="actions-container" *ngIf="isWeb || isTablet" >
     <div class="close-button">
       <button mat-button (click)="close()"><mat-icon>close</mat-icon></button>
@@ -388,7 +389,8 @@
   <div id="fab-dismiss" 
   *ngIf="fabTogglerState === 'active'" 
   (click)="onToggleFab()">
-  </div><div class="fab-container">
+  </div>
+  <div class="fab-container">
     <button mat-fab class="fab-toggler"
             (click)="onToggleFab(dayDate)">
       <mat-icon class="material-icons" [@fabToggler]="{value: fabTogglerState}">add</mat-icon>

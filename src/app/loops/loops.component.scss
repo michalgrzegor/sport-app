@@ -1,46 +1,47 @@
-.buttons {
-    text-align: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.17);
-    margin-left: 10px;
-}
-
-button {
-    color: rgba(255, 255, 255, 0.67);
-    font-family: "Raleway";
-    font-size: 16px;
-    text-transform: uppercase;
-    font-weight: 800;
-    background: rgba(255, 255, 255, 0.17);
-    margin-bottom: 16px;
-}
-
-h5 {
-    margin-bottom: 24px;
-}
-
-mat-form-field{
-    box-sizing: border-box;
-    width: 100%;
-}
-
-.input-web {
-    box-sizing: border-box;
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 400px 1fr;
-}
-
-.input-not-web {
-    box-sizing: border-box;
-    width: 100%;
-    display: grid;
-    grid-template-columns: 16px 100% 16px;
-}
+@import "../shared/scss-var/colors";
+@import "../shared/scss-var/mixins";
 
 .form {
     width: 100%;
-}
 
-.disabled {
-    opacity: 0.6;
+    .buttons {
+        text-align: center;
+        border-bottom: 1px solid $WhiteDotTwo;
+        margin-left: 10px;
+    }
+    
+    button {
+        @include textRaleway(800, 16px);
+        color: $fontWhiteLowContrast;
+        text-transform: uppercase;
+        background: $WhiteDotTwo;
+        margin-bottom: 16px;
+    }
+    
+    h5 {
+        margin-bottom: 24px;
+    }
+    
+    mat-form-field{
+        box-sizing: border-box;
+        width: 100%;
+    }
+    
+    .input-web {
+        box-sizing: border-box;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 400px 1fr;
+    }
+    
+    .input-not-web {
+        box-sizing: border-box;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 16px 100% 16px;
+    }
+    
+    .disabled {
+        opacity: 0.6;
+    }
 }
