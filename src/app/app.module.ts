@@ -29,6 +29,10 @@ import { TrainingPlanEditorComponent } from './training-plan/training-plan-edito
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from 'src/environments/environment';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { TileMotivationComponent } from './tile-editor/tile-kind/tile-motivation/tile-motivation.component';
+import { TileQuestionComponent } from './tile-editor/tile-kind/tile-question/tile-question.component';
+import { TileDietComponent } from './tile-editor/tile-kind/tile-diet/tile-diet.component';
+import { TileTrainingComponent } from './tile-editor/tile-kind/tile-training/tile-training.component';
 
 
 
@@ -43,7 +47,11 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     StepperComponent,
     CreatorComponent,
     AthleteCreatorComponent,
-    TrainingPlanEditorComponent
+    TrainingPlanEditorComponent,
+    TileMotivationComponent,
+    TileQuestionComponent,
+    TileDietComponent,
+    TileTrainingComponent
   ],
   imports: [
     BrowserAnimationsModule,
