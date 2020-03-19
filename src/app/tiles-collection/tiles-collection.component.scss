@@ -54,30 +54,7 @@ app-tiles-category {
 .flex-cont {
   padding-left: 10px;
 
-  .preview {
-    @include boxShadowPreview();
-    height: 48px;
-    display: grid;
-    grid-template-columns: 24px 1fr;
-    background: $mainGreenLightBright;
-    min-width: 124px;
-    border-radius: 4px;
-
-    p {
-      @include textLato(400, 16px);
-      line-height: 48px;
-      height: 48px;
-      margin: 0px;
-      padding-left: 12px;
-      padding-right: 16px;
-    }
-
-    .collor-preview {
-      height: 48px;
-      border-top-left-radius: 4px;
-      border-bottom-left-radius: 4px;
-    }
-  }
+  
 
   .custom-placeholder {
     box-sizing: border-box;
@@ -98,4 +75,29 @@ app-tiles-category {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 16px;
+}
+
+.preview {
+  @include boxShadowPreview();
+  height: 48px;
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  background: $mainGreenLightBright;
+  min-width: 124px;
+  border-radius: 4px;
+
+  p {
+    @include textLato(400, 16px);
+    line-height: 48px;
+    height: 48px;
+    margin: 0px;
+    padding-left: 12px;
+    padding-right: 16px;
+  }
+
+  .collor-preview {
+    height: 48px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
 }

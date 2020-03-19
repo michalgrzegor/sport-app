@@ -110,7 +110,7 @@ export class TileEditorComponent implements OnInit, OnDestroy {
     this.intensityArray = this._data.getBasicUnits().intensityArray;
     this.unitsArray = this._data.getBasicUnits().unitsArray;
     this.energyUnitsArray = this._data.getBasicUnits().energyUnitsArray;
-    this.energyUnitsArrayNutrient = this._data.getBasicUnits().energyUnitsArrayNutrient;
+    // this.energyUnitsArrayNutrient = this._data.getBasicUnits().energyUnitsArrayNutrient;
     this.removedActivities = [];
 
     this.activityArray = [];
@@ -454,7 +454,7 @@ export class TileEditorComponent implements OnInit, OnDestroy {
       tile_diet_protein_amount: new FormControl('', Validators.maxLength(255)),
       tile_diet_fat_unit: new FormControl(''),
       tile_diet_fat_amount: new FormControl('', Validators.maxLength(255)),
-      tile_diet_nutrients: new FormArray([]),
+      // tile_diet_nutrients: new FormArray([]),
       tile_diet_note: new FormControl('', Validators.maxLength(30000)),
     });
   }
@@ -490,84 +490,84 @@ export class TileEditorComponent implements OnInit, OnDestroy {
     })
   }
 
-  onAddNutrients() {
-    return new FormGroup({
-      id: new FormControl(''),
-      tile_diet_nutrient_name: new FormControl('', Validators.maxLength(255)),
-      tile_diet_nutrient_unit: new FormControl(''),
-      tile_diet_nutrient_amount: new FormControl('', Validators.maxLength(255))
-    });
-  }
+  // onAddNutrients() {
+  //   return new FormGroup({
+  //     id: new FormControl(''),
+  //     tile_diet_nutrient_name: new FormControl('', Validators.maxLength(255)),
+  //     tile_diet_nutrient_unit: new FormControl(''),
+  //     tile_diet_nutrient_amount: new FormControl('', Validators.maxLength(255))
+  //   });
+  // }
 
-  addNutrient(index: number) {
-    const control = <FormArray>this.tile_editor_form.get('tile_diets')['controls'][index].get('tile_diet_nutrients');
-    control.push(this.onAddNutrients());
-  }
+  // addNutrient(index: number) {
+  //   const control = <FormArray>this.tile_editor_form.get('tile_diets')['controls'][index].get('tile_diet_nutrients');
+  //   control.push(this.onAddNutrients());
+  // }
 
-  deleteNutrient(index_diet: number, index_nutrient: number){
+  // deleteNutrient(index_diet: number, index_nutrient: number){
         
-    const dialogRef = this._dialog.open(VerifyDialogEditorComponent, {
-      width: '300px',
-      autoFocus: false,
-      id: 'delete-dialog-tile',
-      data: {tileType: 'nutrient'}
-    });
+  //   const dialogRef = this._dialog.open(VerifyDialogEditorComponent, {
+  //     width: '300px',
+  //     autoFocus: false,
+  //     id: 'delete-dialog-tile',
+  //     data: {tileType: 'nutrient'}
+  //   });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if(result){
-        const control = <FormArray>this.tile_editor_form.get('tile_diets')['controls'][index_diet].get('tile_diet_nutrients');
-        control.removeAt(index_nutrient);
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     if(result){
+  //       const control = <FormArray>this.tile_editor_form.get('tile_diets')['controls'][index_diet].get('tile_diet_nutrients');
+  //       control.removeAt(index_nutrient);
 
-        if(this.isEdited){
-          if(this.removedDiet.length>0){
-            this.removedDiet.forEach(
-              element => {
-                if(element.id === this.editedTile.tile_diets[index_diet].id){
-                  if(element.tile_diet_nutrients){
-                    element.tile_diet_nutrients.push({
-                      id: this.editedTile.tile_diets[index_diet].tile_diet_nutrients[index_nutrient].id, 
-                      _destroy: 1
-                    })
-                  }else{
-                    element.tile_diet_nutrients = [];
-                    element.tile_diet_nutrients.push({
-                      id: this.editedTile.tile_diets[index_diet].tile_diet_nutrients[index_nutrient].id, 
-                      _destroy: 1
-                    })
-                  }
+  //       if(this.isEdited){
+  //         if(this.removedDiet.length>0){
+  //           this.removedDiet.forEach(
+  //             element => {
+  //               if(element.id === this.editedTile.tile_diets[index_diet].id){
+  //                 if(element.tile_diet_nutrients){
+  //                   element.tile_diet_nutrients.push({
+  //                     id: this.editedTile.tile_diets[index_diet].tile_diet_nutrients[index_nutrient].id, 
+  //                     _destroy: 1
+  //                   })
+  //                 }else{
+  //                   element.tile_diet_nutrients = [];
+  //                   element.tile_diet_nutrients.push({
+  //                     id: this.editedTile.tile_diets[index_diet].tile_diet_nutrients[index_nutrient].id, 
+  //                     _destroy: 1
+  //                   })
+  //                 }
                   
-                }else{
-                  this.removedDiet.push({
-                    id: this.editedTile.tile_diets[index_diet].id,
-                    tile_diet_nutrients: [
-                      {
-                        id: this.editedTile.tile_diets[index_diet].tile_diet_nutrients[index_nutrient].id, 
-                        _destroy: 1
-                      }
-                    ]
-                  })
-                }
-              }
-            )
+  //               }else{
+  //                 this.removedDiet.push({
+  //                   id: this.editedTile.tile_diets[index_diet].id,
+  //                   tile_diet_nutrients: [
+  //                     {
+  //                       id: this.editedTile.tile_diets[index_diet].tile_diet_nutrients[index_nutrient].id, 
+  //                       _destroy: 1
+  //                     }
+  //                   ]
+  //                 })
+  //               }
+  //             }
+  //           )
 
-          }else{
-            if(this.editedTile.tile_diets[index_diet] && this.editedTile.tile_diets[index_diet].tile_diet_nutrients[index_nutrient]){
-              this.removedDiet.push({
-                id: this.editedTile.tile_diets[index_diet].id,
-                tile_diet_nutrients: [
-                  {
-                    id: this.editedTile.tile_diets[index_diet].tile_diet_nutrients[index_nutrient].id, 
-                    _destroy: 1
-                  }
-                ]
-              })
-            }
-          }
-        }
-      }
-    })
+  //         }else{
+  //           if(this.editedTile.tile_diets[index_diet] && this.editedTile.tile_diets[index_diet].tile_diet_nutrients[index_nutrient]){
+  //             this.removedDiet.push({
+  //               id: this.editedTile.tile_diets[index_diet].id,
+  //               tile_diet_nutrients: [
+  //                 {
+  //                   id: this.editedTile.tile_diets[index_diet].tile_diet_nutrients[index_nutrient].id, 
+  //                   _destroy: 1
+  //                 }
+  //               ]
+  //             })
+  //           }
+  //         }
+  //       }
+  //     }
+  //   })
     
-  }
+  // }
 
   //random color generator
 
@@ -645,9 +645,9 @@ export class TileEditorComponent implements OnInit, OnDestroy {
       let array = [];
       obj.tile_diets.forEach(diet => {
         array.push(diet.tile_diet_meal, diet.tile_diet_energy_unit, diet.tile_diet_energy_amount, diet.tile_diet_carbohydrates_unit, diet.tile_diet_carbohydrates_amount, diet.tile_diet_protein_unit, diet.tile_diet_protein_amount, diet.tile_diet_fat_unit, diet.tile_diet_fat_amount, diet.tile_diet_note);
-        diet.tile_diet_nutrients.forEach(nut => {
-          array.push(nut.tile_diet_nutrient_name, nut.tile_diet_nutrient_unit, nut.tile_diet_nutrient_amount)
-        })
+        // diet.tile_diet_nutrients.forEach(nut => {
+        //   array.push(nut.tile_diet_nutrient_name, nut.tile_diet_nutrient_unit, nut.tile_diet_nutrient_amount)
+        // })
       });
       array = _.remove(array, null);
       if(array.length === 0){obj.tile_diets = []};
@@ -756,16 +756,16 @@ export class TileEditorComponent implements OnInit, OnDestroy {
             control.push(this.onAddNewDiet());
           }
         )
-        tile_to_edit.tile_diets.forEach((diet, index)=>{
-          if(diet.tile_diet_nutrients){
-            const controlNut = <FormArray>this.tile_editor_form.get('tile_diets')['controls'][index].get('tile_diet_nutrients');
-            controlNut.reset();
-            controlNut.value.forEach(val=>control.removeAt(0));
-            for(let i = 0; i < diet.tile_diet_nutrients.length; i++ ){
-              controlNut.push(this.onAddNutrients());
-            }
-          }
-        })
+        // tile_to_edit.tile_diets.forEach((diet, index)=>{
+        //   if(diet.tile_diet_nutrients){
+        //     const controlNut = <FormArray>this.tile_editor_form.get('tile_diets')['controls'][index].get('tile_diet_nutrients');
+        //     controlNut.reset();
+        //     controlNut.value.forEach(val=>control.removeAt(0));
+        //     for(let i = 0; i < diet.tile_diet_nutrients.length; i++ ){
+        //       controlNut.push(this.onAddNutrients());
+        //     }
+        //   }
+        // })
       };
       this.tagsSelected = [];
       if(this.tags){
@@ -870,6 +870,10 @@ export class TileEditorComponent implements OnInit, OnDestroy {
     }else{
       this.dietArray[index].animate = 'averse'
     }
+  }
+
+  console(e){
+    console.log(e);
   }
 
   ngOnDestroy(){

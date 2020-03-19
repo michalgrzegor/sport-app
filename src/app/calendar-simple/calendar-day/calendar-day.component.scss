@@ -137,30 +137,6 @@ h6 {
             transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
           }
 
-          .preview {
-            @include boxShadowPreview();
-            height: 48px;
-            display: grid;
-            grid-template-columns: 24px 1fr;
-            background: $mainGreenLightBright;
-            min-width: 124px;
-            border-radius: 4px;
-
-            p {
-              @include textLato(400, 16px);
-              line-height: 48px;
-              height: 48px;
-              margin: 0px;
-              padding-left: 12px;
-              padding-right: 16px;
-            }
-
-            .collor-preview {
-              height: 48px;
-              border-top-left-radius: 4px;
-              border-bottom-left-radius: 4px;
-            }
-          }
         }
 
         .only-for-space {
@@ -437,4 +413,29 @@ h6 {
   right: 0;
   bottom: 0;
   z-index: 99;
+}
+
+.preview {
+  @include boxShadowPreview();
+  height: 48px;
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  background: $mainGreenLightBright;
+  min-width: 124px;
+  border-radius: 4px;
+
+  p {
+    @include textLato(400, 16px);
+    line-height: 48px;
+    height: 48px;
+    margin: 0px;
+    padding-left: 12px;
+    padding-right: 16px;
+  }
+
+  .collor-preview {
+    height: 48px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
 }

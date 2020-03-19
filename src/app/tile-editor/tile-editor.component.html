@@ -1,6 +1,3 @@
-<app-tile-training></app-tile-training>
-
-
 <form [formGroup]="tile_editor_form" (ngSubmit)="onSubmit()" id="tile-editor-form">
     <h4 *ngIf="!isTutorial" >CHOOSE TYPE</h4>
     <mat-chip-list *ngIf="!isTutorial" >
@@ -357,49 +354,6 @@
                                 </div>
                                 <h6 *ngIf="tile_editor_form.get('tile_diets')['controls'][i].get('tile_diet_fat_amount').hasError('maxlength')" >{{errorMaxLengthShort}}</h6>
                 
-                                <div class="nutrient-background-color" formArrayName="tile_diet_nutrients" *ngFor="let nutrientCtrl of tile_editor_form.get['tile_diets'].controls[i].controls['tile_diet_nutrients'].controls; let j = index;" >
-                                    <div [formGroupName]="j">
-                                        <div class="header-delete-nutrient">
-                                            <div></div>
-                                            <h5 *ngIf="!tile_editor_form.get('tile_diets')['controls'][i].get('tile_diet_nutrients')['controls'][j].get('tile_diet_nutrient_name').value" >nutrient name</h5>
-                                            <h5 *ngIf="tile_editor_form.get('tile_diets')['controls'][i].get('tile_diet_nutrients')['controls'][j].get('tile_diet_nutrient_name').value" >{{tile_editor_form.get('tile_diets')['controls'][i].get('tile_diet_nutrients')['controls'][j].get('tile_diet_nutrient_name').value}}</h5>
-                                            <button mat-button color="primary" (click)="deleteNutrient(i,j)" matTooltip="delete {{i+1}} nutrient" matTooltipClass="comment-tooltip" type="button" class="delete-button"><mat-icon>delete</mat-icon></button>
-                                        </div>
-                                        <mat-form-field style="display: none" appearance="fill">
-                                            <input 
-                                                matInput 
-                                                formControlName="id">
-                                        </mat-form-field>
-                                        <mat-form-field appearance="fill">
-
-                                            <mat-label>vitamine b, magnesium...</mat-label>
-                                            <input 
-                                                matInput 
-                                                formControlName="tile_diet_nutrient_name">
-                                        </mat-form-field>
-                                        <h6 *ngIf="tile_editor_form.get('tile_diets')['controls'][i].get('tile_diet_nutrients')['controls'][j].get('tile_diet_nutrient_name').hasError('maxlength')" >{{errorMaxLengthShort}}</h6>
-                                        <div class="short-inputs">
-                                            <mat-form-field class="short-input-left formFieldWidth100" appearance="fill">
-                                                <mat-label>unit</mat-label>
-                                                <mat-select 
-                                                    formControlName="tile_diet_nutrient_unit">
-                                                    <mat-option *ngFor="let unit of energyUnitsArrayNutrient"  [value]="unit">{{unit}}</mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                            <mat-form-field class="short-input-right formFieldWidth100" appearance="fill">
-                                                <mat-label>amount</mat-label>
-                                                <input 
-                                                    matInput 
-                                                    formControlName="tile_diet_nutrient_amount">
-                                            </mat-form-field>
-                                        </div>
-                                        <h6 *ngIf="tile_editor_form.get('tile_diets')['controls'][i].get('tile_diet_nutrients')['controls'][j].get('tile_diet_nutrient_amount').hasError('maxlength')" >{{errorMaxLengthShort}}</h6>
-                                        <!-- <button mat-button color="primary" (click)="deleteNutrient(i,j)" type="button" class="medium-button">DELETE {{j+1}} NUTRIENT</button> -->
-                                    </div>
-                                </div>
-                                <div class="add-btn-container">
-                                    <button mat-button color="primary" (click)="addNutrient(i)" type="button" class="add-button-nutrient"><mat-icon>add_circle_outline</mat-icon>ADD NUTRIENT</button>
-                                </div>
                 
                                 <h5>notes</h5>
                                 <mat-form-field appearance="fill">
@@ -428,7 +382,6 @@
                     <div class="activity-container">
                         <h4 *ngIf="!tile_editor_form.get('tile_question').get('tile_ask_question').value" >ASK QUESTION</h4>
                         <h4 *ngIf="tile_editor_form.get('tile_question').get('tile_ask_question').value && tile_editor_form.get('tile_question').get('tile_ask_question').value.length > 0" >{{tile_editor_form.get('tile_question').get('tile_ask_question').value}}</h4>
-                        <h5>...to your client to answer</h5>
                         <mat-form-field appearance="fill">
                             <mat-label>how do you feel after training?</mat-label>
                             <textarea 
@@ -440,42 +393,42 @@
     
                         <div class="divider-line"></div>
                         <h4>ANSWER TYPE</h4>
-                        <mat-radio-group formControlName="tile_answear_numeric">
-                            <mat-radio-button [value]=true type="button">Numeric</mat-radio-button><br>
+                        <mat-radio-group formControlName="tile_answer_numeric">
+                            <mat-radio-button (change)="console(tile_editor_form.get('tile_question').get('tile_ask_question'))" [value]=true type="button">Numeric</mat-radio-button><br>
                             <mat-radio-button [value]=false type="button">Descriptive</mat-radio-button>
                         </mat-radio-group>
-                        <div *ngIf="this.tile_editor_form.get('tile_question').get('tile_answear_numeric').value">
+                        <div *ngIf="this.tile_editor_form.get('tile_question').get('tile_answer_numeric').value">
                             <h5 >range</h5>
                             <div class="short-inputs">
                                 <mat-form-field class="short-input-left formFieldWidth100" appearance="fill">
                                     <mat-label>from</mat-label>
                                     <input 
                                         matInput 
-                                        formControlName="tile_answear_numeric_from">
+                                        formControlName="tile_answer_numeric_from">
                                 </mat-form-field>
                                 <mat-form-field class="short-input-right formFieldWidth100" appearance="fill">
                                     <mat-label>to</mat-label>
                                     <input 
                                         matInput 
-                                        formControlName="tile_answear_numeric_to">
+                                        formControlName="tile_answer_numeric_to">
                                 </mat-form-field>
                             </div>
                         </div>
-                        <div *ngIf="!this.tile_editor_form.get('tile_question').get('tile_answear_numeric').value && this.tile_editor_form.get('tile_question').get('tile_answear_numeric').touched || isDescriptive">
+                        <div *ngIf="!this.tile_editor_form.get('tile_question').get('tile_answer_numeric').value && this.tile_editor_form.get('tile_question').get('tile_answer_numeric').touched">
                             <h5>add answers after commas</h5>
                             <mat-form-field appearance="fill">
                                 <mat-label>very good, good, so-so...</mat-label>
                                 <textarea 
                                     matInput 
                                     *ngIf="!isTutorial"
-                                    formControlName="tile_answears_descriptives"></textarea>
+                                    formControlName="tile_answers_descriptives"></textarea>
                                 <textarea 
                                     matInput 
                                     *ngIf="isTutorial"
                                     rows="10"
-                                    formControlName="tile_answears_descriptives"></textarea>
+                                    formControlName="tile_answers_descriptives"></textarea>
                             </mat-form-field>
-                            <h6 *ngIf="tile_editor_form.get('tile_question').get('tile_answears_descriptives').hasError('maxlength')">{{errorMaxLengthShort}}</h6>
+                            <h6 *ngIf="tile_editor_form.get('tile_question').get('tile_answers_descriptives').hasError('maxlength')">{{errorMaxLengthShort}}</h6>
                         </div>
                     </div>
                 </div>

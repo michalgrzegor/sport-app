@@ -7,10 +7,6 @@ import { ColorSliderComponent } from './color-picker/color-picker/color-slider/c
 import { ColorPaletteComponent } from './color-picker/color-picker/color-palette/color-palette.component';
 import { SharedModule } from '../shared/shared.module';
 import { VerifyDialogEditorComponent } from './verify-dialog-day/verify-dialog-editor.component';
-import { TileMotivationComponent } from './tile-kind/tile-motivation/tile-motivation.component';
-import { TileQuestionComponent } from './tile-kind/tile-question/tile-question.component';
-import { TileDietComponent } from './tile-kind/tile-diet/tile-diet.component';
-import { TileTrainingComponent } from './tile-kind/tile-training/tile-training.component';
 
 @NgModule({
     declarations: [

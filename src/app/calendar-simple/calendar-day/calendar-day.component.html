@@ -1,4 +1,4 @@
-<app-week-summary [dayDateString]="dayDateString"></app-week-summary>
+<app-week-summary *ngIf="!isHandset"  [dayDateString]="dayDateString"></app-week-summary>
 <div class="border-line-top"></div>
 
 <div class="global_container" [ngStyle]="{'grid-template-columns':isWeb || isTablet ? '1fr 92px' : '1fr' }">
@@ -37,7 +37,7 @@
             <div class="grid-to-center">
               <app-tile [dateTile]="dayDate" [tileRef]="tile" [index]="i" [isInCollection]="false" [tr_id]="trainingPlan.id" [asso_id]="tile.asso_id"></app-tile>
             </div>
-            <div class="custom-placeholder" *cdkDragPlaceholder></div>
+            <div *cdkDragPlaceholder class="custom-placeholder"></div>
             <div *cdkDragPreview class="preview">
               <div class="collor-preview" [ngStyle]="{'background': tile.tile_type_color}"></div>
               <p>{{tile.tile_title}}</p>
