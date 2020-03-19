@@ -10,10 +10,10 @@
   }
 
   .card-answer {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: $BlackBg;
     padding: 16px 8px 8px;
     border-radius: 4px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.24), 0px 0px 4px rgba(0, 0, 0, 0.48);
+    @include boxShadowDark();
     margin-bottom: 16px;
   }
 

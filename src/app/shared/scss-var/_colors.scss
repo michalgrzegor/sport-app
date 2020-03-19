@@ -14,10 +14,13 @@ $fontWhiteBright: rgba(255, 255, 255, 0.45);
 $WhiteDotFour: rgba(255, 255, 255, 0.37);
 $WhiteDotThree: rgba(255, 255, 255, 0.27);
 $WhiteDotTwo: rgba(255, 255, 255, 0.17);
-$WhiteDotOne: rgba(255, 255, 255, 0.1);
+$WhiteDotOne: rgba(255, 255, 255, 0.07);
 
-$BlackDotTwo: rgba(255, 255, 255, 0.1);
-$BlackDotOne: rgba(255, 255, 255, 0.1);
+$BlackDotTwo: rgba(0, 0, 0, 0.17);
+$BlackDotOne: rgba(0, 0, 0, 0.07);
+
+$BlackBg: rgba(255, 255, 255, 0.05);
+$BlackBgLight: rgba(255, 255, 255, 0.03);
 
 $brightYellow: #E8A022;
 $lighterBrightYellow: #EBB72B;
@@ -36,9 +39,15 @@ $darkerBrightViolet: #4E4091;
 
 $ErrorYellow: #B0AA54;
 
+$greenInput: #608490 30%;
+
 $mainGreen: #345763;
 $mainGreenDarkL: #223940;
 $mainGreenDark: #052E39;
 $mainGreenDarkB: #27414A;
 $mainGreenLight: #608490;
 $mainGreenLightBright: #8FB4C0;
+
+$ScrollGreenBright: rgba(5, 46, 57, 0.1);
+$ScrollGreen: rgba(5, 46, 57, 0.6);
+$ScrollGreenDark: rgba(5, 46, 57, 0.9);

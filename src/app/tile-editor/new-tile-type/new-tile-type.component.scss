@@ -1,3 +1,6 @@
+@import "../../shared/scss-var/colors";
+@import "../../shared/scss-var/mixins";
+
 #new-tile-type {
   display: flex;
   flex-direction: column;
@@ -13,7 +16,7 @@
   }
 
   p {
-    font-family: 'Lato';
-    color: rgba(255, 255, 255, 0.67);
+    @include textLato(400, 14px);
+    color: $fontWhiteLowContrast;
   }
 }

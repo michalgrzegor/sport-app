@@ -1,3 +1,6 @@
+@import "../../shared/scss-var/colors";
+@import "../../shared/scss-var/mixins";
+
 .fixheight {
   height: 100%;
   display: flex;
@@ -11,9 +14,8 @@
   }
 
   p {
-    color: rgba(255, 255, 255, 0.67);
-    font-size: 16px;
-    font-family: 'Raleway', sans-serif;
+    @include textRaleway(400, 16px);
+    color: $fontWhiteLowContrast;
     padding: 0 10%;
   }
 
@@ -22,18 +24,17 @@
     grid-template-columns: 1fr 1fr 1fr;
 
     .step-control {
+      @include textLato(400, 16px);
       text-align: center;
-      font-family: 'Lato';
-      color: rgba(255, 255, 255, 0.37);
-      font-size: 16px;
-      border-bottom: 2px solid rgba(255, 255, 255, 0.37);
+      color: $WhiteDotFour;
+      border-bottom: 2px solid $WhiteDotFour;
       padding-bottom: 8px;
       cursor: pointer;
     }
 
     .active {
-      color: rgba(255, 255, 255, 0.67);
-      border-bottom: 2px solid #88C540;
+      color: $fontWhiteLowContrast;
+      border-bottom: 2px solid $brightGreen;
     }
   }
 
@@ -42,8 +43,8 @@
     grid-template-columns: 20% 20% 20% 20% 20%;
 
     .active {
-      color: rgba(255, 255, 255, 0.67);
-      border-bottom: 2px solid #88C540;
+      color: $fontWhiteLowContrast;
+      border-bottom: 2px solid $brightGreen;
     }
   }
 
@@ -72,13 +73,11 @@
           margin: 48px 0 0 0;
 
           button {
+            @include textRaleway(800, 14px);
             min-width: 180px;
-            background-color: rgba(255, 255, 255, 0.07);
-            color: rgba(255, 255, 255, 0.67);
-            font-family: 'Raleway', sans-serif;
+            background-color: $WhiteDotOne;
+            color: $fontWhiteLowContrast;
             text-transform: uppercase;
-            font-weight: 800;
-            font-size: 14px;
             margin-bottom: 16px;
           }
         }
@@ -132,13 +131,11 @@
             margin: 48px 0 0 0;
 
             button {
+              @include textRaleway(800, 14px);
               min-width: 180px;
-              background-color: rgba(255, 255, 255, 0.07);
-              color: rgba(255, 255, 255, 0.67);
-              font-family: 'Raleway', sans-serif;
+              background-color: $WhiteDotOne;
+              color: $fontWhiteLowContrast;
               text-transform: uppercase;
-              font-weight: 800;
-              font-size: 14px;
               margin-bottom: 16px;
             }
           }
@@ -166,14 +163,14 @@
       width: 6px;
       height: 6px;
       border-radius: 3px;
-      background-color: rgba(255, 255, 255, 0.27);
+      background-color: $WhiteDotThree;
     }
 
     .resize {
       width: 10px;
       height: 10px;
       border-radius: 5px;
-      background-color: rgba(255, 255, 255, 0.67);
+      background-color: $fontWhiteLowContrast;
     }
   }
 
@@ -188,11 +185,9 @@
 
     .btns {
       button {
-        color: rgba(255, 255, 255, 0.45);
-        font-family: 'Raleway', sans-serif;
+        @include textRaleway(800, 14px);
+        color: $fontWhiteBright;
         text-transform: uppercase;
-        font-weight: 800;
-        font-size: 14px;
       }
     }
   }

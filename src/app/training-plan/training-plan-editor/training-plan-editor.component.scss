@@ -1,7 +1,9 @@
+@import "../../shared/scss-var/colors";
+
 p {
   margin: 0;
   margin-bottom: 16px;
-  color: #FF5D51;
+  color: $brightRed;
 }
 
 .grid-to-right {
@@ -9,7 +11,7 @@ p {
   grid-template-columns: 1fr auto auto;
 
   .enabled {
-    background-color: #608490;
-    color: rgba(255, 255, 255, 0.87)
+    background-color: $mainGreenLight;
+    color: $fontWhiteHighContrast;
   }
 }

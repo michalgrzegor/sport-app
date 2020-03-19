@@ -245,6 +245,12 @@ export class TileEditorComponent implements OnInit, OnDestroy {
   //this function create new category and select created category
   onSelectType(i) {
     this.tile_editor_form.reset();
+    this.tile_editor_form.get('tile_activities').reset();
+    this.tile_editor_form.get('tile_diets').reset();
+
+    console.log(this.tile_editor_form.get('tile_activities'))
+    this.activityArray = [];
+    this.dietArray = [];
 
     this.tile_editor_form.setControl('tile_activities', new FormArray([
       this.onAddNewActivity(),
@@ -381,6 +387,7 @@ export class TileEditorComponent implements OnInit, OnDestroy {
   })
 
   onAddNewActivity() {
+    
     this.activityArray.push({open: false, animate: null});
     return new FormGroup({
       id: new FormControl(''),
@@ -405,6 +412,7 @@ export class TileEditorComponent implements OnInit, OnDestroy {
   addNewActivity() {
     const control = <FormArray>this.tile_editor_form.get('tile_activities');
     control.push(this.onAddNewActivity())
+    console.log(this.activityArray, this.tile_editor_form,this.tile_editor_form.value)
   }
 
   deleteActivity(index: number){
@@ -433,6 +441,7 @@ export class TileEditorComponent implements OnInit, OnDestroy {
   }
 
   onAddNewDiet() {
+    
     this.dietArray.push({open: false, animate: null});
     return new FormGroup({
       id: new FormControl(''),
@@ -453,6 +462,7 @@ export class TileEditorComponent implements OnInit, OnDestroy {
   addNewDiet() {
     const control = <FormArray>this.tile_editor_form.get('tile_diets');
     control.push(this.onAddNewDiet())
+    console.log(this.dietArray, this.tile_editor_form,this.tile_editor_form.value)
   }
 
   deleteDiet(index: number){

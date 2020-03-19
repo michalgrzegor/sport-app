@@ -1,3 +1,6 @@
+@import "../../shared/scss-var/colors";
+@import "../../shared/scss-var/mixins";
+
 .tp-name {
   display: grid;
   grid-template-columns: 48px 1fr 48px;
@@ -13,7 +16,7 @@
       height: 48px;
 
       mat-icon {
-        color: rgba(255, 255, 255, 0.67);
+        color: $fontWhiteLowContrast;
       }
     }
   }
@@ -33,26 +36,26 @@
 
   .mat-elevation-z8 {
     table {
-      background: #345763;
+      background: $mainGreen;
       width: 100%;
 
       th,
       td {
-        color: rgba(255, 255, 255, 0.67);
-        font-family: 'Lato';
+        @include textLato(400, 14px);
+        color: $fontWhiteLowContrast;
 
         .table-icon-active {
-          color: rgba(255, 255, 255, 0.87);
+          color: $fontWhiteHighContrast;
           cursor: default;
         }
 
         .table-icon-active-status {
-          color: #88C540;
+          color: $brightGreen;
           cursor: default;
         }
 
         .table-icon-inactive {
-          color: rgba(255, 255, 255, 0.27);
+          color: $WhiteDotThree;
           cursor: default;
         }
       }

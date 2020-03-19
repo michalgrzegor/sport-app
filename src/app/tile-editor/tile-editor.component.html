@@ -368,7 +368,7 @@
                                                 formControlName="id">
                                         </mat-form-field>
                                         <mat-form-field appearance="fill">
-        
+
                                             <mat-label>vitamine b, magnesium...</mat-label>
                                             <input 
                                                 matInput 
@@ -391,6 +391,7 @@
                                             </mat-form-field>
                                         </div>
                                         <h6 *ngIf="tile_editor_form.get('tile_diets')['controls'][i].get('tile_diet_nutrients')['controls'][j].get('tile_diet_nutrient_amount').hasError('maxlength')" >{{errorMaxLengthShort}}</h6>
+                                        <!-- <button mat-button color="primary" (click)="deleteNutrient(i,j)" type="button" class="medium-button">DELETE {{j+1}} NUTRIENT</button> -->
                                     </div>
                                 </div>
                                 <div class="add-btn-container">
@@ -407,16 +408,18 @@
                                 <h6 *ngIf="tile_editor_form.get('tile_diets')['controls'][i].get('tile_diet_note').hasError('maxlength')" >{{errorMaxLengthLong}}</h6>
                             </div>
                         </div>
-        
+                        <!-- <button mat-button color="primary" (click)="deleteDiet(i)" type="button" class="medium-button">DELETE {{i+1}} MEAL/TARGET</button> -->
+
                     </div>
                 </div>
+                <!-- <div class="divider-line after-delete-activity"></div> -->
                 <div class="add-btn-container">
                     <button mat-button color="primary" (click)="addNewDiet()" type="button" class="add-button"><mat-icon>add_circle_outline</mat-icon>ADD MEAL</button>
                 </div>
-        
+
             </div>
-        
-        <!-- tile question -->
+    
+    <!-- tile question -->
             <div *ngIf="actualTrainingPlan === 'question'">
                 <div formGroupName="tile_question">
                     <div class="activity-container">

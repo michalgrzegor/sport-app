@@ -49,12 +49,12 @@
   }
 
   .card-body {
+    @include boxShadow();
     box-sizing: border-box;
     min-height: 72px;
     background: $mainGreenLightBright;
     padding: 0 16px 12px 28px;
     border-radius: 4px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.12), 0px 0px 4px rgba(0, 0, 0, 0.24);
     margin-bottom: 4px;
     margin-top: 4px;
 
@@ -95,7 +95,7 @@
 
           .tile-activities {
             padding-bottom: 16px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+            border-bottom: 1px solid $BlackDotOne;
 
             .activity-name {
               @include textLato(700, 14px);
@@ -123,7 +123,7 @@
         .tile-description {
           margin-bottom: 0px;
           padding-bottom: 16px;
-          border-bottom: 1px solid rgba(0, 0, 0, 0.5)
+          border-bottom: 1px solid $BlackDotOne
         }
 
         .tile-tags {

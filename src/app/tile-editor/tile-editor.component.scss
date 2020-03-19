@@ -1,3 +1,6 @@
+@import "../shared/scss-var/colors";
+@import "../shared/scss-var/mixins";
+
 #tile-editor-form {
   display: flex;
   flex-direction: column;
@@ -15,10 +18,9 @@
   }
 
   h6 {
+    @include textLato(400, 12px);
     margin: 0 0 8px;
-    font-family: 'Lato';
-    font-size: 12px;
-    color: #B0AA54;
+    color: $ErrorYellow;
   }
 
   mat-chip-list {
@@ -33,29 +35,29 @@
     }
   }
 
+
+
   /* styling training type chips */
   .chips-type {
     padding-left: 4px;
-    background: rgba(96, 132, 144, 0.3);
+    background: $mainGreen;
 
     mat-icon {
       margin-right: 8px;
-      color: rgba(255, 255, 255, 0.57);
+      color: $fontWhiteLowContrast;
     }
   }
 
   .divider-line {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid $WhiteDotTwo;
   }
 
   .activity-container {
-    background-color: rgba(0, 0, 0, 0.05);
+    @include boxShadowEditor();
+    background-color: $BlackBg;
     padding: 16px;
     border-radius: 4px;
     margin-bottom: 24px;
-    -webkit-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.45);
-    -moz-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.45);
-    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.45);
 
     .header-delete {
       display: grid;
@@ -71,20 +73,26 @@
       }
 
       .delete-button:hover {
-        background-color: rgba(255, 255, 255, 0.03)
+        background-color: $BlackBgLight
       }
     }
 
     //training
 
-    .activity-container {
-
-      .activity-open-container {
-        overflow: hidden;
-        transition: all 0.6s ease-in-out;
-        max-height: 0px;
-      }
+    .activity-open-container {
+      overflow: hidden;
+      transition: all 0.6s ease-in-out;
+      max-height: 0px;
     }
+
+    .open {
+      max-height: 1800px;
+    }
+
+    .close {
+      max-height: 0px;
+    }
+
 
     .add-btn-container {
       text-align: center;
@@ -92,7 +100,7 @@
       .add-button {
         mat-icon {
           margin: 0 6px;
-          color: rgba(255, 255, 255, 0.87);
+          color: $fontWhiteHighContrast;
         }
       }
     }
@@ -130,7 +138,7 @@
     }
 
     .nutrient-background-color {
-      background: rgba(255, 255, 255, 0.05);
+      background: $BlackBg;
       padding: 8px;
       border-radius: 4px;
       margin-bottom: 16px;
@@ -149,22 +157,23 @@
         }
 
         .delete-button:hover {
-          background-color: rgba(255, 255, 255, 0.03)
+          background-color: $BlackBgLight
         }
       }
     }
 
     // Tags
 
-    .mat-chip-list {
-      margin-bottom: 16px;
-    }
 
     .buttons-finish {
       .add:disabled {
         opacity: 0.2;
       }
     }
+  }
+
+  .mat-chip-list {
+    margin-bottom: 16px;
   }
 
   mat-form-field {

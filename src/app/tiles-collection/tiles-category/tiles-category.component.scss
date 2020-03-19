@@ -1,11 +1,14 @@
 /* styling training type chips */
+@import "../../shared/scss-var/colors";
+
+
 #searchby {
   .mat-chip-list {
     padding: 0 10px;
 
     .chips-type {
       padding-left: 4px;
-      background: rgba(96, 132, 144, 0.3);
+      background: $mainGreen;
 
       .training-type-icon {
         box-sizing: border-box;
@@ -24,7 +27,7 @@
 
     mat-icon {
       margin-right: 8px;
-      color: rgba(255, 255, 255, 0.57);
+      color: $fontWhiteLowContrast;
     }
   }
 
