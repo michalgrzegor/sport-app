@@ -25,6 +25,7 @@ export interface State {
     tagName: string;
     typeName: string;
     wordName: string;
+
     //training plan data manager
     tPManagaer: TpInfo[];
     isTpCollectionMode: boolean;
@@ -77,6 +78,9 @@ export interface State {
 
     //comments
     comments: CalendarComment[];
+
+    //draging
+    isDraging: boolean;
 }
 
 const InitialState: State = {
@@ -128,7 +132,8 @@ const InitialState: State = {
     isInGroup: false,
     fireChange: null,
     isAuth: false,
-    comments: []
+    comments: [],
+    isDraging: false
 }
 
 export function TilesDataReducer(state = InitialState, action: TilesDataActions.TilesDataActions) {
@@ -625,6 +630,12 @@ export function TilesDataReducer(state = InitialState, action: TilesDataActions.
             return {
                 ...state,
                 comments: commentsDC
+            }
+
+        case TilesDataActions.DRAG_ELEMENT:
+            return {
+                ...state,
+                isDraging: action.payload
             }
 
         default:

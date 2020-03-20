@@ -134,6 +134,7 @@ export class HttpCalendarClientService {
     openedDayDate: string, 
     arrayt: CalendarArray, 
     calendarWeek: WeekDate[]){
+      console.log(`re`)
       const assocs = {
         calendar_assocs: associations
       };

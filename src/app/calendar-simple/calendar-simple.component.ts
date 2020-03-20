@@ -88,6 +88,10 @@ export class CalendarSimpleComponent implements OnInit, OnDestroy {
   onPlatformWithoutPlanState: Observable<boolean>;
   onPlatformWithoutPlanSub: Subscription;
   onPlatformWithoutPlan: boolean;
+  
+  isDragingState: Observable<boolean>;
+  isDragingSub: Subscription;
+  isDraging: boolean = false;
 
   allMomentDateArrayState: Observable<string[]>;
   allMomentDateArraySub: Subscription;
@@ -309,6 +313,11 @@ export class CalendarSimpleComponent implements OnInit, OnDestroy {
           this.doRequests(this.noTrial, this.athleteAccountonPaidAccount)
         }
       }
+    );
+
+    this.isDragingState = this._store.select(state => state.tiles.isDraging);
+      this.isDragingSub = this.isDragingState.subscribe(
+        data => this.isDraging = data
     );
 
     this.onPlatformWithoutPlanState = this._store.select(state => state.tiles.onPlatformWithoutPlan);
@@ -579,6 +588,7 @@ export class CalendarSimpleComponent implements OnInit, OnDestroy {
   }
 
   repeatAction(data: RepeatData, assos: Association, calendarIndexV: number, weeksIndex: number, weekDatesIndex: number): void {
+    
     if(data.weekly){
       const tp: TrainingPlan = Object.assign({}, this.trainingPlan);
       const calendarRW = this.calendarNoDisplayArray;
@@ -609,9 +619,10 @@ export class CalendarSimpleComponent implements OnInit, OnDestroy {
         weeksIndexx = this.openedDay.weeksIndex;
         openedDayDate = this.calendarNoDisplayArray.calendar[this.openedDay.calendarIndex].weeks[this.openedDay.weeksIndex].weekDates[this.openedDay.weekDatesIndex].momentDate
       }
-      this._httpCalendarService.repeatWeaklyAsso(this.trainingPlan.id, newAssoArrayRW, calendarRW, tp, isOpenedDay, calendarIndex, weeksIndexx, openedDayDate, this.calendarArray,this.calendarNoDisplayArray.calendar[this.openedDay.calendarIndex].weeks[this.openedDay.weeksIndex].weekDates);
+      this._httpCalendarService.repeatWeaklyAsso(this.trainingPlan.id, newAssoArrayRW, calendarRW, tp, isOpenedDay, calendarIndex, weeksIndexx, openedDayDate, this.calendarArray,this.calendarNoDisplayArray.calendar[calendarIndexV].weeks[weeksIndex].weekDates);
       
     } else if (data.daily) {
+      
       const tp: TrainingPlan = Object.assign({}, this.trainingPlan);
       const calendarRD = this.calendarNoDisplayArray;
       const calendarNumberRD = calendarIndexV;
@@ -634,6 +645,7 @@ export class CalendarSimpleComponent implements OnInit, OnDestroy {
         }
       }
 
+      
       let isOpenedDay: boolean = false;
       let calendarIndex: number = null;
       let weeksIndexx: number = null;
@@ -644,7 +656,7 @@ export class CalendarSimpleComponent implements OnInit, OnDestroy {
         weeksIndexx = this.openedDay.weeksIndex;
         openedDayDate = this.calendarNoDisplayArray.calendar[this.openedDay.calendarIndex].weeks[this.openedDay.weeksIndex].weekDates[this.openedDay.weekDatesIndex].momentDate
       }
-      this._httpCalendarService.repeatDailyAsso(this.trainingPlan.id, newAssoArrayRD, calendarRD, tp, isOpenedDay, calendarIndex, weeksIndexx, openedDayDate, this.calendarArray,this.calendarNoDisplayArray.calendar[this.openedDay.calendarIndex].weeks[this.openedDay.weeksIndex].weekDates);
+      this._httpCalendarService.repeatDailyAsso(this.trainingPlan.id, newAssoArrayRD, calendarRD, tp, isOpenedDay, calendarIndex, weeksIndexx, openedDayDate, this.calendarArray,this.calendarNoDisplayArray.calendar[calendarIndexV].weeks[weeksIndex].weekDates);
       
     } 
   }

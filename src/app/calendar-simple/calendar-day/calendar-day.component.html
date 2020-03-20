@@ -24,7 +24,7 @@
         
         <!-- paid account -->
         <div 
-          *ngIf="session == 1 && isPaidAccount && !isHandset && !dayToedit(dayDate)" 
+          *ngIf="session == 1 && isPaidAccount && !isHandset" 
           class="drop-list"
           id="{{ idArray[0] }}" 
           cdkDropList 
@@ -37,27 +37,17 @@
             <div class="grid-to-center">
               <app-tile [dateTile]="dayDate" [tileRef]="tile" [index]="i" [isInCollection]="false" [tr_id]="trainingPlan.id" [asso_id]="tile.asso_id"></app-tile>
             </div>
-            <div *cdkDragPlaceholder class="custom-placeholder"></div>
+            <div *cdkDragPlaceholder class="custom-placeholder" ></div>
             <div *cdkDragPreview class="preview">
               <div class="collor-preview" [ngStyle]="{'background': tile.tile_type_color}"></div>
               <p>{{tile.tile_title}}</p>
             </div>
           </div>
-        </div>
-        <div 
-          *ngIf="session == 1 && isPaidAccount && !isHandset && dayToedit(dayDate)" 
-          class="drop-list"
-          id="{{ idArray[0] }}" >
-          <h6 [ngStyle]="{'width' : isHandset ? '95vw' : '100%'}" >First training session</h6>
-          <div *ngFor="let tile of gridArrayS1; trackBy: trackByName; let i = index" >
-            <div class="grid-to-center">
-              <app-tile [dateTile]="dayDate" [tileRef]="tile" [index]="i" [isInCollection]="false" [tr_id]="trainingPlan.id" [asso_id]="tile.asso_id"></app-tile>
-            </div>
-          </div>
+          <div [ngClass]="{'custom-placeholder': isDraging}"></div>
         </div>
 
         <div 
-          *ngIf="session == 2 && isPaidAccount && !isHandset && !dayToedit(dayDate)" 
+          *ngIf="session == 2 && isPaidAccount && !isHandset" 
           class="drop-list"
           id="{{ idArray[1] }}"
           cdkDropList 
@@ -77,22 +67,11 @@
               <p>{{tile2.tile_title}}</p>
             </div>
           </div>
-        </div>
-        <div 
-          *ngIf="session == 2 && isPaidAccount && !isHandset && dayToedit(dayDate)" 
-          class="drop-list"
-          id="{{ idArray[1] }}">
-          <div class="only-for-space" *ngIf="isHandset" ></div>
-          <h6>Second training session</h6>
-          <div *ngFor="let tile2 of gridArrayS2; trackBy: trackByName; let in = index" >
-            <div class="grid-to-center">
-              <app-tile [dateTile]="dayDate" [tileRef]="tile2" [index]="in" [isInCollection]="false" [tr_id]="trainingPlan.id" [asso_id]="tile2.asso_id"></app-tile>
-            </div>
-          </div>
+          <div [ngClass]="{'custom-placeholder': isDraging}"></div>
         </div>
 
         <div 
-          *ngIf="session == 3 && isPaidAccount && !isHandset && !dayToedit(dayDate)" 
+          *ngIf="session == 3 && isPaidAccount && !isHandset" 
           class="drop-list"
           id="{{ idArray[2] }}"
           cdkDropList 
@@ -112,18 +91,7 @@
               <p>{{tile3.tile_title}}</p>
             </div>
           </div>
-        </div>
-        <div 
-          *ngIf="session == 3 && isPaidAccount && !isHandset && dayToedit(dayDate)" 
-          class="drop-list"
-          id="{{ idArray[2] }}">
-          <div class="only-for-space" *ngIf="isHandset" ></div>
-          <h6>Third training session</h6>
-          <div *ngFor="let tile3 of gridArrayS3; trackBy: trackByName; let ind = index" >
-            <div class="grid-to-center">
-              <app-tile [dateTile]="dayDate" [tileRef]="tile3" [index]="ind" [isInCollection]="false"  [tr_id]="trainingPlan.id" [asso_id]="tile3.asso_id"></app-tile>
-            </div>
-          </div>
+          <div [ngClass]="{'custom-placeholder': isDraging}"></div>
         </div>
         
         <!-- paid account and handset -->
@@ -216,7 +184,7 @@
     </div>
     <h6 *ngIf="isPaidAccount">Actions</h6>
     <h6 *ngIf="!isPaidAccount"></h6>
-    <div class="action-button" *ngIf="isTablet && isPaidAccount && !dayToedit(dayDate)" >
+    <div class="action-button" *ngIf="isTablet && isPaidAccount " >
       <button mat-button (click)="add()"  matTooltip="add" matTooltipClass="comment-tooltip"><mat-icon>add</mat-icon></button>
     </div>
     <div class="action-button" *ngIf="isPaidAccount" >
@@ -228,10 +196,10 @@
     <div class="action-button" *ngIf="isPaidAccount" >
       <button mat-button (click)="paste()" matTooltip="paste" matTooltipClass="comment-tooltip"><mat-icon>assignment_turned_in</mat-icon></button>
     </div>
-    <div class="action-button" *ngIf="isPaidAccount && !dayToedit(dayDate)" >
+    <div class="action-button" *ngIf="isPaidAccount" >
       <button mat-button (click)="delete()" matTooltip="delete" matTooltipClass="comment-tooltip"><mat-icon>delete</mat-icon></button>
     </div>
-    <div class="action-button" *ngIf="isPaidAccount && !dayToedit(dayDate)" >
+    <div class="action-button" *ngIf="isPaidAccount" >
       <button mat-button *ngIf="tPStar" (click)="editStar()"  ><mat-icon [ngStyle]="{'color': tPStar.star_color}" matTooltip="{{tPStar.star_description}}" matTooltipClass="comment-tooltip">star</mat-icon></button>
       <button mat-button *ngIf="!tPStar" (click)="addStar()"  matTooltip="mark day" matTooltipClass="comment-tooltip" ><mat-icon>star</mat-icon></button>
     </div>

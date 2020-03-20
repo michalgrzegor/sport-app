@@ -71,6 +71,7 @@ export const SET_IS_AUTH = 'SET_IS_AUTH';
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const EDIT_COMMENT = 'EDIT_COMMENT';
 export const DELETE_COMMENT = 'DELETE_COMMENT';
+export const DRAG_ELEMENT = 'DRAG_ELEMENT';
 
 export class FetchTiles implements Action {
     readonly type = FETCH_TILES;
@@ -440,9 +441,15 @@ export class DeleteComment implements Action {
     constructor(public payload: number){}
 }
 
+export class DragElement implements Action {
+    readonly type = DRAG_ELEMENT;
+
+    constructor(public payload: boolean){}
+}
 
 
 
 
 
-export type TilesDataActions = FetchTiles | FetchTilesFromPlatform | SetTiles | DragTile | FetchTrainingPlan | SetTrainingPlan | MakeDay | DeleteTile | MakeWeek | SummaryTogle | EditTile | StopEditTile | EnterTilesCollectionMode | EnterCategoryMode | EnterSearchMode | TagsSearch | TypeSearch | SearchWord | SetTpManager | FetchTpManager | FilterModeSwitch | TpMode | AddStar | UpdateStar | SeteMainRoute | PostTrainingTile | SetAuth | OffAuth | SetNoTp | AddTpManager | DeleteTpManager | SpinnerStartStopCalendar | DeleteStar | SetInvitations | IsPaidChange | SpinnerChange | PlanShowChange | IsManageChange | CardPaymentChange | IsPaidAccountSet | AccountLevelSet | AccountTrialSet | OneSignalInit | ManagerInit | UpgradeDowngradeSet | ConfirmationChangePlan | SetPrice | UpdateTiles | SetAthleteAccount | SetOnPlatformWithoutPlan | CancelInvitation | SetAthleteAccountOnPaidAccount | SetPaidAccountForDisplays |  SetNoTrial | FetchTags | SetTags | AddTag | DeleteTag | CardFail | SetInGroup | FireChange | SetIsAuth | AddComment | EditComment | DeleteComment;
+
+export type TilesDataActions = FetchTiles | FetchTilesFromPlatform | SetTiles | DragTile | FetchTrainingPlan | SetTrainingPlan | MakeDay | DeleteTile | MakeWeek | SummaryTogle | EditTile | StopEditTile | EnterTilesCollectionMode | EnterCategoryMode | EnterSearchMode | TagsSearch | TypeSearch | SearchWord | SetTpManager | FetchTpManager | FilterModeSwitch | TpMode | AddStar | UpdateStar | SeteMainRoute | PostTrainingTile | SetAuth | OffAuth | SetNoTp | AddTpManager | DeleteTpManager | SpinnerStartStopCalendar | DeleteStar | SetInvitations | IsPaidChange | SpinnerChange | PlanShowChange | IsManageChange | CardPaymentChange | IsPaidAccountSet | AccountLevelSet | AccountTrialSet | OneSignalInit | ManagerInit | UpgradeDowngradeSet | ConfirmationChangePlan | SetPrice | UpdateTiles | SetAthleteAccount | SetOnPlatformWithoutPlan | CancelInvitation | SetAthleteAccountOnPaidAccount | SetPaidAccountForDisplays |  SetNoTrial | FetchTags | SetTags | AddTag | DeleteTag | CardFail | SetInGroup | FireChange | SetIsAuth | AddComment | EditComment | DeleteComment | DragElement;

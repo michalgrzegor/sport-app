@@ -84,6 +84,10 @@
         z-index: 20;
         border-radius: 36px;
       }
+
+      .custom-placeholder:hover {
+        border: dotted 3px $mainGreenLight;
+      }
     }
 
     .calendar-item-chart-date {

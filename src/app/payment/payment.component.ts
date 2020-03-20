@@ -34,73 +34,73 @@ export class PaymentComponent implements OnInit {
       user_amount: 6,
       price: 18,
       sub_name: '6 users',
-      plan_id: 'plan_Fp0PDLA7iZuQ4Y'
+      plan_id: 'plan_GwcFVgj6VPxnWU'
     },
     {
       user_amount: 10,
       price: 24,
       sub_name: '10 users',
-      plan_id: 'plan_Fp0P2vZZVN7bJv'
+      plan_id: 'plan_GwcFPjnt2NeN0L'
     },
     {
       user_amount: 14,
       price: 29,
       sub_name: '14 users',
-      plan_id: 'plan_Fp0QjruxMOu2u8'
+      plan_id: 'plan_GwcFBpJA73AUHk'
     },
     {
       user_amount: 18,
       price: 34,
       sub_name: '18 users',
-      plan_id: 'plan_Fp0Q2nU7U97mup'
+      plan_id: 'plan_GwcEPVsVxRrk97'
     },
     {
       user_amount: 22,
       price: 38,
       sub_name: '22 users',
-      plan_id: 'plan_Fp0RJoJb55lVJY'
+      plan_id: 'plan_GwcEdhSBJ0VypG'
     },
     {
       user_amount: 26,
       price: 42,
       sub_name: '26 users',
-      plan_id: 'plan_Fp0RbXAZcyatLt'
+      plan_id: 'plan_GwcES0jsD2ILtH'
     },
     {
       user_amount: 30,
       price: 46,
       sub_name: '30 users',
-      plan_id: 'plan_Fp0SVcG153V9oB'
+      plan_id: 'plan_GwcDD1KqoDhVkY'
     },
     {
       user_amount: 34,
       price: 49,
       sub_name: '34 users',
-      plan_id: 'plan_Fp0S4MvHFjlAz7'
+      plan_id: 'plan_GwcDD1KqoDhVkY'
     },
     {
       user_amount: 38,
       price: 52,
       sub_name: '38 users',
-      plan_id: 'plan_Fp0Svgy2aP7QPb'
+      plan_id: 'plan_GwcCYOMxLNMcfj'
     },
     {
       user_amount: 42,
       price: 55,
       sub_name: '42 users',
-      plan_id: 'plan_Fp0TvK7dASqfFw'
+      plan_id: 'plan_GwcCWVnk8BTthf'
     },
     {
       user_amount: 46,
       price: 58,
       sub_name: '46 users',
-      plan_id: 'plan_Fp0TTXJ29v3Pdq'
+      plan_id: 'plan_GwcBBzjiRdAhfk'
     },
     {
       user_amount: 50,
       price: 60,
       sub_name: '50 users',
-      plan_id: 'plan_Fp0T4WCqBa1yBJ'
+      plan_id: 'plan_GwcBb7xyVQZjma'
     },
   ];
 

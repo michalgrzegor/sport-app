@@ -203,6 +203,14 @@ export class TilesCollectionComponent implements OnInit, OnDestroy {
     }
   }
 
+  dragStart() {
+    this._store.dispatch(new TilesActions.DragElement(true))
+  }
+  
+  dragEnd() {
+    this._store.dispatch(new TilesActions.DragElement(false))
+  }
+
   ngOnDestroy() {
     this.tileAllAttrSub.unsubscribe();
     this.isCategoryModeSub.unsubscribe();

@@ -161,6 +161,10 @@ export class CalendarDayComponent implements OnInit, OnDestroy {
   allMomentDateArrayState: Observable<string[]>;
   allMomentDateArraySub: Subscription;
   allMomentDateArray: string[] = null;
+
+  isDragingState: Observable<boolean>;
+  isDragingSub: Subscription;
+  isDraging: boolean = false;
   
   sessions: number[] = [];
   assoIndex: number;
@@ -330,6 +334,11 @@ export class CalendarDayComponent implements OnInit, OnDestroy {
       this.isPaidAccountState = this._store.select(state => state.tiles.isPaidAccount);
       this.isPaidAccountSub = this.isPaidAccountState.subscribe(
         data => this.isPaidAccount = data
+      );
+
+      this.isDragingState = this._store.select(state => state.tiles.isDraging);
+      this.isDragingSub = this.isDragingState.subscribe(
+        data => this.isDraging = data
       );
 
       this.weekState = this._store.select(state => state.tiles.week);

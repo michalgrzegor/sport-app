@@ -60,9 +60,10 @@
       <div *ngFor="let week of calendarArray.calendar[i].weeks; let inde = index" class="grid-container">
         <div *ngFor="let day of week.weekDates; let ind = index" class="calendar-item-chart" [ngStyle]="{height: isHandset ? '48px' : '72px'}">
           <div 
-            *ngIf="day.available && !dayToedit(day.momentDate)"
+            *ngIf="day.available"
             id="{{day.momentDate}}" 
             class="dropp-container" 
+            [ngClass]="{'custom-placeholder': isDraging}"
             [ngStyle]="{width: isHandset ? '44px' : '72px'}"
             (click)="expand(i, inde, ind)" 
             cdkDropList 
@@ -70,13 +71,6 @@
             [cdkDropListConnectedTo]="allMomentDateArray"
             (cdkDropListDropped)="drop($event, day, i, inde, ind)" 
             #dayInMonth="cdkDropList"
-          ></div>
-          <div 
-            *ngIf="day.available && dayToedit(day.momentDate)"
-            id="{{day.momentDate}}" 
-            class="dropp-container" 
-            [ngStyle]="{width: isHandset ? '44px' : '72px'}"
-            (click)="expand(i, inde, ind)" 
           ></div>
           <div class="calendar-item-chart-date">
             <div class="transparent-handset" *ngIf="(isHandset && openedDay && openedDay.calendarIndex === i && openedDay.weeksIndex === inde && openedDay.weekDatesIndex !== ind) || (isHandset && openedDay && openedDay.calendarIndex === i && openedDay.weeksIndex !== inde && openedDay.weekDatesIndex !== ind) || (isHandset && openedDay && openedDay.calendarIndex === i && openedDay.weeksIndex !== inde && openedDay.weekDatesIndex === ind)" ></div>
@@ -118,6 +112,7 @@
             *ngIf="day.available"
             id="{{day.momentDate}}" 
             class="dropp-container" 
+            [ngClass]="{'custom-placeholder': isDraging}"
             [ngStyle]="{width: isHandset ? '44px' : '72px'}"
             (click)="expand(i, inde, ind)" 
           ></div>

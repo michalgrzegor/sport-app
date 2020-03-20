@@ -35,7 +35,11 @@
   (cdkDropListDropped)="drop($event)">
   <!-- for web -->
   <div *ngIf="isWeb" >
-    <div *ngFor="let tile of tiles; let i = index" cdkDrag>
+    <div 
+      *ngFor="let tile of tiles; let i = index" 
+      cdkDrag 
+      (cdkDragEnded)="dragEnd()"
+      (cdkDragStarted)="dragStart()">
       <app-tile [tileRef]="tiles[i]" [index]="i" [isInCollection]="true"></app-tile>
       <div *cdkDragPreview class="preview">
         <div class="collor-preview" [ngStyle]="{'background': tile.tile_type_color}"></div>

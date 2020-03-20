@@ -40,7 +40,8 @@ export class WeekSummaryComponent implements OnInit, OnDestroy {
     this.weekSub = this.weekState.subscribe(
       data => {
         this.week = data;
-        if(this.tiles && this.week && this.tiles.length>0){
+        
+        if(this.tiles && this.week && this.tiles.length>0 && moment(data[0].momentDate).startOf('week').valueOf()===moment(this.dayDateString).startOf('week').valueOf()){
           this.arrayWithTiles = this.makeTilesArray();
         }
       }
@@ -50,7 +51,7 @@ export class WeekSummaryComponent implements OnInit, OnDestroy {
     this.tilesSub = this.tilesState.subscribe(
       data => {
         this.tiles = data;
-        if(this.tiles && this.week && this.tiles.length>0){
+        if(this.tiles && this.week && this.tiles.length>0 && moment(this.week[0].momentDate).startOf('week').valueOf()===moment(this.dayDateString).startOf('week').valueOf()){
           this.arrayWithTiles = this.makeTilesArray();
         }
       }
