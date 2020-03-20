@@ -8,7 +8,7 @@ export const environment = {
   auth0: {
     domain: 'dev-9ej1r9oe.auth0.com',
     clientID: 'LVn32sD0fYfXgaun2Ag1tyHcjghzEEwL',
-    callbackURL: 'https://serene-kare-990ab9.netlify.com/login',
+    callbackURL: 'https://happy-galileo-b5f375.netlify.com/login',
     audience: "https://ccoach-app.herokuapp.com/"
   }
 };
