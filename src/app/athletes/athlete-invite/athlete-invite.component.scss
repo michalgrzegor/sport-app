@@ -37,7 +37,7 @@
 
   .menu-right-icon {
     padding: 0;
-    color: rgba(255, 255, 255, 0.27);
+    color: $WhiteDotThree;
   }
 
   .enabled_search {
@@ -57,7 +57,7 @@
   }
 
   .pseudo-btn:hover {
-    background: rgba(255, 255, 255, 0.17);
+    background: $WhiteDotTwo;
   }
 
   .pseudo-btn img {
@@ -73,7 +73,7 @@
   }
 
   .highlite {
-    background: rgba(255, 255, 255, 0.17);
+    background: $WhiteDotTwo;
   }
 
   .succes {

@@ -102,7 +102,7 @@
 
       span {
         @include textLato(400, 14px);
-        background: rgb(52, 87, 99);
+        background: $mainGreen;
         text-align: center;
         color: $fontWhiteBright;
 
@@ -110,14 +110,14 @@
       }
 
       .transparent {
-        background: rgba(52, 87, 99, 0.7);
+        background: $mainGreenFade;
         width: 100%;
         height: 72px;
         position: absolute;
       }
 
       .transparent-handset {
-        background: rgba(52, 87, 99, 0.7);
+        background: $mainGreenFade;
         width: 100%;
         height: 48px;
         position: absolute;
@@ -126,10 +126,8 @@
       .star-front {
         position: absolute;
         z-index: 100;
-        -webkit-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.55);
-        -moz-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.55);
-        box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.55);
-        background-color: rgb(52, 87, 99);
+        @include boxShadowEditor();
+        background-color: $mainGreen;
       }
 
       .span-web {

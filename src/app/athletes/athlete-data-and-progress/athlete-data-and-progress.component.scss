@@ -76,7 +76,7 @@ h5 {
       box-sizing: border-box;
       width: 100%;
       border: none;
-      background-color: rgba(255, 255, 255, 0.15);
+      background-color: $WhiteDotTwo;
       color: $fontWhiteHighContrast;
       padding-left: 8px;
       height: 32px;
@@ -124,7 +124,7 @@ h5 {
       box-sizing: border-box;
       width: 100%;
       border: none;
-      background-color: rgba(255, 255, 255, 0.15);
+      background-color: $WhiteDotTwo;
       color: $fontWhiteHighContrast;
       padding-left: 8px;
       height: 32px;
@@ -279,7 +279,7 @@ h5 {
     }
   
     .chart-disabled {
-      color: rgba(255, 255, 255, .37);
+      color: $WhiteDotFour;
     }
   
     .chart-text-selected {

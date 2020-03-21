@@ -317,13 +317,11 @@ h6 {
     }
 
     #area {
+      @include textLato(300, 14px);
       width: 100%;
       box-sizing: border-box;
       border: none;
-      font-family: 'Lato';
-      font-size: 14px;
       color: $fontWhiteLowContrast;
-      font-weight: 300;
       padding: 6px;
     }
 

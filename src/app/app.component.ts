@@ -22,7 +22,6 @@ import { AuthService } from './auth/auth.service';
 import { CookieService } from 'ngx-cookie-service';
 import { DataService } from './shared/data.service';
 import { GoogleAnalyticsService } from './shared/google-analytics.service';
-import { PushNotificationService } from './shared/push-notification.service';
 
 import * as moment from 'moment';
 
@@ -201,22 +200,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private _analytics: GoogleAnalyticsService,
     private _pollingService: PollingService,
     private _data: DataService,
-    private _swPush: SwPush,
-    private _pushNotificationService: PushNotificationService
+    private _swPush: SwPush
     ) {
-      //push notification
-      // if(_swPush.isEnabled){
-      //   _swPush
-      //     .requestSubscription({
-      //       serverPublicKey: environment.push.publicKey,
-      //     })
-      //     .then(subscription => {
-      //       //send sub to the server
-      //       // _pushNotificationService.sendSubscriptionToTheServer(subscription).subscribe()
-      //     })
-      //     .catch(console.error)
-      // }
-   // _authService.handleAuthentication();
     this.mobileQuery = _media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => _cd.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);

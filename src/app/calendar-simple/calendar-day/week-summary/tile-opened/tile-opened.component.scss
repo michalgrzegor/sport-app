@@ -72,7 +72,7 @@
 
         .tile-activities {
           padding-bottom: 16px;
-          border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+          border-bottom: 1px solid $BlackDotOne;
 
           .activity-name {
             @include textLato(700, 14px);
@@ -98,7 +98,7 @@
           .tile-description {
             margin-bottom: 0px;
             padding-bottom: 16px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.5)
+            border-bottom: 1px solid $BlackDotOne
           }
 
           .tile-tags {

@@ -77,9 +77,7 @@ h5 {
       border-radius: 0 0 4px 4px;
 
       .glow {
-        -webkit-box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.45);
-        -moz-box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.45);
-        box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.45);
+        @include boxShadowGlow();
       }
 
       .level-10 {
@@ -166,9 +164,7 @@ h5 {
       .level-8:hover,
       .level-9:hover,
       .level-10:hover {
-        -webkit-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.35);
-        -moz-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.35);
-        box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.35);
+        @include boxShadowEditor();
         cursor: pointer;
       }
     }
@@ -253,7 +249,7 @@ h5 {
           box-sizing: border-box;
           width: 100%;
           border: none;
-          background-color: rgba(255, 255, 255, 0.15);
+          background-color: $WhiteDotTwo;
           color: $fontWhiteHighContrast;
           padding-left: 16px;
         }
@@ -309,7 +305,7 @@ h5 {
           width: 124px;
           height: 36px;
           border: none;
-          background-color: rgba(255, 255, 255, 0.15);
+          background-color: $WhiteDotTwo;
           margin: 6px 0;
           color: $fontWhiteHighContrast;
           justify-self: center;

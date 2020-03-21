@@ -1,24 +1,25 @@
+@import "../../shared/scss-var/colors";
+@import "../../shared/scss-var/mixins";
+
 #card-payment {
 
   p {
-    color: rgba(255, 255, 255, 0.67);
+    color: $fontWhiteLowContrast;
   }
 
   button {
-    color: rgba(255, 255, 255, 0.67);
-    font-family: 'Raleway';
-    font-size: 16px;
-    font-weight: 800;
+    @include textRaleway(800, 16px);
+    color: $fontWhiteLowContrast;
     margin: 24px auto 0 auto;
-    background: rgba(255, 255, 255, 0.17);
+    background: $WhiteDotTwo;
   }
 
   label {
     
     .p_error {
       width: 100%;
-      background: #FF5D51;
-      color: rgba(255, 255, 255, 0.87);
+      background: $brightRed;
+      color: $fontWhiteHighContrast;
       padding: 8px;
       box-sizing: border-box;
       border-radius: 2px;
@@ -27,7 +28,7 @@
 
   #card-element {
     box-sizing: border-box;
-    background: rgba(0, 0, 0, 0.17);
+    background: $BlackDotTwo;
     height: 48px;
     border-radius: 4px;
     padding: 14px;

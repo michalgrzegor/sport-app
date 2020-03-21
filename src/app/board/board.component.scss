@@ -3,7 +3,7 @@
 
 .menu-right-icon {
   padding: 12px;
-  color: rgba(255, 255, 255, 0.87);
+  color: $fontWhiteHighContrast;
 }
 
 .tp-name {
@@ -30,7 +30,7 @@
 }
 
 .divider-line {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid $WhiteDotTwo;
   margin: 0 10px;
 }
 
@@ -44,21 +44,20 @@
     margin: 0;
     margin-top: 16px;
     margin-bottom: 8px;
-    background-color: #8FB4C0;
+    background-color: $mainGreenLightBright;
     border-radius: 24px;
 
     .menu-right-icon {
       padding-left: 0px;
-      color: rgba(0, 0, 0, 0.67);
+      color: $fontBlackMediumContrast;
     }
   }
 
   button {
+    @include textRaleway(800, 14px);
     margin-left: 8px;
     margin-bottom: 8px;
-    font-family: 'Raleway', sans-serif;
-    font-weight: 800;
-    color: rgba(0, 0, 0, 0.67);
+    color: $fontBlackMediumContrast;
   }
 }
 
@@ -79,7 +78,7 @@
     .pseudo-card-body {
       height: 100%;
       max-width: 344px;
-      background-color: #8FB4C0;
+      background-color: $mainGreenLightBright;
       border-radius: 4px;
 
       .pseudo-card-header {
@@ -101,7 +100,7 @@
           }
 
           mat-icon {
-            color: rgba(0, 0, 0, 0.67);
+            color: $fontBlackMediumContrast;
           }
         }
 
@@ -109,7 +108,7 @@
 
         .pseudo-card-header-title {
           margin: 0;
-          color: rgba(0, 0, 0, 0.67);
+          color: $fontBlackMediumContrast;
           text-align: start;
           font-size: 24px;
           padding: 16px;
@@ -124,7 +123,7 @@
           margin: 0;
           padding: 16px 16px 24px;
           font-size: 14px;
-          color: rgba(0, 0, 0, 0.87);
+          color: $fontBlackHighContrast;
         }
       }
     }
@@ -135,9 +134,7 @@
 
     .pseudo-card-body:hover {
       cursor: pointer;
-      -webkit-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.75);
-      -moz-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.75);
-      box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.75);
+      @include boxShadowTooltip();
     }
   }
 }
