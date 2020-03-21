@@ -248,7 +248,6 @@ export class TileEditorComponent implements OnInit, OnDestroy {
     this.tile_editor_form.get('tile_activities').reset();
     this.tile_editor_form.get('tile_diets').reset();
 
-    console.log(this.tile_editor_form.get('tile_activities'))
     this.activityArray = [];
     this.dietArray = [];
 
@@ -411,8 +410,7 @@ export class TileEditorComponent implements OnInit, OnDestroy {
 
   addNewActivity() {
     const control = <FormArray>this.tile_editor_form.get('tile_activities');
-    control.push(this.onAddNewActivity())
-    console.log(this.activityArray, this.tile_editor_form,this.tile_editor_form.value)
+    control.push(this.onAddNewActivity());
   }
 
   deleteActivity(index: number){
@@ -462,7 +460,6 @@ export class TileEditorComponent implements OnInit, OnDestroy {
   addNewDiet() {
     const control = <FormArray>this.tile_editor_form.get('tile_diets');
     control.push(this.onAddNewDiet())
-    console.log(this.dietArray, this.tile_editor_form,this.tile_editor_form.value)
   }
 
   deleteDiet(index: number){
@@ -870,10 +867,6 @@ export class TileEditorComponent implements OnInit, OnDestroy {
     }else{
       this.dietArray[index].animate = 'averse'
     }
-  }
-
-  console(e){
-    console.log(e);
   }
 
   ngOnDestroy(){

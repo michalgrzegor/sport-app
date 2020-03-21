@@ -107,7 +107,6 @@ export class AthleteManagerComponent implements OnInit, OnDestroy {
   }
 
   setAthlete(athlete){
-    console.log(athlete)
     this._httpService.getAthleteCardById(athlete.id)
   }
 

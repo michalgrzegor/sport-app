@@ -570,7 +570,6 @@ export class AppComponent implements OnInit, OnDestroy {
   onAthletes(): void{
     this.toNormal();
     if(this.isWeb){
-      console.log(`this `, this)
       this._router.navigate(['/athletecard'], { queryParams: { 'right': 'athletemanager'}});
       this.mainRoute = 'athletecard';
       this._store.dispatch(new TilesDataActions.SeteMainRoute('athletecard'))

@@ -224,7 +224,6 @@ export class CalendarSimpleComponent implements OnInit, OnDestroy {
         if(tp){
           if(!this.trainingPlan || tp.id !== this.trainingPlan.id){
             let array = this._calendarDataService.makeArray(tp);
-            console.log(array)
             if(this.openedDay && samePlan){
               array.calendar[this.openedDay.calendarIndex].weeks[this.openedDay.weeksIndex].container[0].expanded = true;
             }
@@ -571,7 +570,6 @@ export class CalendarSimpleComponent implements OnInit, OnDestroy {
     const limit = this.calendarNoDisplayArray.calendar.length;
     if(this.i < limit - 1){
       this.i = this.i + 1;
-      console.log(this.calendarArray.calendar[this.i])
       if(this.openedDay){
         this._store.dispatch(new CalendarDataActions.CloseContainer({calendarIndex: this.openedDay.calendarIndex, weeksIndex: this.openedDay.weeksIndex, weekDatesIndex: this.openedDay.weekDatesIndex}))
       }

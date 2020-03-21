@@ -393,10 +393,8 @@ export class HttpClientService implements OnDestroy {
   //delete training plan
 
   deleteTrainingPlan(id: number){
-    console.log(`deletuje`, `${this.URL}training_plans/${id}`, this.getHttpOptions())
     this._http.delete(`${this.URL}training_plans/${id}`, this.getHttpOptions()).subscribe(
       (response) => {
-        console.log(response)
         this._store.dispatch(new TilesDataActions.DeleteTpManager(id));
       }
     )
@@ -447,7 +445,6 @@ export class HttpClientService implements OnDestroy {
   //Get athlete card by id
 
   getAthleteCardById(id: number){
-    console.log(`idzie`)
     this._http.get(`${this.URL}athlete_platforms/${id}`, this.getHttpOptions()).subscribe(
       (response: Athlete) => {
         this._store.dispatch(new AthleteDataActions.SetAthleteData(response));

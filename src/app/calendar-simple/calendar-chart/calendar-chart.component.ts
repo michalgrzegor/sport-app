@@ -100,7 +100,6 @@ export class CalendarChartComponent implements OnInit, OnDestroy {
           data.forEach(
             day => {
               if(this.calendarArray && moment(day).format("MM-DD-YYYY") === moment(this.calendarArray.calendar.calendar[this.calendarIndex].weeks[this.weeksIndex].weekDates[this.weekDatesIndex].momentDate).format("MM-DD-YYYY")){
-                console.log(`detekcja`)
                 this._changeDetector.markForCheck();
               }
             }
@@ -151,7 +150,6 @@ export class CalendarChartComponent implements OnInit, OnDestroy {
       data => {
         this.fireChange = data;
         if(data){
-          console.log(`?????????????<-------------------- odpala --------------------------->????????????????????????`)
           this._changeDetector.markForCheck();
         }
       }
