@@ -205,17 +205,17 @@ export class AppComponent implements OnInit, OnDestroy {
     private _pushNotificationService: PushNotificationService
     ) {
       //push notification
-      if(_swPush.isEnabled){
-        _swPush
-          .requestSubscription({
-            serverPublicKey: environment.push.publicKey,
-          })
-          .then(subscription => {
-            //send sub to the server
-            // _pushNotificationService.sendSubscriptionToTheServer(subscription).subscribe()
-          })
-          .catch(console.error)
-      }
+      // if(_swPush.isEnabled){
+      //   _swPush
+      //     .requestSubscription({
+      //       serverPublicKey: environment.push.publicKey,
+      //     })
+      //     .then(subscription => {
+      //       //send sub to the server
+      //       // _pushNotificationService.sendSubscriptionToTheServer(subscription).subscribe()
+      //     })
+      //     .catch(console.error)
+      // }
    // _authService.handleAuthentication();
     this.mobileQuery = _media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => _cd.detectChanges();
