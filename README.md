@@ -21,3 +21,7 @@ This application uses this API:
 ## Link to REST API
 
 https://github.com/matigrzegor/sport-api
+
+## Link to app
+
+https://serene-kare-990ab9.netlify.com/
