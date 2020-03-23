@@ -16,3 +16,7 @@ Application for creating training and nutrition plans. Analysis of data collecte
 - moment.js
 - highcharts
 - auth0.js
+
+## Link to REST API
+
+https://github.com/matigrzegor/sport-api
