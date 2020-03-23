@@ -75,7 +75,6 @@ export class ChartComponent implements OnInit, OnDestroy {
 
   bookmark: string = 'chart'
 
-  labels = ['dupa', 'dupsko', 'kupa', 'członek', 'pupka'];
 
   public options: any = {
     colors: ['#FF5D51', '#88C540', '#614EA1', '#E8A022', '#31C2E1', '#ff907e', '#bbf871', '#917ad3', '#ffd157', '#75f5ff', '#c52528', '#569400', '#312572', '#b17200', '#0091af', '#FF5D51', '#88C540', '#614EA1', '#E8A022', '#31C2E1', '#ff907e', '#bbf871', '#917ad3', '#ffd157', '#75f5ff', '#c52528', '#569400', '#312572', '#b17200', '#0091af'],

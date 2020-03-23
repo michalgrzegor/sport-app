@@ -800,7 +800,7 @@ export class AppComponent implements OnInit, OnDestroy {
           question_answers: result.formAnswer,
           calendar_assoc_id: result.calendar_assoc_id
         }
-        // this._httpService.postAnswers(jsonForRequest,nots);
+        this._httpService.postAnswers(jsonForRequest,nots);
       }
     })
   }
