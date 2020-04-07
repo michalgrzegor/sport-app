@@ -37,6 +37,7 @@
       </div>
       <div class="tpdata-btns">
         <div class="tpdata-btn" *ngFor="let btn of answersArray, let i = index"
+          (click)="addNewAnswer(i, btn.question, btn.tile_id)"
           [ngClass]="{'tpdata-btn-selected': btn.selected}">
           {{btn.question}}
         </div>

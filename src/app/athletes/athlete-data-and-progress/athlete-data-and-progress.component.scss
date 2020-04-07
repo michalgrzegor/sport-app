@@ -71,7 +71,7 @@ h5 {
       margin-top: 4px;
     }
 
-    input {
+    input, select {
       @include textLato(400, 14px);
       box-sizing: border-box;
       width: 100%;
@@ -140,6 +140,16 @@ h5 {
 .custom-data {
   padding: 1px 0 0;
   border-radius: 0 0 4px 4px;
+
+  input {
+    @include textLato(400, 16px);
+    box-sizing: border-box;
+    width: 100%;
+    border: none;
+    color: $fontWhiteHighContrast !important;
+    padding-left: 8px;
+    height: 32px;
+  }
 
 
   table,

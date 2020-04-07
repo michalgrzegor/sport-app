@@ -87,6 +87,7 @@ app-spinner {
         align-content: flex-start;
         padding: 0 8px;
         z-index: 100;
+        background: $mainGreenDarkL;
 
         .tpdata-btn {
           @include textRaleway(400, 16px);

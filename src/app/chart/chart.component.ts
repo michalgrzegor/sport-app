@@ -346,7 +346,6 @@ export class ChartComponent implements OnInit, OnDestroy {
   }
 
   addNewChart(tag: string, name: string, index: number, id: string){
-    
 
     if(!this.summary[index].selected){
 
@@ -368,6 +367,7 @@ export class ChartComponent implements OnInit, OnDestroy {
           }
         )
       }
+
       
       this.chart.addAxis({
         id: `id-${this.axisId}`,
@@ -402,6 +402,60 @@ export class ChartComponent implements OnInit, OnDestroy {
     }
 
     this.summary[index].selected = !this.summary[index].selected;
+  }
+
+  addNewAnswer(index: number, tag: string, id: string){
+    
+
+    
+    if(!this.answersArray[index].selected){
+
+      const dataArray = [];
+      const datesCArray = this.datesArray.map( date => moment(date.oDate).format('YYYY-MM-DD') );
+      const answerDateArray = this.answersArray[index].series.map( s => s.date )
+
+      datesCArray.forEach(date => {
+        if(answerDateArray.includes(date)){
+          dataArray.push(Number(this.answersArray[index].series[answerDateArray.indexOf(date)].answer));
+        }else{
+          dataArray.push(null);
+        }
+      })
+
+      
+      this.chart.addAxis({
+        id: `id-${this.axisId}`,
+        gridLineWidth: 0.2,
+        title: {
+          text: this.answersArray[index].question,
+          style: {
+              color: 'white'
+          }
+        },
+        labels: {
+            format: '{value}',
+            style: {
+                color: 'white'
+            }
+        },
+        opposite: this.isEven(this.options.yAxis.length)
+      }, false)
+      
+      this.chart.addSeries({
+        yAxis: `id-${this.axisId}`,
+        name: this.answersArray[index].question,
+        data: dataArray,
+        type: 'spline'
+      })
+  
+      this.summary[index].id = `id-${this.axisId}`;
+
+      this.axisId++
+    }else{
+      this.chart.get(id).remove();
+    }
+
+    this.answersArray[index].selected = !this.answersArray[index].selected;
   }
 
   setZoom(numOne: number, numTwo: number){

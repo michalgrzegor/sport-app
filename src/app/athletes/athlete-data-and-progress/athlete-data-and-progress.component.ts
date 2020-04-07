@@ -52,7 +52,7 @@ export class AthleteDataAndProgressComponent implements OnInit, OnDestroy {
   isEditCustomParamMode: boolean = false;
   customParam: CustomAthleteParameter = null;
 
-  seriesArray: any[];
+  seriesArray: any[] = [];
   dateArray: string[];
 
   //responsive variables
@@ -236,6 +236,8 @@ export class AthleteDataAndProgressComponent implements OnInit, OnDestroy {
         
       }
     )
+
+    console.log(this.seriesArray)
   
   }
 
@@ -482,11 +484,18 @@ export class AthleteDataAndProgressComponent implements OnInit, OnDestroy {
     if(this.isEditCustomParamMode){
       this._httpService.patchCustomParam(this.customParam.id, this.athlete.id, {parameter_name: this.customData.get('parameter_name').value, parameter_date: this.customParam.parameter_date ,parameter_description: this.customData.get('parameter_description').value, id: this.customParam.id});
     }else if(!this.isEditCustomParamMode){
-      this._httpService.postCustomParams(this.athlete.id, {parameter_name: this.customData.get('parameter_name').value, parameter_date: moment().format('YYYY-MM-DD'),
-      parameter_description: this.customData.get('parameter_description').value})
+      this._httpService.postCustomParams(this.athlete.id, {
+        parameter_name: this.customData.get('parameter_name').value, 
+        // parameter_date: moment().format('YYYY-MM-DD'),
+        parameter_date: "2020-03-16",
+      parameter_description: this.customData.get('parameter_description').value
+    })
     }
     this.isCreatorMode = false;
     this.isEditCustomParamMode = false;
+
+    console.log({parameter_name: this.customData.get('parameter_name').value, parameter_date: moment().format('YYYY-MM-DD'),
+    parameter_description: this.customData.get('parameter_description').value})
   }
 
   searchMode(){
@@ -542,3 +551,6 @@ export class AthleteDataAndProgressComponent implements OnInit, OnDestroy {
   }
 
 }
+
+
+// {parameter_name: "Vo2max", parameter_date: "2020-04-06", parameter_description: 48}
