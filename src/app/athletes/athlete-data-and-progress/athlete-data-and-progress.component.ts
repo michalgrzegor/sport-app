@@ -486,8 +486,7 @@ export class AthleteDataAndProgressComponent implements OnInit, OnDestroy {
     }else if(!this.isEditCustomParamMode){
       this._httpService.postCustomParams(this.athlete.id, {
         parameter_name: this.customData.get('parameter_name').value, 
-        // parameter_date: moment().format('YYYY-MM-DD'),
-        parameter_date: "2020-03-16",
+        parameter_date: moment().format('YYYY-MM-DD'),
       parameter_description: this.customData.get('parameter_description').value
     })
     }
