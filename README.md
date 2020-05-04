@@ -23,8 +23,10 @@ For managing state I used Redux (ngrx).
 
 To run this project, install it locally using npm:
 
+```
 $ npm install
 $ ng serve
+```
 
 ## Link to REST API
 
@@ -32,7 +34,7 @@ https://github.com/matigrzegor/sport-api
 
 ## Link to app
 
-https://serene-kare-990ab9.netlify.com/
+https://serene-kare-990ab9.netlify.app/
 
 ## Test account for the application:
 
