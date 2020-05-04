@@ -1,12 +1,13 @@
 # Sport App
+
 ### Application for creating training plans
 
 ![Logo](titlepic.png)
 
 ## General Info
 
-Application for creating training and nutrition plans. Analysis of data collected from training. Creating a board with notes.
-This application uses this API: 
+Application to create training and nutrition plans. Analysis of data collected from training. Creating a board with notes.
+For managing state I used Redux (ngrx).
 
 ## Technologies
 
@@ -18,6 +19,13 @@ This application uses this API:
 - highcharts
 - auth0.js
 
+## Setup
+
+To run this project, install it locally using npm:
+
+$ npm install
+$ ng serve
+
 ## Link to REST API
 
 https://github.com/matigrzegor/sport-api
@@ -26,7 +34,7 @@ https://github.com/matigrzegor/sport-api
 
 https://serene-kare-990ab9.netlify.com/
 
-## Test account for the application: 
+## Test account for the application:
 
-Email: testsportapptest@gmail.com 
+Email: testsportapptest@gmail.com
 Login: TestApp1!
