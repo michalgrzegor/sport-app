@@ -1,6 +1,6 @@
 # Sport App
 
-### Application to coach athletes
+### Application for coaching athletes
 
 ![Logo](work_1.png)
 
