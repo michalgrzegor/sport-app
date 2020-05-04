@@ -1,8 +1,8 @@
 # Sport App
 
-### Application for creating training plans
+### Application to coach athletes
 
-![Logo](titlepic.png)
+![Logo](work_1.png)
 
 ## General Info
 
