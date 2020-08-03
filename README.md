@@ -40,11 +40,11 @@ $ ng serve
 
 ## Link to REST API
 
-https://github.com/matigrzegor/sport-api
+[rest api](https://github.com/matigrzegor/sport-api)
 
 ## Link to app
 
-https://serene-kare-990ab9.netlify.app/
+[sport app](https://serene-kare-990ab9.netlify.app/)
 
 ## Test account for the application:
 
