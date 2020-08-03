@@ -9,6 +9,15 @@
 Application to create training and nutrition plans. Analysis of data collected from training. Creating a board with notes.
 For managing state I used Redux (ngrx).
 
+## Tech info
+
+- The sports app is written in **Angular 7**.
+- Authentication and authorization was implemented using **auth0.js**.
+- I used the **redux** (**ngrx**) library to manage the state of the application.
+- Design of the application using google **material**.
+- When creating the calendar, I used the **moment.js** library. I used **Highcharts** to display the charts.
+- **Angular SDK** helped me create **drag and drop** functionality.
+
 ## Technologies
 
 - angular 7
@@ -18,6 +27,7 @@ For managing state I used Redux (ngrx).
 - moment.js
 - highcharts
 - auth0.js
+- SASS
 
 ## Setup
 
