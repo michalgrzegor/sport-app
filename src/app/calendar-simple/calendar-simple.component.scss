@@ -189,7 +189,8 @@
       grid-column: 1 / span 7;
 
       .animation-container {
-        overflow: hidden;
+        // overflow: hidden;
+        width: 100%;
       }
     }
   }

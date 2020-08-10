@@ -1,11 +1,13 @@
 <div class="sum-body">
-  <div class="sum-day" *ngFor="let day of arrayWithTiles" [ngClass]="{'day-opened': isOpened(day.date), 'day-no': !day.available}">
-    <div  (mouseenter)="setStyle($event, tile)" (mouseleave)="exitPreview()" (mousemove)="setPosition($event)" class="sum-day-tile" *ngFor="let tile of day.tileArray" >
+  <div class="sum-day" *ngFor="let day of arrayWithTiles"
+    [ngClass]="{'day-opened': isOpened(day.date), 'day-no': !day.available}">
+    <div (mouseenter)="setStyle($event, tile)" (mouseleave)="exitPreview()" (mousemove)="setPosition($event)"
+      class="sum-day-tile" *ngFor="let tile of day.tileArray">
       <div class="sum-day-tile-color" [ngStyle]="{'background':tile.tile_type_color}"></div>
-      <div class="sum-day-tile-title">{{tile.tile_title | shorten:12}}</div>
+      <div class="sum-day-tile-title">{{tile.tile_title | shorten:10}}</div>
     </div>
   </div>
 </div>
-<div *ngIf="preview"  #rectangle class="rectangle">
+<div *ngIf="preview" #rectangle class="rectangle">
   <app-tile-opened [tile]="tile"></app-tile-opened>
 </div>
